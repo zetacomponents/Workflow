@@ -1,0 +1,313 @@
+eZ publish Enterprise Component: Workflow, Design
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+:Author: Sebastian Bergmann
+:Revision: $Revision$
+:Date: $Date$
+
+Workflow Model
+==============
+
+Activities and Transitions
+--------------------------
+
+The workflow model is activity-based [FG02]. The activities that are to be
+completed throughout the workflow and the transitions between them are mapped to
+the nodes and edges of a directed graph. This choice was made to faciliate the
+application of the Graph-Oriented Programming paradigm for the implementation.
+Using a directed graph as the foundation for the workflow model makes it
+possible to define the syntax of the workflow description language using the
+formalism of graph grammars [DQZ01].
+
+Graph Traversal and Execution Strategy
+--------------------------------------
+
+The execution of a workflow starts with the graph's only Start node. A graph may
+have one or more End nodes that explicitly terminate the workflow execution.
+
+After a node has finished executing, it can activate one or more of its possible
+outgoing nodes. Activation adds a node to a set of nodes that are waiting for
+execution. During each execution step, a node from this set is executed. When
+the execution of a node has been completed, the node is removed from the set.
+
+The workflow execution is implicitly terminated when no nodes are activated
+and no more nodes can be activated.
+
+State and Workflow Variables
+----------------------------
+
+The workflow model supports state through the concept of workflow variables.
+Such a variable can either be requested as user input (from an Input node) or be
+set and manipulated through the VariableSet, VariableAdd, VariableSub,
+VariableMul, VariableDiv, VariableIncrement, and VariableDecrement nodes.
+
+While a VariableSet node may set the value of a workflow variable to any type
+that is supported by PHP, the other variable manipulation nodes only operate on
+numeric values.
+
+Variables are bound to the scope of the thread in which they were defined. This
+allows parallel threads of execution to use variables of the same name without
+side effects.
+
+When the execution of a workflow reaches an Input node (see above), the
+execution is suspended until such time when the user input has been provided and
+the execution can be resumed.
+
+Control Flow
+------------
+
+The control flow semantics of the workflow model draws upon the workflow
+patterns from [BK03]. The Sequence, Parallel Split, Synchronization, Exclusive
+Choice, Simple Merge, Multi-Choice, Synchronizing Merge, and Discriminator
+workflow patterns are all directly supported by the workflow model.
+
+Exclusive Choice and Multi-Choice nodes have branching conditions attached to
+them that operate on workflow variables to make their control flow decisions.
+
+The workflow model supports one workflow construct, loops, that is not based on
+a workflow pattern. Loops are represented by a pair of LoopStart and LoopEnd
+nodes that bracket the loop body. Both start and end node of a loop can have
+break conditions attached to them that operate on workflow variables. Inside the
+loop body, VariableAdd, VariableSub, VariableMul, VariableDiv,
+VariableIncrement, and VariableDecrement nodes can be used, for instance, to
+model for or while loops.
+
+Action Nodes and Service Objects
+--------------------------------
+
+So far we have only discussed nodes that control the flow and that can
+manipulate workflow variables. We are still missing a type of nodes that
+actually performs an activity. This is where the Action node comes into play.
+
+When the execution of a workflow reaches an Action node, the business logic of
+the attached service object is executed. Service Objects live in the domain of
+the application into which the workflow engine is embedded. They have read and
+write access to the workflow variables to interact with the rest of the
+workflow.
+
+Sub-Workflows
+-------------
+
+The workflow model supports sub-workflows to break down a complex workflow into
+parts that are easier to conceive, understand, maintain, and which can be
+reused.
+
+A sub-workflow is started when the respective Sub-Workflow node is reached
+during workflow execution. The execution of the parent workflow is suspended
+while the sub-workflow is executing. It is resumed once the execution of the
+sub-workflow has ended.
+
+
+Software Design
+===============
+
+Architecture
+------------
+
+The workflow engine been designed and implemented as three loosely coupled
+components. The Workflow component provides an object-oriented framework to
+define workflows and an execution engine to execute them.
+The WorkflowDatabaseTiein and WorkflowEventLogTiein components tie the Database
+and EventLog components into the main Workflow component for persistence
+and monitoring, respectively.
+
+A workflow can be defined programmatically by creating and connecting objects
+that represent control flow constructs. The classes for these objects are
+provided by the Workflow Definition API. This API also provides the
+functionality to save workflow definitions (ie. object graphs) to and load
+workflow definitions from a data storage. Two data storage backends have been
+implemented, one for relational database systems and another for XML files.
+Through the Workflow Execution API the execution of a workflow definition can be
+started (and resumed). The figure below shows the conceptual architecture for
+the workflow engine.
+
+    +---------+     +---------+  +------------------------+
+    |   GUI   | <=> |   XML   |  |     Mail, SOAP, ...    |
+    +---------+     +---------+  +------------------------+
+         /\                                  /\
+         ||                                  ||
+         \/                                  \/
+    +-------------------------+  +------------------------+
+    | Workflow Definition API |  | Workflow Execution API |
+    +-------------------------+  +------------------------+
+                /\                           /\
+                ||                           ||
+                ||                           \/
+                ||               +------------------------+
+                ||               |      Workflow Core     |
+                ||               +------------------------+
+                ||                           /\
+                ||                           ||
+                \/                           \/
+    +-----------------------------------------------------+
+    |                     Data Storage                    |
+    +-----------------------------------------------------+
+
+The idea that a workflow system should be comprised of loosely coupled
+components is discussed, for instance, in [DAM01,DG95,PM99]. Manolescu
+states that
+
+  "an object-oriented workflow architecture must provide abstractions
+  that enable software developers to define and enact how the work flows through
+  the system" [DAM01].
+
+Like Manolescu's Micro-Workflow architecture, the Workflow components
+encapsulate workflow features in separate components following the
+Microkernel pattern which
+
+  "applies to software systems that must be able to adapt to changing
+  system requirements. It separates a minimal functional core from extended
+  functionality and customer-specific parts. The microkernel also serves as a
+  socket for plugging in these extensions and coordinating their
+  collaboration" [FB96].
+
+The minimalistic core of the Workflow component is provides basic workflow
+functionality:
+
+- The Workflow Definition API implements an activity-based workflow model and
+  provides the abstractions required to build workflows.
+- The Workflow Execution API implements the functionality to execute workflows.
+
+On top of these core components other components, for instance for persistence
+(suspending and resuming workflow execution), monitoring (status of running
+workflows), history (history of executed workflows), and worklist management
+(human-computer interface), can be implemented. Each of these components
+encapsulates a design decision and can be customized or replaced.
+
+
+Workflow Virtual Machine
+------------------------
+
+Given the fact that standardization efforts, e.g. XPDL [WfMC05] proposed by the
+Workflow Management Coalition, have essentially failed to gain universal
+acceptance [WA04], the problem of developing a workflow system that supports
+changes in the workflow description language needs to be addressed.
+
+Fernandes et. al. propose to
+
+  "split the workflow system into two layers: (1) a layer implementing a
+  Workflow Virtual Machine, which is responsible for most of the workflow system
+  activities; and (2) a layer where the different workflow description languages
+  are handled, which is responsible for making the mapping between each workflow
+  description language and the Workflow Virtual Machine" [SF04].
+
+The Workflow component's Workflow Execution API implements such a workflow
+virtual machine and isolates the executing part of a workflow management system,
+the backend, from the parts that users interact with, the frontend. This
+isolation allows for the definition of a backend language to describe exactly
+the workflows that are supported by the executer and its underlying workflow
+model. This backend language is not the workflow description language users use
+to define their workflows. They use frontend languages that can be mapped to the
+system's backend language.
+
+
+Graph-Oriented Programming
+--------------------------
+
+Graph-Oriented Programming [JBOSS] implements the graphical representation and
+the wait states of a process language in an object-oriented programming
+language. The former can be achieved by providing a framework of node classes.
+Objects of these classes represent the nodes in the process graph, relations
+between these objects represent the edges. Such an object graph can then be
+traversed for execution. These executions need to be persistable, for instance
+in a relational database, to support the wait states.
+
+The aforementioned node classes implement the Command design pattern [GoF94] and
+encapsulate an action and its parameters.
+
+The executing part of the workflow engine is implemented in an Execution class.
+An object of this class represents a workflow in execution. The execution object
+has a reference to the current node. When the execution of a workflow is
+started, a new execution object is created and the current node is set to the
+workflow's start node. The execute() method that is to be provided by the node
+classes is not only responsible for executing the node's action, but also for
+propagating the execution: a node can pass the execution that arrived in the
+node to one of its leaving transitions to the next node.
+
+Like Fowler in [MF05], the authors of the JBoss jBPM manual [JBOSS] acknowledge
+the fact that current software development relies more and more on domain
+specific languages. They see Graph-Oriented Programming as a means to implement
+domain specific languages that describe how graphs can be defined and executed
+on top of an object-oriented programming language.
+
+In this context, a process language (like a workflow description language) is
+nothing more than a set of Node classes. The semantics of each node are defined
+by the implementation of the execute() method in the respective node class. This
+language can be used as the backend language of a Workflow Virtual Machine. In
+this lanugage, the workflow is represented as a graph of command objects.
+
+One of the advantages of using a domain specific language that Fowler gives in
+[MF05 regards the involvement of lay programmers: domain experts who are not
+professional programmers but program in domain specific languages as part of the
+development effort. In essence this means that a software system that provides a
+domain specific language can be customized and extended without knowledge of the
+underlying programming language that was used to implement it.
+
+
+Summary
+-------
+
+The core of the workflow engine is a virtual machine that executes workflows
+represented through object graphs. These object graphs can be created
+programmatically through the software component's Workflow Definition API.
+Alternatively, a workflow definition can be loaded from an XML file. Object
+graph and XML file are two different representations of a workflow definition
+that uses the so-called backend language of the workflow engine's core.
+Arbitrary frontend languages such as the XML Process Definition Language (XPDL)
+[WfMC05], for instance, can be mapped to the workflow engine's backend language.
+
+
+Bibliography
+============
+
+- [BK03] Bartosz Kiepuszewski.
+  Expressiveness and Suitability of Languages for Control Flow Modelling in Workflows.
+  PhD Thesis, Faculty of Information Technology, Queensland University of Technology, Australia, 2003.
+
+- [DAM01 Dragos-Anton Manolescu.
+  Micro-Workflow: A Workflow Architecture Supporting Compositional Object-Oriented Software Development.
+  PhD Thesis, Department of Computer Science, University of Illinois at Urbana-Champaign, USA, 2001.
+
+- [DG95] Dimitrios Georgakopoulos and Mark F. Hornick and Amit P. Sheth.
+  An Overview of Workflow Management: From Process Modeling to Workflow Automation Infrastructure.
+  In: Distributed and Parallel Databases, Volume 3, Number 2, Pages 119--153, 1995.
+
+- [DQZ01] Da-Qian Zhang and Kang Zhang and Jiannong Cao.
+  A Context-Sensitive Graph Grammar Formalism for the Specification of Visual Languages.
+  In: The Computer Journal, Volume 33, Number 3, Pages 186--200, 2001.
+
+- [FB96] Frank Buschmann and Regine Meunier and Hans Rohnert and Peter Sommerlad and Michael Stahl.
+  Pattern-Oriented Software Architecture -- A System of Patterns.
+  John Wiley \& Sons, 1996.
+
+- [FG02] Florent Guillaume.
+  Trying to unify Entity-based and Activity-based workflows.
+  http://wiki.zope.org/zope3/TryingToUnifiyWorkflowConcepts
+
+- [GoF94] Erich Gamma and Richard Helm and Ralph Johnson and John Vlissides.
+  Design Patterns: Elements of Reusable Object-Oriented Software.
+  Addison-Wesley, 1994.
+
+- [JBOSS] The JBoss Project.
+  JBoss jBPM: Workflow and BPM Made Practical.
+  http://docs.jboss.com/jbpm/v3/userguide/graphorientedprogramming.html
+
+- [MF05] Martin Fowler.
+  Language Workbenches: The Killer-App for Domain Specific Languages?
+  June, 2005.
+  http://martinfowler.com/articles/languageWorkbench.html
+
+- [PM99] Peter Muth and Jeanine Weisenfels and Michael Gillmann and Gerhard Weikum.
+  Integrating Light-Weight Workflow Management Systems within Existing Business Environments.
+  In: Proceedings of the 15th International Conference on Data Engineering, March 1999, Sydney, Australia.
+
+- [SF04] Sérgio Fernandes and João Cachopo and António Rito-Silva.
+  Supporting Evolution in Workflow Definition Languages.
+  In: Proceedings of the 20th Conference on Current Trends in Theory and Practice of Computer Science (SOFSEM 2004), Springer-Verlag, 2004.
+
+- [WA04] W. M. P. van der Aalst and L. Aldred and M. Dumas and A. H. M. ter Hofstede.
+  Design and Implementation of the YAWL System.
+  In: Proceedings of the 16th International Conference on Advanced Information Systems Engineering (CAiSE 2004), June 2004, Riga, Latvia.
+
+- [WfMC05] Workflow Management Coalition.
+  Workflow Process Definition Interface -- XML Process Definition Language (XPDL).
+  Document Number WFMC-TC-1025, 2005.

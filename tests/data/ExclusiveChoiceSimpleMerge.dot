@@ -1,0 +1,15 @@
+digraph ExclusiveChoiceSimpleMerge {
+node1 [label="Start"]
+node3 [label="Exclusive Choice"]
+node4 [label=""]
+node6 [label="Simple Merge"]
+node2 [label="End"]
+node5 [label=""]
+
+node1 -> node3
+node3 -> node4 [label="condition is true"]
+node3 -> node5 [label="condition is false"]
+node4 -> node6
+node6 -> node2
+node5 -> node6
+}

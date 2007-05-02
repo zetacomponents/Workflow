@@ -1,0 +1,44 @@
+{
+    "authors": [
+        {
+            "name": "Sergey Alexeev"
+        },
+        {
+            "name": "Sebastian Bergmann"
+        },
+        {
+            "name": "Jan Borsodi"
+        },
+        {
+            "name": "Raymond Bosman"
+        },
+        {
+            "name": "Frederik Holljen"
+        },
+        {
+            "name": "Kore Nordmann"
+        },
+        {
+            "name": "Derick Rethans"
+        },
+        {
+            "name": "Vadym Savchuk"
+        },
+        {
+            "name": "Tobias Schlitt"
+        },
+        {
+            "name": "Alexandru Stanoi"
+        }
+    ],
+    "autoload": {
+        "classmap": [
+            "src"
+        ]
+    },
+    "description": "The purpose of the Workflow component is to provide the core functionality of an activity-based workflow system including the definition and execution of workflow specifications.",
+    "homepage": "https://github.com/zetacomponents",
+    "license": "apache2",
+    "name": "zetacomponents/workflow",
+    "type": "library"
+}

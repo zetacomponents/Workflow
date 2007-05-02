@@ -1,0 +1,93 @@
+<?php
+/**
+ * File containing the ezcWorkflowNodeSubWorkflow class.
+ *
+ * @package Workflow
+ * @version //autogen//
+ * @copyright Copyright (C) 2005-2007 eZ systems as. All rights reserved.
+ * @license http://ez.no/licenses/new_bsd New BSD License
+ */
+
+/**
+ * This node starts a sub workflow.
+ *
+ * @package Workflow
+ * @version //autogen//
+ */
+class ezcWorkflowNodeSubWorkflow extends ezcWorkflowNode
+{
+    /**
+     * Execution ID of the sub workflow,
+     * 0 if it has not been started yet.
+     *
+     * @var integer
+     */
+    protected $state = 0;
+
+    /**
+     * Executes this node.
+     *
+     * @param ezcWorkflowExecution $execution
+     */
+    public function execute( ezcWorkflowExecution $execution )
+    {
+        $definition = $this->workflow->getDefinition();
+
+        if ( $definition === null )
+        {
+            throw new ezcWorkflowExecutionException(
+              'No ezcWorkflowDefinition implementation available.'
+            );
+        }
+
+        $workflow = $definition->loadByName( $this->configuration );
+
+        if ( !$workflow->isInteractive() && !$workflow->hasSubWorkflows() )
+        {
+            $subExecution = $execution->getSubExecution( null, false );
+            $subExecution->setWorkflow( $workflow );
+            $subExecution->start();
+        }
+        else
+        {
+            // Sub Workflow has not been started yet.
+            if ( $this->state == 0 )
+            {
+                $subExecution = $execution->getSubExecution();
+                $subExecution->setWorkflow( $workflow );
+                $subExecution->start( $this->id );
+
+                $this->state = $subExecution->getId();
+            }
+            // Sub Workflow has been started before.
+            else
+            {
+                $subExecution = $execution->getSubExecution( $this->state );
+                $subExecution->setWorkflow( $workflow );
+                $subExecution->resume();
+            }
+        }
+
+        if ( $subExecution->hasEnded() )
+        {
+            $this->activateNode( $execution, $this->outNodes[0] );
+
+            $this->state = 0;
+
+            return parent::execute( $execution );
+        }
+
+        return false;
+    }
+
+    /**
+     * Returns a textual representation of this node.
+     *
+     * @return string
+     */
+    public function __toString()
+    {
+        return 'Sub Workflow: ' . $this->configuration;
+    }
+}
+?>

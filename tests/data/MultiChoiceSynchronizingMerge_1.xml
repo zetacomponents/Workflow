@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<workflow name="MultiChoiceSynchronizingMerge" version="1">
+  <node id="1" type="Start">
+    <outNode id="3"/>
+  </node>
+  <node id="2" type="End"/>
+  <node id="3" type="VariableSet">
+    <variable name="x" value="1"/>
+    <variable name="y" value="2"/>
+    <outNode id="4"/>
+  </node>
+  <node id="4" type="MultiChoice">
+    <condition type="And">
+      <condition type="Variable" name="x">
+        <condition type="IsEqual" value="1"/>
+      </condition>
+      <condition type="Not">
+        <condition type="Variable" name="y">
+          <condition type="IsEqual" value="3"/>
+        </condition>
+      </condition>
+      <outNode id="5"/>
+    </condition>
+    <condition type="Or">
+      <condition type="Variable" name="x">
+        <condition type="IsEqual" value="1"/>
+      </condition>
+      <condition type="Variable" name="y">
+        <condition type="IsEqual" value="2"/>
+      </condition>
+      <outNode id="6"/>
+    </condition>
+    <condition type="Xor">
+      <condition type="Variable" name="x">
+        <condition type="IsEqual" value="1"/>
+      </condition>
+      <condition type="Variable" name="y">
+        <condition type="IsEqual" value="1"/>
+      </condition>
+      <outNode id="7"/>
+    </condition>
+  </node>
+  <node id="5" type="Action" serviceObjectClass="SOA">
+    <outNode id="8"/>
+  </node>
+  <node id="6" type="Action" serviceObjectClass="SOB">
+    <outNode id="8"/>
+  </node>
+  <node id="7" type="Action" serviceObjectClass="SOC">
+    <outNode id="8"/>
+  </node>
+  <node id="8" type="SynchronizingMerge">
+    <outNode id="2"/>
+  </node>
+</workflow>

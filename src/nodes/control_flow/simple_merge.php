@@ -1,0 +1,48 @@
+<?php
+/**
+ * File containing the ezcWorkflowNodeSimpleMerge class.
+ *
+ * @package Workflow
+ * @version //autogen//
+ * @copyright Copyright (C) 2005-2007 eZ systems as. All rights reserved.
+ * @license http://ez.no/licenses/new_bsd New BSD License
+ */
+
+/**
+ * This node implements the Simple Merge (XOR-Join) workflow pattern.
+ *
+ * @package Workflow
+ * @version //autogen//
+ */
+class ezcWorkflowNodeSimpleMerge extends ezcWorkflowNodeMerge
+{
+    /**
+     * Activate this node.
+     *
+     * @param ezcWorkflowExecution $execution
+     * @param ezcWorkflowNode $activatedFrom
+     * @param integer $threadId
+     */
+    public function activate( ezcWorkflowExecution $execution, ezcWorkflowNode $activatedFrom = null, $threadId = 0 )
+    {
+        $parentThreadId = $execution->getParentThreadId( $threadId );
+
+        if ( empty( $this->state ) )
+        {
+            $this->state[] = $threadId;
+
+            parent::activate( $execution, $activatedFrom, $parentThreadId );
+        }
+    }
+
+    /**
+     * Executes this node.
+     *
+     * @param ezcWorkflowExecution $execution
+     */
+    public function execute( ezcWorkflowExecution $execution )
+    {
+        return $this->doMerge( $execution );
+    }
+}
+?>

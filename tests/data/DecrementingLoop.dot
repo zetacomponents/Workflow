@@ -1,0 +1,13 @@
+digraph DecrementingLoop {
+node1 [label="Start"]
+node3 [label="i = 10"]
+node4 [label="Exclusive Choice"]
+node5 [label="i--"]
+node2 [label="End"]
+
+node1 -> node3
+node3 -> node4
+node4 -> node5 [label="i > 1"]
+node4 -> node2 [label="i == 1"]
+node5 -> node4
+}

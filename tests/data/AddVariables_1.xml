@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<workflow name="AddVariables" version="1">
+  <node id="1" type="Start">
+    <outNode id="3"/>
+  </node>
+  <node id="2" type="End"/>
+  <node id="3" type="VariableSet">
+    <variable name="a" value="1"/>
+    <variable name="b" value="1"/>
+    <outNode id="4"/>
+  </node>
+  <node id="4" type="VariableAdd" variable="b" value="a">
+    <outNode id="2"/>
+  </node>
+</workflow>

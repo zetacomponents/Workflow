@@ -1,0 +1,6 @@
+digraph StartEnd {
+node1 [label="Start"]
+node2 [label="End"]
+
+node1 -> node2
+}

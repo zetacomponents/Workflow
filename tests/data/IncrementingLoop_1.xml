@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<workflow name="IncrementingLoop" version="1">
+  <node id="1" type="Start">
+    <outNode id="3"/>
+  </node>
+  <node id="2" type="End"/>
+  <node id="3" type="VariableSet">
+    <variable name="i" value="1"/>
+    <outNode id="4"/>
+  </node>
+  <node id="4" type="ExclusiveChoice">
+    <condition type="Variable" name="i">
+      <condition type="IsLessThan" value="10"/>
+      <outNode id="5"/>
+    </condition>
+    <condition type="Variable" name="i">
+      <condition type="IsEqual" value="10"/>
+      <outNode id="2"/>
+    </condition>
+  </node>
+  <node id="5" type="VariableIncrement" variable="i">
+    <outNode id="4"/>
+  </node>
+</workflow>

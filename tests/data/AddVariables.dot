@@ -1,0 +1,10 @@
+digraph AddVariables {
+node1 [label="Start"]
+node3 [label="a = 1, b = 1"]
+node4 [label="b += a"]
+node2 [label="End"]
+
+node1 -> node3
+node3 -> node4
+node4 -> node2
+}
