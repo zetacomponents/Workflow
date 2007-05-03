@@ -163,6 +163,29 @@ class ezcWorkflowDefinitionXmlTest extends ezcWorkflowTestCase
         );
     }
 
+    public function testSaveServiceObjectWithArguments()
+    {
+        $this->setUpEmptyWorkflow( 'ServiceObjectWithArguments' );
+
+        $action = new ezcWorkflowNodeAction(
+          array(
+            'class' => 'SOA',
+            'arguments' => array(
+              array( 'Sebastian' ), 22, 'April', 19.78, null, new StdClass
+            )
+          )
+        );
+
+        $this->startNode->addOutNode( $action );
+        $this->endNode->addInNode( $action );
+        $this->definition->save( $this->workflow );
+
+        $this->assertEquals(
+          $this->readExpected( 'ServiceObjectWithArguments' ),
+          $this->readActual( 'ServiceObjectWithArguments' )
+        );
+    }
+
     public function testLoadStartEnd()
     {
         $this->workflow = $this->definition->loadByName( 'StartEnd' );
@@ -303,6 +326,17 @@ class ezcWorkflowDefinitionXmlTest extends ezcWorkflowTestCase
         $this->assertEquals(
           $this->readExpected( 'WorkflowWithSubWorkflow' ),
           $this->readActual( 'WorkflowWithSubWorkflow' )
+        );
+    }
+
+    public function testLoadServiceObjectWithArguments()
+    {
+        $this->workflow = $this->definition->loadByName( 'ServiceObjectWithArguments' );
+        $this->definition->save( $this->workflow );
+
+        $this->assertEquals(
+          $this->readExpected( 'ServiceObjectWithArguments' ),
+          $this->readActual( 'ServiceObjectWithArguments' )
         );
     }
 

@@ -83,9 +83,14 @@ class ezcWorkflowDefinitionXml implements ezcWorkflowDefinition
                       'arguments' => array()
                     );
 
-                    if ( isset( $node['arguments'] ) )
+                    $arguments = $node->arguments->children();
+
+                    if ( @count( $arguments ) > 0 )
                     {
-                        $configuration['arguments'] = unserialize( (string)$node['arguments'] );
+                        foreach ( $arguments as $argument )
+                        {
+                            $configuration['arguments'][] = $this->xmlToVariable( $argument );
+                        }
                     }
                 }
                 break;
@@ -113,17 +118,8 @@ class ezcWorkflowDefinitionXml implements ezcWorkflowDefinition
 
                     foreach ( $node->variable as $variable )
                     {
-                        $name  = (string)$variable['name'];
-                        $value = (string)$variable['value'];
-
-                        $tmp = @unserialize( (string)$variable['value'] );
-
-                        if ( $tmp !== false || $value == 'b:0;' )
-                        {
-                            $value = $tmp;
-                        }
-
-                        $configuration[$name] = $value;
+                        $children = $variable->children();
+                        $configuration[(string)$variable['name']] = $this->xmlToVariable( $children[0] );
                     }
                 }
                 break;
@@ -267,9 +263,23 @@ class ezcWorkflowDefinitionXml implements ezcWorkflowDefinition
                 {
                     $xmlNode->setAttribute( 'serviceObjectClass', $configuration['class'] );
 
-                    if ( !empty($configuration['arguments'] ) )
+                    if ( !empty( $configuration['arguments'] ) )
                     {
-                        $xmlNode->setAttribute( 'arguments', serialize( $configuration['arguments'] ) );
+                        $xmlArguments = $xmlNode->appendChild(
+                          $document->createElement( 'arguments' )
+                        );
+
+                        foreach ($configuration['arguments'] as $argument )
+                        {
+                            $xmlArguments->appendChild(
+                              $this->variableToXml(
+                                $argument,
+                                $document
+                              )
+                            );
+                        }
+
+                        $xmlNode->appendChild( $xmlArguments );
                     }
                 }
                 break;
@@ -310,14 +320,9 @@ class ezcWorkflowDefinitionXml implements ezcWorkflowDefinition
 
                         $xmlVariable->setAttribute( 'name', $variable );
 
-                        if ( is_scalar( $value ) )
-                        {
-                            $xmlVariable->setAttribute( 'value', $value );
-                        }
-                        else
-                        {
-                            $xmlVariable->setAttribute( 'value', serialize( $value ) );
-                        }
+                        $xmlVariable->appendChild(
+                          $this->variableToXml( $value, $document )
+                        );
                     }
                 }
                 break;
@@ -513,6 +518,117 @@ class ezcWorkflowDefinitionXml implements ezcWorkflowDefinition
 
             default: {
                 return new $class;
+            }
+            break;
+        }
+    }
+
+    /**
+     * "Convert" a PHP variable into an DOMElement object.
+     *
+     * @param  mixed $variable
+     * @param  DOMDocument $document
+     * @return DOMElement
+     */
+    protected function variableToXml( $variable, DOMDocument $document )
+    {
+        if ( is_array( $variable ) )
+        {
+            $xmlResult = $document->createElement( 'array' );
+
+            foreach ($variable as $key => $value )
+            {
+                $element = $document->createElement( 'element' );
+                $element->setAttribute( 'key', $key );
+                $element->appendChild( $this->variableToXml( $value, $document ) );
+
+                $xmlResult->appendChild( $element );
+            }
+        }
+
+        if ( is_object( $variable ) )
+        {
+            $xmlResult = $document->createElement( 'object' );
+            $xmlResult->setAttribute( 'class', get_class( $variable ) );
+        }
+
+        if ( is_null( $variable ) )
+        {
+            $xmlResult = $document->createElement( 'null' );
+        }
+
+        if ( is_scalar( $variable ) )
+        {
+            $xmlResult = $document->createElement( gettype( $variable ), $variable );
+        }
+
+        return $xmlResult;
+    }
+
+    /**
+     * "Convert" an SimpleXMLElement object into a PHP variable.
+     *
+     * @param  SimpleXMLElement $node
+     * @return mixed
+     */
+    protected function xmlToVariable( SimpleXMLElement $node )
+    {
+        $type = $node->getName();
+
+        switch ( $type )
+        {
+            case 'array': {
+                $array = array();
+
+                foreach ( $node->element as $element )
+                {
+                    $children = $element->children();
+                    $array[(string)$element['key']] = $this->xmlToVariable( $children[0] );
+                }
+
+                return $array;
+            }
+            break;
+
+            case 'object': {
+                $className = (string)$node['class'];
+
+                $arguments       = $node->arguments->children();
+                $constructorArgs = array();
+
+                if ( @count( $arguments ) > 0 )
+                {
+                    foreach ( $arguments as $argument )
+                    {
+                        $constructorArgs[] = $this->xmlToVariable( $argument );
+                    }
+
+                    $class = new ReflectionClass( $className );
+
+                    return $class->newInstanceArgs( $constructorArgs );
+                    
+                }
+                else
+                {
+                    return new $className;
+                }
+            }
+            break;
+
+            case 'boolean':
+            case 'integer':
+            case 'double':
+            case 'string': {
+                $variable = (string)$node;
+
+                settype( $variable, $type );
+
+                return $variable;
+            }
+            break;
+
+            case 'null': {
+                return null;
             }
             break;
         }

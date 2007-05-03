@@ -5,8 +5,12 @@
   </node>
   <node id="2" type="End"/>
   <node id="3" type="VariableSet">
-    <variable name="x" value="1"/>
-    <variable name="y" value="2"/>
+    <variable name="x">
+      <integer>1</integer>
+    </variable>
+    <variable name="y">
+      <integer>2</integer>
+    </variable>
     <outNode id="4"/>
   </node>
   <node id="4" type="MultiChoice">
