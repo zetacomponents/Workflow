@@ -253,50 +253,17 @@ class ezcWorkflow implements ezcWorkflowVisitable
     }
 
     /**
-     * Checks the constraints of this workflow's nodes.
+     * Verifies the specification of this workflow.
      *
-     * @throws ezcWorkflowInvalidDefinitionException if the constraints of this workflow's nodes are not met.
+     * @throws ezcWorkflowInvalidDefinitionException if the specification of this workflow is not correct.
      */
     public function verify()
     {
-        $start = 0;
-        $end   = 0;
+        $verifier = new ezcWorkflowVisitorVerification;
 
-        foreach ( $this->nodes as $node )
-        {
-            if ( $node instanceof ezcWorkflowNodeStart )
-            {
-                $start++;
+        $this->accept( $verifier );
 
-                if ( $start > 1 )
-                {
-                    throw new ezcWorkflowInvalidDefinitionException(
-                      'A workflow can have only one start node.'
-                    );
-                }
-            }
-
-            if ( $node instanceof ezcWorkflowNodeEnd )
-            {
-                $end++;
-            }
-
-            $node->verify();
-        }
-
-        if ( $start < 1 )
-        {
-            throw new ezcWorkflowInvalidDefinitionException(
-                'A workflow needs a start node.'
-            );
-        }
-
-        if ( $end < 1 )
-        {
-            throw new ezcWorkflowInvalidDefinitionException(
-                'A workflow needs at least one end node.'
-            );
-        }
+        $verifier->verify();
     }
 
     /**
