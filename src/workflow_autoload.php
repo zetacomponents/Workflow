@@ -76,6 +76,6 @@ return array(
     'ezcWorkflowRollbackableServiceObject'     => 'Workflow/interfaces/rollbackable_service_object.php',
     'ezcWorkflowUtil'                          => 'Workflow/util.php',
     'ezcWorkflowVariableHandler'               => 'Workflow/interfaces/variable_handler.php',
-    'ezcWorkflowVisitorDot'                    => 'Workflow/visitors/dot.php',
+    'ezcWorkflowVisitorVisualization'          => 'Workflow/visitors/visualization.php',
 );
 ?>

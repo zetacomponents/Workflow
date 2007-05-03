@@ -13,20 +13,20 @@ require_once 'case.php';
  * @package Workflow
  * @subpackage Tests
  */
-class ezcWorkflowVisitorDotTest extends ezcWorkflowTestCase
+class ezcWorkflowVisitorVisualizationTest extends ezcWorkflowTestCase
 {
     protected $visitor;
 
     public static function suite()
     {
-        return new PHPUnit_Framework_TestSuite( 'ezcWorkflowVisitorDotTest' );
+        return new PHPUnit_Framework_TestSuite( 'ezcWorkflowVisitorVisualizationTest' );
     }
 
     protected function setUp()
     {
         parent::setUp();
 
-        $this->visitor = new ezcWorkflowVisitorDot;
+        $this->visitor = new ezcWorkflowVisitorVisualization;
     }
 
     public function testVisitStartEnd()

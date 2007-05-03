@@ -1,6 +1,6 @@
 <?php
 /**
- * File containing the ezcWorkflowVisitorDot class.
+ * File containing the ezcWorkflowVisitorVisualization class.
  *
  * @package Workflow
  * @version //autogen//
@@ -15,7 +15,7 @@
  * @package Workflow
  * @version //autogen//
  */
-class ezcWorkflowVisitorDot implements ezcWorkflowVisitor
+class ezcWorkflowVisitorVisualization implements ezcWorkflowVisitor
 {
     /**
      * @var array

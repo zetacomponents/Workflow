@@ -12,7 +12,7 @@ require_once 'execution_test.php';
 require_once 'workflow_test.php';
 require_once 'node_test.php';
 require_once 'condition_test.php';
-require_once 'visitor_dot_test.php';
+require_once 'visitor_visualization_test.php';
 
 /**
  * @package Workflow
@@ -30,7 +30,7 @@ class ezcWorkflowSuite extends PHPUnit_Framework_TestSuite
         $this->addTest( ezcWorkflowTest::suite() );
         $this->addTest( ezcWorkflowNodeTest::suite() );
         $this->addTest( ezcWorkflowConditionTest::suite() );
-        $this->addTest( ezcWorkflowVisitorDotTest::suite() );
+        $this->addTest( ezcWorkflowVisitorVisualizationTest::suite() );
     }
 
     public static function suite()
