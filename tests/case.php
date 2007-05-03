@@ -42,9 +42,9 @@ abstract class ezcWorkflowTestCase extends ezcTestCase
         }
     }
 
-    protected function setUpEmptyWorkflow()
+    protected function setUpEmptyWorkflow( $name = 'Empty' )
     {
-        $this->workflow = new ezcWorkflow( 'Empty' );
+        $this->workflow = new ezcWorkflow( $name );
         $this->setUpReferences();
     }
 
