@@ -340,6 +340,11 @@ class ezcWorkflowDefinitionXmlTest extends ezcWorkflowTestCase
         );
     }
 
+    public function testLoadServiceObjectWithArguments2()
+    {
+        $this->workflow = $this->definition->loadByName( 'ServiceObjectWithArguments2' );
+    }
+
     public function testExceptionWhenLoadingNotExistingWorkflow()
     {
         try

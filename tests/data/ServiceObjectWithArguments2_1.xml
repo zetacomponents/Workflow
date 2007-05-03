@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<workflow name="ServiceObjectWithArguments2" version="1">
+  <node id="1" type="Start">
+    <outNode id="3"/>
+  </node>
+  <node id="2" type="End"/>
+  <node id="3" type="Action" serviceObjectClass="SOA">
+    <arguments>
+      <object class="Exception">
+        <arguments>
+          <string>Test</string>
+        </arguments>
+      </object>
+    </arguments>
+    <outNode id="2"/>
+  </node>
+</workflow>
