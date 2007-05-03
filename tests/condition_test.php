@@ -202,6 +202,20 @@ class ezcWorkflowConditionTest extends ezcTestCase
         $this->assertFalse( $condition->evaluate( false ) );
     }
 
+    public function testAnd2()
+    {
+        try
+        {
+            $condition = new ezcWorkflowConditionAnd( array( new StdClass ) );
+        }
+        catch ( ezcWorkflowDefinitionException $e )
+        {
+            return;
+        }
+
+        $this->fail();
+    }
+
     public function testOr()
     {
         $true  = new ezcWorkflowConditionIsTrue;
