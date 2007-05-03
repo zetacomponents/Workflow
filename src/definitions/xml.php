@@ -573,20 +573,19 @@ class ezcWorkflowDefinitionXml implements ezcWorkflowDefinition
      */
     protected function xmlToVariable( SimpleXMLElement $node )
     {
-        $type = $node->getName();
+        $type     = $node->getName();
+        $variable = null;
 
         switch ( $type )
         {
             case 'array': {
-                $array = array();
+                $variable = array();
 
                 foreach ( $node->element as $element )
                 {
                     $children = $element->children();
-                    $array[(string)$element['key']] = $this->xmlToVariable( $children[0] );
+                    $variable[(string)$element['key']] = $this->xmlToVariable( $children[0] );
                 }
-
-                return $array;
             }
             break;
 
@@ -605,12 +604,12 @@ class ezcWorkflowDefinitionXml implements ezcWorkflowDefinition
 
                     $class = new ReflectionClass( $className );
 
-                    return $class->newInstanceArgs( $constructorArgs );
+                    $variable = $class->newInstanceArgs( $constructorArgs );
                     
                 }
                 else
                 {
-                    return new $className;
+                    $variable = new $className;
                 }
             }
             break;
@@ -622,16 +621,11 @@ class ezcWorkflowDefinitionXml implements ezcWorkflowDefinition
                 $variable = (string)$node;
 
                 settype( $variable, $type );
-
-                return $variable;
-            }
-            break;
-
-            case 'null': {
-                return null;
             }
             break;
         }
+
+        return $variable;
     }
 
     /**
