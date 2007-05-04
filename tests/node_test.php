@@ -120,6 +120,48 @@ class ezcWorkflowNodeTest extends ezcWorkflowTestCase
         $this->fail();
     }
 
+    public function testInputConstructor()
+    {
+        try
+        {
+            $input = new ezcWorkflowNodeInput( null );
+        }
+        catch ( InvalidArgumentException $e )
+        {
+            return;
+        }
+
+        $this->fail();
+    }
+
+    public function testInputConstructor2()
+    {
+        try
+        {
+            $input = new ezcWorkflowNodeInput( array( 'foo' => new StdClass ) );
+        }
+        catch ( InvalidArgumentException $e )
+        {
+            return;
+        }
+
+        $this->fail();
+    }
+
+    public function testInputConstructor3()
+    {
+        try
+        {
+            $input = new ezcWorkflowNodeInput( array( new StdClass ) );
+        }
+        catch ( InvalidArgumentException $e )
+        {
+            return;
+        }
+
+        $this->fail();
+    }
+
     public function testGetInNodes()
     {
         $this->setUpStartEnd();
