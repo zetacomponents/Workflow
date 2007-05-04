@@ -52,6 +52,74 @@ class ezcWorkflowNodeTest extends ezcWorkflowTestCase
         $this->fail();
     }
 
+    public function testVerifyTooManyIncomingNodes()
+    {
+        try
+        {
+            $a = new ezcWorkflowNodeVariableSet(
+              array( 'foo' => 'bar' )
+            );
+
+            $b = new ezcWorkflowNodeVariableSet(
+              array( 'foo' => 'bar' )
+            );
+
+            $c = new ezcWorkflowNodeVariableSet(
+              array( 'foo' => 'bar' )
+            );
+
+            $d = new ezcWorkflowNodeVariableSet(
+              array( 'foo' => 'bar' )
+            );
+
+            $c->addInNode( $a );
+            $c->addInNode( $b );
+            $c->addOutNode( $d );
+
+            $c->verify();
+        }
+        catch ( ezcWorkflowInvalidDefinitionException $e )
+        {
+            return;
+        }
+
+        $this->fail();
+    }
+
+    public function testVerifyTooManyOutgoingNodes()
+    {
+        try
+        {
+            $a = new ezcWorkflowNodeVariableSet(
+              array( 'foo' => 'bar' )
+            );
+
+            $b = new ezcWorkflowNodeVariableSet(
+              array( 'foo' => 'bar' )
+            );
+
+            $c = new ezcWorkflowNodeVariableSet(
+              array( 'foo' => 'bar' )
+            );
+
+            $d = new ezcWorkflowNodeVariableSet(
+              array( 'foo' => 'bar' )
+            );
+
+            $b->addOutNode( $c );
+            $b->addOutNode( $d );
+            $b->addInNode( $a );
+
+            $b->verify();
+        }
+        catch ( ezcWorkflowInvalidDefinitionException $e )
+        {
+            return;
+        }
+
+        $this->fail();
+    }
+
     public function testGetInNodes()
     {
         $this->setUpStartEnd();
@@ -84,34 +152,16 @@ class ezcWorkflowNodeTest extends ezcWorkflowTestCase
     {
         $this->setUpStartEnd();
 
-        try
-        {
-            $this->endNode->removeInNode( $this->startNode );
-        }
-
-        catch ( ezcWorkflowInvalidDefinitionException $e )
-        {
-            return;
-        }
-
-        $this->fail();
+        $this->assertTrue( $this->endNode->removeInNode( $this->startNode ) );
+        $this->assertFalse( $this->endNode->removeInNode( $this->startNode ) );
     }
 
     public function testRemoveOutNode()
     {
         $this->setUpStartEnd();
 
-        try
-        {
-            $this->startNode->removeOutNode( $this->endNode );
-        }
-
-        catch ( ezcWorkflowInvalidDefinitionException $e )
-        {
-            return;
-        }
-
-        $this->fail();
+        $this->assertTrue( $this->startNode->removeOutNode( $this->endNode ) );
+        $this->assertFalse( $this->startNode->removeOutNode( $this->endNode ) );
     }
 
     public function testToString()

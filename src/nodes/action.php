@@ -19,12 +19,10 @@ class ezcWorkflowNodeAction extends ezcWorkflowNode
     /**
      * Constructor.
      *
-     * @param  mixed   $configuration
-     * @param  integer $activationState
-     * @param  mixed   $state
+     * @param mixed $configuration
      * @throws ezcWorkflowDefinitionException
      */
-    public function __construct( $configuration, $activationState = self::WAITING_FOR_ACTIVATION, $state = null )
+    public function __construct( $configuration )
     {
         if ( is_string( $configuration ) )
         {
@@ -36,7 +34,7 @@ class ezcWorkflowNodeAction extends ezcWorkflowNode
             $configuration['arguments'] = array();
         }
 
-        parent::__construct( $configuration, $activationState, $state );
+        parent::__construct( $configuration );
     }
 
     /**

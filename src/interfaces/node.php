@@ -149,24 +149,14 @@ abstract class ezcWorkflowNode implements ezcWorkflowVisitable
     /**
      * Constructor.
      *
-     * @param mixed   $configuration
-     * @param integer $activationState
-     * @param mixed   $state
+     * @param mixed $configuration
      */
-    public function __construct( $configuration = '', $activationState = self::WAITING_FOR_ACTIVATION, $state = null )
+    public function __construct( $configuration = '' )
     {
         $this->configuration = $configuration;
 
-        if ( $state === null )
-        {
-            $this->initState();
-        }
-        else
-        {
-            $this->state = $state;
-        }
-
-        $this->setActivationState( $activationState );
+        $this->setActivationState( self::WAITING_FOR_ACTIVATION );
+        $this->initState();
     }
 
     /**
@@ -179,37 +169,26 @@ abstract class ezcWorkflowNode implements ezcWorkflowVisitable
     public function addInNode( ezcWorkflowNode $node )
     {
         // Check whether the node is already an incoming node of this node.
-        if ( ezcWorkflowUtil::findObject( $this->inNodes, $node ) !== false )
+        if ( ezcWorkflowUtil::findObject( $this->inNodes, $node ) === false )
         {
-            return $this;
-        }
+            // Add the other node to the workflow.
+            $this->addNodeToWorkflow( $node );
 
-        // Check whether adding the other node to the incoming nodes
-        // of this node would violate this node's constraints.
-        if ( $this->maxInNodes !== FALSE && $this->numInNodes + 1 > $this->maxInNodes )
-        {
-            throw new ezcWorkflowInvalidDefinitionException(
-              'Adding an incoming node to this node would violate its constraints.'
-            );
-        }
+            // Add this node as an outgoing node to the other node.
+            if ( !self::$internalCall )
+            {
+                self::$internalCall = true;
+                $node->addOutNode( $this );
+            }
+            else
+            {
+                self::$internalCall = false;
+            }
 
-        // Add the other node to the workflow.
-        $this->addNodeToWorkflow( $node );
-
-        // Add this node as an outgoing node to the other node.
-        if ( !self::$internalCall )
-        {
-            self::$internalCall = true;
-            $node->addOutNode( $this );
+            // Add the other node as an incoming node to this node.
+            $this->inNodes[] = $node;
+            $this->numInNodes++;
         }
-        else
-        {
-            self::$internalCall = false;
-        }
-
-        // Add the other node as an incoming node to this node.
-        $this->inNodes[] = $node;
-        $this->numInNodes++;
 
         return $this;
     }
@@ -219,39 +198,32 @@ abstract class ezcWorkflowNode implements ezcWorkflowVisitable
      *
      * @param  ezcWorkflowNode $node The node that is to be removed as incoming node.
      * @throws ezcWorkflowInvalidDefinitionException if the operation violates the constraints of the nodes involved.
-     * @return ezcWorkflowNode
+     * @return boolean
      */
     public function removeInNode( ezcWorkflowNode $node )
     {
         $index = ezcWorkflowUtil::findObject( $this->inNodes, $node );
 
-        if ( $index === false )
+        if ( $index !== false )
         {
-            return $this;
+            // Remove this node as an outgoing node from the other node.
+            if ( !self::$internalCall )
+            {
+                self::$internalCall = true;
+                $node->removeOutNode( $this );
+            }
+            else
+            {
+                self::$internalCall = false;
+            }
+
+            unset( $this->inNodes[$index] );
+            $this->numInNodes--;
+
+            return true;
         }
 
-        if ( $this->minInNodes !== FALSE && $this->numInNodes - 1 < $this->minInNodes )
-        {
-            throw new ezcWorkflowInvalidDefinitionException(
-              'Removing an incoming node from this node would violate its constraints.'
-            );
-        }
-
-        // Remove this node as an outgoing node from the other node.
-        if ( !self::$internalCall )
-        {
-            self::$internalCall = true;
-            $node->removeOutNode( $this );
-        }
-        else
-        {
-            self::$internalCall = false;
-        }
-
-        unset( $this->inNodes[$index] );
-        $this->numInNodes--;
-
-        return $this;
+        return false;
     }
 
     /**
@@ -264,37 +236,26 @@ abstract class ezcWorkflowNode implements ezcWorkflowVisitable
     public function addOutNode( ezcWorkflowNode $node )
     {
         // Check whether the other node is already an outgoing node of this node.
-        if ( ezcWorkflowUtil::findObject( $this->outNodes, $node ) !== false )
+        if ( ezcWorkflowUtil::findObject( $this->outNodes, $node ) === false )
         {
-            return $this;
-        }
+            // Add the other node to the workflow.
+            $this->addNodeToWorkflow( $node );
 
-        // Check whether adding the other node to the outgoing nodes
-        // of this node would violate this node's constraints.
-        if ( $this->maxOutNodes !== FALSE && $this->numOutNodes + 1 > $this->maxOutNodes )
-        {
-            throw new ezcWorkflowInvalidDefinitionException(
-              'Adding an outgoing node to this node would violate its constraints.'
-            );
-        }
+            // Add this node as an incoming node to the other node.
+            if ( !self::$internalCall )
+            {
+                self::$internalCall = true;
+                $node->addInNode( $this );
+            }
+            else
+            {
+                self::$internalCall = false;
+            }
 
-        // Add the other node to the workflow.
-        $this->addNodeToWorkflow( $node );
-
-        // Add this node as an incoming node to the other node.
-        if ( !self::$internalCall )
-        {
-            self::$internalCall = true;
-            $node->addInNode( $this );
+            // Add the other node as an outgoing node to this node.
+            $this->outNodes[] = $node;
+            $this->numOutNodes++;
         }
-        else
-        {
-            self::$internalCall = false;
-        }
-
-        // Add the other node as an outgoing node to this node.
-        $this->outNodes[] = $node;
-        $this->numOutNodes++;
 
         return $this;
     }
@@ -304,39 +265,32 @@ abstract class ezcWorkflowNode implements ezcWorkflowVisitable
      *
      * @param  ezcWorkflowNode $node The node that is to be removed as outgoing node.
      * @throws ezcWorkflowInvalidDefinitionException if the operation violates the constraints of the nodes involved.
-     * @return ezcWorkflowNode
+     * @return boolean
      */
     public function removeOutNode( ezcWorkflowNode $node )
     {
         $index = ezcWorkflowUtil::findObject( $this->outNodes, $node );
 
-        if ( $index === false )
+        if ( $index !== false )
         {
-            return $this;
+            // Remove this node as an incoming node from the other node.
+            if ( !self::$internalCall )
+            {
+                self::$internalCall = true;
+                $node->removeInNode( $this );
+            }
+            else
+            {
+                self::$internalCall = false;
+            }
+
+            unset( $this->outNodes[$index] );
+            $this->numOutNodes--;
+
+            return true;
         }
 
-        if ( $this->minOutNodes !== FALSE && $this->numOutNodes - 1 < $this->minOutNodes )
-        {
-            throw new ezcWorkflowInvalidDefinitionException(
-              'Removing an outgoing node from this node would violate its constraints.'
-            );
-        }
-
-        // Remove this node as an incoming node from the other node.
-        if ( !self::$internalCall )
-        {
-            self::$internalCall = true;
-            $node->removeInNode( $this );
-        }
-        else
-        {
-            self::$internalCall = false;
-        }
-
-        unset( $this->outNodes[$index] );
-        $this->numOutNodes--;
-
-        return $this;
+        return false;
     }
 
     /**
@@ -540,7 +494,7 @@ abstract class ezcWorkflowNode implements ezcWorkflowVisitable
         if ( $this->activationState === self::WAITING_FOR_ACTIVATION )
         {
             $this->activationState = self::WAITING_FOR_EXECUTION;
-            $this->threadId = $threadId;
+            $this->setThreadId( $threadId );
 
             if ( $activatedFrom !== null )
             {
