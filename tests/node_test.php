@@ -162,6 +162,34 @@ class ezcWorkflowNodeTest extends ezcWorkflowTestCase
         $this->fail();
     }
 
+    public function testVariableSetConstructor()
+    {
+        try
+        {
+            $set = new ezcWorkflowNodeVariableSet( null );
+        }
+        catch ( InvalidArgumentException $e )
+        {
+            return;
+        }
+
+        $this->fail();
+    }
+
+    public function testVariableUnsetConstructor()
+    {
+        try
+        {
+            $set = new ezcWorkflowNodeVariableUnset( null );
+        }
+        catch ( InvalidArgumentException $e )
+        {
+            return;
+        }
+
+        $this->fail();
+    }
+
     public function testGetInNodes()
     {
         $this->setUpStartEnd();
