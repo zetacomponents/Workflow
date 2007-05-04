@@ -26,9 +26,9 @@ class ezcWorkflowNodeDiscriminator extends ezcWorkflowNodeMerge
     public function activate( ezcWorkflowExecution $execution, ezcWorkflowNode $activatedFrom = null, $threadId = 0 )
     {
         $this->prepareActivate( $execution, $threadId );
+        $this->setThreadId( $execution->getParentThreadId( $threadId ) );
 
-        $numActivated   = count( $this->state );
-        $this->threadId = $execution->getParentThreadId( $threadId );
+        $numActivated = count( $this->state );
 
         if ( $numActivated == 1 )
         {
