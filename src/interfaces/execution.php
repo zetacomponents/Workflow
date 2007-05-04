@@ -690,19 +690,19 @@ abstract class ezcWorkflowExecution
         if ( isset( $this->variables[$variableName] ) )
         {
             unset( $this->variables[$variableName] );
+
+            $this->notifyListeners(
+              sprintf(
+                'Unset variable "%s" for execution #%d of workflow "%s" (version %d).',
+
+                $variableName,
+                $this->id,
+                $this->workflow->getName(),
+                $this->workflow->getVersion()
+              ),
+              ezcWorkflowExecutionListener::DEBUG
+            );
         }
-
-        $this->notifyListeners(
-          sprintf(
-            'Unset variable "%s" for execution #%d of workflow "%s" (version %d).',
-
-            $variableName,
-            $this->id,
-            $this->workflow->getName(),
-            $this->workflow->getVersion()
-          ),
-          ezcWorkflowExecutionListener::DEBUG
-        );
     }
 
     /**
