@@ -35,6 +35,11 @@ class ezcWorkflowNodeInput extends ezcWorkflowNode
         {
             if ( is_int( $key ) )
             {
+                if ( !is_string( $value ) )
+                {
+                    throw new InvalidArgumentException;
+                }
+
                 $variable  = $value;
                 $condition = new ezcWorkflowConditionIsAnything;
             }
