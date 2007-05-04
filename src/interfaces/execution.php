@@ -211,7 +211,9 @@ abstract class ezcWorkflowExecution
                 }
                 else
                 {
-                    throw new ezcWorkflowInvalidInputException;
+                    throw new ezcWorkflowInvalidInputException(
+                      (string)$this->waitingFor[$variableName]['condition']
+                    );
                 }
             }
         }
