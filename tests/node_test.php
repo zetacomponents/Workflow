@@ -20,104 +20,16 @@ class ezcWorkflowNodeTest extends ezcWorkflowTestCase
         return new PHPUnit_Framework_TestSuite( 'ezcWorkflowNodeTest' );
     }
 
-    public function testStartVerifyFails()
+    public function testActionClassNotFound()
     {
-        $this->setUpEmptyWorkflow();
-
-        try
-        {
-            $this->startNode->verify();
-        }
-        catch ( ezcWorkflowInvalidDefinitionException $e )
-        {
-            return;
-        }
-
-        $this->fail();
+        $action = new ezcWorkflowNodeAction( 'NotExistingClass' );
+        $this->assertEquals( 'Class not found.', (string)$action );
     }
 
-    public function testEndVerifyFails()
+    public function testActionClassNotServiceObject()
     {
-        $this->setUpEmptyWorkflow();
-
-        try
-        {
-            $this->endNode->verify();
-        }
-        catch ( ezcWorkflowInvalidDefinitionException $e )
-        {
-            return;
-        }
-
-        $this->fail();
-    }
-
-    public function testVerifyTooManyIncomingNodes()
-    {
-        try
-        {
-            $a = new ezcWorkflowNodeVariableSet(
-              array( 'foo' => 'bar' )
-            );
-
-            $b = new ezcWorkflowNodeVariableSet(
-              array( 'foo' => 'bar' )
-            );
-
-            $c = new ezcWorkflowNodeVariableSet(
-              array( 'foo' => 'bar' )
-            );
-
-            $d = new ezcWorkflowNodeVariableSet(
-              array( 'foo' => 'bar' )
-            );
-
-            $c->addInNode( $a );
-            $c->addInNode( $b );
-            $c->addOutNode( $d );
-
-            $c->verify();
-        }
-        catch ( ezcWorkflowInvalidDefinitionException $e )
-        {
-            return;
-        }
-
-        $this->fail();
-    }
-
-    public function testVerifyTooManyOutgoingNodes()
-    {
-        try
-        {
-            $a = new ezcWorkflowNodeVariableSet(
-              array( 'foo' => 'bar' )
-            );
-
-            $b = new ezcWorkflowNodeVariableSet(
-              array( 'foo' => 'bar' )
-            );
-
-            $c = new ezcWorkflowNodeVariableSet(
-              array( 'foo' => 'bar' )
-            );
-
-            $d = new ezcWorkflowNodeVariableSet(
-              array( 'foo' => 'bar' )
-            );
-
-            $b->addOutNode( $c );
-            $b->addOutNode( $d );
-            $b->addInNode( $a );
-
-            $b->verify();
-        }
-        catch ( ezcWorkflowInvalidDefinitionException $e )
-        {
-            return;
-        }
-
-        $this->fail();
+        $action = new ezcWorkflowNodeAction( 'StdClass' );
+        $this->assertEquals( 'Class does not implement the ezcWorkflowServiceObject interface.', (string)$action );
     }
 
     public function testInputConstructor()
@@ -240,6 +152,106 @@ class ezcWorkflowNodeTest extends ezcWorkflowTestCase
 
         $this->assertEquals( 'Start', (string)$this->startNode );
         $this->assertEquals( 'End', (string)$this->endNode );
+    }
+
+    public function testStartVerifyFails()
+    {
+        $this->setUpEmptyWorkflow();
+
+        try
+        {
+            $this->startNode->verify();
+        }
+        catch ( ezcWorkflowInvalidDefinitionException $e )
+        {
+            return;
+        }
+
+        $this->fail();
+    }
+
+    public function testEndVerifyFails()
+    {
+        $this->setUpEmptyWorkflow();
+
+        try
+        {
+            $this->endNode->verify();
+        }
+        catch ( ezcWorkflowInvalidDefinitionException $e )
+        {
+            return;
+        }
+
+        $this->fail();
+    }
+
+    public function testVerifyTooManyIncomingNodes()
+    {
+        try
+        {
+            $a = new ezcWorkflowNodeVariableSet(
+              array( 'foo' => 'bar' )
+            );
+
+            $b = new ezcWorkflowNodeVariableSet(
+              array( 'foo' => 'bar' )
+            );
+
+            $c = new ezcWorkflowNodeVariableSet(
+              array( 'foo' => 'bar' )
+            );
+
+            $d = new ezcWorkflowNodeVariableSet(
+              array( 'foo' => 'bar' )
+            );
+
+            $c->addInNode( $a );
+            $c->addInNode( $b );
+            $c->addOutNode( $d );
+
+            $c->verify();
+        }
+        catch ( ezcWorkflowInvalidDefinitionException $e )
+        {
+            return;
+        }
+
+        $this->fail();
+    }
+
+    public function testVerifyTooManyOutgoingNodes()
+    {
+        try
+        {
+            $a = new ezcWorkflowNodeVariableSet(
+              array( 'foo' => 'bar' )
+            );
+
+            $b = new ezcWorkflowNodeVariableSet(
+              array( 'foo' => 'bar' )
+            );
+
+            $c = new ezcWorkflowNodeVariableSet(
+              array( 'foo' => 'bar' )
+            );
+
+            $d = new ezcWorkflowNodeVariableSet(
+              array( 'foo' => 'bar' )
+            );
+
+            $b->addOutNode( $c );
+            $b->addOutNode( $d );
+            $b->addInNode( $a );
+
+            $b->verify();
+        }
+        catch ( ezcWorkflowInvalidDefinitionException $e )
+        {
+            return;
+        }
+
+        $this->fail();
     }
 }
 ?>
