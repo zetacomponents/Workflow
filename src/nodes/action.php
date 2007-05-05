@@ -59,7 +59,13 @@ class ezcWorkflowNodeAction extends ezcWorkflowNode
      */
     public function __toString()
     {
-        $object = $this->createObject();
+        try {
+            $object = $this->createObject();
+        }
+        catch ( ezcWorkflowExecutionException $e )
+        {
+            return $e->getMessage();
+        }
 
         return (string)$object;
     }
