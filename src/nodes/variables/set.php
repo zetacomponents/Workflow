@@ -20,13 +20,15 @@ class ezcWorkflowNodeVariableSet extends ezcWorkflowNode
      * Constructor.
      *
      * @param mixed $configuration
-     * @throws InvalidArgumentException
+     * @throws ezcBaseValueException
      */
     public function __construct( $configuration = '' )
     {
         if ( !is_array( $configuration ) )
         {
-            throw new InvalidArgumentException;
+            throw new ezcBaseValueException(
+              'configuration', $configuration, 'array'
+            );
         }
 
         parent::__construct( $configuration );

@@ -61,7 +61,7 @@ class ezcWorkflowTest extends ezcWorkflowTestCase
         {
             $workflow->setName( array() );
         }
-        catch ( InvalidArgumentException $e )
+        catch ( ezcBaseValueException $e )
         {
             return;
         }

@@ -38,7 +38,7 @@ class ezcWorkflowNodeTest extends ezcWorkflowTestCase
         {
             $input = new ezcWorkflowNodeInput( null );
         }
-        catch ( InvalidArgumentException $e )
+        catch ( ezcBaseValueException $e )
         {
             return;
         }
@@ -52,7 +52,7 @@ class ezcWorkflowNodeTest extends ezcWorkflowTestCase
         {
             $input = new ezcWorkflowNodeInput( array( 'foo' => new StdClass ) );
         }
-        catch ( InvalidArgumentException $e )
+        catch ( ezcBaseValueException $e )
         {
             return;
         }
@@ -66,7 +66,7 @@ class ezcWorkflowNodeTest extends ezcWorkflowTestCase
         {
             $input = new ezcWorkflowNodeInput( array( new StdClass ) );
         }
-        catch ( InvalidArgumentException $e )
+        catch ( ezcBaseValueException $e )
         {
             return;
         }
@@ -80,7 +80,7 @@ class ezcWorkflowNodeTest extends ezcWorkflowTestCase
         {
             $set = new ezcWorkflowNodeVariableSet( null );
         }
-        catch ( InvalidArgumentException $e )
+        catch ( ezcBaseValueException $e )
         {
             return;
         }
@@ -94,7 +94,7 @@ class ezcWorkflowNodeTest extends ezcWorkflowTestCase
         {
             $set = new ezcWorkflowNodeVariableUnset( null );
         }
-        catch ( InvalidArgumentException $e )
+        catch ( ezcBaseValueException $e )
         {
             return;
         }

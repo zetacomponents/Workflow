@@ -285,7 +285,7 @@ class ezcWorkflow implements ezcWorkflowVisitable
 
     /**
      * @param string $name
-     * @throws InvalidArgumentException
+     * @throws ezcBaseValueException
      */
     public function setName( $name )
     {
@@ -295,7 +295,9 @@ class ezcWorkflow implements ezcWorkflowVisitable
         }
         else
         {
-            throw new InvalidArgumentException;
+            throw new ezcBaseValueException(
+              'name', $name, 'string'
+            );
         }
     }
 

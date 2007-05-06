@@ -20,13 +20,15 @@ class ezcWorkflowNodeInput extends ezcWorkflowNode
      * Constructor.
      *
      * @param mixed $configuration
-     * @throws InvalidArgumentException
+     * @throws ezcBaseValueException
      */
     public function __construct( $configuration = '' )
     {
         if ( !is_array( $configuration ) )
         {
-            throw new InvalidArgumentException;
+            throw new ezcBaseValueException(
+              'configuration', $configuration, 'array'
+            );
         }
 
         $tmp = array();
@@ -37,7 +39,9 @@ class ezcWorkflowNodeInput extends ezcWorkflowNode
             {
                 if ( !is_string( $value ) )
                 {
-                    throw new InvalidArgumentException;
+                    throw new ezcBaseValueException(
+                      'workflow variable name', $value, 'string'
+                    );
                 }
 
                 $variable  = $value;
@@ -47,7 +51,9 @@ class ezcWorkflowNodeInput extends ezcWorkflowNode
             {
                 if ( !is_object( $value ) || !$value instanceof ezcWorkflowCondition )
                 {
-                    throw new InvalidArgumentException;
+                    throw new ezcBaseValueException(
+                      'workflow variable condition', $value, 'ezcWorkflowCondition'
+                    );
                 }
 
                 $variable  = $key;
