@@ -472,8 +472,7 @@ class ezcWorkflowDefinitionXml implements ezcWorkflowDefinition
      */
     protected function xmlToCondition( SimpleXMLElement $node )
     {
-        $class    = 'ezcWorkflowCondition' . (string)$node['type'];
-        $variable = (string)$node['variable'];
+        $class = 'ezcWorkflowCondition' . (string)$node['type'];
 
         switch ( $class )
         {
