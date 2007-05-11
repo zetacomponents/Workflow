@@ -391,6 +391,16 @@ abstract class ezcWorkflowExecution
     }
 
     /**
+     * Returns the variables that (input) nodes are waiting for.
+     *
+     * @return array
+     */
+    public function getWaitingFor()
+    {
+        return $this->waitingFor;
+    }
+
+    /**
      * Start a new thread.
      *
      * @param integer $parentId The id of the parent thread.

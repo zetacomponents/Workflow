@@ -71,11 +71,12 @@ class ezcWorkflowTestExecution extends ezcWorkflowExecution
         PHPUnit_Framework_Assert::assertFalse( $this->isResumed() );
         PHPUnit_Framework_Assert::assertTrue( $this->isSuspended() );
 
-        $inputData = array();
+        $inputData  = array();
+        $waitingFor = $this->getWaitingFor();
 
         foreach ( $this->inputVariables as $name => $value )
         {
-            if ( isset( $this->waitingFor[$name] ) )
+            if ( isset( $waitingFor[$name] ) )
             {
                 $inputData[$name] = $value;
             }
