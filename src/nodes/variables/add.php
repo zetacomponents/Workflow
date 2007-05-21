@@ -9,7 +9,20 @@
  */
 
 /**
- * This node adds a value to a workflow variable.
+ * Adds a workflow variable together with another variable or a constant value.
+ *
+ * An object of the ezcWorkflowNodeVariableAdd class adds a given value, either a constant
+ * or the value of another workflow variable, to a specified workflow variable.
+ *
+ * <code>
+ * $add = new ezcWorkflowNodeVariableAdd (
+ *           array ( ' name ' = > ' variable name ' , ' value ' = > $value )
+ *            );
+ * </code>
+ * If $value is a string, the value of the workflow variable identified by that string is used.
+ *
+ * Incomming nodes: 1
+ * Outgoing nodes: 1
  *
  * @package Workflow
  * @version //autogen//

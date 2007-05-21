@@ -9,8 +9,17 @@
  */
 
 /**
- * This node asks (the user) for input.
+ * An object of the ezcWorkflowNodeInput class represents an input (from the application) node.
  *
+ * When the node is reached, the workflow engine will suspend the workflow execution if the
+ * specified input data is not available (first activation). While the workflow is suspended,
+ * the application that embeds the workflow engine may supply the input data and resume the workflow
+ * execution (second activation of the input node). Input data is stored in a workflow variable.
+ *
+ * Incomming nodes: 1
+ * Outgoing nodes: 1
+ *
+ * @todo example, how do you specify the name of the input to react on?
  * @package Workflow
  * @version //autogen//
  */

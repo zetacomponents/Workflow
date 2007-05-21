@@ -9,7 +9,14 @@
  */
 
 /**
- * This node unsets a workflow variable.
+ * An object of the ezcWorkflowNodeVariableUnset class unset the specified workflow variable.
+ *
+ * <code>
+ * $unset = new ezcWorkflowNodeVariableUnset ( 'variable name' ) ;
+ * </code>
+ *
+ * Incomming nodes: 1
+ * Outgoing nodes: 1
  *
  * @package Workflow
  * @version //autogen//

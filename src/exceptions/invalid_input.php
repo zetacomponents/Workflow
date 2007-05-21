@@ -9,7 +9,8 @@
  */
 
 /**
- * Exception will be thrown when an error occurs during input validation.
+ * This exception will be thrown when an error occurs
+ * during input validation in an input node.
  *
  * @package Workflow
  * @version //autogen//

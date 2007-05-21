@@ -9,7 +9,14 @@
  */
 
 /**
- * This node decrements a workflow variable.
+ * This node decrements a workflow variable when executed.
+ *
+ * <code>
+ *   $dec = new ezcWorkflowNodeVariableDecrement ( ' variable name ' ) ;
+ * </code>
+ *
+ * Incomming nodes: 1
+ * Outgoing nodes: 1
  *
  * @package Workflow
  * @version //autogen//

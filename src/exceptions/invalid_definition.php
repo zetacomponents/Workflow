@@ -9,7 +9,7 @@
  */
 
 /**
- * Exception will be thrown when the definition of a workflow is invalid.
+ * The exception thrown when the definition of a workflow is invalid.
  *
  * @package Workflow
  * @version //autogen//

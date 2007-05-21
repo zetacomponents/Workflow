@@ -2,6 +2,10 @@
 /**
  * File containing the ezcWorkflowNode class.
  *
+ * This class provides basic facilities for workflow nodes
+ * such as constraints for in and output nodes and methods
+ * for identifying and execution of the node.
+ *
  * @package Workflow
  * @version //autogen//
  * @copyright Copyright (C) 2005-2007 eZ systems as. All rights reserved.
@@ -10,6 +14,8 @@
 
 /**
  * Abstract base class for workflow nodes.
+ *
+ * All workflow nodes must extend this class.
  *
  * @package Workflow
  * @version //autogen//
@@ -106,6 +112,7 @@ abstract class ezcWorkflowNode implements ezcWorkflowVisitable
     /**
      * The configuration of this node.
      *
+     * @todo what exactly is a configuration, what can it contain
      * @var mixed
      */
     protected $configuration;
@@ -161,6 +168,9 @@ abstract class ezcWorkflowNode implements ezcWorkflowVisitable
 
     /**
      * Adds a node to the incoming nodes of this node.
+     *
+     * Automatically adds $node to the workflow and adds
+     * this node as an out node of $node.
      *
      * @param  ezcWorkflowNode $node The node that is to be added as incoming node.
      * @throws ezcWorkflowInvalidDefinitionException if the operation violates the constraints of the nodes involved.
@@ -228,6 +238,9 @@ abstract class ezcWorkflowNode implements ezcWorkflowVisitable
 
     /**
      * Adds a node to the outgoing nodes of this node.
+     *
+     * Automatically adds $node to the workflow and adds
+     * this node as an in node of $node.
      *
      * @param  ezcWorkflowNode $node The node that is to be added as outgoing node.
      * @throws ezcWorkflowInvalidDefinitionException if the operation violates the constraints of the nodes involved.
@@ -435,6 +448,10 @@ abstract class ezcWorkflowNode implements ezcWorkflowVisitable
     /**
      * Checks this node's constraints.
      *
+     * The constraints checked are the minimum in nodes
+     * maximum in nodes, minimum out nodes and maximum
+     * out nodes.
+     *
      * @throws ezcWorkflowInvalidDefinitionException if the constraints of this node are not met.
      */
     public function verify()
@@ -468,7 +485,9 @@ abstract class ezcWorkflowNode implements ezcWorkflowVisitable
         }
     }
 
-     /**
+    /**
+     * Reimplementation of accept() calls accept on all out nodes.
+     *
      * @param ezcWorkflowVisitor $visitor
      */
     public function accept( ezcWorkflowVisitor $visitor )
@@ -485,6 +504,9 @@ abstract class ezcWorkflowNode implements ezcWorkflowVisitable
     /**
      * Activate this node.
      *
+     * @todo Don't know the reason for the activatedFrom and treadId.
+     *       is this method always called from within the system?
+     *       (what happens if you don't?)
      * @param ezcWorkflowExecution $execution
      * @param ezcWorkflowNode $activatedFrom
      * @param integer $threadId
@@ -517,7 +539,8 @@ abstract class ezcWorkflowNode implements ezcWorkflowVisitable
     }
 
     /**
-     * Checks whether this node is ready for execution.
+     * Returns true if this node is ready for execution
+     * and false if it is not.
      *
      * @return boolean
      */
@@ -529,6 +552,8 @@ abstract class ezcWorkflowNode implements ezcWorkflowVisitable
     /**
      * Executes this node.
      *
+     * @todo when is this called, who calls it, what happens if you call
+     *       it when you're not supposed to.
      * @param  ezcWorkflowExecution $execution
      * @return boolean true when the node finished execution,
      *                 and false otherwise
@@ -543,7 +568,11 @@ abstract class ezcWorkflowNode implements ezcWorkflowVisitable
     }
 
     /**
-     * Adds a node to the workflow associated with this node.
+     * Adds $node to the workflow associated with this node.
+     *
+     * If this node is not associated with a workflow
+     * this node is associated with the workflow of
+     * $node instead.
      *
      * @param ezcWorkflowNode $node The node to be added.
      */

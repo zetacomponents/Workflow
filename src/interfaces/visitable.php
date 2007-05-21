@@ -13,6 +13,9 @@
  * by ezcWorkflowVisitor implementations for processing using the
  * Visitor design pattern.
  *
+ * All elements that will be part of the workflow tree must
+ * implement this interface.
+ *
  * @package Workflow
  * @version //autogen//
  */

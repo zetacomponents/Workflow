@@ -9,8 +9,17 @@
  */
 
 /**
- * This node sets a workflow variable.
+ * An object of the ezcWorkflowNodeVariableSet class sets the specified workflow variable to
+ * a given value.
  *
+ * <code>
+ *  $set = new ezcWorkflowNodeVariableSet ( array ( ' variable name ' = > $value ) );
+ * </code>
+ *
+ * Incomming nodes: 1
+ * Outgoing nodes: 1
+ *
+ * @todo is this only meant for static use (e.g value defined at workflow build up) or also for dynamic use?
  * @package Workflow
  * @version //autogen//
  */

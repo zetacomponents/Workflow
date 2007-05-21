@@ -17,13 +17,14 @@
 abstract class ezcWorkflowUtil
 {
     /**
-     * Finds an object in an array of objects.
+     * Finds the object $needlein an array of objects
+     * and returns the position in the $haystack
      *
      * @param array $haystack The array of objects to search.
-     * @param object $object The object to search for.
+     * @param object $needle The object to search for.
      * @return mixed The index position at which the object is located in the array, false otherwise.
      */
-    public static function findObject( Array $haystack, $needle )
+    public static function findObject( array $haystack, $needle )
     {
         $keys  = array_keys( $haystack );
         $count = count( $keys );

@@ -9,8 +9,15 @@
  */
 
 /**
- * This node starts a sub workflow.
+ * An object of the ezcWorkflowNodeSubWorkflow class represents a sub-workflow.
  *
+ * When the node is reached during execution of the workflow, the specified sub-workflow
+ * is started. The original workflow is suspended until the sub-workflow has finished executing.
+ *
+ * Incomming nodes: 1
+ * Outgoing nodes: 1
+ *
+ * @todo Example, how do you set the sub workflow starting point?
  * @package Workflow
  * @version //autogen//
  */

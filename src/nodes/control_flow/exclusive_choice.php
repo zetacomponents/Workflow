@@ -11,6 +11,14 @@
 /**
  * This node implements the Exclusive Choice workflow pattern.
  *
+ * The Exclusive Choice workflow pattern defines multiple possible paths
+ * for the workflow of which exactly one is chosen based on the conditions
+ * set for the out nodes.
+ *
+ * Incomming nodes: 1
+ * Outgoing nodes: 2..*
+ *
+ * @todo example
  * @package Workflow
  * @version //autogen//
  */

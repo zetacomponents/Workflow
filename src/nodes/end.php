@@ -9,7 +9,15 @@
  */
 
 /**
- * This node marks an end of the workflow.
+ * An object of the ezcWorkflowNodeEnd class represents an end node of a workflow.
+ *
+ * A workflow must have at least one end node. The execution of the workflow ends
+ * when an end node is reached.
+ * Creating an object of the ezcWorkflow class automatically creates a default end node for the new
+ * workflow. It can be accessed through the getEndNode() method.
+ *
+ * Incomming nodes: 1
+ * Outgoing nodes: 0
  *
  * @package Workflow
  * @version //autogen//

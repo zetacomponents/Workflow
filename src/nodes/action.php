@@ -9,7 +9,13 @@
  */
 
 /**
- * This is the node that so called service objects can be attached to.
+ * An object of the ezcWorkflowNodeAction class represents an activity node holding business logic.
+ *
+ * When the node is reached during execution of the workflow, the business logic that is implemented
+ * by the associated service object is executed.
+ *
+ * Incomming nodes: 1
+ * Outgoing nodes: 1
  *
  * @package Workflow
  * @version //autogen//

@@ -9,7 +9,14 @@
  */
 
 /**
- * This node marks the start of the workflow.
+ * An object of the ezcWorkflowNodeStart class represents the one and only
+ * tart node of a workflow. The execution of the workflow starts here.
+ *
+ * Creating an object of the ezcWorkflow class automatically creates the start node
+ * for the new workflow. It can be accessed through the getStartNode() method.
+ *
+ * Incomming nodes: 0
+ * Outgoing nodes: 1
  *
  * @package Workflow
  * @version //autogen//

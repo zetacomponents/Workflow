@@ -11,6 +11,19 @@
 /**
  * This node implements the Synchronization (AND-Join) workflow pattern.
  *
+ * The Synchronization workflow pattern synchronizes multiple parallel threads of execution
+ * into a single thread of execution.
+ *
+ * Workflow execution continues once all threads of execution that are to be synchronized have
+ * finished executing (exactly once).
+ *
+ * Use Case Example: After the confirmation email has been sent and the shipping process has
+ * been completed, the order can be archived.
+ *
+ * Incomming nodes: 2..*
+ * Outgoing nodes: 1
+ *
+ * @todo example
  * @package Workflow
  * @version //autogen//
  */

@@ -9,8 +9,8 @@
  */
 
 /**
- * Exception will be thrown when an error related to saving or loading
- * a workflow definition occurs.
+ * This exception will be thrown when an error
+ * related to saving or loading a workflow definition occurs.
  *
  * @package Workflow
  * @version //autogen//

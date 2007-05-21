@@ -11,6 +11,17 @@
 /**
  * This node implements the Parallel Split workflow pattern.
  *
+ * The Parallel Split work?ow pattern divides one thread of execution
+ * unconditionally into multiple parallel threads of execution.
+ *
+ * Use Case Example: After the credit card speci?ed by the customer has been successfully
+ * charged, the activities of sending a con?rmation email and starting the shipping process can
+ * be executed in parallel.
+ *
+ * Incomming nodes: 1
+ * Outgoing nodes: 2..*
+ *
+ * $todo example
  * @package Workflow
  * @version //autogen//
  */

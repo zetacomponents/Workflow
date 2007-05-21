@@ -11,13 +11,15 @@
 /**
  * Class representing a workflow.
  *
+ * @TODO explain what the definition handler does
+ *
  * @package Workflow
  * @version //autogen//
  */
 class ezcWorkflow implements ezcWorkflowVisitable
 {
     /**
-     * The name of this workflow.
+     * The unique name of this workflow.
      *
      * @var string
      */
@@ -79,7 +81,10 @@ class ezcWorkflow implements ezcWorkflowVisitable
     protected $definitionHandler = null;
 
     /**
-     * Constructor.
+     * Constructs a new workflow object with the name $name.
+     *
+     * Use $startNode and $endNode parameters if you don't want to use the
+     * default start and end nodes.
      *
      * @param string               $name      The name of the workflow.
      * @param ezcWorkflowNodeStart $startNode The start node of the workflow.
@@ -118,7 +123,7 @@ class ezcWorkflow implements ezcWorkflowVisitable
      * Adds a node to this workflow.
      *
      * @param ezcWorkflowNode $node The node to be added.
-     * @return boolean true when the node was added, false otherwise.
+     * @return boolean true when the node was added, false if the node is already in the workflow.
      */
     public function addNode( ezcWorkflowNode $node )
     {
@@ -137,7 +142,7 @@ class ezcWorkflow implements ezcWorkflowVisitable
     /**
      * Returns this workflow's nodes.
      *
-     * @return array The nodes of this workflow.
+     * @return array
      */
     public function getNodes()
     {
@@ -205,6 +210,8 @@ class ezcWorkflow implements ezcWorkflowVisitable
     }
 
     /**
+     * Returns the definition handler for this workflow.
+     *
      * @return ezcWorkflowDefinition
      */
     public function getDefinition()
@@ -213,6 +220,8 @@ class ezcWorkflow implements ezcWorkflowVisitable
     }
 
     /**
+     * Sets the definition handler for this workflow.
+     *
      * @param ezcWorkflowDefinition $definitionHandler
      */
     public function setDefinition( ezcWorkflowDefinition $definitionHandler )
@@ -237,6 +246,8 @@ class ezcWorkflow implements ezcWorkflowVisitable
     }
 
     /**
+     * Returns the version number for this workflow.
+     *
      * @return integer
      */
     public function getVersion()
@@ -245,6 +256,8 @@ class ezcWorkflow implements ezcWorkflowVisitable
     }
 
     /**
+     * Sets the version number of this workflow to $version.
+     *
      * @param integer $version
      */
     public function setVersion( $version )
@@ -254,6 +267,9 @@ class ezcWorkflow implements ezcWorkflowVisitable
 
     /**
      * Verifies the specification of this workflow.
+     *
+     * See the documentation of ezcWorkflowVisitorVerification for
+     * details.
      *
      * @throws ezcWorkflowInvalidDefinitionException if the specification of this workflow is not correct.
      */
@@ -267,6 +283,9 @@ class ezcWorkflow implements ezcWorkflowVisitable
     }
 
     /**
+     * Overridden implementation of accept() calls
+     * accept on the start node.
+     *
      * @param ezcWorkflowVisitor $visitor
      */
     public function accept( ezcWorkflowVisitor $visitor )
@@ -276,6 +295,8 @@ class ezcWorkflow implements ezcWorkflowVisitable
     }
 
     /**
+     * Returns the unique name of this workflow.
+     *
      * @return string
      */
     public function getName()
@@ -284,8 +305,12 @@ class ezcWorkflow implements ezcWorkflowVisitable
     }
 
     /**
+     * Sets the name of this workflow to $name.
+     *
+     * $name must uniquely identify this workflow.
+     *
      * @param string $name
-     * @throws ezcBaseValueException
+     * @throws ezcBaseValueException if $name is not a string
      */
     public function setName( $name )
     {
@@ -302,11 +327,14 @@ class ezcWorkflow implements ezcWorkflowVisitable
     }
 
     /**
-     * Adds a handler for a variable.
+     * Sets the class $className to handle the variable named $variableName.
+     *
+     * $className must be the name of a class implementing the
+     * ezcWorkflowVariableHandler interface.
      *
      * @param string $variableName
      * @param string $className
-     * @throws ezcWorkflowInvalidDefinitionException
+     * @throws ezcWorkflowInvalidDefinitionException if $className does not contain the name of a valid class implementing ezcWorkflowVariableHandler
      */
     public function addVariableHandler( $variableName, $className )
     {
@@ -334,7 +362,10 @@ class ezcWorkflow implements ezcWorkflowVisitable
     }
 
     /**
-     * Removes a handler for a variable.
+     * Removes the handler for $variableName and returns true
+     * on success.
+     *
+     * Returns false if no handler was set for $variableName.
      *
      * @param string $variableName
      * @return boolean
@@ -353,9 +384,13 @@ class ezcWorkflow implements ezcWorkflowVisitable
     /**
      * Sets handlers for multiple variables.
      *
+     * The format of $variableHandlers is
+     * array( 'variableName' => ezcWorkflowVariableHandler )
+     *
+     * @throws ezcWorkflowInvalidDefinitionException if $className does not contain the name of a valid class implementing ezcWorkflowVariableHandler
      * @param array $variableHandlers
      */
-    public function setVariableHandlers( Array $variableHandlers )
+    public function setVariableHandlers( array $variableHandlers )
     {
         $this->variableHandlers = array();
 
@@ -367,6 +402,9 @@ class ezcWorkflow implements ezcWorkflowVisitable
 
     /**
      * Returns the variable handlers.
+     *
+     * The format of the returned array is
+     * array( 'variableName' => ezcWorkflowVariableHandler )
      *
      * @return array
      */

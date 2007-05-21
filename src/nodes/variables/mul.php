@@ -9,7 +9,20 @@
  */
 
 /**
- * This node multiplies a workflow variable with a value.
+ * Multiplies a workflow variable with another variable or a constant value.
+ *
+ * An object of the ezcWorkflowNodeVariableMul class multiplies a specified workflow
+ * variable with a given value, either a constant or the value of another workflow variable.
+ *
+ * <code>
+ *   $mul = new ezcWorkflowNodeVariableMul (
+ *           array ( 'name' = > 'variable name' , 'value' = > $value )
+ *            );
+ * </code>
+ * If $value is a string, the value of the workflow variable identified by that string is used.
+ *
+ * Incomming nodes: 1
+ * Outgoing nodes: 1
  *
  * @package Workflow
  * @version //autogen//

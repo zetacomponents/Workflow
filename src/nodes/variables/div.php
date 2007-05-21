@@ -9,7 +9,19 @@
  */
 
 /**
- * This node divides a workflow variable by a value.
+ * Divides a workflow variable with another variable or a constant value.
+ *
+ * An object of the ezcWorkflowNodeVariableDiv class divides a specified workflow variable
+ * by a given value, either a constant or the value of another workflow variable.
+ * <code>
+ *   $div = new ezcWorkflowNodeVariableDiv (
+ *           array ( 'name' = > 'variable name' , 'value' = > $value )
+ *            );
+ * </code>
+ * If $value is a string, the value of the variable identi?ed by that string is used.
+ *
+ * Incomming nodes: 1
+ * Outgoing nodes: 1
  *
  * @package Workflow
  * @version //autogen//

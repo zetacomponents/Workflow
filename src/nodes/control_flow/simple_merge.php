@@ -11,6 +11,16 @@
 /**
  * This node implements the Simple Merge (XOR-Join) workflow pattern.
  *
+ * The Simple Merge workflow pattern is to be used to merge the possible paths that are defined
+ * by a preceding Exclusive Choice. It is assumed that of these possible paths exactly one is
+ * taken and no synchronization takes place.
+ *
+ * Use Case Example: After the payment has been performed by either credit card or bank
+ * transfer, the order can be processed further.
+ *
+ * Incomming nodes: 2..*
+ * Outgoing nodes: 1
+ *
  * @package Workflow
  * @version //autogen//
  */

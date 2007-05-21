@@ -16,7 +16,7 @@
  */
 abstract class ezcWorkflowExecution
 {
-    /** 
+    /**
      * Execution ID.
      *
      * @var integer
@@ -100,6 +100,8 @@ abstract class ezcWorkflowExecution
     /**
      * Starts the execution of the workflow.
      *
+     * @todo what is parentId? How does it know what. Who calls this and when?
+     * workflow to execute?
      * @param integer $parentId
      */
     public function start( $parentId = 0 )
@@ -137,6 +139,7 @@ abstract class ezcWorkflowExecution
 
     /**
      * Suspend workflow execution.
+     * @todo what exactly does this method do? Lots of magic going on here.. who calls this and when?
      */
     public function suspend()
     {
@@ -173,9 +176,12 @@ abstract class ezcWorkflowExecution
     /**
      * Resume workflow execution.
      *
+     * The format of $inputData is array( 'variableName' => value )
+     * @todo explain executionId..., who calls this and when?
      * @param integer $executionId  ID of the execution to resume.
      * @param array   $inputData    The new input data.
-     * @throws ezcWorkflowInvalidInputException
+     * @throws ezcWorkflowInvalidInputException if the input given does not match the expected data.
+     * @throws ezcWorkflowExecutionException if executionId is not given and there is no prior ID for this execution.
      */
     public function resume( $executionId = false, Array $inputData = array() )
     {
@@ -239,6 +245,7 @@ abstract class ezcWorkflowExecution
 
     /**
      * End workflow execution.
+     * @todo who calls this and when?
      */
     public function end( ezcWorkflowNodeEnd $endNode )
     {
@@ -278,6 +285,9 @@ abstract class ezcWorkflowExecution
 
     /**
      * Main execution loop.
+     *
+     * @todo who calls this and when?
+     * @todo brief explanation of what the execute loop does.
      */
     protected function execute()
     {
@@ -331,10 +341,14 @@ abstract class ezcWorkflowExecution
     }
 
     /**
-     * Activates a node.
+     * Activates a node and returns true if it was activated, false if not.
      *
+     * The node will only be activaated if the node is executable.
+     * See ezcWorkflowNode::isExecutable().
+     *
+     * @todo correct see, what exactly does it mean to be activated?
      * @param ezcWorkflowNode $node
-     * @return boolean true when the node was activated, false otherwise.
+     * @return boolean
      */
     public function activate( ezcWorkflowNode $node )
     {
@@ -375,7 +389,8 @@ abstract class ezcWorkflowExecution
     /**
      * Add a variable that an (input) node is waiting for.
      *
-     * @paran ezcWorkflowNode $node
+     * @todo internal only?
+     * @param ezcWorkflowNode $node
      * @param string $variableName
      * @param ezcWorkflowCondition $condition
      */
@@ -401,11 +416,11 @@ abstract class ezcWorkflowExecution
     }
 
     /**
-     * Start a new thread.
+     * Start a new thread and returns the id of the new thread.
      *
      * @param integer $parentId The id of the parent thread.
      * @param integer $numSiblings The number of threads that are started by the same node.
-     * @return integer The id of the new thread.
+     * @return integer
      */
     public function startThread( $parentId = null, $numSiblings = 1 )
     {
@@ -432,9 +447,9 @@ abstract class ezcWorkflowExecution
     }
 
     /**
-     * Ends a thread.
+     * Ends the thread with id $threadId
      *
-     * @param  integer $threadId The id of the thread that is to be ended.
+     * @param  integer $threadId
      */
     public function endThread( $threadId )
     {
@@ -468,6 +483,7 @@ abstract class ezcWorkflowExecution
     /**
      * Returns a new execution object for a sub workflow.
      *
+     * @todo who and when is this calls?
      * @param  integer $id
      * @param  boolean $interactive
      * @return ezcWorkflowExecution
