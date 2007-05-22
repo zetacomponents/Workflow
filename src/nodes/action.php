@@ -97,7 +97,14 @@ class ezcWorkflowNodeAction extends ezcWorkflowNode
             );
         }
 
-        return $class->newInstanceArgs( $this->configuration['arguments'] );
+        if ( !empty( $this->configuration['arguments'] ) )
+        {
+            return $class->newInstanceArgs( $this->configuration['arguments'] );
+        }
+        else
+        {
+            return $class->newInstance();
+        }
     }
 }
 ?>
