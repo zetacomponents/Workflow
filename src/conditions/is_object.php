@@ -9,7 +9,16 @@
  */
 
 /**
- * Evaluates to true when the variable is an object.
+ * Condition that evaluates to true if the evaluated value is an object.
+ *
+ * Typically used together with ezcWorkflowConditionVariable to use the
+ * condition on a workflow variable.
+ *
+ * <code>
+ *  $condition = new ezcWorkflowConditionVariable ( 'variable name' ,
+ *     new ezcWorkflowConditionIsObject
+ *  );
+ * </code>
  *
  * @package Workflow
  * @version //autogen//
@@ -17,7 +26,7 @@
 class ezcWorkflowConditionIsObject extends ezcWorkflowConditionType
 {
     /**
-     * Evaluates this condition.
+     * Evaluates this condition and returns true if $value is an object or false if not.
      *
      * @param  mixed $value
      * @return boolean true when the condition holds, false otherwise.

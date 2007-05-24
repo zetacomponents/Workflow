@@ -9,7 +9,16 @@
  */
 
 /**
- * Evaluates always to true.
+ * Condition that always evaluates to true.
+ *
+ * Typically used together with ezcWorkflowConditionVariable to use the
+ * condition on a workflow variable.
+ *
+ * <code>
+ *  $condition = new ezcWorkflowConditionVariable ( 'variable name' ,
+ *     new ezcWorkflowConditionIsAnything
+ *  );
+ * </code>
  *
  * @package Workflow
  * @version //autogen//
@@ -17,7 +26,7 @@
 class ezcWorkflowConditionIsAnything extends ezcWorkflowConditionType
 {
     /**
-     * Evaluates this condition.
+     * Returns true.
      *
      * @param  mixed $value
      * @return boolean true

@@ -11,6 +11,13 @@
 /**
  * Boolean OR.
  *
+ * An object of the ezcWorkflowConditionOr class represents a boolean OR expression. It can
+ * hold an arbitrary number of ezcWorkflowCondition objects.
+ *
+ * <code>
+ *  $or = new ezcWorkflowConditionOr ( array ( $condition , ... ) ) ;
+ * </code>
+ *
  * @package Workflow
  * @version //autogen//
  */
@@ -22,7 +29,7 @@ class ezcWorkflowConditionOr extends ezcWorkflowConditionBooleanSet
     protected $concatenation = '||';
 
     /**
-     * Evaluates this condition.
+     * Evaluates this condition with $value and returns true if the condition holds and false otherwise.
      *
      * @param  mixed $value
      * @return boolean true when the condition holds, false otherwise.

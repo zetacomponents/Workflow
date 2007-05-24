@@ -9,7 +9,7 @@
  */
 
 /**
- * Interface for conditions.
+ * Interface for workflow conditions.
  *
  * @package Workflow
  * @version //autogen//

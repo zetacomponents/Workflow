@@ -11,6 +11,13 @@
 /**
  * Boolean AND.
  *
+ * An object of the ezcWorkflowConditionAnd class represents a boolean AND expression. It
+ * can hold an arbitrary number of ezcWorkflowCondition objects.
+ *
+ * <code>
+ *  $and = new ezcWorkflowConditionAnd ( array ( $condition , ... ) ) ;
+ * </code>
+ *
  * @package Workflow
  * @version //autogen//
  */
@@ -22,7 +29,7 @@ class ezcWorkflowConditionAnd extends ezcWorkflowConditionBooleanSet
     protected $concatenation = '&&';
 
     /**
-     * Evaluates this condition.
+     * Evaluates this condition with $value and returns true if the condition holds and false otherwise.
      *
      * @param  mixed $value
      * @return boolean true when the condition holds, false otherwise.

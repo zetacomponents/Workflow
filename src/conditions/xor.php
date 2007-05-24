@@ -11,6 +11,13 @@
 /**
  * Boolean XOR.
  *
+ * An object of the ezcWorkflowConditionXor class represents a boolean XOR expression. It
+ * can hold an arbitrary number of ezcWorkflowCondition objects.
+ *
+ * <code>
+ *  $xor = new ezcWorkflowConditionXor ( array ( $condition , ... ) ) ;
+ * </code>
+ *
  * @package Workflow
  * @version //autogen//
  */
@@ -22,7 +29,7 @@ class ezcWorkflowConditionXor extends ezcWorkflowConditionBooleanSet
     protected $concatenation = 'XOR';
 
     /**
-     * Evaluates this condition.
+     * Evaluates this condition with $value and returns true if the condition holds and false otherwise.
      *
      * @param  mixed $value
      * @return boolean true when the condition holds, false otherwise.

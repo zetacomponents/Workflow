@@ -22,7 +22,9 @@ abstract class ezcWorkflowConditionComparison implements ezcWorkflowCondition
     protected $value;
 
     /**
-     * Constructor.
+     * Constructs a new comparison condition.
+     *
+     * Implemenations will compare $value to the value provided to evaluate().
      *
      * @param  mixed  $value
      */

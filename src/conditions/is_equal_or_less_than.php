@@ -9,8 +9,16 @@
  */
 
 /**
- * Evaluates to true when the variable's value is smaller than or
- * equal to the reference value.
+ * Condition that evaluates to true if the provided value is less than or equal to the reference value.
+ *
+ * Typically used together with ezcWorkflowConditionVariable to use the
+ * condition on a workflow variable.
+ *
+ * <code>
+ *  $condition = new ezcWorkflowConditionVariable ( 'variable name' ,
+ *     new ezcWorkflowConditionIsEqualOrLessThan ( $comparisonValue )
+ *  );
+ * </code>
  *
  * @package Workflow
  * @version //autogen//
@@ -18,7 +26,8 @@
 class ezcWorkflowConditionIsEqualOrLessThan extends ezcWorkflowConditionComparison
 {
     /**
-     * Evaluates this condition.
+     * Evaluates this condition with $value and returns true if $value is less than
+     * or equal to the reference value or false if not.
      *
      * @param  mixed $value
      * @return boolean true when the condition holds, false otherwise.

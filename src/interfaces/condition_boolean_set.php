@@ -9,7 +9,7 @@
  */
 
 /**
- * Abstract base class for boolean sets of conditions.
+ * Abstract base class for boolean sets of conditions like AND, OR and XOR.
  *
  * @package Workflow
  * @version //autogen//
@@ -27,7 +27,9 @@ abstract class ezcWorkflowConditionBooleanSet implements ezcWorkflowCondition
     protected $concatenation;
 
     /**
-     * Constructor.
+     * Constructs a new boolean set with the conditions $conditions.
+     *
+     * The format of $conditions must be array( ezcWorkflowCondition )
      *
      * @param  Array $conditions
      * @throws ezcWorkflowDefinitionException

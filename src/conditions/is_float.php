@@ -9,7 +9,16 @@
  */
 
 /**
- * Evaluates to true when the variable is a float.
+ * Condition that evaluates to true if the evaluated value is a float.
+ *
+ * Typically used together with ezcWorkflowConditionVariable to use the
+ * condition on a workflow variable.
+ *
+ * <code>
+ *  $condition = new ezcWorkflowConditionVariable ( 'variable name' ,
+ *     new ezcWorkflowConditionIsFloat
+ *  );
+ * </code>
  *
  * @package Workflow
  * @version //autogen//
@@ -17,7 +26,7 @@
 class ezcWorkflowConditionIsFloat extends ezcWorkflowConditionType
 {
     /**
-     * Evaluates this condition.
+     * Evaluates this condition and returns true if $value is a float or false if not.
      *
      * @param  mixed $value
      * @return boolean true when the condition holds, false otherwise.

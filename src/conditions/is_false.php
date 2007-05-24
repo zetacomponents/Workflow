@@ -9,7 +9,16 @@
  */
 
 /**
- * Evaluates to true when the variable is false.
+ * Workflow condition that evaluates to true if the provided input is false.
+ *
+ * Typically used together with ezcWorkflowConditionVariable to use the
+ * condition on a workflow variable.
+ *
+ * <code>
+ *  $condition = new ezcWorkflowConditionVariable ( 'variable name' ,
+ *     new ezcWorkflowConditionIsFalse ( $comparisonValue )
+ *  );
+ * </code>
  *
  * @package Workflow
  * @version //autogen//
@@ -17,7 +26,7 @@
 class ezcWorkflowConditionIsFalse implements ezcWorkflowCondition
 {
     /**
-     * Evaluates this condition.
+     * Evaluates this condition with $value and returns true if it is false and false if it is not.
      *
      * @param  mixed $value
      * @return boolean true when the condition holds, false otherwise.

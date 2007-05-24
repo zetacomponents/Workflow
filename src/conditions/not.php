@@ -11,18 +11,27 @@
 /**
  * Boolean NOT.
  *
+ * An object of the ezcWorkflowConditionNot decorates an ezcWorkflowCondition object
+ * and negates its expression.
+ *
+ * <code>
+ * $notNondition = new ezcWorkflowConditionNot ( $condition ) ;
+ * </code>
+ *
  * @package Workflow
  * @version //autogen//
  */
 class ezcWorkflowConditionNot implements ezcWorkflowCondition
 {
     /**
+     * Holds the expression to negate.
+     *
      * @var ezcWorkflowCondition
      */
     protected $condition;
 
     /**
-     * Constructor.
+     * Constructs a new not condition on $condition.
      *
      * @param  ezcWorkflowCondition $condition
      */
@@ -32,7 +41,9 @@ class ezcWorkflowConditionNot implements ezcWorkflowCondition
     }
 
     /**
-     * Evaluates this condition.
+     * Evaluates this condition with the value $value and returns true if the condition holds.
+     *
+     * If the condition does not hold false is returned.
      *
      * @param  mixed $value
      * @return boolean true when the condition holds, false otherwise.

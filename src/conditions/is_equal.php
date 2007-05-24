@@ -9,7 +9,16 @@
  */
 
 /**
- * Evaluates to true when the variable is equal to the reference value.
+ * Condition that checks if a value is equal to a reference value.
+ *
+ * Typically used together with ezcWorkflowConditionVariable to use the
+ * condition on a workflow variable.
+ *
+ * <code>
+ *  $condition = new ezcWorkflowConditionVariable ( 'variable name' ,
+ *     new ezcWorkflowConditionIsEqual ( $comparisonValue )
+ *  );
+ * </code>
  *
  * @package Workflow
  * @version //autogen//
@@ -17,7 +26,7 @@
 class ezcWorkflowConditionIsEqual extends ezcWorkflowConditionComparison
 {
     /**
-     * Evaluates this condition.
+     * Evaluates this condition with $value and returns true if it is false or false if it is not.
      *
      * @param  mixed $value
      * @return boolean true when the condition holds, false otherwise.
