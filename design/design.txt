@@ -63,14 +63,6 @@ workflow patterns are all directly supported by the workflow model.
 Exclusive Choice and Multi-Choice nodes have branching conditions attached to
 them that operate on workflow variables to make their control flow decisions.
 
-The workflow model supports one workflow construct, loops, that is not based on
-a workflow pattern. Loops are represented by a pair of LoopStart and LoopEnd
-nodes that bracket the loop body. Both start and end node of a loop can have
-break conditions attached to them that operate on workflow variables. Inside the
-loop body, VariableAdd, VariableSub, VariableMul, VariableDiv,
-VariableIncrement, and VariableDecrement nodes can be used, for instance, to
-model for or while loops.
-
 Action Nodes and Service Objects
 --------------------------------
 
