@@ -1,6 +1,4 @@
 <?php
-require_once 'common.php';
-
 // Create new workflow of name "Test".
 $workflow = new ezcWorkflow( 'Test' );
 
@@ -55,10 +53,4 @@ $merge = new ezcWorkflowNodeSimpleMerge;
 $merge->addInNode( $true );
 $merge->addInNode( $false );
 $merge->addOutNode( $end );
-
-// Set up workflow definition storage (XML).
-$definition = new ezcWorkflowDefinitionXml;
-
-// Save workflow definition to database.
-$definition->save( $workflow );
 ?>
