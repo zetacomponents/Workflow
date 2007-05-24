@@ -12,6 +12,17 @@
  * An implementation of the ezcWorkflowVisitor interface that
  * verifies a workflow specification.
  *
+ * This visitor should not be used directly but will be used by the
+ * verify() method on the workflow.
+ *
+ * <code>
+ *  $workflow->verify();
+ * </code>
+ *
+ * The verifyer checks that:
+ * - there is only one start node
+ * - all end nodes are reachable
+ *
  * @package Workflow
  * @version //autogen//
  */

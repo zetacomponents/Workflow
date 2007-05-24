@@ -12,6 +12,11 @@
  * An implementation of the ezcWorkflowVisitor interface that
  * generates GraphViz/dot markup for a workflow definition.
  *
+ * <code>
+ *  $visitor = new ezcWorkflowVisitorVisualization;
+ *  $workflow->accept( $visitor );
+ * </code>
+ *
  * @package Workflow
  * @version //autogen//
  */

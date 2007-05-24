@@ -12,6 +12,12 @@
  * Interface for visitor implementations that want to process
  * a workflow using the Visitor design pattern.
  *
+ * visit() is called on each of the nodes in the workflow in a top-down,
+ * depth-first fashion.
+ *
+ * Start the processing of the workflow by calling accept() on the workflow
+ * passing the visitor object as the sole parameter.
+ *
  * @package Workflow
  * @version //autogen//
  */
