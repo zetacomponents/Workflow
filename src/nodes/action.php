@@ -83,7 +83,7 @@ class ezcWorkflowNodeAction extends ezcWorkflowNode
      */
     protected function createObject()
     {
-        if ( !class_exists( $this->configuration['class'], false ) )
+        if ( !class_exists( $this->configuration['class'] ) )
         {
             throw new ezcWorkflowExecutionException(
               'Class not found.'

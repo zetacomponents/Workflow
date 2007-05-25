@@ -347,7 +347,7 @@ class ezcWorkflow implements ezcWorkflowVisitable
      */
     public function addVariableHandler( $variableName, $className )
     {
-        if ( class_exists( $className, false ) )
+        if ( class_exists( $className ) )
         {
             $class = new ReflectionClass( $className );
 
