@@ -38,13 +38,6 @@ class ezcWorkflow implements ezcWorkflowVisitable
     protected $variableHandlers = array();
 
     /**
-     * The nodes of this workflow.
-     *
-     * @var array
-     */
-    protected $nodes = array();
-
-    /**
      * The start node of this workflow.
      *
      * @var ezcWorkflowNodeStart
@@ -70,10 +63,7 @@ class ezcWorkflow implements ezcWorkflowVisitable
      */
     public function __construct( $name, ezcWorkflowNodeStart $startNode = null, ezcWorkflowNodeEnd $endNode = null )
     {
-        if ( is_string( $name ) )
-        {
-            $this->properties['name'] = $name;
-        }
+        $this->name = $name;
 
         // Create a new ezcWorkflowNodeStart object, if necessary.
         if ( $startNode === null )
@@ -85,8 +75,6 @@ class ezcWorkflow implements ezcWorkflowVisitable
             $this->startNode = $startNode;
         }
 
-        $this->addNode( $this->startNode );
-
         // Create a new ezcWorkflowNodeEnd object, if necessary.
         if ( $endNode === null )
         {
@@ -96,8 +84,6 @@ class ezcWorkflow implements ezcWorkflowVisitable
         {
             $this->endNode = $endNode;
         }
-
-        $this->addNode( $this->endNode );
     }
 
     /**
@@ -120,6 +106,10 @@ class ezcWorkflow implements ezcWorkflowVisitable
             case 'version':
                 return $this->properties[$propertyName];
 
+            case 'nodes':
+                $visitor = new ezcWorkflowVisitorNodeCollector( $this );
+
+                return $visitor->getNodes();
             default:
                 break;
         }
@@ -134,14 +124,16 @@ class ezcWorkflow implements ezcWorkflowVisitable
      * @param mixed $val  The value for the property.
      *
      * @throws ezcBaseValueException 
-     *         If a the value for the property definitionHandler is not an
+     *         If the value for the property definitionHandler is not an
      *         instance of ezcWorkflowDefinition.
      * @throws ezcBaseValueException 
-     *         If a the value for the property id is not an integer.
+     *         If the value for the property id is not an integer.
      * @throws ezcBaseValueException 
-     *         If a the value for the property name is not a string.
+     *         If the value for the property name is not a string.
+     * @throws ezcBasePropertyPermissionException 
+     *         If there is a write access to nodes.
      * @throws ezcBaseValueException 
-     *         If a the value for the property version is not an integer.
+     *         If the value for the property version is not an integer.
      * @ignore
      */
     public function __set( $propertyName, $val )
@@ -178,6 +170,11 @@ class ezcWorkflow implements ezcWorkflowVisitable
 
                 return;
 
+            case 'nodes':
+                throw new ezcBasePropertyPermissionException(
+                  'nodes', ezcBasePropertyPermissionException::READ
+                );
+
             case 'version':
                 if ( !( is_int( $val ) ) )
                 {
@@ -209,41 +206,12 @@ class ezcWorkflow implements ezcWorkflowVisitable
             case 'definitionHandler':
             case 'id':
             case 'name':
+            case 'nodes':
             case 'version':
                 return true;
             default:
                 return false;
         }
-    }
-
-    /**
-     * Adds a node to this workflow.
-     *
-     * @param ezcWorkflowNode $node The node to be added.
-     * @return boolean true when the node was added, false if the node is already in the workflow.
-     */
-    public function addNode( ezcWorkflowNode $node )
-    {
-        // Only add node if it has not been added before.
-        if ( ezcWorkflowUtil::findObject( $this->nodes, $node ) !== false )
-        {
-            return false;
-        }
-
-        $this->nodes[] = $node;
-        $node->setWorkflow( $this );
-
-        return true;
-    }
-
-    /**
-     * Returns this workflow's nodes.
-     *
-     * @return array
-     */
-    public function getNodes()
-    {
-        return $this->nodes;
     }
 
     /**

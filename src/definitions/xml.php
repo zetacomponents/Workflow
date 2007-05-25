@@ -203,11 +203,6 @@ class ezcWorkflowDefinitionXml implements ezcWorkflowDefinition
         $workflow->definitionHandler = $this;
         $workflow->version = (int)$workflowVersion;
 
-        foreach ( $nodes as $node )
-        {
-            $node->setWorkflow( $workflow );
-        }
-
         // Handle the variable handlers.
         foreach ( $document->variableHandler as $node )
         {
@@ -243,7 +238,7 @@ class ezcWorkflowDefinitionXml implements ezcWorkflowDefinition
         $root->setAttribute( 'name', $workflow->name );
         $root->setAttribute( 'version', $workflowVersion );
 
-        $nodes = $workflow->getNodes();
+        $nodes    = $workflow->nodes;
         $numNodes = count( $nodes );
 
         foreach ( $nodes as $id => $node )

@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <workflow name="AddVariables" version="1">
   <node id="1" type="Start">
-    <outNode id="3"/>
+    <outNode id="2"/>
   </node>
-  <node id="2" type="End"/>
-  <node id="3" type="VariableSet">
+  <node id="2" type="VariableSet">
     <variable name="a">
       <integer>1</integer>
     </variable>
     <variable name="b">
       <integer>1</integer>
     </variable>
+    <outNode id="3"/>
+  </node>
+  <node id="3" type="VariableAdd" variable="b" value="a">
     <outNode id="4"/>
   </node>
-  <node id="4" type="VariableAdd" variable="b" value="a">
-    <outNode id="2"/>
-  </node>
+  <node id="4" type="End"/>
 </workflow>

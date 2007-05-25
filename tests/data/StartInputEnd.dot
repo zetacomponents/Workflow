@@ -1,8 +1,8 @@
 digraph StartInputEnd {
 node1 [label="Start"]
-node3 [label="Input"]
-node2 [label="End"]
+node2 [label="Input"]
+node3 [label="End"]
 
-node1 -> node3
-node3 -> node2
+node1 -> node2
+node2 -> node3
 }

@@ -27,6 +27,7 @@ class ezcWorkflowExecutionTest extends ezcWorkflowTestCase
     {
         parent::setUp();
         $this->execution = new ezcWorkflowTestExecution;
+        $this->execution->definitionHandler = $this->definition;
     }
 
     public function testInteractiveWorkflowRaisesException()

@@ -1,10 +1,10 @@
 digraph StartSetUnsetEnd {
 node1 [label="Start"]
-node3 [label="x = 1"]
-node4 [label="unset(x)"]
-node2 [label="End"]
+node2 [label="x = 1"]
+node3 [label="unset(x)"]
+node4 [label="End"]
 
-node1 -> node3
+node1 -> node2
+node2 -> node3
 node3 -> node4
-node4 -> node2
 }

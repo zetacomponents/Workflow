@@ -1,8 +1,8 @@
 digraph WorkflowWithSubWorkflow {
 node1 [label="Start"]
-node3 [label="Sub Workflow: StartEnd"]
-node2 [label="End"]
+node2 [label="Sub Workflow: StartEnd"]
+node3 [label="End"]
 
-node1 -> node3
-node3 -> node2
+node1 -> node2
+node2 -> node3
 }

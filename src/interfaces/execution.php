@@ -17,6 +17,15 @@
 abstract class ezcWorkflowExecution
 {
     /**
+     * Container to hold the properties
+     *
+     * @var array(string=>mixed)
+     */
+    protected $properties = array(
+      'definitionHandler' => null
+    );
+
+    /**
      * Execution ID.
      *
      * @var integer
@@ -96,6 +105,80 @@ abstract class ezcWorkflowExecution
      * @var array
      */
     protected $waitingFor = array();
+
+    /**
+     * Property read access.
+     *
+     * @throws ezcBasePropertyNotFoundException 
+     *         If the the desired property is not found.
+     * 
+     * @param string $propertyName Name of the property.
+     * @return mixed Value of the property or null.
+     * @ignore
+     */
+    public function __get( $propertyName )
+    {
+        switch ( $propertyName ) 
+        {
+            case 'definitionHandler':
+                return $this->properties[$propertyName];
+
+            default:
+                break;
+        }
+
+        throw new ezcBasePropertyNotFoundException( $propertyName );
+    }
+
+    /**
+     * Property write access.
+     * 
+     * @param string $propertyName Name of the property.
+     * @param mixed $val  The value for the property.
+     *
+     * @throws ezcBaseValueException 
+     *         If a the value for the property definitionHandler is not an
+     *         instance of ezcWorkflowDefinition.
+     * @ignore
+     */
+    public function __set( $propertyName, $val )
+    {
+        switch ( $propertyName ) 
+        {
+            case 'definitionHandler':
+                if ( !( $val instanceof ezcWorkflowDefinition ) )
+                {
+                    throw new ezcBaseValueException( $propertyName, $val, 'ezcWorkflowDefinition' );
+                }
+
+                $this->properties['definitionHandler'] = $val;
+
+                return;
+
+            default:
+                break;
+        }
+
+        throw new ezcBasePropertyNotFoundException( $propertyName );
+    }
+ 
+    /**
+     * Property isset access.
+     * 
+     * @param string $propertyName Name of the property.
+     * @return bool True is the property is set, otherwise false.
+     * @ignore
+     */
+    public function __isset( $propertyName )
+    {
+        switch ( $propertyName )
+        {
+            case 'definitionHandler':
+                return true;
+            default:
+                return false;
+        }
+    }
 
     /**
      * Starts the execution of the workflow.

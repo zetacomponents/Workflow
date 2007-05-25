@@ -38,16 +38,14 @@ class ezcWorkflowNodeSubWorkflow extends ezcWorkflowNode
      */
     public function execute( ezcWorkflowExecution $execution )
     {
-        $definition = $this->workflow->definitionHandler;
-
-        if ( $definition === null )
+        if ( $execution->definitionHandler === null )
         {
             throw new ezcWorkflowExecutionException(
               'No ezcWorkflowDefinition implementation available.'
             );
         }
 
-        $workflow = $definition->loadByName( $this->configuration );
+        $workflow = $execution->definitionHandler->loadByName( $this->configuration );
 
         if ( !$workflow->isInteractive() && !$workflow->hasSubWorkflows() )
         {

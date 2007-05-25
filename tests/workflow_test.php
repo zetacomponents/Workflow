@@ -72,7 +72,7 @@ class ezcWorkflowTest extends ezcWorkflowTestCase
     public function testGetNodes()
     {
         $this->setUpStartEnd();
-        $nodes = $this->workflow->getNodes();
+        $nodes = $this->workflow->nodes;
 
         $this->assertSame( $this->startNode, $nodes[0] );
         $this->assertSame( $this->endNode, $nodes[1] );

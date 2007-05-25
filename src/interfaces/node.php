@@ -43,13 +43,6 @@ abstract class ezcWorkflowNode implements ezcWorkflowVisitable
     protected $id = false;
 
     /**
-     * The workflow this node belongs to.
-     *
-     * @var ezcWorkflow
-     */
-    protected $workflow = null;
-
-    /**
      * The incoming nodes of this node.
      *
      * @var array
@@ -181,9 +174,6 @@ abstract class ezcWorkflowNode implements ezcWorkflowVisitable
         // Check whether the node is already an incoming node of this node.
         if ( ezcWorkflowUtil::findObject( $this->inNodes, $node ) === false )
         {
-            // Add the other node to the workflow.
-            $this->addNodeToWorkflow( $node );
-
             // Add this node as an outgoing node to the other node.
             if ( !self::$internalCall )
             {
@@ -251,9 +241,6 @@ abstract class ezcWorkflowNode implements ezcWorkflowVisitable
         // Check whether the other node is already an outgoing node of this node.
         if ( ezcWorkflowUtil::findObject( $this->outNodes, $node ) === false )
         {
-            // Add the other node to the workflow.
-            $this->addNodeToWorkflow( $node );
-
             // Add this node as an incoming node to the other node.
             if ( !self::$internalCall )
             {
@@ -304,27 +291,6 @@ abstract class ezcWorkflowNode implements ezcWorkflowVisitable
         }
 
         return false;
-    }
-
-    /**
-     * Sets the workflow object this node belongs to.
-     *
-     * @param ezcWorkflow $workflow The workflow object this node belongs to.
-     */
-    public function setWorkflow( ezcWorkflow $workflow )
-    {
-        $this->workflow = $workflow;
-        $this->workflow->addNode( $this );
-    }
-
-    /**
-     * Returns the workflow object this node belongs to.
-     *
-     * @return ezcWorkflow
-     */
-    public function getWorkflow()
-    {
-        return $this->workflow;
     }
 
     /**
@@ -565,39 +531,6 @@ abstract class ezcWorkflowNode implements ezcWorkflowVisitable
         $this->threadId = null;
 
         return true;
-    }
-
-    /**
-     * Adds $node to the workflow associated with this node.
-     *
-     * If this node is not associated with a workflow
-     * this node is associated with the workflow of
-     * $node instead.
-     *
-     * @param ezcWorkflowNode $node The node to be added.
-     */
-    protected function addNodeToWorkflow( ezcWorkflowNode $node )
-    {
-        $workflow = $node->getWorkflow();
-
-        if ( $this->workflow === null && $workflow !== null )
-        {
-            $this->workflow = $workflow;
-        }
-
-        if ( $this->workflow !== null )
-        {
-            $nodes = array_merge(
-              array( $node ),
-              $node->getOutNodes(),
-              $this->getOutNodes()
-            );
-
-            foreach ( $nodes as $node )
-            {
-                $this->workflow->addNode( $node );
-            }
-        }
     }
 
     /**

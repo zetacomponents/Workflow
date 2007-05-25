@@ -77,5 +77,6 @@ return array(
     'ezcWorkflowVariableHandler'               => 'Workflow/interfaces/variable_handler.php',
     'ezcWorkflowVisitorVerification'           => 'Workflow/visitors/verification.php',
     'ezcWorkflowVisitorVisualization'          => 'Workflow/visitors/visualization.php',
+    'ezcWorkflowVisitorNodeCollector'          => 'Workflow/visitors/node_collector.php',
 );
 ?>
