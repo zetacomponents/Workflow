@@ -203,7 +203,7 @@ class ezcWorkflowExecutionTest extends ezcWorkflowTestCase
     public function testNonInteractiveSubWorkflow()
     {
         $this->setUpWorkflowWithSubWorkflow( 'StartEnd' );
-        $this->workflow->setDefinition( $this->definition );
+        $this->workflow->definitionHandler = $this->definition;
         $this->execution->setWorkflow( $this->workflow );
         $this->execution->start();
 
@@ -215,7 +215,7 @@ class ezcWorkflowExecutionTest extends ezcWorkflowTestCase
     public function testInteractiveSubWorkflow()
     {
         $this->setUpWorkflowWithSubWorkflow( 'StartInputEnd' );
-        $this->workflow->setDefinition( $this->definition );
+        $this->workflow->definitionHandler = $this->definition;
         $this->execution->setWorkflow( $this->workflow );
         $this->execution->setInputVariableForSubWorkflow( 'variable', 'value' );
         $this->execution->start();

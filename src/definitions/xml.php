@@ -200,8 +200,8 @@ class ezcWorkflowDefinitionXml implements ezcWorkflowDefinition
 
         // Create workflow object and add the node objects to it.
         $workflow = new ezcWorkflow( $workflowName, $startNode, $defaultEndNode );
-        $workflow->setDefinition( $this );
-        $workflow->setVersion( $workflowVersion );
+        $workflow->definitionHandler = $this;
+        $workflow->version = (int)$workflowVersion;
 
         foreach ( $nodes as $node )
         {
@@ -231,9 +231,8 @@ class ezcWorkflowDefinitionXml implements ezcWorkflowDefinition
      */
     public function save( ezcWorkflow $workflow )
     {
-        $workflowName = $workflow->getName();
-        $workflowVersion = $this->getCurrentVersion( $workflowName ) + 1;
-        $filename = $this->getFilename( $workflowName, $workflowVersion );
+        $workflowVersion = $this->getCurrentVersion( $workflow->name ) + 1;
+        $filename = $this->getFilename( $workflow->name, $workflowVersion );
 
         $document = new DOMDocument( '1.0', 'UTF-8' );
         $document->formatOutput = true;
@@ -241,7 +240,7 @@ class ezcWorkflowDefinitionXml implements ezcWorkflowDefinition
         $root = $document->createElement( 'workflow' );
         $document->appendChild( $root );
 
-        $root->setAttribute( 'name', $workflowName );
+        $root->setAttribute( 'name', $workflow->name );
         $root->setAttribute( 'version', $workflowVersion );
 
         $nodes = $workflow->getNodes();

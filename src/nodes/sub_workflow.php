@@ -38,7 +38,7 @@ class ezcWorkflowNodeSubWorkflow extends ezcWorkflowNode
      */
     public function execute( ezcWorkflowExecution $execution )
     {
-        $definition = $this->workflow->getDefinition();
+        $definition = $this->workflow->definitionHandler;
 
         if ( $definition === null )
         {

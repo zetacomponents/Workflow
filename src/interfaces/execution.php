@@ -118,8 +118,8 @@ abstract class ezcWorkflowExecution
             'Started execution #%d of workflow "%s" (version %d).',
 
             $this->id,
-            $this->workflow->getName(),
-            $this->workflow->getVersion()
+            $this->workflow->name,
+            $this->workflow->version
           )
         );
 
@@ -167,8 +167,8 @@ abstract class ezcWorkflowExecution
             'Suspended execution #%d of workflow "%s" (version %d).',
 
             $this->id,
-            $this->workflow->getName(),
-            $this->workflow->getVersion()
+            $this->workflow->name,
+            $this->workflow->version
           )
         );
     }
@@ -229,8 +229,8 @@ abstract class ezcWorkflowExecution
             'Resumed execution #%d of workflow "%s" (version %d).',
 
             $this->id,
-            $this->workflow->getName(),
-            $this->workflow->getVersion()
+            $this->workflow->name,
+            $this->workflow->version
           )
         );
 
@@ -264,8 +264,8 @@ abstract class ezcWorkflowExecution
             $endNode->getId(),
             get_class( $endNode ),
             $this->id,
-            $this->workflow->getName(),
-            $this->workflow->getVersion()
+            $this->workflow->name,
+            $this->workflow->version
           ),
           ezcWorkflowExecutionListener::DEBUG
         );
@@ -277,8 +277,8 @@ abstract class ezcWorkflowExecution
             'Ended execution #%d of workflow "%s" (version %d).',
 
             $this->id,
-            $this->workflow->getName(),
-            $this->workflow->getVersion()
+            $this->workflow->name,
+            $this->workflow->version
           )
         );
     }
@@ -320,8 +320,8 @@ abstract class ezcWorkflowExecution
                                 $node->getId(),
                                 get_class( $node ),
                                 $this->id,
-                                $this->workflow->getName(),
-                                $this->workflow->getVersion()
+                                $this->workflow->name,
+                                $this->workflow->version
                               ),
                               ezcWorkflowExecutionListener::DEBUG
                             );
@@ -377,8 +377,8 @@ abstract class ezcWorkflowExecution
             $node->getId(),
             get_class( $node ),
             $this->id,
-            $this->workflow->getName(),
-            $this->workflow->getVersion()
+            $this->workflow->name,
+            $this->workflow->version
           ),
           ezcWorkflowExecutionListener::DEBUG
         );
@@ -437,8 +437,8 @@ abstract class ezcWorkflowExecution
             $parentId != null ? 'parent: ' . $parentId . ', ' : '',
             $numSiblings,
             $this->id,
-            $this->workflow->getName(),
-            $this->workflow->getVersion()
+            $this->workflow->name,
+            $this->workflow->version
           ),
           ezcWorkflowExecutionListener::DEBUG
         );
@@ -463,8 +463,8 @@ abstract class ezcWorkflowExecution
 
                 $threadId,
                 $this->id,
-                $this->workflow->getName(),
-                $this->workflow->getVersion()
+                $this->workflow->name,
+                $this->workflow->version
               ),
               ezcWorkflowExecutionListener::DEBUG
             );
@@ -684,8 +684,8 @@ abstract class ezcWorkflowExecution
             $variableName,
             $value,
             $this->id,
-            $this->workflow->getName(),
-            $this->workflow->getVersion()
+            $this->workflow->name,
+            $this->workflow->version
           ),
           ezcWorkflowExecutionListener::DEBUG
         );
@@ -723,8 +723,8 @@ abstract class ezcWorkflowExecution
 
                 $variableName,
                 $this->id,
-                $this->workflow->getName(),
-                $this->workflow->getVersion()
+                $this->workflow->name,
+                $this->workflow->version
               ),
               ezcWorkflowExecutionListener::DEBUG
             );

@@ -27,39 +27,39 @@ class ezcWorkflowTest extends ezcWorkflowTestCase
     public function testGetName()
     {
         $this->setUpStartEnd();
-        $this->assertEquals( 'StartEnd', $this->workflow->getName() );
+        $this->assertEquals( 'StartEnd', $this->workflow->name );
     }
 
     public function testGetSetId()
     {
         $this->setUpStartEnd();
-        $this->assertFalse( $this->workflow->getId() );
+        $this->assertFalse( $this->workflow->id );
 
-        $this->workflow->setId( 1 );
+        $this->workflow->id = 1;
 
-        $this->assertEquals( 1, $this->workflow->getId() );
+        $this->assertEquals( 1, $this->workflow->id );
     }
 
     public function testGetSetDefinition()
     {
         $this->setUpStartEnd();
-        $this->assertNull( $this->workflow->getDefinition() );
+        $this->assertNull( $this->workflow->definitionHandler );
 
-        $this->workflow->setDefinition( $this->definition );
-        $this->assertNotNull( $this->workflow->getDefinition() );
+        $this->workflow->definitionHandler = $this->definition;
+        $this->assertNotNull( $this->workflow->definitionHandler );
     }
 
     public function testGetSetName()
     {
         $workflow = new ezcWorkflow( 'Test' );
-        $this->assertEquals( 'Test', $workflow->getName() );
+        $this->assertEquals( 'Test', $workflow->name );
 
-        $workflow->setName( 'Test2' );
-        $this->assertEquals( 'Test2', $workflow->getName() );
+        $workflow->name = 'Test2';
+        $this->assertEquals( 'Test2', $workflow->name );
 
         try
         {
-            $workflow->setName( array() );
+            $workflow->name = array();
         }
         catch ( ezcBaseValueException $e )
         {
