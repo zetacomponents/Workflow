@@ -73,7 +73,6 @@ return array(
     'ezcWorkflowNodeVariableSet'               => 'Workflow/nodes/variables/set.php',
     'ezcWorkflowNodeVariableSub'               => 'Workflow/nodes/variables/sub.php',
     'ezcWorkflowNodeVariableUnset'             => 'Workflow/nodes/variables/unset.php',
-    'ezcWorkflowRollbackableServiceObject'     => 'Workflow/interfaces/rollbackable_service_object.php',
     'ezcWorkflowUtil'                          => 'Workflow/util.php',
     'ezcWorkflowVariableHandler'               => 'Workflow/interfaces/variable_handler.php',
     'ezcWorkflowVisitorVerification'           => 'Workflow/visitors/verification.php',
