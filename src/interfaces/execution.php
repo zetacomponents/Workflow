@@ -284,32 +284,45 @@ abstract class ezcWorkflowExecution
     }
 
     /**
-     * Main execution loop.
-     *
-     * @todo who calls this and when?
-     * @todo brief explanation of what the execute loop does.
+     * The workflow engine's main execution loop. It is started by start() and
+     * resume().
      */
     protected function execute()
     {
+        // Try to execute nodes until while there are executable nodes on the
+        // stack of activated nodes.
         do
         {
+            // Flag that indicates whether a node has been executed during the
+            // current iteration of the loop.
             $executed = false;
 
+            // Iterate the stack of activated nodes.
             foreach ( $this->activatedNodes as $key => $node )
             {
+                // Only try to execute a node if the execution of the
+                // workflow instance has not ended yet.
                 if ( !$this->hasEnded() )
                 {
+                    // The current node is an end node but there are still
+                    // activated nodes on the stack.
                     if ( $node instanceof ezcWorkflowNodeEnd &&
                          $this->numActivatedNodes != $this->numActivatedEndNodes )
                     {
                         continue;
                     }
 
+                    // Execute the current node and check whether it finished
+                    // executing.
                     if ( $node->execute( $this ) )
                     {
+                        // Remove current node from the stack of activated
+                        // nodes.
                         unset( $this->activatedNodes[$key] );
                         $this->numActivatedNodes--;
 
+                        // Notify workflow listeners about the node that has
+                        // been executed.
                         if ( !$this->hasEnded() )
                         {
                             $this->notifyListeners(
@@ -327,6 +340,7 @@ abstract class ezcWorkflowExecution
                             );
                         }
 
+                        // Toggle flag (see above).
                         $executed = true;
                     }
                 }
@@ -334,6 +348,8 @@ abstract class ezcWorkflowExecution
         }
         while ( !empty( $this->activatedNodes ) && $executed );
 
+        // The stack of activated nodes is not empty but at the moment none of
+        // its nodes can be executed.
         if ( !$this->hasEnded() )
         {
             $this->suspend();
