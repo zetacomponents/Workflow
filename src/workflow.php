@@ -110,8 +110,6 @@ class ezcWorkflow implements ezcWorkflowVisitable
                 $visitor = new ezcWorkflowVisitorNodeCollector( $this );
 
                 return $visitor->getNodes();
-            default:
-                break;
         }
 
         throw new ezcBasePropertyNotFoundException( $propertyName );
@@ -184,9 +182,6 @@ class ezcWorkflow implements ezcWorkflowVisitable
                 $this->properties['version'] = $val;
 
                 return;
-
-            default:
-                break;
         }
 
         throw new ezcBasePropertyNotFoundException( $propertyName );

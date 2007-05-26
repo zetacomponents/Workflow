@@ -178,5 +178,129 @@ class ezcWorkflowTest extends ezcWorkflowTestCase
 
         $this->fail();
     }
+
+    public function testProperties()
+    {
+        $this->setUpStartEnd();
+
+        $this->assertTrue( isset( $this->workflow->definitionHandler ) );
+        $this->assertTrue( isset( $this->workflow->id ) );
+        $this->assertTrue( isset( $this->workflow->name ) );
+        $this->assertTrue( isset( $this->workflow->nodes ) );
+        $this->assertTrue( isset( $this->workflow->version ) );
+        $this->assertFalse( isset( $this->workflow->foo ) );
+    }
+
+    public function testProperties2()
+    {
+        $this->setUpStartEnd();
+
+        try
+        {
+            $foo = $this->workflow->foo;
+        }
+        catch ( ezcBasePropertyNotFoundException $e )
+        {
+            return;
+        }
+
+        $this->fail();
+    }
+
+    public function testProperties3()
+    {
+        $this->setUpStartEnd();
+
+        try
+        {
+            $this->workflow->foo = null;
+        }
+        catch ( ezcBasePropertyNotFoundException $e )
+        {
+            return;
+        }
+
+        $this->fail();
+    }
+
+    public function testProperties4()
+    {
+        $this->setUpStartEnd();
+
+        try
+        {
+            $foo = $this->workflow->definitionHandler = null;
+        }
+        catch ( ezcBaseValueException $e )
+        {
+            return;
+        }
+
+        $this->fail();
+    }
+
+    public function testProperties5()
+    {
+        $this->setUpStartEnd();
+
+        try
+        {
+            $foo = $this->workflow->id = null;
+        }
+        catch ( ezcBaseValueException $e )
+        {
+            return;
+        }
+
+        $this->fail();
+    }
+
+    public function testProperties6()
+    {
+        $this->setUpStartEnd();
+
+        try
+        {
+            $foo = $this->workflow->name = null;
+        }
+        catch ( ezcBaseValueException $e )
+        {
+            return;
+        }
+
+        $this->fail();
+    }
+
+    public function testProperties7()
+    {
+        $this->setUpStartEnd();
+
+        try
+        {
+            $foo = $this->workflow->nodes = null;
+        }
+        catch ( ezcBasePropertyPermissionException $e )
+        {
+            return;
+        }
+
+        $this->fail();
+    }
+
+    public function testProperties8()
+    {
+        $this->setUpStartEnd();
+
+        try
+        {
+            $foo = $this->workflow->version = null;
+        }
+        catch ( ezcBaseValueException $e )
+        {
+            return;
+        }
+
+        $this->fail();
+    }
 }
 ?>
