@@ -66,7 +66,7 @@ class ezcWorkflowVisitorVerification implements ezcWorkflowVisitor
 
         if ( $visitable instanceof ezcWorkflow )
         {
-            foreach ( $visitable as $node )
+            foreach ( $visitable->nodes as $node )
             {
                 if ( $node instanceof ezcWorkflowNodeStart )
                 {
