@@ -236,5 +236,61 @@ class ezcWorkflowExecutionTest extends ezcWorkflowTestCase
         $this->assertTrue( $this->execution->removeListener( $listener ) );
         $this->assertFalse( $this->execution->removeListener( $listener ) );
     }
+
+    public function testProperties()
+    {
+        $execution = new ezcWorkflowExecutionNonInteractive;
+
+        $this->assertTrue( isset( $execution->definitionHandler ) );
+        $this->assertTrue( isset( $execution->workflow ) );
+        $this->assertFalse( isset( $execution->foo ) );
+    }
+
+    public function testProperties2()
+    {
+        try
+        {
+            $execution = new ezcWorkflowExecutionNonInteractive;
+            $foo = $execution->foo;
+        }
+        catch ( ezcBasePropertyNotFoundException $e )
+        {
+            return;
+        }
+
+        $this->fail();
+    }
+
+    public function testProperties3()
+    {
+        $this->setUpStartEnd();
+
+        try
+        {
+            $execution = new ezcWorkflowExecutionNonInteractive;
+            $execution->foo = null;
+        }
+        catch ( ezcBasePropertyNotFoundException $e )
+        {
+            return;
+        }
+
+        $this->fail();
+    }
+
+    public function testProperties4()
+    {
+        try
+        {
+            $execution = new ezcWorkflowExecutionNonInteractive;
+            $execution->definitionHandler = new StdClass;
+        }
+        catch ( ezcBaseValueException $e )
+        {
+            return;
+        }
+
+        $this->fail();
+    }
 }
 ?>

@@ -30,6 +30,21 @@ class ezcWorkflowTestExecution extends ezcWorkflowExecutionNonInteractive
     protected $inputVariablesForSubWorkflow = array();
 
     /**
+     * Property read access.
+     *
+     * @throws ezcBasePropertyNotFoundException 
+     *         If the the desired property is not found.
+     * 
+     * @param string $propertyName Name of the property.
+     * @return mixed Value of the property or null.
+     * @ignore
+     */
+    public function __get( $propertyName )
+    {
+        return parent::__get( $propertyName );
+    }
+
+    /**
      * Property write access.
      * 
      * @param string $propertyName Name of the property.
@@ -60,6 +75,18 @@ class ezcWorkflowTestExecution extends ezcWorkflowExecutionNonInteractive
         {
             return parent::__set( $propertyName, $val );
         }
+    }
+
+    /**
+     * Property isset access.
+     * 
+     * @param string $propertyName Name of the property.
+     * @return bool True is the property is set, otherwise false.
+     * @ignore
+     */
+    public function __isset( $propertyName )
+    {
+        return parent::__isset( $propertyName );
     }
 
     /**
