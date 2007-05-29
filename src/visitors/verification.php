@@ -19,9 +19,9 @@
  *  $workflow->verify();
  * </code>
  *
- * The verifyer checks that:
+ * The verifier checks that:
  * - there is only one start node
- * - all end nodes are reachable
+ * - each node satisfies the constraints of the respective node type
  *
  * @package Workflow
  * @version //autogen//
@@ -32,16 +32,6 @@ class ezcWorkflowVisitorVerification implements ezcWorkflowVisitor
      * @var integer
      */
     protected $numStartNodes = 0;
-
-    /**
-     * @var integer
-     */
-    protected $numEndNodes = 0;
-
-    /**
-     * @var integer
-     */
-    protected $numEndNodesReached = 0;
 
     /**
      * @var array
@@ -79,38 +69,15 @@ class ezcWorkflowVisitorVerification implements ezcWorkflowVisitor
                         );
                     }
                 }
-
-                if ( $node instanceof ezcWorkflowNodeEnd )
-                {
-                    $this->numEndNodes++;
-                }
             }
         }
 
         if ( $visitable instanceof ezcWorkflowNode )
         {
-            if ( $visitable instanceof ezcWorkflowNodeEnd )
-            {
-                $this->numEndNodesReached++;
-            }
-
             $visitable->verify();
         }
 
         return true;
-    }
-
-    /**
-     * @throws ezcWorkflowInvalidDefinitionException
-     */
-    public function verify()
-    {
-        if ( $this->numEndNodes > $this->numEndNodesReached )
-        {
-            throw new ezcWorkflowInvalidDefinitionException(
-              'Not all end nodes are reachable.'
-            );
-        }
     }
 }
 ?>

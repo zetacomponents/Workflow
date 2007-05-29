@@ -279,11 +279,7 @@ class ezcWorkflow implements ezcWorkflowVisitable
      */
     public function verify()
     {
-        $verifier = new ezcWorkflowVisitorVerification;
-
-        $this->accept( $verifier );
-
-        $verifier->verify();
+        $this->accept( new ezcWorkflowVisitorVerification );
     }
 
     /**
