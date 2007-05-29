@@ -17,7 +17,7 @@ ezcTestRunner::addFileToFilter( __FILE__ );
  * @subpackage Tests
  * @version //autogen//
  */
-class ezcWorkflowTestExecution extends ezcWorkflowExecution
+class ezcWorkflowTestExecution extends ezcWorkflowExecutionNonInteractive
 {
     /**
      * @var array
@@ -28,6 +28,16 @@ class ezcWorkflowTestExecution extends ezcWorkflowExecution
      * @var array
      */
     protected $inputVariablesForSubWorkflow = array();
+
+    /**
+     * Sets the workflow.
+     *
+     * @param  ezcWorkflow $workflow
+     */
+    public function setWorkflow( ezcWorkflow $workflow )
+    {
+        $this->workflow = $workflow;
+    }
 
     /**
      * Sets an input variable.
@@ -97,6 +107,7 @@ class ezcWorkflowTestExecution extends ezcWorkflowExecution
      */
     protected function doSuspend()
     {
+        parent::doSuspend();
     }
 
     /**
@@ -106,6 +117,7 @@ class ezcWorkflowTestExecution extends ezcWorkflowExecution
      */
     protected function doResume( $executionId )
     {
+        parent::doResume( $executionId );
     }
 
     /**
@@ -113,6 +125,7 @@ class ezcWorkflowTestExecution extends ezcWorkflowExecution
      */
     protected function doEnd()
     {
+        parent::doEnd();
     }
 
     /**
@@ -123,6 +136,8 @@ class ezcWorkflowTestExecution extends ezcWorkflowExecution
      */
     protected function doGetSubExecution( $id = NULL )
     {
+        parent::doGetSubExecution( $id );
+
         $execution = new ezcWorkflowTestExecution;
 
         foreach ( $this->inputVariablesForSubWorkflow as $name => $value )
