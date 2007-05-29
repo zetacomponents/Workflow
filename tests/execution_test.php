@@ -42,7 +42,7 @@ class ezcWorkflowExecutionTest extends ezcWorkflowTestCase
         try
         {
             $execution = new ezcWorkflowExecutionNonInteractive;
-            $execution->setWorkflow( $this->workflow );
+            $execution->workflow = $this->workflow;
         }
         catch ( ezcWorkflowExecutionException $e )
         {
@@ -55,7 +55,7 @@ class ezcWorkflowExecutionTest extends ezcWorkflowTestCase
     public function testExecuteStartEnd()
     {
         $this->setUpStartEnd();
-        $this->execution->setWorkflow( $this->workflow );
+        $this->execution->workflow = $this->workflow;
         $this->execution->start();
 
         $this->assertTrue( $this->execution->hasEnded() );
@@ -66,7 +66,7 @@ class ezcWorkflowExecutionTest extends ezcWorkflowTestCase
     public function testExecuteStartEndVariableHandler()
     {
         $this->setUpStartEndVariableHandler();
-        $this->execution->setWorkflow( $this->workflow );
+        $this->execution->workflow = $this->workflow;
         $this->execution->start();
 
         $this->assertTrue( $this->execution->hasEnded() );
@@ -78,7 +78,7 @@ class ezcWorkflowExecutionTest extends ezcWorkflowTestCase
     public function testExecuteStartInputEnd()
     {
         $this->setUpStartInputEnd();
-        $this->execution->setWorkflow( $this->workflow );
+        $this->execution->workflow = $this->workflow;
         $this->execution->setInputVariable( 'variable', 'value' );
         $this->execution->start();
 
@@ -90,7 +90,7 @@ class ezcWorkflowExecutionTest extends ezcWorkflowTestCase
     public function testExecuteStartSetUnsetEnd()
     {
         $this->setUpStartSetUnsetEnd();
-        $this->execution->setWorkflow( $this->workflow );
+        $this->execution->workflow = $this->workflow;
         $this->execution->start();
 
         $this->assertTrue( $this->execution->hasEnded() );
@@ -101,7 +101,7 @@ class ezcWorkflowExecutionTest extends ezcWorkflowTestCase
     public function testExecuteIncrementingLoop()
     {
         $this->setUpLoop( 'increment' );
-        $this->execution->setWorkflow( $this->workflow );
+        $this->execution->workflow = $this->workflow;
         $this->execution->start();
 
         $this->assertTrue( $this->execution->hasEnded() );
@@ -112,7 +112,7 @@ class ezcWorkflowExecutionTest extends ezcWorkflowTestCase
     public function testExecuteDecrementingLoop()
     {
         $this->setUpLoop( 'decrement' );
-        $this->execution->setWorkflow( $this->workflow );
+        $this->execution->workflow = $this->workflow;
         $this->execution->start();
 
         $this->assertTrue( $this->execution->hasEnded() );
@@ -123,7 +123,7 @@ class ezcWorkflowExecutionTest extends ezcWorkflowTestCase
     public function testExecuteSetAddSubMulDiv()
     {
         $this->setUpSetAddSubMulDiv();
-        $this->execution->setWorkflow( $this->workflow );
+        $this->execution->workflow = $this->workflow;
         $this->execution->start();
 
         $this->assertTrue( $this->execution->hasEnded() );
@@ -135,7 +135,7 @@ class ezcWorkflowExecutionTest extends ezcWorkflowTestCase
     public function testExecuteAddVariables()
     {
         $this->setUpAddVariables();
-        $this->execution->setWorkflow( $this->workflow );
+        $this->execution->workflow = $this->workflow;
         $this->execution->start();
 
         $this->assertTrue( $this->execution->hasEnded() );
@@ -147,7 +147,7 @@ class ezcWorkflowExecutionTest extends ezcWorkflowTestCase
     public function testExecuteParallelSplitSynchronization()
     {
         $this->setUpParallelSplitSynchronization();
-        $this->execution->setWorkflow( $this->workflow );
+        $this->execution->workflow = $this->workflow;
         $this->execution->start();
 
         $this->assertTrue( $this->execution->hasEnded() );
@@ -158,7 +158,7 @@ class ezcWorkflowExecutionTest extends ezcWorkflowTestCase
     public function testExecuteExclusiveChoiceSimpleMerge()
     {
         $this->setUpExclusiveChoiceSimpleMerge();
-        $this->execution->setWorkflow( $this->workflow );
+        $this->execution->workflow = $this->workflow;
         $this->execution->setVariables( array( 'condition' => true ) );
         $this->execution->start();
 
@@ -170,7 +170,7 @@ class ezcWorkflowExecutionTest extends ezcWorkflowTestCase
     public function testExecuteExclusiveChoiceSimpleMerge2()
     {
         $this->setUpExclusiveChoiceSimpleMerge();
-        $this->execution->setWorkflow( $this->workflow );
+        $this->execution->workflow = $this->workflow;
         $this->execution->setVariables( array( 'condition' => false ) );
         $this->execution->start();
 
@@ -182,7 +182,7 @@ class ezcWorkflowExecutionTest extends ezcWorkflowTestCase
     public function testExecuteMultiChoiceSynchronizingMerge()
     {
         $this->setUpMultiChoice( 'SynchronizingMerge' );
-        $this->execution->setWorkflow( $this->workflow );
+        $this->execution->workflow = $this->workflow;
         $this->execution->start();
 
         $this->assertTrue( $this->execution->hasEnded() );
@@ -193,7 +193,7 @@ class ezcWorkflowExecutionTest extends ezcWorkflowTestCase
     public function testExecuteMultiChoiceDiscriminator()
     {
         $this->setUpMultiChoice( 'Discriminator' );
-        $this->execution->setWorkflow( $this->workflow );
+        $this->execution->workflow = $this->workflow;
         $this->execution->start();
 
         $this->assertTrue( $this->execution->hasEnded() );
@@ -205,7 +205,7 @@ class ezcWorkflowExecutionTest extends ezcWorkflowTestCase
     {
         $this->setUpWorkflowWithSubWorkflow( 'StartEnd' );
         $this->workflow->definitionHandler = $this->definition;
-        $this->execution->setWorkflow( $this->workflow );
+        $this->execution->workflow = $this->workflow;
         $this->execution->start();
 
         $this->assertTrue( $this->execution->hasEnded() );
@@ -217,7 +217,7 @@ class ezcWorkflowExecutionTest extends ezcWorkflowTestCase
     {
         $this->setUpWorkflowWithSubWorkflow( 'StartInputEnd' );
         $this->workflow->definitionHandler = $this->definition;
-        $this->execution->setWorkflow( $this->workflow );
+        $this->execution->workflow = $this->workflow;
         $this->execution->setInputVariableForSubWorkflow( 'variable', 'value' );
         $this->execution->start();
 

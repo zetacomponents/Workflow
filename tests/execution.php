@@ -30,13 +30,36 @@ class ezcWorkflowTestExecution extends ezcWorkflowExecutionNonInteractive
     protected $inputVariablesForSubWorkflow = array();
 
     /**
-     * Sets the workflow.
+     * Property write access.
+     * 
+     * @param string $propertyName Name of the property.
+     * @param mixed $val  The value for the property.
      *
-     * @param  ezcWorkflow $workflow
+     * @throws ezcBaseValueException 
+     *         If a the value for the property definitionHandler is not an
+     *         instance of ezcWorkflowDefinition.
+     * @throws ezcBaseValueException 
+     *         If a the value for the property workflow is not an instance of
+     *         ezcWorkflow.
+     * @ignore
      */
-    public function setWorkflow( ezcWorkflow $workflow )
+    public function __set( $propertyName, $val )
     {
-        $this->workflow = $workflow;
+        if ( $propertyName == 'workflow' )
+        {
+            if ( !( $val instanceof ezcWorkflow ) )
+            {
+                throw new ezcBaseValueException( $propertyName, $val, 'ezcWorkflow' );
+            }
+
+            $this->properties['workflow'] = $val;
+
+            return;
+        }
+        else
+        {
+            return parent::__set( $propertyName, $val );
+        }
     }
 
     /**

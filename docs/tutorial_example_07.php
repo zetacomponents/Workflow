@@ -12,7 +12,7 @@ $workflow = $definition->loadByName( 'Test' );
 $execution = new ezcWorkflowDatabaseExecution( $db );
 
 // Pass workflow object to workflow executer.
-$execution->setWorkflow( $workflow );
+$execution->workflow = $workflow;
 
 // Start workflow execution.
 $id = $execution->start();

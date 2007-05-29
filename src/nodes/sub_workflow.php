@@ -50,7 +50,7 @@ class ezcWorkflowNodeSubWorkflow extends ezcWorkflowNode
         if ( !$workflow->isInteractive() && !$workflow->hasSubWorkflows() )
         {
             $subExecution = $execution->getSubExecution( null, false );
-            $subExecution->setWorkflow( $workflow );
+            $subExecution->workflow = $workflow;
             $subExecution->start();
         }
         else
@@ -59,7 +59,7 @@ class ezcWorkflowNodeSubWorkflow extends ezcWorkflowNode
             if ( $this->state == 0 )
             {
                 $subExecution = $execution->getSubExecution();
-                $subExecution->setWorkflow( $workflow );
+                $subExecution->workflow = $workflow;
                 $subExecution->start( $this->id );
 
                 $this->state = $subExecution->getId();
@@ -68,7 +68,7 @@ class ezcWorkflowNodeSubWorkflow extends ezcWorkflowNode
             else
             {
                 $subExecution = $execution->getSubExecution( $this->state );
-                $subExecution->setWorkflow( $workflow );
+                $subExecution->workflow = $workflow;
                 $subExecution->resume();
             }
         }

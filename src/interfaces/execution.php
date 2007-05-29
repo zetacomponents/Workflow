@@ -22,7 +22,8 @@ abstract class ezcWorkflowExecution
      * @var array(string=>mixed)
      */
     protected $properties = array(
-      'definitionHandler' => null
+      'definitionHandler' => null,
+      'workflow' => null
     );
 
     /**
@@ -31,13 +32,6 @@ abstract class ezcWorkflowExecution
      * @var integer
      */
     protected $id;
-
-    /**
-     * The workflow being executed.
-     *
-     * @var ezcWorkflow
-     */
-    protected $workflow;
 
     /**
      * Nodes of the workflow being executed that are activated.
@@ -121,6 +115,7 @@ abstract class ezcWorkflowExecution
         switch ( $propertyName ) 
         {
             case 'definitionHandler':
+            case 'workflow':
                 return $this->properties[$propertyName];
         }
 
@@ -136,6 +131,9 @@ abstract class ezcWorkflowExecution
      * @throws ezcBaseValueException 
      *         If a the value for the property definitionHandler is not an
      *         instance of ezcWorkflowDefinition.
+     * @throws ezcBaseValueException 
+     *         If a the value for the property workflow is not an instance of
+     *         ezcWorkflow.
      * @ignore
      */
     public function __set( $propertyName, $val )
@@ -149,6 +147,16 @@ abstract class ezcWorkflowExecution
                 }
 
                 $this->properties['definitionHandler'] = $val;
+
+                return;
+
+            case 'workflow':
+                if ( !( $val instanceof ezcWorkflow ) )
+                {
+                    throw new ezcBaseValueException( $propertyName, $val, 'ezcWorkflow' );
+                }
+
+                $this->properties['workflow'] = $val;
 
                 return;
         }
@@ -168,6 +176,7 @@ abstract class ezcWorkflowExecution
         switch ( $propertyName )
         {
             case 'definitionHandler':
+            case 'workflow':
                 return true;
         }
 
@@ -639,16 +648,6 @@ abstract class ezcWorkflowExecution
         {
             return false;
         }
-    }
-
-    /**
-     * Sets the workflow.
-     *
-     * @param ezcWorkflow $workflow
-     */
-    public function setWorkflow( ezcWorkflow $workflow )
-    {
-        $this->workflow = $workflow;
     }
 
     /**
