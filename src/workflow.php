@@ -204,9 +204,9 @@ class ezcWorkflow implements ezcWorkflowVisitable
             case 'nodes':
             case 'version':
                 return true;
-            default:
-                return false;
         }
+
+        return false;
     }
 
     /**

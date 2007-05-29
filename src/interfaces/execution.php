@@ -122,9 +122,6 @@ abstract class ezcWorkflowExecution
         {
             case 'definitionHandler':
                 return $this->properties[$propertyName];
-
-            default:
-                break;
         }
 
         throw new ezcBasePropertyNotFoundException( $propertyName );
@@ -154,9 +151,6 @@ abstract class ezcWorkflowExecution
                 $this->properties['definitionHandler'] = $val;
 
                 return;
-
-            default:
-                break;
         }
 
         throw new ezcBasePropertyNotFoundException( $propertyName );
@@ -175,9 +169,9 @@ abstract class ezcWorkflowExecution
         {
             case 'definitionHandler':
                 return true;
-            default:
-                return false;
         }
+
+        return false;
     }
 
     /**
