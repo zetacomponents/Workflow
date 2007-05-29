@@ -591,11 +591,16 @@ abstract class ezcWorkflowExecution
     {
         if ( $interactive )
         {
-            $execution = $this->doGetSubExecution( $id );
+            $execution = $this->doGetSubExecution();
         }
         else
         {
             $execution = new ezcWorkflowExecutionNonInteractive;
+        }
+
+        if ( $id !== NULL )
+        {
+            $execution->resume( $id );
         }
 
         foreach ( $this->listeners as $listener )
@@ -915,9 +920,8 @@ abstract class ezcWorkflowExecution
     /**
      * Returns a new execution object for a sub workflow.
      *
-     * @param  integer $id
      * @return ezcWorkflowExecution
      */
-    abstract protected function doGetSubExecution( $id = null );
+    abstract protected function doGetSubExecution();
 }
 ?>
