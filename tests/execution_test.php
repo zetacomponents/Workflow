@@ -27,7 +27,7 @@ class ezcWorkflowExecutionTest extends ezcWorkflowTestCase
     {
         parent::setUp();
         $this->execution = new ezcWorkflowTestExecution;
-        $this->execution->definitionHandler = $this->definition;
+        $this->execution->definitionStorage = $this->definition;
     }
 
     public function testInteractiveWorkflowRaisesException()
@@ -238,7 +238,7 @@ class ezcWorkflowExecutionTest extends ezcWorkflowTestCase
     public function testNonInteractiveSubWorkflow()
     {
         $this->setUpWorkflowWithSubWorkflow( 'StartEnd' );
-        $this->workflow->definitionHandler = $this->definition;
+        $this->workflow->definitionStorage = $this->definition;
         $this->execution->workflow = $this->workflow;
         $this->execution->start();
 
@@ -250,7 +250,7 @@ class ezcWorkflowExecutionTest extends ezcWorkflowTestCase
     public function testInteractiveSubWorkflow()
     {
         $this->setUpWorkflowWithSubWorkflow( 'StartInputEnd' );
-        $this->workflow->definitionHandler = $this->definition;
+        $this->workflow->definitionStorage = $this->definition;
         $this->execution->workflow = $this->workflow;
         $this->execution->setInputVariableForSubWorkflow( 'variable', 'value' );
         $this->execution->start();
@@ -304,7 +304,7 @@ class ezcWorkflowExecutionTest extends ezcWorkflowTestCase
     {
         $execution = new ezcWorkflowExecutionNonInteractive;
 
-        $this->assertTrue( isset( $execution->definitionHandler ) );
+        $this->assertTrue( isset( $execution->definitionStorage ) );
         $this->assertTrue( isset( $execution->workflow ) );
         $this->assertFalse( isset( $execution->foo ) );
     }
@@ -346,7 +346,7 @@ class ezcWorkflowExecutionTest extends ezcWorkflowTestCase
         try
         {
             $execution = new ezcWorkflowExecutionNonInteractive;
-            $execution->definitionHandler = new StdClass;
+            $execution->definitionStorage = new StdClass;
         }
         catch ( ezcBaseValueException $e )
         {

@@ -209,7 +209,7 @@ class ezcWorkflowDefinitionStorageXml implements ezcWorkflowDefinitionStorage
 
         // Create workflow object and add the node objects to it.
         $workflow = new ezcWorkflow( $workflowName, $startNode, $defaultEndNode );
-        $workflow->definitionHandler = $this;
+        $workflow->definitionStorage = $this;
         $workflow->version = (int)$workflowVersion;
 
         // Handle the variable handlers.

@@ -51,7 +51,7 @@ class ezcWorkflowTestExecution extends ezcWorkflowExecutionNonInteractive
      * @param mixed $val  The value for the property.
      *
      * @throws ezcBaseValueException 
-     *         If a the value for the property definitionHandler is not an
+     *         If a the value for the property definitionStorage is not an
      *         instance of ezcWorkflowDefinitionStorage.
      * @throws ezcBaseValueException 
      *         If a the value for the property workflow is not an instance of

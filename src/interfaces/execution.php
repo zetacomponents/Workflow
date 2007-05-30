@@ -11,7 +11,7 @@
 /**
  * Abstract base class for workflow execution engines.
  *
- * @property ezcWorkflowDefinitonStorage $definitionHandler
+ * @property ezcWorkflowDefinitonStorage $definitionStorage
  *           The definition handler used to fetch subworkflows if needed.
  * @property ezcWorkflow $workflow The workflow being executed.
  *
@@ -28,7 +28,7 @@ abstract class ezcWorkflowExecution
      * @var array(string=>mixed)
      */
     protected $properties = array(
-      'definitionHandler' => null,
+      'definitionStorage' => null,
       'workflow' => null
     );
 
@@ -120,7 +120,7 @@ abstract class ezcWorkflowExecution
     {
         switch ( $propertyName ) 
         {
-            case 'definitionHandler':
+            case 'definitionStorage':
             case 'workflow':
                 return $this->properties[$propertyName];
         }
@@ -135,7 +135,7 @@ abstract class ezcWorkflowExecution
      * @param mixed $val  The value for the property.
      *
      * @throws ezcBaseValueException 
-     *         If a the value for the property definitionHandler is not an
+     *         If a the value for the property definitionStorage is not an
      *         instance of ezcWorkflowDefinitionStorage.
      * @throws ezcBaseValueException 
      *         If a the value for the property workflow is not an instance of
@@ -146,13 +146,13 @@ abstract class ezcWorkflowExecution
     {
         switch ( $propertyName ) 
         {
-            case 'definitionHandler':
+            case 'definitionStorage':
                 if ( !( $val instanceof ezcWorkflowDefinitionStorage ) )
                 {
                     throw new ezcBaseValueException( $propertyName, $val, 'ezcWorkflowDefinitionStorage' );
                 }
 
-                $this->properties['definitionHandler'] = $val;
+                $this->properties['definitionStorage'] = $val;
 
                 return;
 
@@ -181,7 +181,7 @@ abstract class ezcWorkflowExecution
     {
         switch ( $propertyName )
         {
-            case 'definitionHandler':
+            case 'definitionStorage':
             case 'workflow':
                 return true;
         }

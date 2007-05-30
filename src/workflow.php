@@ -11,7 +11,7 @@
 /**
  * Class representing a workflow.
  *
- * @property ezcWorkflowDefinitonStorage $definitionHandler
+ * @property ezcWorkflowDefinitonStorage $definitionStorage
  *           The definition handler used to fetch sub workflows on demand.
  *           This property is set automatically if you load a workflow using
  *           a workflow definition storage.
@@ -37,7 +37,7 @@ class ezcWorkflow implements ezcWorkflowVisitable
      * @var array(string=>mixed)
      */
     protected $properties = array(
-      'definitionHandler' => null,
+      'definitionStorage' => null,
       'id'                => false,
       'name'              => '',
       'startNode'         => null,
@@ -103,7 +103,7 @@ class ezcWorkflow implements ezcWorkflowVisitable
     {
         switch ( $propertyName ) 
         {
-            case 'definitionHandler':
+            case 'definitionStorage':
             case 'id':
             case 'name':
             case 'startNode':
@@ -127,7 +127,7 @@ class ezcWorkflow implements ezcWorkflowVisitable
      * @param mixed $val  The value for the property.
      *
      * @throws ezcBaseValueException 
-     *         If the value for the property definitionHandler is not an
+     *         If the value for the property definitionStorage is not an
      *         instance of ezcWorkflowDefinitionStorage.
      * @throws ezcBaseValueException 
      *         If the value for the property id is not an integer.
@@ -147,13 +147,13 @@ class ezcWorkflow implements ezcWorkflowVisitable
     {
         switch ( $propertyName ) 
         {
-            case 'definitionHandler':
+            case 'definitionStorage':
                 if ( !( $val instanceof ezcWorkflowDefinitionStorage ) )
                 {
                     throw new ezcBaseValueException( $propertyName, $val, 'ezcWorkflowDefinitionStorage' );
                 }
 
-                $this->properties['definitionHandler'] = $val;
+                $this->properties['definitionStorage'] = $val;
 
                 return;
 
@@ -209,7 +209,7 @@ class ezcWorkflow implements ezcWorkflowVisitable
     {
         switch ( $propertyName )
         {
-            case 'definitionHandler':
+            case 'definitionStorage':
             case 'id':
             case 'name':
             case 'startNode':

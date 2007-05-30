@@ -43,10 +43,10 @@ class ezcWorkflowTest extends ezcWorkflowTestCase
     public function testGetSetDefinition()
     {
         $this->setUpStartEnd();
-        $this->assertNull( $this->workflow->definitionHandler );
+        $this->assertNull( $this->workflow->definitionStorage );
 
-        $this->workflow->definitionHandler = $this->definition;
-        $this->assertNotNull( $this->workflow->definitionHandler );
+        $this->workflow->definitionStorage = $this->definition;
+        $this->assertNotNull( $this->workflow->definitionStorage );
     }
 
     public function testGetSetName()
@@ -183,7 +183,7 @@ class ezcWorkflowTest extends ezcWorkflowTestCase
     {
         $this->setUpStartEnd();
 
-        $this->assertTrue( isset( $this->workflow->definitionHandler ) );
+        $this->assertTrue( isset( $this->workflow->definitionStorage ) );
         $this->assertTrue( isset( $this->workflow->id ) );
         $this->assertTrue( isset( $this->workflow->name ) );
         $this->assertTrue( isset( $this->workflow->nodes ) );
@@ -229,7 +229,7 @@ class ezcWorkflowTest extends ezcWorkflowTestCase
 
         try
         {
-            $foo = $this->workflow->definitionHandler = null;
+            $foo = $this->workflow->definitionStorage = null;
         }
         catch ( ezcBaseValueException $e )
         {
