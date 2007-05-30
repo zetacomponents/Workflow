@@ -32,28 +32,14 @@ class ezcWorkflowExecutionNonInteractive extends ezcWorkflowExecution
      */
     public function __set( $propertyName, $val )
     {
-        if ( $propertyName == 'workflow' )
+        if ( $val instanceof ezcWorkflow && ( $val->isInteractive() || $val->hasSubWorkflows() ) )
         {
-            if ( !( $val instanceof ezcWorkflow ) )
-            {
-                throw new ezcBaseValueException( $propertyName, $val, 'ezcWorkflow' );
-            }
-
-            if ( $val->isInteractive() || $val->hasSubWorkflows() )
-            {
-                throw new ezcWorkflowExecutionException(
-                  'This executer can only execute workflow that have no Input and SubWorkflow nodes.'
-                );
-            }
-
-            $this->properties['workflow'] = $val;
-
-            return;
+            throw new ezcWorkflowExecutionException(
+              'This executer can only execute workflow that have no Input and SubWorkflow nodes.'
+            );
         }
-        else
-        {
-            return parent::__set( $propertyName, $val );
-        }
+
+        return parent::__set( $propertyName, $val );
     }
 
     /**
