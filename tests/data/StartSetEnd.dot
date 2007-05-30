@@ -1,0 +1,8 @@
+digraph StartSetEnd {
+node1 [label="Start"]
+node2 [label="null = <null>, true = <true>, false = <false>, array = <array>, object = <stdClass>"]
+node3 [label="End"]
+
+node1 -> node2
+node2 -> node3
+}

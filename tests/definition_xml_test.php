@@ -53,6 +53,17 @@ class ezcWorkflowDefinitionXmlTest extends ezcWorkflowTestCase
         );
     }
 
+    public function testSaveStartSetEnd()
+    {
+        $this->setUpStartSetEnd();
+        $this->definition->save( $this->workflow );
+
+        $this->assertEquals(
+          $this->readExpected( 'StartSetEnd' ),
+          $this->readActual( 'StartSetEnd' )
+        );
+    }
+
     public function testSaveStartSetUnsetEnd()
     {
         $this->setUpStartSetUnsetEnd();
@@ -216,6 +227,17 @@ class ezcWorkflowDefinitionXmlTest extends ezcWorkflowTestCase
         $this->assertEquals(
           $this->readExpected( 'StartInputEnd' ),
           $this->readActual( 'StartInputEnd' )
+        );
+    }
+
+    public function testLoadStartSetEnd()
+    {
+        $this->workflow = $this->definition->loadByName( 'StartSetEnd' );
+        $this->definition->save( $this->workflow );
+
+        $this->assertEquals(
+          $this->readExpected( 'StartSetEnd' ),
+          $this->readActual( 'StartSetEnd' )
         );
     }
 

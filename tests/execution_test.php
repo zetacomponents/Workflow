@@ -271,6 +271,24 @@ class ezcWorkflowExecutionTest extends ezcWorkflowTestCase
         $this->assertFalse( $this->execution->isSuspended() );
     }
 
+    public function testGetVariable()
+    {
+        $this->setUpStartEnd();
+        $this->execution->workflow = $this->workflow;
+        $this->execution->start();
+
+        try
+        {
+            $this->execution->getVariable( 'foo' );
+        }
+        catch ( ezcWorkflowExecutionException $e )
+        {
+            return;
+        }
+
+        $this->fail();
+    }
+
     public function testListener()
     {
         $listener = $this->getMock( 'ezcWorkflowExecutionListener' );

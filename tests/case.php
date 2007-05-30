@@ -73,6 +73,25 @@ abstract class ezcWorkflowTestCase extends ezcTestCase
         $this->endNode->addInNode( $inputNode );
     }
 
+    protected function setUpStartSetEnd()
+    {
+        $this->workflow = new ezcWorkflow( 'StartSetEnd' );
+        $this->setUpReferences();
+
+        $set = new ezcWorkflowNodeVariableSet(
+          array(
+            'null' => null,
+            'true' => true,
+            'false' => false,
+            'array' => array( 22, 4, 1978 ),
+            'object' => new StdClass
+          )
+        );
+
+        $this->startNode->addOutNode( $set );
+        $set->addOutNode( $this->endNode );
+    }
+
     protected function setUpStartSetUnsetEnd()
     {
         $this->workflow = new ezcWorkflow( 'StartSetUnsetEnd' );

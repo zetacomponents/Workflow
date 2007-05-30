@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<workflow name="StartSetEnd" version="1">
+  <node id="1" type="Start">
+    <outNode id="2"/>
+  </node>
+  <node id="2" type="VariableSet">
+    <variable name="null">
+      <null/>
+    </variable>
+    <variable name="true">
+      <boolean>true</boolean>
+    </variable>
+    <variable name="false">
+      <boolean>false</boolean>
+    </variable>
+    <variable name="array">
+      <array>
+        <element key="0">
+          <integer>22</integer>
+        </element>
+        <element key="1">
+          <integer>4</integer>
+        </element>
+        <element key="2">
+          <integer>1978</integer>
+        </element>
+      </array>
+    </variable>
+    <variable name="object">
+      <object class="stdClass"/>
+    </variable>
+    <outNode id="3"/>
+  </node>
+  <node id="3" type="End"/>
+</workflow>

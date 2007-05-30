@@ -51,6 +51,17 @@ class ezcWorkflowVisitorVisualizationTest extends ezcWorkflowTestCase
         );
     }
 
+    public function testVisitStartSetEnd()
+    {
+        $this->setUpStartSetEnd();
+        $this->workflow->accept( $this->visitor );
+
+        $this->assertEquals(
+          $this->readExpected( 'StartSetEnd' ),
+          (string)$this->visitor
+        );
+    }
+
     public function testVisitStartSetUnsetEnd()
     {
         $this->setUpStartSetUnsetEnd();
