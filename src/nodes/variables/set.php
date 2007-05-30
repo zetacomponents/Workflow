@@ -71,7 +71,7 @@ class ezcWorkflowNodeVariableSet extends ezcWorkflowNode
 
         foreach ( $this->configuration as $variable => $value )
         {
-            $buffer[] = $variable . ' = ' . var_export( $value, true );
+            $buffer[] = $variable . ' = ' . ezcWorkflowUtil::variableToString( $value );
         }
 
         return implode( ', ', $buffer );

@@ -17,7 +17,7 @@
 abstract class ezcWorkflowUtil
 {
     /**
-     * Finds the object $needlein an array of objects
+     * Finds the object $needle in an array of objects
      * and returns the position in the $haystack
      *
      * @param array $haystack The array of objects to search.
@@ -38,6 +38,42 @@ abstract class ezcWorkflowUtil
         }
 
         return false;
+    }
+
+    /**
+     * Returns a compact textual representation of a PHP variable.
+     *
+     * @param mixed $variable
+     * @return string
+     */
+    public static function variableToString( $variable )
+    {
+        if ( $variable === null )
+        {
+            return '<null>';
+        }
+
+        if ( $variable === true )
+        {
+            return '<true>';
+        }
+
+        if ( $variable === false )
+        {
+            return '<false>';
+        }
+
+        if ( is_array( $variable ) )
+        {
+            return '<array>';
+        }
+
+        if ( is_object( $variable ) )
+        {
+            return '<' . get_class( $variable ) . '>';
+        }
+
+        return $variable;
     }
 }
 ?>

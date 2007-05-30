@@ -754,32 +754,12 @@ abstract class ezcWorkflowExecution
     {
         $this->variables[$variableName] = $value;
 
-        if ( $value === true )
-        {
-            $value = '<true>';
-        }
-
-        if ( $value === false )
-        {
-            $value = '<false>';
-        }
-
-        if ( is_array( $value ) )
-        {
-            $value = '<array>';
-        }
-
-        if ( is_object( $value ) )
-        {
-            $value = '<' . get_class( $value ) . '>';
-        }
-
         $this->notifyListeners(
           sprintf(
             'Set variable "%s" to "%s" for execution #%d of workflow "%s" (version %d).',
 
             $variableName,
-            $value,
+            ezcWorkflowUtil::variableToString( $value ),
             $this->id,
             $this->workflow->name,
             $this->workflow->version
