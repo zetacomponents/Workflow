@@ -196,6 +196,8 @@ abstract class ezcWorkflowNode implements ezcWorkflowVisitable
     /**
      * Removes a node from the incoming nodes of this node.
      *
+     * Automatically removes $this as an out node of $node.
+     *
      * @param  ezcWorkflowNode $node The node that is to be removed as incoming node.
      * @throws ezcWorkflowInvalidWorkflowException if the operation violates the constraints of the nodes involved.
      * @return boolean
@@ -262,6 +264,8 @@ abstract class ezcWorkflowNode implements ezcWorkflowVisitable
 
     /**
      * Removes a node from the outgoing nodes of this node.
+     *
+     * Automatically removes $this as an in node of $node.
      *
      * @param  ezcWorkflowNode $node The node that is to be removed as outgoing node.
      * @throws ezcWorkflowInvalidWorkflowException if the operation violates the constraints of the nodes involved.

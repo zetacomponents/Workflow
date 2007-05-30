@@ -17,14 +17,15 @@
 interface ezcWorkflowVariableHandler
 {
     /**
-     * Load a variable that is handled by the variable handler.
+     * Load the variable $variableName that is handled by this handler.
      *
      * @param string $variableName
      */
     public function load( $variableName );
 
     /**
-     * Save a variable that is handled by the variable handler.
+     * Save the variable $variableName that is handled by the variable handler
+     * with the value $value.
      *
      * @param string $variableName
      * @param mixed  $value

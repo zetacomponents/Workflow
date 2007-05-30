@@ -11,6 +11,11 @@
 /**
  * Abstract base class for workflow execution engines.
  *
+ * @property ezcWorkflowDefinitonStorage $definitionHandler The definition handler used to fetch subworkflows if needed.
+ * @property ezcWorkflow  $workflow The workflow being executed.
+ *
+ * @todo what does this class provide
+ * @todo what must an implementor still do
  * @package Workflow
  * @version //autogen//
  */
@@ -184,11 +189,14 @@ abstract class ezcWorkflowExecution
     }
 
     /**
-     * Starts the execution of the workflow.
+     * Starts the execution of the workflow and returns the execution id.
      *
-     * @todo what is parentId? How does it know what. Who calls this and when?
-     * workflow to execute?
+     * $parentId is used to specify the execution id of the parent workflow
+     * when executing subworkflows. It should not be used when manually
+     * starting workflows.
+     *
      * @param integer $parentId
+     * @return int
      */
     public function start( $parentId = 0 )
     {

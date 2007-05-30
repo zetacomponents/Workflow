@@ -11,12 +11,17 @@
 /**
  * XML workflow definition storage handler.
  *
+ * The definitions are stored inside the directory specified to the constructor with the name:
+ * [workFlowName]_[workFlowVersion].xml where the name of the workflow has dots and spaces
+ * replaced by '_'.
+ *
+ * @todo DTD for the XML file.
  * @package Workflow
  * @version //autogen//
  */
 class ezcWorkflowDefinitionStorageXml implements ezcWorkflowDefinitionStorage
 {
-    /** 
+    /**
      * The directory that holds the XML files.
      *
      * @var string
@@ -24,7 +29,9 @@ class ezcWorkflowDefinitionStorageXml implements ezcWorkflowDefinitionStorage
     protected $directory;
 
     /**
-     * Constructor
+     * Constructs a new definition loader that loads definitions from $directory.
+     *
+     * $directory must contain the trailing '/'
      *
      * @param  string $directory The directory that holds the XML files.
      */
@@ -35,6 +42,8 @@ class ezcWorkflowDefinitionStorageXml implements ezcWorkflowDefinitionStorage
 
     /**
      * Load a workflow definition by name.
+     *
+     * If the parameter $workflowVersion is omitted the most recent version is loaded.
      *
      * @param  string  $workflowName
      * @param  integer $workflowVersion
@@ -661,7 +670,9 @@ class ezcWorkflowDefinitionStorageXml implements ezcWorkflowDefinitionStorage
     }
 
     /**
-     * Returns the filename for given workflow name and version.
+     * Returns the filename with path for given workflow name and version.
+     *
+     * The name of the workflow file is of the format [workFlowName]_[workFlowVersion].xml
      *
      * @param  string  $workflowName
      * @param  integer $workflowVersion
@@ -680,6 +691,8 @@ class ezcWorkflowDefinitionStorageXml implements ezcWorkflowDefinitionStorage
 
     /**
      * Returns a safe filesystem name for a given workflow.
+     *
+     * This method replaces whitespace and '.' with '_'.
      *
      * @param  string $workflowName
      * @return string
