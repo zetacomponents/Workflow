@@ -13,14 +13,14 @@
       <outNode id="6"/>
     </condition>
   </node>
-  <node id="3" type="Action" serviceObjectClass="SOA">
+  <node id="3" type="Action" serviceObjectClass="ServiceObject">
     <outNode id="4"/>
   </node>
   <node id="4" type="SimpleMerge">
     <outNode id="5"/>
   </node>
   <node id="5" type="End"/>
-  <node id="6" type="Action" serviceObjectClass="SOB">
+  <node id="6" type="Action" serviceObjectClass="ServiceObject">
     <outNode id="4"/>
   </node>
 </workflow>

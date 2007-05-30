@@ -4,7 +4,7 @@
     <outNode id="3"/>
   </node>
   <node id="2" type="End"/>
-  <node id="3" type="Action" serviceObjectClass="SOA">
+  <node id="3" type="Action" serviceObjectClass="ServiceObjectWithConstructor">
     <arguments>
       <object class="Exception">
         <arguments>

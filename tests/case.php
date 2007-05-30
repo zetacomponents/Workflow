@@ -7,6 +7,7 @@
  * @license http://ez.no/licenses/new_bsd New BSD License
  */
 
+require_once 'service_object_with_constructor.php';
 require_once 'variable_handler.php';
 
 ezcTestRunner::addFileToFilter( __FILE__ );
@@ -21,9 +22,6 @@ abstract class ezcWorkflowTestCase extends ezcTestCase
     protected $workflow;
     protected $startNode;
     protected $endNode;
-    protected $actionNodeA;
-    protected $actionNodeB;
-    protected $actionNodeC;
     protected $branchNode;
 
     protected function setUp()
@@ -34,11 +32,9 @@ abstract class ezcWorkflowTestCase extends ezcTestCase
           dirname( __FILE__ ) . '/data/'
         );
 
-        if ( !class_exists( 'SOA', false ) )
+        if ( !class_exists( 'ServiceObject', false ) )
         {
-            $this->getMock( 'ezcWorkflowServiceObject', array(), array(), 'SOA' );
-            $this->getMock( 'ezcWorkflowServiceObject', array(), array(), 'SOB' );
-            $this->getMock( 'ezcWorkflowServiceObject', array(), array(), 'SOC' );
+            $this->getMock( 'ezcWorkflowServiceObject', array(), array(), 'ServiceObject' );
         }
     }
 
@@ -188,19 +184,19 @@ abstract class ezcWorkflowTestCase extends ezcTestCase
 
         $this->branchNode = new ezcWorkflowNodeParallelSplit;
 
-        $this->actionNodeA = new ezcWorkflowNodeAction( 'SOA' );
-        $this->actionNodeB = new ezcWorkflowNodeAction( 'SOB' );
-        $this->actionNodeC = new ezcWorkflowNodeAction( 'SOC' );
+        $actionNodeA = new ezcWorkflowNodeAction( 'ServiceObject' );
+        $actionNodeB = new ezcWorkflowNodeAction( 'ServiceObject' );
+        $actionNodeC = new ezcWorkflowNodeAction( 'ServiceObject' );
 
-        $this->branchNode->addOutNode( $this->actionNodeA );
-        $this->branchNode->addOutNode( $this->actionNodeB );
-        $this->branchNode->addOutNode( $this->actionNodeC );
+        $this->branchNode->addOutNode( $actionNodeA );
+        $this->branchNode->addOutNode( $actionNodeB );
+        $this->branchNode->addOutNode( $actionNodeC );
 
         $synchronization = new ezcWorkflowNodeSynchronization;
 
-        $synchronization->addInNode( $this->actionNodeA );
-        $synchronization->addInNode( $this->actionNodeB );
-        $synchronization->addInNode( $this->actionNodeC );
+        $synchronization->addInNode( $actionNodeA );
+        $synchronization->addInNode( $actionNodeB );
+        $synchronization->addInNode( $actionNodeC );
 
         $this->startNode->addOutNode( $this->branchNode );
         $this->endNode->addInNode( $synchronization );
@@ -213,15 +209,15 @@ abstract class ezcWorkflowTestCase extends ezcTestCase
 
         $this->branchNode = new ezcWorkflowNodeExclusiveChoice;
 
-        $this->actionNodeA = new ezcWorkflowNodeAction( 'SOA' );
-        $this->actionNodeB = new ezcWorkflowNodeAction( 'SOB' );
+        $actionNodeA = new ezcWorkflowNodeAction( 'ServiceObject' );
+        $actionNodeB = new ezcWorkflowNodeAction( 'ServiceObject' );
 
         $this->branchNode->addConditionalOutNode(
           new ezcWorkflowConditionVariable(
             'condition',
             new ezcWorkflowConditionIsTrue
           ),
-          $this->actionNodeA
+          $actionNodeA
         );
 
         $this->branchNode->addConditionalOutNode(
@@ -229,13 +225,13 @@ abstract class ezcWorkflowTestCase extends ezcTestCase
             'condition',
             new ezcWorkflowConditionIsFalse
           ),
-          $this->actionNodeB
+          $actionNodeB
         );
 
         $simpleMerge = new ezcWorkflowNodeSimpleMerge;
 
-        $simpleMerge->addInNode( $this->actionNodeA );
-        $simpleMerge->addInNode( $this->actionNodeB );
+        $simpleMerge->addInNode( $actionNodeA );
+        $simpleMerge->addInNode( $actionNodeB );
 
         $this->startNode->addOutNode( $this->branchNode );
         $this->endNode->addInNode( $simpleMerge );
@@ -253,9 +249,9 @@ abstract class ezcWorkflowTestCase extends ezcTestCase
         );
 
         $multiChoice        = new ezcWorkflowNodeMultiChoice;
-        $this->actionNodeA  = new ezcWorkflowNodeAction( 'SOA' );
-        $this->actionNodeB  = new ezcWorkflowNodeAction( 'SOB' );
-        $this->actionNodeC  = new ezcWorkflowNodeAction( 'SOC' );
+        $actionNodeA  = new ezcWorkflowNodeAction( 'ServiceObject' );
+        $actionNodeB  = new ezcWorkflowNodeAction( 'ServiceObject' );
+        $actionNodeC  = new ezcWorkflowNodeAction( 'ServiceObject' );
 
         $multiChoice->addConditionalOutNode(
           new ezcWorkflowConditionAnd(
@@ -272,7 +268,7 @@ abstract class ezcWorkflowTestCase extends ezcTestCase
               )
             )
           ),
-          $this->actionNodeA
+          $actionNodeA
         );
 
         $multiChoice->addConditionalOutNode(
@@ -288,7 +284,7 @@ abstract class ezcWorkflowTestCase extends ezcTestCase
               )
             )
           ),
-          $this->actionNodeB
+          $actionNodeB
         );
 
         $multiChoice->addConditionalOutNode(
@@ -304,7 +300,7 @@ abstract class ezcWorkflowTestCase extends ezcTestCase
               )
             )
           ),
-          $this->actionNodeC
+          $actionNodeC
         );
 
         if ( $mergeType == 'SynchronizingMerge' )
@@ -316,9 +312,9 @@ abstract class ezcWorkflowTestCase extends ezcTestCase
             $merge = new ezcWorkflowNodeDiscriminator;
         }
 
-        $merge->addInNode( $this->actionNodeA );
-        $merge->addInNode( $this->actionNodeB );
-        $merge->addInNode( $this->actionNodeC );
+        $merge->addInNode( $actionNodeA );
+        $merge->addInNode( $actionNodeB );
+        $merge->addInNode( $actionNodeC );
 
         $this->startNode->addOutNode( $set );
         $set->addOutNode( $multiChoice );

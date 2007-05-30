@@ -3,7 +3,7 @@
   <node id="1" type="Start">
     <outNode id="2"/>
   </node>
-  <node id="2" type="Action" serviceObjectClass="SOA">
+  <node id="2" type="Action" serviceObjectClass="ServiceObjectWithConstructor">
     <arguments>
       <array>
         <element key="0">

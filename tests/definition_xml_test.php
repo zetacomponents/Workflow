@@ -169,7 +169,7 @@ class ezcWorkflowDefinitionXmlTest extends ezcWorkflowTestCase
 
         $action = new ezcWorkflowNodeAction(
           array(
-            'class' => 'SOA',
+            'class' => 'ServiceObjectWithConstructor',
             'arguments' => array(
               array( 'Sebastian' ), 22, 'April', 19.78, null, new StdClass
             )

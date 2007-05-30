@@ -226,6 +226,17 @@ class ezcWorkflowExecutionTest extends ezcWorkflowTestCase
         $this->assertFalse( $this->execution->isSuspended() );
     }
 
+    public function testServiceObjectWithConstructor()
+    {
+        $this->workflow = $this->definition->loadByName( 'ServiceObjectWithArguments' );
+        $this->execution->workflow = $this->workflow;
+        $this->execution->start();
+
+        $this->assertTrue( $this->execution->hasEnded() );
+        $this->assertFalse( $this->execution->isResumed() );
+        $this->assertFalse( $this->execution->isSuspended() );
+    }
+
     public function testListener()
     {
         $listener = $this->getMock( 'ezcWorkflowExecutionListener' );
