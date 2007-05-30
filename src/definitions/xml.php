@@ -552,7 +552,14 @@ class ezcWorkflowDefinitionXml implements ezcWorkflowDefinition
 
         if ( is_scalar( $variable ) )
         {
-            $xmlResult = $document->createElement( gettype( $variable ), $variable );
+            $type = gettype( $variable );
+
+            if ( is_bool( $variable ) )
+            {
+                $variable = $variable === true ? 'true' : 'false';
+            }
+
+            $xmlResult = $document->createElement( $type, $variable );
         }
 
         return $xmlResult;
@@ -607,7 +614,11 @@ class ezcWorkflowDefinitionXml implements ezcWorkflowDefinition
             }
             break;
 
-            case 'boolean':
+            case 'boolean': {
+                $variable = (string)$node == 'true' ? true : false;
+            }
+            break;
+
             case 'integer':
             case 'double':
             case 'string': {
