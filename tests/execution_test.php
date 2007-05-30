@@ -30,6 +30,21 @@ class ezcWorkflowExecutionTest extends ezcWorkflowTestCase
         $this->execution->definitionStorage = $this->definition;
     }
 
+    public function testNoWorkflowRaisesException()
+    {
+        try
+        {
+            $execution = new ezcWorkflowExecutionNonInteractive;
+            $execution->start();
+        }
+        catch ( ezcWorkflowExecutionException $e )
+        {
+            return;
+        }
+
+        $this->fail();
+    }
+
     public function testInteractiveWorkflowRaisesException()
     {
         $this->setupEmptyWorkflow();

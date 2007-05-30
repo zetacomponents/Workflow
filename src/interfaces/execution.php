@@ -197,10 +197,20 @@ abstract class ezcWorkflowExecution
      * starting workflows.
      *
      * @param integer $parentId
-     * @return int
+     * @return mixed Execution ID if the workflow has been suspended,
+     *               null otherwise.
+     * @throws ezcWorkflowExecutionException
+     *         If no workflow has been set up for execution.
      */
     public function start( $parentId = 0 )
     {
+        if ( $this->workflow === null )
+        {
+            throw new ezcWorkflowExecutionException(
+              'No workflow has been set up for execution.'
+            );
+        }
+
         $this->ended     = false;
         $this->resumed   = false;
         $this->suspended = false;
