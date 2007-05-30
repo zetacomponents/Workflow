@@ -2,10 +2,6 @@
 // Create new workflow of name "Test".
 $workflow = new ezcWorkflow( 'Test' );
 
-// Set up references to start / end nodes.
-$start = $workflow->getStartNode();
-$end   = $workflow->getEndNode();
-
 // Create an Input node that expects a boolean variable of name "choice".
 $input = new ezcWorkflowNodeInput(
   array(
@@ -15,7 +11,7 @@ $input = new ezcWorkflowNodeInput(
 
 // Add the previously created Input node
 // as an outgoing node to the start node.
-$start->addOutNode( $input );
+$workflow->startNode->addOutNode( $input );
 
 // Create a new Exclusive Choice node and add it as an 
 // outgoing node to the previously created Input node.
@@ -52,5 +48,5 @@ $branch->addConditionalOutNode(
 $merge = new ezcWorkflowNodeSimpleMerge;
 $merge->addInNode( $true );
 $merge->addInNode( $false );
-$merge->addOutNode( $end );
+$merge->addOutNode( $workflow->endNode );
 ?>

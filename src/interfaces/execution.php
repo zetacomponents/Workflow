@@ -210,7 +210,7 @@ abstract class ezcWorkflowExecution
         );
 
         // Start workflow execution by activating the start node.
-        $this->workflow->getStartNode()->activate( $this );
+        $this->workflow->startNode->activate( $this );
 
         // Continue workflow execution until there are no more
         // activated nodes.

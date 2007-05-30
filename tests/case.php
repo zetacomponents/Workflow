@@ -389,8 +389,8 @@ abstract class ezcWorkflowTestCase extends ezcTestCase
 
     protected function setUpReferences()
     {
-        $this->startNode = $this->workflow->getStartNode();
-        $this->endNode = $this->workflow->getEndNode();
+        $this->startNode = $this->workflow->startNode;
+        $this->endNode = $this->workflow->endNode;
     }
 }
 ?>

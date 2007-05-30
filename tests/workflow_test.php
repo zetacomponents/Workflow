@@ -119,7 +119,7 @@ class ezcWorkflowTest extends ezcWorkflowTestCase
         try
         {
             $workflow = new ezcWorkflow( 'Test' );
-            $workflow->getStartNode()->addOutNode( new ezcWorkflowNodeStart );
+            $workflow->startNode->addOutNode( new ezcWorkflowNodeStart );
             $workflow->verify();
         }
         catch ( ezcWorkflowDefinitionException $e )

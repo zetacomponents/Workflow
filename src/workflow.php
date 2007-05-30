@@ -27,6 +27,8 @@ class ezcWorkflow implements ezcWorkflowVisitable
       'definitionHandler' => null,
       'id'                => false,
       'name'              => '',
+      'startNode'         => null,
+      'endNode'           => null,
       'version'           => false
     );
 
@@ -36,20 +38,6 @@ class ezcWorkflow implements ezcWorkflowVisitable
      * @var array
      */
     protected $variableHandlers = array();
-
-    /**
-     * The start node of this workflow.
-     *
-     * @var ezcWorkflowNodeStart
-     */
-    protected $startNode;
-
-    /**
-     * The default end node of this workflow.
-     *
-     * @var ezcWorkflowNodeEnd
-     */
-    protected $endNode;
 
     /**
      * Constructs a new workflow object with the name $name.
@@ -68,21 +56,21 @@ class ezcWorkflow implements ezcWorkflowVisitable
         // Create a new ezcWorkflowNodeStart object, if necessary.
         if ( $startNode === null )
         {
-            $this->startNode = new ezcWorkflowNodeStart;
+            $this->properties['startNode'] = new ezcWorkflowNodeStart;
         }
         else
         {
-            $this->startNode = $startNode;
+            $this->properties['startNode'] = $startNode;
         }
 
         // Create a new ezcWorkflowNodeEnd object, if necessary.
         if ( $endNode === null )
         {
-            $this->endNode = new ezcWorkflowNodeEnd;
+            $this->properties['endNode'] = new ezcWorkflowNodeEnd;
         }
         else
         {
-            $this->endNode = $endNode;
+            $this->properties['endNode'] = $endNode;
         }
     }
 
@@ -103,6 +91,8 @@ class ezcWorkflow implements ezcWorkflowVisitable
             case 'definitionHandler':
             case 'id':
             case 'name':
+            case 'startNode':
+            case 'endNode':
             case 'version':
                 return $this->properties[$propertyName];
 
@@ -128,6 +118,10 @@ class ezcWorkflow implements ezcWorkflowVisitable
      *         If the value for the property id is not an integer.
      * @throws ezcBaseValueException 
      *         If the value for the property name is not a string.
+     * @throws ezcBasePropertyPermissionException 
+     *         If there is a write access to startNode.
+     * @throws ezcBasePropertyPermissionException 
+     *         If there is a write access to endNode.
      * @throws ezcBasePropertyPermissionException 
      *         If there is a write access to nodes.
      * @throws ezcBaseValueException 
@@ -168,9 +162,11 @@ class ezcWorkflow implements ezcWorkflowVisitable
 
                 return;
 
+            case 'startNode':
+            case 'endNode':
             case 'nodes':
                 throw new ezcBasePropertyPermissionException(
-                  'nodes', ezcBasePropertyPermissionException::READ
+                  $propertyName, ezcBasePropertyPermissionException::READ
                 );
 
             case 'version':
@@ -201,32 +197,14 @@ class ezcWorkflow implements ezcWorkflowVisitable
             case 'definitionHandler':
             case 'id':
             case 'name':
+            case 'startNode':
+            case 'endNode':
             case 'nodes':
             case 'version':
                 return true;
         }
 
         return false;
-    }
-
-    /**
-     * Returns this workflow's start node.
-     *
-     * @return ezcWorkflowNodeStart The start node of this workflow.
-     */
-    public function getStartNode()
-    {
-        return $this->startNode;
-    }
-
-    /**
-     * Returns this workflow's default end node.
-     *
-     * @return ezcWorkflowNodeEnd The default end node of this workflow.
-     */
-    public function getEndNode()
-    {
-        return $this->endNode;
     }
 
     /**
@@ -291,7 +269,7 @@ class ezcWorkflow implements ezcWorkflowVisitable
     public function accept( ezcWorkflowVisitor $visitor )
     {
         $visitor->visit( $this );
-        $this->startNode->accept( $visitor );
+        $this->properties['startNode']->accept( $visitor );
     }
 
     /**
