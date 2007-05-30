@@ -11,15 +11,18 @@
 /**
  * Class representing a workflow.
  *
- * @property ezcWorkflowDefinitonStorage $definitionHandler The definition handler used to fetch sub workflows on demand.
- *                                                          This property is set automatically if you load a workflow using
- *                                                          a workflow definition storage.
- * @property int $id Unique ID set automatically by the definition handler when the workflow is stored.
+ * @property ezcWorkflowDefinitonStorage $definitionHandler
+ *           The definition handler used to fetch sub workflows on demand.
+ *           This property is set automatically if you load a workflow using
+ *           a workflow definition storage.
+ * @property int $id Unique ID set automatically by the definition handler
+ *                   when the workflow is stored.
  * @property string $name A unique name (accross the system) for this workflow.
- * @property int $version The version of the workflow. This must be incremented manually whenever you want a new version.
+ * @property int $version The version of the workflow. This must be
+ *               incremented manually whenever you want a new version.
  * @property-read ezcNode $startNode The unique start node of the workflow.
  * @property-read ezcNode $endNode The default end node of the workflow.
- * @property-read array(ezcNodes) $nodes All the nodes of this workflow.
+ * @property-read array(ezcWorkflowNode) $nodes All the nodes of this workflow.
  *
  * @package Workflow
  * @version //autogen//

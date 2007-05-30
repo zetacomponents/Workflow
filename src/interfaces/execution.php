@@ -11,7 +11,8 @@
 /**
  * Abstract base class for workflow execution engines.
  *
- * @property ezcWorkflowDefinitonStorage $definitionHandler The definition handler used to fetch subworkflows if needed.
+ * @property ezcWorkflowDefinitonStorage $definitionHandler The definition
+ *           handler used to fetch subworkflows if needed.
  * @property ezcWorkflow  $workflow The workflow being executed.
  *
  * @todo what does this class provide
