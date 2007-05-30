@@ -113,7 +113,7 @@ class ezcWorkflow implements ezcWorkflowVisitable
      *
      * @throws ezcBaseValueException 
      *         If the value for the property definitionHandler is not an
-     *         instance of ezcWorkflowDefinition.
+     *         instance of ezcWorkflowDefinitionStorage.
      * @throws ezcBaseValueException 
      *         If the value for the property id is not an integer.
      * @throws ezcBaseValueException 
@@ -133,9 +133,9 @@ class ezcWorkflow implements ezcWorkflowVisitable
         switch ( $propertyName ) 
         {
             case 'definitionHandler':
-                if ( !( $val instanceof ezcWorkflowDefinition ) )
+                if ( !( $val instanceof ezcWorkflowDefinitionStorage ) )
                 {
-                    throw new ezcBaseValueException( $propertyName, $val, 'ezcWorkflowDefinition' );
+                    throw new ezcBaseValueException( $propertyName, $val, 'ezcWorkflowDefinitionStorage' );
                 }
 
                 $this->properties['definitionHandler'] = $val;
@@ -253,7 +253,7 @@ class ezcWorkflow implements ezcWorkflowVisitable
      * See the documentation of ezcWorkflowVisitorVerification for
      * details.
      *
-     * @throws ezcWorkflowInvalidDefinitionException if the specification of this workflow is not correct.
+     * @throws ezcWorkflowInvalidWorkflowException if the specification of this workflow is not correct.
      */
     public function verify()
     {
@@ -280,7 +280,7 @@ class ezcWorkflow implements ezcWorkflowVisitable
      *
      * @param string $variableName
      * @param string $className
-     * @throws ezcWorkflowInvalidDefinitionException if $className does not contain the name of a valid class implementing ezcWorkflowVariableHandler
+     * @throws ezcWorkflowInvalidWorkflowException if $className does not contain the name of a valid class implementing ezcWorkflowVariableHandler
      */
     public function addVariableHandler( $variableName, $className )
     {
@@ -294,14 +294,14 @@ class ezcWorkflow implements ezcWorkflowVisitable
             }
             else
             {
-                throw new ezcWorkflowInvalidDefinitionException(
+                throw new ezcWorkflowInvalidWorkflowException(
                   'Class does not implement the ezcWorkflowVariableHandler interface.'
                 );
             }
         }
         else
         {
-            throw new ezcWorkflowInvalidDefinitionException(
+            throw new ezcWorkflowInvalidWorkflowException(
                 'Class not found.'
             );
         }
@@ -333,7 +333,7 @@ class ezcWorkflow implements ezcWorkflowVisitable
      * The format of $variableHandlers is
      * array( 'variableName' => ezcWorkflowVariableHandler )
      *
-     * @throws ezcWorkflowInvalidDefinitionException if $className does not contain the name of a valid class implementing ezcWorkflowVariableHandler
+     * @throws ezcWorkflowInvalidWorkflowException if $className does not contain the name of a valid class implementing ezcWorkflowVariableHandler
      * @param array $variableHandlers
      */
     public function setVariableHandlers( array $variableHandlers )

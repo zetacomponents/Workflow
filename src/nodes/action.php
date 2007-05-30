@@ -26,7 +26,7 @@ class ezcWorkflowNodeAction extends ezcWorkflowNode
      * Constructor.
      *
      * @param mixed $configuration
-     * @throws ezcWorkflowDefinitionException
+     * @throws ezcWorkflowDefinitionStorageException
      */
     public function __construct( $configuration )
     {

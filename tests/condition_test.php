@@ -208,7 +208,7 @@ class ezcWorkflowConditionTest extends ezcTestCase
         {
             $condition = new ezcWorkflowConditionAnd( array( new StdClass ) );
         }
-        catch ( ezcWorkflowDefinitionException $e )
+        catch ( ezcWorkflowDefinitionStorageException $e )
         {
             return;
         }

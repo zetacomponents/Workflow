@@ -13,11 +13,11 @@ require_once 'case.php';
  * @package Workflow
  * @subpackage Tests
  */
-class ezcWorkflowDefinitionXmlTest extends ezcWorkflowTestCase
+class ezcWorkflowDefinitionStorageXmlTest extends ezcWorkflowTestCase
 {
     public static function suite()
     {
-        return new PHPUnit_Framework_TestSuite( 'ezcWorkflowDefinitionXmlTest' );
+        return new PHPUnit_Framework_TestSuite( 'ezcWorkflowDefinitionStorageXmlTest' );
     }
 
     public function testSaveStartEnd()
@@ -373,7 +373,7 @@ class ezcWorkflowDefinitionXmlTest extends ezcWorkflowTestCase
         {
             $this->definition->loadByName( 'NotExisting' );
         }
-        catch ( ezcWorkflowDefinitionException $e )
+        catch ( ezcWorkflowDefinitionStorageException $e )
         {
             return;
         }
@@ -387,7 +387,7 @@ class ezcWorkflowDefinitionXmlTest extends ezcWorkflowTestCase
         {
             $workflow = $this->definition->loadByName( 'StartEnd', 2 );
         }
-        catch ( ezcWorkflowDefinitionException $e )
+        catch ( ezcWorkflowDefinitionStorageException $e )
         {
             return;
         }

@@ -1,6 +1,6 @@
 <?php
 /**
- * File containing the ezcWorkflowDefinition interface.
+ * File containing the ezcWorkflowDefinitionStorage interface.
  *
  * @package Workflow
  * @version //autogen//
@@ -14,7 +14,7 @@
  * @package Workflow
  * @version //autogen//
  */
-interface ezcWorkflowDefinition
+interface ezcWorkflowDefinitionStorage
 {
     /**
      * Load a workflow definition by name.
@@ -22,7 +22,7 @@ interface ezcWorkflowDefinition
      * @param  string  $workflowName
      * @param  integer $workflowVersion
      * @return ezcWorkflow
-     * @throws ezcWorkflowDefinitionException
+     * @throws ezcWorkflowDefinitionStorageException
      */
     public function loadByName( $workflowName, $workflowVersion = 0 );
 
@@ -30,7 +30,7 @@ interface ezcWorkflowDefinition
      * Save a workflow definition to the database.
      *
      * @param  ezcWorkflow $workflow
-     * @throws ezcWorkflowDefinitionException
+     * @throws ezcWorkflowDefinitionStorageException
      */
     public function save( ezcWorkflow $workflow );
 }

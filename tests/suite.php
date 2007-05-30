@@ -25,7 +25,7 @@ class ezcWorkflowSuite extends PHPUnit_Framework_TestSuite
         parent::__construct();
         $this->setName( 'Workflow' );
 
-        $this->addTest( ezcWorkflowDefinitionXmlTest::suite() );
+        $this->addTest( ezcWorkflowDefinitionStorageXmlTest::suite() );
         $this->addTest( ezcWorkflowExecutionTest::suite() );
         $this->addTest( ezcWorkflowTest::suite() );
         $this->addTest( ezcWorkflowNodeTest::suite() );

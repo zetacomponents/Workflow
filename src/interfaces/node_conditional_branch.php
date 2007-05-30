@@ -150,7 +150,7 @@ abstract class ezcWorkflowNodeConditionalBranch extends ezcWorkflowNodeBranch
     /**
      * Checks this node's constraints.
      *
-     * @throws ezcWorkflowInvalidDefinitionException if the constraints of this node are not met.
+     * @throws ezcWorkflowInvalidWorkflowException if the constraints of this node are not met.
      */
     public function verify()
     {
@@ -160,14 +160,14 @@ abstract class ezcWorkflowNodeConditionalBranch extends ezcWorkflowNodeBranch
 
         if ( $this->minConditionalOutNodes !== false && $numConditionalOutNodes < $this->minConditionalOutNodes )
         {
-            throw new ezcWorkflowInvalidDefinitionException(
+            throw new ezcWorkflowInvalidWorkflowException(
               'Node has less conditional outgoing nodes than required.'
             );
         }
 
         if ( $this->maxConditionalOutNodes !== false && $numConditionalOutNodes > $this->maxConditionalOutNodes )
         {
-            throw new ezcWorkflowInvalidDefinitionException(
+            throw new ezcWorkflowInvalidWorkflowException(
               'Node has more conditional outgoing nodes than allowed.'
             );
         }

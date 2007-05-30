@@ -41,7 +41,7 @@ class ezcWorkflowNodeSubWorkflow extends ezcWorkflowNode
         if ( $execution->definitionHandler === null )
         {
             throw new ezcWorkflowExecutionException(
-              'No ezcWorkflowDefinition implementation available.'
+              'No ezcWorkflowDefinitionStorage implementation available.'
             );
         }
 

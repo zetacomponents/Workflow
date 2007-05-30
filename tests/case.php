@@ -28,7 +28,7 @@ abstract class ezcWorkflowTestCase extends ezcTestCase
     {
         parent::setUp();
 
-        $this->definition = new ezcWorkflowDefinitionXml(
+        $this->definition = new ezcWorkflowDefinitionStorageXml(
           dirname( __FILE__ ) . '/data/'
         );
 

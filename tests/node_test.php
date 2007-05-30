@@ -162,7 +162,7 @@ class ezcWorkflowNodeTest extends ezcWorkflowTestCase
         {
             $this->startNode->verify();
         }
-        catch ( ezcWorkflowInvalidDefinitionException $e )
+        catch ( ezcWorkflowInvalidWorkflowException $e )
         {
             return;
         }
@@ -178,7 +178,7 @@ class ezcWorkflowNodeTest extends ezcWorkflowTestCase
         {
             $this->endNode->verify();
         }
-        catch ( ezcWorkflowInvalidDefinitionException $e )
+        catch ( ezcWorkflowInvalidWorkflowException $e )
         {
             return;
         }
@@ -212,7 +212,7 @@ class ezcWorkflowNodeTest extends ezcWorkflowTestCase
 
             $c->verify();
         }
-        catch ( ezcWorkflowInvalidDefinitionException $e )
+        catch ( ezcWorkflowInvalidWorkflowException $e )
         {
             return;
         }
@@ -246,7 +246,7 @@ class ezcWorkflowNodeTest extends ezcWorkflowTestCase
 
             $b->verify();
         }
-        catch ( ezcWorkflowInvalidDefinitionException $e )
+        catch ( ezcWorkflowInvalidWorkflowException $e )
         {
             return;
         }

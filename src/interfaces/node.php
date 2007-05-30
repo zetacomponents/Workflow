@@ -166,7 +166,7 @@ abstract class ezcWorkflowNode implements ezcWorkflowVisitable
      * this node as an out node of $node.
      *
      * @param  ezcWorkflowNode $node The node that is to be added as incoming node.
-     * @throws ezcWorkflowInvalidDefinitionException if the operation violates the constraints of the nodes involved.
+     * @throws ezcWorkflowInvalidWorkflowException if the operation violates the constraints of the nodes involved.
      * @return ezcWorkflowNode
      */
     public function addInNode( ezcWorkflowNode $node )
@@ -197,7 +197,7 @@ abstract class ezcWorkflowNode implements ezcWorkflowVisitable
      * Removes a node from the incoming nodes of this node.
      *
      * @param  ezcWorkflowNode $node The node that is to be removed as incoming node.
-     * @throws ezcWorkflowInvalidDefinitionException if the operation violates the constraints of the nodes involved.
+     * @throws ezcWorkflowInvalidWorkflowException if the operation violates the constraints of the nodes involved.
      * @return boolean
      */
     public function removeInNode( ezcWorkflowNode $node )
@@ -233,7 +233,7 @@ abstract class ezcWorkflowNode implements ezcWorkflowVisitable
      * this node as an in node of $node.
      *
      * @param  ezcWorkflowNode $node The node that is to be added as outgoing node.
-     * @throws ezcWorkflowInvalidDefinitionException if the operation violates the constraints of the nodes involved.
+     * @throws ezcWorkflowInvalidWorkflowException if the operation violates the constraints of the nodes involved.
      * @return ezcWorkflowNode
      */
     public function addOutNode( ezcWorkflowNode $node )
@@ -264,7 +264,7 @@ abstract class ezcWorkflowNode implements ezcWorkflowVisitable
      * Removes a node from the outgoing nodes of this node.
      *
      * @param  ezcWorkflowNode $node The node that is to be removed as outgoing node.
-     * @throws ezcWorkflowInvalidDefinitionException if the operation violates the constraints of the nodes involved.
+     * @throws ezcWorkflowInvalidWorkflowException if the operation violates the constraints of the nodes involved.
      * @return boolean
      */
     public function removeOutNode( ezcWorkflowNode $node )
@@ -418,34 +418,34 @@ abstract class ezcWorkflowNode implements ezcWorkflowVisitable
      * maximum in nodes, minimum out nodes and maximum
      * out nodes.
      *
-     * @throws ezcWorkflowInvalidDefinitionException if the constraints of this node are not met.
+     * @throws ezcWorkflowInvalidWorkflowException if the constraints of this node are not met.
      */
     public function verify()
     {
         if ( $this->minInNodes !== false && $this->numInNodes < $this->minInNodes )
         {
-            throw new ezcWorkflowInvalidDefinitionException(
+            throw new ezcWorkflowInvalidWorkflowException(
               'Node has less incoming nodes than required.'
             );
         }
 
         if ( $this->maxInNodes !== false && $this->numInNodes > $this->maxInNodes )
         {
-            throw new ezcWorkflowInvalidDefinitionException(
+            throw new ezcWorkflowInvalidWorkflowException(
               'Node has more incoming nodes than allowed.'
             );
         }
 
         if ( $this->minOutNodes !== false && $this->numOutNodes < $this->minOutNodes )
         {
-            throw new ezcWorkflowInvalidDefinitionException(
+            throw new ezcWorkflowInvalidWorkflowException(
               'Node has less outgoing nodes than required.'
             );
         }
 
         if ( $this->maxOutNodes !== false && $this->numOutNodes > $this->maxOutNodes )
         {
-            throw new ezcWorkflowInvalidDefinitionException(
+            throw new ezcWorkflowInvalidWorkflowException(
               'Node has more outgoing nodes than allowed.'
             );
         }

@@ -32,7 +32,7 @@ abstract class ezcWorkflowConditionBooleanSet implements ezcWorkflowCondition
      * The format of $conditions must be array( ezcWorkflowCondition )
      *
      * @param  Array $conditions
-     * @throws ezcWorkflowDefinitionException
+     * @throws ezcWorkflowDefinitionStorageException
      */
     public function __construct( Array $conditions )
     {
@@ -40,7 +40,7 @@ abstract class ezcWorkflowConditionBooleanSet implements ezcWorkflowCondition
         {
             if ( !$condition instanceof ezcWorkflowCondition )
             {
-                throw new ezcWorkflowDefinitionException(
+                throw new ezcWorkflowDefinitionStorageException(
                   'Array does not contain (only) ezcWorkflowCondition objects.'
                 );
             }

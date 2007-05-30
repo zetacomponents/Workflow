@@ -106,7 +106,7 @@ class ezcWorkflowTest extends ezcWorkflowTestCase
             $workflow = new ezcWorkflow( 'Test' );
             $workflow->verify();
         }
-        catch ( ezcWorkflowDefinitionException $e )
+        catch ( ezcWorkflowDefinitionStorageException $e )
         {
             return;
         }
@@ -122,7 +122,7 @@ class ezcWorkflowTest extends ezcWorkflowTestCase
             $workflow->startNode->addOutNode( new ezcWorkflowNodeStart );
             $workflow->verify();
         }
-        catch ( ezcWorkflowDefinitionException $e )
+        catch ( ezcWorkflowDefinitionStorageException $e )
         {
             return;
         }
@@ -153,7 +153,7 @@ class ezcWorkflowTest extends ezcWorkflowTestCase
               'foo', 'StdClass'
             );
         }
-        catch ( ezcWorkflowInvalidDefinitionException $e )
+        catch ( ezcWorkflowInvalidWorkflowException $e )
         {
             return;
         }
@@ -171,7 +171,7 @@ class ezcWorkflowTest extends ezcWorkflowTestCase
               'foo', 'NotExisting'
             );
         }
-        catch ( ezcWorkflowInvalidDefinitionException $e )
+        catch ( ezcWorkflowInvalidWorkflowException $e )
         {
             return;
         }

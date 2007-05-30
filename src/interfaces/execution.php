@@ -130,7 +130,7 @@ abstract class ezcWorkflowExecution
      *
      * @throws ezcBaseValueException 
      *         If a the value for the property definitionHandler is not an
-     *         instance of ezcWorkflowDefinition.
+     *         instance of ezcWorkflowDefinitionStorage.
      * @throws ezcBaseValueException 
      *         If a the value for the property workflow is not an instance of
      *         ezcWorkflow.
@@ -141,9 +141,9 @@ abstract class ezcWorkflowExecution
         switch ( $propertyName ) 
         {
             case 'definitionHandler':
-                if ( !( $val instanceof ezcWorkflowDefinition ) )
+                if ( !( $val instanceof ezcWorkflowDefinitionStorage ) )
                 {
-                    throw new ezcBaseValueException( $propertyName, $val, 'ezcWorkflowDefinition' );
+                    throw new ezcBaseValueException( $propertyName, $val, 'ezcWorkflowDefinitionStorage' );
                 }
 
                 $this->properties['definitionHandler'] = $val;

@@ -1,6 +1,6 @@
 <?php
 /**
- * File containing the ezcWorkflowDefinitionException class.
+ * File containing the ezcWorkflowDefinitionStorageException class.
  *
  * @package Workflow
  * @version //autogen//
@@ -15,7 +15,7 @@
  * @package Workflow
  * @version //autogen//
  */
-class ezcWorkflowDefinitionException extends ezcWorkflowException
+class ezcWorkflowDefinitionStorageException extends ezcWorkflowException
 {
 }
 ?>

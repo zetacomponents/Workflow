@@ -24,7 +24,7 @@ class ezcWorkflowExecutionNonInteractive extends ezcWorkflowExecution
      *
      * @throws ezcBaseValueException 
      *         If a the value for the property definitionHandler is not an
-     *         instance of ezcWorkflowDefinition.
+     *         instance of ezcWorkflowDefinitionStorage.
      * @throws ezcBaseValueException 
      *         If a the value for the property workflow is not an instance of
      *         ezcWorkflow.

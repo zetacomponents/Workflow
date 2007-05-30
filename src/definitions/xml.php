@@ -1,6 +1,6 @@
 <?php
 /**
- * File containing the ezcWorkflowDefinitionXml class.
+ * File containing the ezcWorkflowDefinitionStorageXml class.
  *
  * @package Workflow
  * @version //autogen//
@@ -14,7 +14,7 @@
  * @package Workflow
  * @version //autogen//
  */
-class ezcWorkflowDefinitionXml implements ezcWorkflowDefinition
+class ezcWorkflowDefinitionStorageXml implements ezcWorkflowDefinitionStorage
 {
     /** 
      * The directory that holds the XML files.
@@ -39,7 +39,7 @@ class ezcWorkflowDefinitionXml implements ezcWorkflowDefinition
      * @param  string  $workflowName
      * @param  integer $workflowVersion
      * @return ezcWorkflow
-     * @throws ezcWorkflowDefinitionException
+     * @throws ezcWorkflowDefinitionStorageException
      */
     public function loadByName( $workflowName, $workflowVersion = 0 )
     {
@@ -54,7 +54,7 @@ class ezcWorkflowDefinitionXml implements ezcWorkflowDefinition
 
         if ( $document === false )
         {
-            throw new ezcWorkflowDefinitionException(
+            throw new ezcWorkflowDefinitionStorageException(
               sprintf(
                 'Could not load workflow "%s" (version %d) from "%s"',
                 $workflowName,
@@ -222,7 +222,7 @@ class ezcWorkflowDefinitionXml implements ezcWorkflowDefinition
      * Save a workflow definition.
      *
      * @param  ezcWorkflow $workflow
-     * @throws ezcWorkflowDefinitionException
+     * @throws ezcWorkflowDefinitionStorageException
      */
     public function save( ezcWorkflow $workflow )
     {

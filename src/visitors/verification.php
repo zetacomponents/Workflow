@@ -40,7 +40,7 @@ class ezcWorkflowVisitorVerification implements ezcWorkflowVisitor
 
     /**
      * @param ezcWorkflowVisitable $node
-     * @throws ezcWorkflowInvalidDefinitionException
+     * @throws ezcWorkflowInvalidWorkflowException
      */
     public function visit( ezcWorkflowVisitable $visitable )
     {
@@ -64,7 +64,7 @@ class ezcWorkflowVisitorVerification implements ezcWorkflowVisitor
 
                     if ( $this->numStartNodes > 1 )
                     {
-                        throw new ezcWorkflowInvalidDefinitionException(
+                        throw new ezcWorkflowInvalidWorkflowException(
                           'A workflow may have only one start node.'
                         );
                     }
