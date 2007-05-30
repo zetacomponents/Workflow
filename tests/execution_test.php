@@ -144,6 +144,40 @@ class ezcWorkflowExecutionTest extends ezcWorkflowTestCase
         $this->assertEquals( 2, $this->execution->getVariable( 'b' ) );
     }
 
+    public function testExecuteAddVariables2()
+    {
+        $this->setUpAddVariables2();
+        $this->execution->workflow = $this->workflow;
+
+        try
+        {
+            $this->execution->start();
+        }
+        catch ( ezcWorkflowExecutionException $e )
+        {
+            return;
+        }
+
+        $this->fail();
+    }
+
+    public function testExecuteAddVariables3()
+    {
+        $this->setUpAddVariables3();
+        $this->execution->workflow = $this->workflow;
+
+        try
+        {
+            $this->execution->start();
+        }
+        catch ( ezcWorkflowExecutionException $e )
+        {
+            return;
+        }
+
+        $this->fail();
+    }
+
     public function testExecuteParallelSplitSynchronization()
     {
         $this->setUpParallelSplitSynchronization();

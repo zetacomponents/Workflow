@@ -177,6 +177,42 @@ abstract class ezcWorkflowTestCase extends ezcTestCase
         $this->endNode->addInNode( $add );
     }
 
+    protected function setUpAddVariables2()
+    {
+        $this->workflow = new ezcWorkflow( 'AddVariables2' );
+        $this->setUpReferences();
+
+        $set = new ezcWorkflowNodeVariableSet(
+          array( 'a' => 'a', 'b' => 1 )
+        );
+
+        $add = new ezcWorkflowNodeVariableAdd(
+          array( 'name' => 'b', 'value' => 'a' )
+        );
+
+        $this->startNode->addOutNode( $set );
+        $set->addOutNode( $add );
+        $this->endNode->addInNode( $add );
+    }
+
+    protected function setUpAddVariables3()
+    {
+        $this->workflow = new ezcWorkflow( 'AddVariables3' );
+        $this->setUpReferences();
+
+        $set = new ezcWorkflowNodeVariableSet(
+          array( 'a' => 1, 'b' => 'b' )
+        );
+
+        $add = new ezcWorkflowNodeVariableAdd(
+          array( 'name' => 'b', 'value' => 'a' )
+        );
+
+        $this->startNode->addOutNode( $set );
+        $set->addOutNode( $add );
+        $this->endNode->addInNode( $add );
+    }
+
     protected function setUpParallelSplitSynchronization()
     {
         $this->workflow = new ezcWorkflow( 'ParallelSplitSynchronization' );
