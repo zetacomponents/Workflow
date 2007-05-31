@@ -25,6 +25,13 @@ class ezcWorkflowVisitorNodeCollector implements ezcWorkflowVisitor
     protected $nodes = array();
 
     /**
+     * Holds the sequence of node ids.
+     *
+     * @var integer
+     */
+    protected $nextId = 1;
+
+    /**
      * @param ezcWorkflow $workflow
      */
     public function __construct( ezcWorkflow $workflow )
@@ -43,17 +50,22 @@ class ezcWorkflowVisitorNodeCollector implements ezcWorkflowVisitor
      */
     public function visit( ezcWorkflowVisitable $visitable )
     {
-        foreach ( $this->nodes as $node )
+        if ( $visitable instanceof ezcWorkflowNode )
         {
-            if ( $node === $visitable )
+            $id = $visitable->getId();
+
+            if ( $id === false )
+            {
+                $id = $this->nextId++;
+                $visitable->setId( $id );
+            }
+
+            if ( isset( $this->nodes[$id] ) )
             {
                 return false;
             }
-        }
 
-        if ( $visitable instanceof ezcWorkflowNode )
-        {
-            $this->nodes[] = $visitable;
+            $this->nodes[$id] = $visitable;
         }
 
         return true;
@@ -66,7 +78,7 @@ class ezcWorkflowVisitorNodeCollector implements ezcWorkflowVisitor
      */
     public function getNodes()
     {
-        return $this->nodes;
+        return array_values( $this->nodes );
     }
 }
 ?>

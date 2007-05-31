@@ -38,9 +38,9 @@ class ezcWorkflowVisitorVisualization implements ezcWorkflowVisitor
     protected $edges = array();
 
     /**
-     * All visited nodes.
+     * Holds the id of each node that has been visited already.
      *
-     * @var array( ezcWorkflowNode)
+     * @var array
      */
     protected $visited = array();
 
@@ -60,16 +60,6 @@ class ezcWorkflowVisitorVisualization implements ezcWorkflowVisitor
      */
     public function visit( ezcWorkflowVisitable $visitable )
     {
-        foreach ( $this->visited as $visited )
-        {
-            if ( $visited === $visitable )
-            {
-                return false;
-            }
-        }
-
-        $this->visited[] = $visitable;
-
         if ( $visitable instanceof ezcWorkflow )
         {
             $this->workflowName = $visitable->name;
@@ -83,6 +73,13 @@ class ezcWorkflowVisitorVisualization implements ezcWorkflowVisitor
         if ( $visitable instanceof ezcWorkflowNode )
         {
             $id = $visitable->getId();
+
+            if ( isset( $this->visited[$id] ) )
+            {
+                return false;
+            }
+
+            $this->visited[$id] = true;
 
             if ( !isset( $this->nodes[ $id ] ) )
             {

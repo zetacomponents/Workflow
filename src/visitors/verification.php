@@ -36,7 +36,7 @@ class ezcWorkflowVisitorVerification implements ezcWorkflowVisitor
     protected $numStartNodes = 0;
 
     /**
-     * Holds each node that has been visited already.
+     * Holds the id of each node that has been visited already.
      *
      * @var array
      */
@@ -54,16 +54,6 @@ class ezcWorkflowVisitorVerification implements ezcWorkflowVisitor
      */
     public function visit( ezcWorkflowVisitable $visitable )
     {
-        foreach ( $this->visited as $visited )
-        {
-            if ( $visited === $visitable )
-            {
-                return false;
-            }
-        }
-
-        $this->visited[] = $visitable;
-
         if ( $visitable instanceof ezcWorkflow )
         {
             foreach ( $visitable->nodes as $node )
@@ -84,6 +74,15 @@ class ezcWorkflowVisitorVerification implements ezcWorkflowVisitor
 
         if ( $visitable instanceof ezcWorkflowNode )
         {
+            $id = $visitable->getId();
+
+            if ( isset( $this->visited[$id] ) )
+            {
+                return false;
+            }
+
+            $this->visited[$id] = true;
+
             $visitable->verify();
         }
 
