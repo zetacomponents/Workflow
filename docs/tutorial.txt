@@ -19,9 +19,23 @@ the data) that are encapsulated in a class in object-oriented programming.
 
 The Workflow component provides the means to structure software around graphs
 and makes up an pragmatic approach to describe workflows through objects that
-encapsulate the workflow patterns. A workflow definition is an object graph than
+encapsulate the workflow patterns. A workflow definition is an object graph that
 can be programmatically created using the Workflow Definition API or loaded from
 an XML file before it is executed via the Workflow Execution API.
+
+Extensions
+==========
+
+There are two extensions available for the Workflow component; the
+`WorkflowEventLogTiein`_ and the `WorkflowDatabaseTiein`_. The WorkflowEventLogTiein
+provides logging functionality. 
+The WorkflowDatabaseTiein provides the possibility to store workflows to the 
+database. It also contains an execution environment that allows workflow 
+executions to be stored to database. This functionality is not provided by 
+the execution environment included in the default Workflow component.
+
+.. _WorkflowDatabaseTiein: introduction_WorkflowDatabaseTiein.html
+.. _WorkflowEventLogTiein: introduction_WorkflowEventLogTiein.html
 
 Class Overview
 ==============
@@ -349,14 +363,44 @@ ezcWorkflowConditionIsString
 Workflow Definition Usage
 =========================
 
-Creating a workflow programmatically
-------------------------------------
+This chapter gives a few basic examples on how to create, save and load
+workflows. It also demonstrates how to make a graphical representation of your
+workflow.
+
+Creating a simple workflow programmatically
+-------------------------------------------
+
+This example shows how to set up a fairly simple workflow that will execute
+differently based on the variable 'choice'.
 
 .. include:: tutorial_example_01.php
    :literal:
 
+Adding custom PHP code to your workflow and manipulating workflow variables
+---------------------------------------------------------------------------
+
+In the previous example the $trueNode and $falseNodes where action
+objects. However, in order to make them work we must add service objects. The
+following example replaces the lines where $trueNode and $falseNode are created.
+
+.. include:: tutorial_example_01a.php
+   :literal:
+
+When this action node is executed it will load the service object with the
+parameters specified and run the execute() method. Our execute method will
+print the message passed to the constructor and change the workflow variable
+'choice'.
+
 Saving a workflow to an XML file
 --------------------------------
+
+Typically a workflow is built once and executed many times. It is also common
+that workflows are interupted during execution and resumed later in another PHP
+request. To accomodate this it is possible to save and load workflows to XML
+files (or database through the WorkflowDatabaseTiein).
+
+This example shows you how to store a workflow to an XML file. The example
+assumes the workflow can be found in the $workflow variable.
 
 .. include:: tutorial_example_02.php
    :literal:
@@ -364,23 +408,18 @@ Saving a workflow to an XML file
 Loading a workflow from an XML file
 -----------------------------------
 
+It is of course also possible to load a workflow that has been saved to disk.
+
 .. include:: tutorial_example_03.php
-   :literal:
-
-Saving a workflow to a database
--------------------------------
-
-.. include:: tutorial_example_04.php
-   :literal:
-
-Loading a workflow from a database
-----------------------------------
-
-.. include:: tutorial_example_05.php
    :literal:
 
 Visualizing a workflow using GraphViz
 -------------------------------------
+
+It is possible to write visitors that traverse the workflow graph. One example
+of this is the GraphViz visitor that generates a viewable graph representation
+of the workflow. The GraphViz visitor uses the __tostring methods on the nodes
+to get names for the nodes.
 
 .. include:: tutorial_example_06.php
    :literal:
@@ -391,17 +430,9 @@ Visualizing a workflow using GraphViz
 Workflow Execution Usage
 ========================
 
-Start a new workflow instance
------------------------------
+For examples on how to execute workflows see the `WorkflowDatabaseTiein`_ tutorial.
 
-.. include:: tutorial_example_07.php
-   :literal:
-
-Resume a workflow instance
---------------------------
-
-.. include:: tutorial_example_08.php
-   :literal:
+.. _WorkflowDatabaseTiein: introduction_WorkflowDatabaseTiein.html
 
 ..
    Local Variables:
