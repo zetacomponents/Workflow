@@ -1,6 +1,6 @@
 <?php
 /**
- * File containing the ezcWorkflowNodeVariable class.
+ * File containing the ezcWorkflowNodeArithmeticBase class.
  *
  * @package Workflow
  * @version //autogen//
@@ -21,7 +21,7 @@
  * @package Workflow
  * @version //autogen//
  */
-abstract class ezcWorkflowNodeVariable extends ezcWorkflowNode
+abstract class ezcWorkflowNodeArithmeticBase extends ezcWorkflowNode
 {
     /**
      * Array with name and value of/for the workflow variable to be set.

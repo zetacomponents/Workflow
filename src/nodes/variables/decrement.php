@@ -21,7 +21,7 @@
  * @package Workflow
  * @version //autogen//
  */
-class ezcWorkflowNodeVariableDecrement extends ezcWorkflowNodeVariable
+class ezcWorkflowNodeVariableDecrement extends ezcWorkflowNodeArithmeticBase
 {
     /**
      * The name of the variable to be decremented.

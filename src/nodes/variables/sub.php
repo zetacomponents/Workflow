@@ -27,7 +27,7 @@
  * @package Workflow
  * @version //autogen//
  */
-class ezcWorkflowNodeVariableSub extends ezcWorkflowNodeVariable
+class ezcWorkflowNodeVariableSub extends ezcWorkflowNodeArithmeticBase
 {
     /**
      * Array with the name of the workflow variable and the value

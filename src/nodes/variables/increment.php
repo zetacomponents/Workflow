@@ -21,7 +21,7 @@
  * @package Workflow
  * @version //autogen//
  */
-class ezcWorkflowNodeVariableIncrement extends ezcWorkflowNodeVariable
+class ezcWorkflowNodeVariableIncrement extends ezcWorkflowNodeArithmeticBase
 {
     /**
      * The name of the variable to be incremented.
