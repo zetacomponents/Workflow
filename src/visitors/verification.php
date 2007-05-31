@@ -29,18 +29,28 @@
 class ezcWorkflowVisitorVerification implements ezcWorkflowVisitor
 {
     /**
+     * Holds the number of start nodes encountered during visiting.
+     *
      * @var integer
      */
     protected $numStartNodes = 0;
 
     /**
+     * Holds each node that has been visited already.
+     *
      * @var array
      */
     protected $visited = array();
 
     /**
+     * Visits the node, checks contraints and calls verify on each node.
+     *
+     * Returns true if the node was verified. False if it was already
+     * verified.
+     *
      * @param ezcWorkflowVisitable $node
      * @throws ezcWorkflowInvalidWorkflowException
+     * @return boolean
      */
     public function visit( ezcWorkflowVisitable $visitable )
     {

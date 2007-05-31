@@ -9,13 +9,18 @@
  */
 
 /**
+ * Collects all the nodes in an array.
+ *
  * @package Workflow
  * @version //autogen//
+ * @access private
  */
 class ezcWorkflowVisitorNodeCollector implements ezcWorkflowVisitor
 {
     /**
-     * @var array
+     * Holds the visited nodes.
+     *
+     * @var array(ezcWorkflowVisitable)
      */
     protected $nodes = array();
 
@@ -28,6 +33,11 @@ class ezcWorkflowVisitorNodeCollector implements ezcWorkflowVisitor
     }
 
     /**
+     * Visits the node, adds it to the list of nodes.
+     *
+     * Returns true if the node was added. False if it was already in the list
+     * of nodes.
+     *
      * @param ezcWorkflowVisitable $visitable
      * @return boolean
      */
@@ -50,9 +60,12 @@ class ezcWorkflowVisitorNodeCollector implements ezcWorkflowVisitor
     }
 
     /**
+     * Returns the collected nodes.
+     *
      * @return array
      */
-    public function getNodes() {
+    public function getNodes()
+    {
         return $this->nodes;
     }
 }

@@ -11,6 +11,9 @@
 /**
  * Workflow execution engine for non-interactive workflows.
  *
+ * This workflow execution engine can only execute workflows that does not have
+ * any Input and/or SubWorkflow nodes.
+ *
  * @package Workflow
  * @version //autogen//
  */
@@ -35,7 +38,7 @@ class ezcWorkflowExecutionNonInteractive extends ezcWorkflowExecution
         if ( $val instanceof ezcWorkflow && ( $val->isInteractive() || $val->hasSubWorkflows() ) )
         {
             throw new ezcWorkflowExecutionException(
-              'This executer can only execute workflow that have no Input and SubWorkflow nodes.'
+              'This executer can only execute workflows that have no Input and SubWorkflow nodes.'
             );
         }
 

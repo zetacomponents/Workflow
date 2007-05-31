@@ -15,6 +15,7 @@
  * <code>
  *  $visitor = new ezcWorkflowVisitorVisualization;
  *  $workflow->accept( $visitor );
+ *  echo (string)$visitor; // print the plot
  * </code>
  *
  * @package Workflow
@@ -23,26 +24,37 @@
 class ezcWorkflowVisitorVisualization implements ezcWorkflowVisitor
 {
     /**
-     * @var array
+     * Holds the displayed strings for each of the nodes.
+     *
+     * @var array(string => string)
      */
     protected $nodes = array();
 
     /**
-     * @var array
+     * Holds all the edges of the graph.
+     *
+     * @var array( id => array( ezcWorkflowNode ) )
      */
     protected $edges = array();
 
     /**
-     * @var array
+     * All visited nodes.
+     *
+     * @var array( ezcWorkflowNode)
      */
     protected $visited = array();
 
     /**
+     * The name of the workflow.
+     *
      * @var string
      */
     protected $workflowName = 'Workflow';
 
     /**
+     * Visits the node and sets the the member variables according to the node
+     * type and contents.
+     *
      * @param ezcWorkflowVisitable $node
      * @return boolean
      */
@@ -102,6 +114,11 @@ class ezcWorkflowVisitorVisualization implements ezcWorkflowVisitor
         return true;
     }
 
+    /**
+     * Returns a the contents of a graphviz .dot file.
+     *
+     * @return boolean
+     */
     public function __toString()
     {
         $dot = 'digraph ' . $this->workflowName . " {\n";

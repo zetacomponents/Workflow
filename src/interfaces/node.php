@@ -105,7 +105,12 @@ abstract class ezcWorkflowNode implements ezcWorkflowVisitable
     /**
      * The configuration of this node.
      *
-     * @todo what exactly is a configuration, what can it contain
+     * The configuration is a structured (hash) array with the
+     * various options of the implemented node.
+     *
+     * This functionality is implemented as an array to make it possible
+     * to have the storage engines unaware of the node classes.
+     *
      * @var mixed
      */
     protected $configuration;
@@ -520,10 +525,17 @@ abstract class ezcWorkflowNode implements ezcWorkflowVisitable
     }
 
     /**
-     * Executes this node.
+     * Executes and performs the workflow duties of this node
+     * and returns true if the node completed execution.
      *
-     * @todo when is this called, who calls it, what happens if you call
-     *       it when you're not supposed to.
+     * Implementations of ezcWorkflowNode should reimplement this method.
+     *
+     * This method is called automatically by the workflow execution
+     * environment and should not be called directly.
+     *
+     * The default implementation resets the activation state of the
+     * node.
+     *
      * @param  ezcWorkflowExecution $execution
      * @return boolean true when the node finished execution,
      *                 and false otherwise

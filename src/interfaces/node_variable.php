@@ -9,7 +9,14 @@
  */
 
 /**
- * Base class for nodes that modify variables.
+ * Base class for nodes that implement simple integer arithmetic.
+ *
+ * This class takes care of the configuration and setting and getting of
+ * data. The data to manipulate is put into the $variable member. The manipulating
+ * parameter is put into the member $value.
+ *
+ * Implementors must implement the method doExecute() and put the result of the
+ * computation in $value member variable.
  *
  * @package Workflow
  * @version //autogen//
@@ -24,19 +31,28 @@ abstract class ezcWorkflowNodeVariable extends ezcWorkflowNode
     protected $configuration;
 
     /**
+     * Contains the data to manipulate.
+     *
      * @var mixed
      */
     protected $variable;
 
     /**
+     * Contains the manipulation parameter (if any).
+     *
      * @var mixed
      */
     protected $value = null;
 
     /**
-     * Executes this node.
+     * Executes this node and returns true.
+     *
+     * Expects the configuration parameters 'name' the name of the workflow
+     * variable to work on and the parameter 'value' the value to operate with
+     * or the name of the workflow variable containing the value.
      *
      * @param ezcWorkflowExecution $execution
+     * @return boolean
      */
     public function execute( ezcWorkflowExecution $execution )
     {
@@ -96,7 +112,9 @@ abstract class ezcWorkflowNodeVariable extends ezcWorkflowNode
     }
 
     /**
-     * Perform variable modification.
+     * Implementors should perform the variable computation in this method.
+     *
+     * doExecute() is called automatically by execute().
      */
     abstract protected function doExecute();
 }

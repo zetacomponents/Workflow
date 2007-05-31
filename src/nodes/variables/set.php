@@ -13,7 +13,7 @@
  * a given value.
  *
  * <code>
- *  $set = new ezcWorkflowNodeVariableSet ( array ( ' variable name ' = > $value ) );
+ *  $set = new ezcWorkflowNodeVariableSet ( array ( 'variable name' = > $value ) );
  * </code>
  *
  * Incomming nodes: 1
