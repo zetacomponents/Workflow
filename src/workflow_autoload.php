@@ -50,7 +50,7 @@ return array(
     'ezcWorkflowConditionOr'                   => 'Workflow/conditions/or.php',
     'ezcWorkflowConditionVariable'             => 'Workflow/conditions/variable.php',
     'ezcWorkflowConditionXor'                  => 'Workflow/conditions/xor.php',
-    'ezcWorkflowDefinitionStorageXml'          => 'Workflow/definitions/xml.php',
+    'ezcWorkflowDefinitionStorageXml'          => 'Workflow/definition_storage/xml.php',
     'ezcWorkflowExecutionListener'             => 'Workflow/interfaces/execution_listener.php',
     'ezcWorkflowExecutionNonInteractive'       => 'Workflow/execution/non_interactive.php',
     'ezcWorkflowNodeAction'                    => 'Workflow/nodes/action.php',
