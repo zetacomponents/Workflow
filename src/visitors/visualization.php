@@ -63,11 +63,7 @@ class ezcWorkflowVisitorVisualization implements ezcWorkflowVisitor
         if ( $visitable instanceof ezcWorkflow )
         {
             $this->workflowName = $visitable->name;
-
-            foreach ( $visitable->nodes as $id => $node )
-            {
-                $node->setId( $id + 1 );
-            }
+            $visitable->nodes;
         }
 
         if ( $visitable instanceof ezcWorkflowNode )

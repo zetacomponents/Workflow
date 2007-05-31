@@ -78,7 +78,7 @@ class ezcWorkflowVisitorNodeCollector implements ezcWorkflowVisitor
      */
     public function getNodes()
     {
-        return array_values( $this->nodes );
+        return $this->nodes;
     }
 }
 ?>

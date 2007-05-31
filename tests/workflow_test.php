@@ -74,8 +74,8 @@ class ezcWorkflowTest extends ezcWorkflowTestCase
         $this->setUpStartEnd();
         $nodes = $this->workflow->nodes;
 
-        $this->assertSame( $this->startNode, $nodes[0] );
-        $this->assertSame( $this->endNode, $nodes[1] );
+        $this->assertSame( $this->startNode, $nodes[1] );
+        $this->assertSame( $this->endNode, $nodes[2] );
     }
 
     public function testHasSubWorkflows()
