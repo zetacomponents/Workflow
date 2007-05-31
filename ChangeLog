@@ -1,7 +1,7 @@
 1.0beta2 - [RELEASEDATE]
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-- Fixed issue #010641: ezcWorkflowNodeVariableSet is not exported to XML
+- Fixed issue #10641: ezcWorkflowNodeVariableSet is not exported to XML
   properly.
 
 
