@@ -24,13 +24,6 @@
 abstract class ezcWorkflowNodeArithmeticBase extends ezcWorkflowNode
 {
     /**
-     * Array with name and value of/for the workflow variable to be set.
-     *
-     * @var array
-     */
-    protected $configuration;
-
-    /**
      * Contains the data to manipulate.
      *
      * @var mixed
@@ -38,11 +31,11 @@ abstract class ezcWorkflowNodeArithmeticBase extends ezcWorkflowNode
     protected $variable;
 
     /**
-     * Contains the manipulation parameter (if any).
+     * Contains the operand (if any).
      *
      * @var mixed
      */
-    protected $value = null;
+    protected $operand = null;
 
     /**
      * Executes this node and returns true.
@@ -77,20 +70,20 @@ abstract class ezcWorkflowNodeArithmeticBase extends ezcWorkflowNode
             );
         }
 
-        if ( is_numeric( $this->configuration['value'] ) )
+        if ( is_numeric( $this->configuration['operand'] ) )
         {
-            $this->value = $this->configuration['value'];
+            $this->operand = $this->configuration['operand'];
         }
 
-        else if ( is_string( $this->configuration['value'] ) )
+        else if ( is_string( $this->configuration['operand'] ) )
         {
             try
             {
-                $value = $execution->getVariable( $this->configuration['value'] );
+                $operand = $execution->getVariable( $this->configuration['operand'] );
 
-                if ( is_numeric( $value ) )
+                if ( is_numeric( $operand ) )
                 {
-                    $this->value = $value;
+                    $this->operand = $operand;
                 }
             }
             catch ( ezcWorkflowExecutionException $e )
@@ -98,9 +91,9 @@ abstract class ezcWorkflowNodeArithmeticBase extends ezcWorkflowNode
             }
         }
 
-        if ( $this->value === null )
+        if ( $this->operand === null )
         {
-            throw new ezcWorkflowExecutionException( 'Illegal argument.' );
+            throw new ezcWorkflowExecutionException( 'Illegal operand.' );
         }
 
         $this->doExecute();

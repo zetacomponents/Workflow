@@ -9,16 +9,16 @@
  */
 
 /**
- * Divides a workflow variable with another variable or a constant value.
+ * Divides a workflow variable by another variable or a constant value.
  *
  * An object of the ezcWorkflowNodeVariableDiv class divides a specified workflow variable
- * by a given value, either a constant or the value of another workflow variable.
+ * by a given operand, either a constant or the value of another workflow variable.
  * <code>
  *   $div = new ezcWorkflowNodeVariableDiv (
- *           array ( 'name' = > 'variable name' , 'value' = > $value )
+ *           array ( 'name' = > 'variable name' , 'operand' = > $operand )
  *            );
  * </code>
- * If $value is a string, the value of the variable identi?ed by that string is used.
+ * If $value is a string, the value of the workflow variable identified by that string is used.
  *
  * Incomming nodes: 1
  * Outgoing nodes: 1
@@ -29,19 +29,11 @@
 class ezcWorkflowNodeVariableDiv extends ezcWorkflowNodeArithmeticBase
 {
     /**
-     * Array with the name of the workflow variable and the value
-     * that it is divided by.
-     *
-     * @var array
-     */
-    protected $configuration;
-
-    /**
      * Perform variable modification.
      */
     protected function doExecute()
     {
-        $this->variable /= $this->value;
+        $this->variable /= $this->operand;
     }
 
     /**
@@ -51,7 +43,7 @@ class ezcWorkflowNodeVariableDiv extends ezcWorkflowNodeArithmeticBase
      */
     public function __toString()
     {
-        return $this->configuration['name'] . ' /= ' . $this->configuration['value'];
+        return $this->configuration['name'] . ' /= ' . $this->configuration['operand'];
     }
 }
 ?>

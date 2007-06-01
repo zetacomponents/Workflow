@@ -12,11 +12,11 @@
  * Multiplies a workflow variable with another variable or a constant value.
  *
  * An object of the ezcWorkflowNodeVariableMul class multiplies a specified workflow
- * variable with a given value, either a constant or the value of another workflow variable.
+ * variable with a given operand, either a constant or the value of another workflow variable.
  *
  * <code>
  *   $mul = new ezcWorkflowNodeVariableMul (
- *           array ( 'name' = > 'variable name' , 'value' = > $value )
+ *           array ( 'name' = > 'variable name' , 'operand' = > $operand )
  *            );
  * </code>
  * If $value is a string, the value of the workflow variable identified by that string is used.
@@ -30,19 +30,11 @@
 class ezcWorkflowNodeVariableMul extends ezcWorkflowNodeArithmeticBase
 {
     /**
-     * Array with the name of the workflow variable and the value
-     * that it is multiplied with.
-     *
-     * @var array
-     */
-    protected $configuration;
-
-    /**
      * Perform variable modification.
      */
     protected function doExecute()
     {
-        $this->variable *= $this->value;
+        $this->variable *= $this->operand;
     }
 
     /**
@@ -52,7 +44,7 @@ class ezcWorkflowNodeVariableMul extends ezcWorkflowNodeArithmeticBase
      */
     public function __toString()
     {
-        return $this->configuration['name'] . ' *= ' . $this->configuration['value'];
+        return $this->configuration['name'] . ' *= ' . $this->configuration['operand'];
     }
 }
 ?>

@@ -135,27 +135,27 @@ ezcWorkflowNodeVariableUnset
 
 ezcWorkflowNodeVariableAdd
 
-  An object of the ezcWorkflowNodeVariableAdd class adds a given value, either a
-  constant or the value of another workflow variable, to a specified workflow
+  An object of the ezcWorkflowNodeVariableAdd class adds a given operand, either
+  a constant or the value of another workflow variable, to a specified workflow
   variable.
 
 ezcWorkflowNodeVariableSub
 
-  An object of the ezcWorkflowNodeVariableSub class subtracts a given value,
+  An object of the ezcWorkflowNodeVariableSub class subtracts a given operand,
   either a constant or the value of another workflow variable, from a specified
   workflow variable.
 
 ezcWorkflowNodeVariableMul
 
   An object of the ezcWorkflowNodeVariableMul class multiplies a specified
-  workflow variable with a given value, either a constant or the value of
+  workflow variable with a given operand, either a constant or the value of
   another workflow variable.
 
 ezcWorkflowNodeVariableDiv
 
   An object of the ezcWorkflowNodeVariableDiv class divides a specified workflow
-  variable by a given value, either a constant or the value of another workflow
-  variable.
+  variable by a given operand, either a constant or the value of another
+  workflow variable.
 
 ezcWorkflowNodeVariableIncrement
 

@@ -11,12 +11,12 @@
 /**
  * Subtracts a workflow variable from another variable or a constant value.
  *
- * An object of the ezcWorkflowNodeVariableSub class subtracts a given value, either a
- * constant or the value of another workflow variable, from a specifled work?ow variable.
+ * An object of the ezcWorkflowNodeVariableSub class subtracts a given operand, either a
+ * constant or the value of another workflow variable, from a specifled workflow variable.
  *
  * <code>
  *  $sub = new ezcWorkflowNodeVariableSub (
- *           array ( 'name' = > 'variable name' , 'value' = > $value )
+ *           array ( 'name' = > 'variable name' , 'operand' = > $operand )
  *            );
  * </code>
  * If $value is a string, the value of the workflow variable identified by that string is used.
@@ -30,19 +30,11 @@
 class ezcWorkflowNodeVariableSub extends ezcWorkflowNodeArithmeticBase
 {
     /**
-     * Array with the name of the workflow variable and the value
-     * that is subtracted from it.
-     *
-     * @var array
-     */
-    protected $configuration;
-
-    /**
      * Perform variable modification.
      */
     protected function doExecute()
     {
-        $this->variable -= $this->value;
+        $this->variable -= $this->operand;
     }
 
     /**
@@ -52,7 +44,7 @@ class ezcWorkflowNodeVariableSub extends ezcWorkflowNodeArithmeticBase
      */
     public function __toString()
     {
-        return $this->configuration['name'] . ' -= ' . $this->configuration['value'];
+        return $this->configuration['name'] . ' -= ' . $this->configuration['operand'];
     }
 }
 ?>

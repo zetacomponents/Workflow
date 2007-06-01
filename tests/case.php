@@ -155,19 +155,19 @@ abstract class ezcWorkflowTestCase extends ezcTestCase
         );
 
         $add = new ezcWorkflowNodeVariableAdd(
-          array( 'name' => 'x', 'value' => 1 )
+          array( 'name' => 'x', 'operand' => 1 )
         );
 
         $sub = new ezcWorkflowNodeVariableSub(
-          array( 'name' => 'x', 'value' => 1 )
+          array( 'name' => 'x', 'operand' => 1 )
         );
 
         $mul = new ezcWorkflowNodeVariableMul(
-          array( 'name' => 'x', 'value' => 2 )
+          array( 'name' => 'x', 'operand' => 2 )
         );
 
         $div = new ezcWorkflowNodeVariableDiv(
-          array( 'name' => 'x', 'value' => 2 )
+          array( 'name' => 'x', 'operand' => 2 )
         );
 
         $this->startNode->addOutNode( $set );
@@ -188,7 +188,7 @@ abstract class ezcWorkflowTestCase extends ezcTestCase
         );
 
         $add = new ezcWorkflowNodeVariableAdd(
-          array( 'name' => 'b', 'value' => 'a' )
+          array( 'name' => 'b', 'operand' => 'a' )
         );
 
         $this->startNode->addOutNode( $set );
@@ -206,7 +206,7 @@ abstract class ezcWorkflowTestCase extends ezcTestCase
         );
 
         $add = new ezcWorkflowNodeVariableAdd(
-          array( 'name' => 'b', 'value' => 'a' )
+          array( 'name' => 'b', 'operand' => 'a' )
         );
 
         $this->startNode->addOutNode( $set );
@@ -224,7 +224,7 @@ abstract class ezcWorkflowTestCase extends ezcTestCase
         );
 
         $add = new ezcWorkflowNodeVariableAdd(
-          array( 'name' => 'b', 'value' => 'a' )
+          array( 'name' => 'b', 'operand' => 'a' )
         );
 
         $this->startNode->addOutNode( $set );

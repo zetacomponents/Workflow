@@ -12,7 +12,7 @@
     </variable>
     <outNode id="3"/>
   </node>
-  <node id="3" type="VariableAdd" variable="b" value="a">
+  <node id="3" type="VariableAdd" variable="b" operand="a">
     <outNode id="4"/>
   </node>
   <node id="4" type="End"/>

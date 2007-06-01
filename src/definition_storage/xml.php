@@ -151,7 +151,7 @@ class ezcWorkflowDefinitionStorageXml implements ezcWorkflowDefinitionStorage
                 {
                     $configuration = array(
                       'name' => (string)$node['variable'],
-                      'value' => (string)$node['value']
+                      'operand' => (string)$node['operand']
                     );
                 }
                 break;
@@ -349,7 +349,7 @@ class ezcWorkflowDefinitionStorageXml implements ezcWorkflowDefinitionStorage
                 case 'ezcWorkflowNodeVariableDiv':
                 {
                     $xmlNode->setAttribute( 'variable', $configuration['name'] );
-                    $xmlNode->setAttribute( 'value', $configuration['value'] );
+                    $xmlNode->setAttribute( 'operand', $configuration['operand'] );
                 }
                 break;
 

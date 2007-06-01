@@ -9,16 +9,16 @@
     </variable>
     <outNode id="3"/>
   </node>
-  <node id="3" type="VariableAdd" variable="x" value="1">
+  <node id="3" type="VariableAdd" variable="x" operand="1">
     <outNode id="4"/>
   </node>
-  <node id="4" type="VariableSub" variable="x" value="1">
+  <node id="4" type="VariableSub" variable="x" operand="1">
     <outNode id="5"/>
   </node>
-  <node id="5" type="VariableMul" variable="x" value="2">
+  <node id="5" type="VariableMul" variable="x" operand="2">
     <outNode id="6"/>
   </node>
-  <node id="6" type="VariableDiv" variable="x" value="2">
+  <node id="6" type="VariableDiv" variable="x" operand="2">
     <outNode id="7"/>
   </node>
   <node id="7" type="End"/>
