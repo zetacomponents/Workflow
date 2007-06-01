@@ -13,7 +13,7 @@
  *
  * @package Workflow
  * @version //autogen//
- * @access private
+ * @ignore
  */
 abstract class ezcWorkflowUtil
 {

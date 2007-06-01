@@ -46,6 +46,7 @@ abstract class ezcWorkflowNodeArithmeticBase extends ezcWorkflowNode
      *
      * @param ezcWorkflowExecution $execution
      * @return boolean
+     * @ignore
      */
     public function execute( ezcWorkflowExecution $execution )
     {

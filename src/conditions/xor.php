@@ -33,6 +33,7 @@ class ezcWorkflowConditionXor extends ezcWorkflowConditionBooleanSet
      *
      * @param  mixed $value
      * @return boolean true when the condition holds, false otherwise.
+     * @ignore
      */
     public function evaluate( $value )
     {

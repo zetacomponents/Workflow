@@ -304,6 +304,7 @@ abstract class ezcWorkflowNode implements ezcWorkflowVisitable
 
     /**
      * @return integer
+     * @ignore
      */
     public function getId()
     {
@@ -312,6 +313,7 @@ abstract class ezcWorkflowNode implements ezcWorkflowVisitable
 
     /**
      * @param integer $id
+     * @ignore
      */
     public function setId( $id )
     {
@@ -320,6 +322,7 @@ abstract class ezcWorkflowNode implements ezcWorkflowVisitable
 
     /**
      * @param integer $state
+     * @ignore
      */
     public function setActivationState( $activationState )
     {
@@ -364,6 +367,7 @@ abstract class ezcWorkflowNode implements ezcWorkflowVisitable
      * Returns the state of this node.
      *
      * @return mixed
+     * @ignore
      */
     public function getState()
     {
@@ -374,6 +378,7 @@ abstract class ezcWorkflowNode implements ezcWorkflowVisitable
      * Sets the state of this node.
      *
      * @param mixed $state
+     * @ignore
      */
     public function setState( $state )
     {
@@ -384,6 +389,7 @@ abstract class ezcWorkflowNode implements ezcWorkflowVisitable
      * Returns the node(s) that activated this node.
      *
      * @return array
+     * @ignore
      */
     public function getActivatedFrom()
     {
@@ -394,6 +400,7 @@ abstract class ezcWorkflowNode implements ezcWorkflowVisitable
      * Sets the node(s) that activated this node.
      *
      * @param array $activatedFrom
+     * @ignore
      */
     public function setActivatedFrom( Array $activatedFrom )
     {
@@ -404,6 +411,7 @@ abstract class ezcWorkflowNode implements ezcWorkflowVisitable
      * Returns the id of the thread this node is executing in.
      *
      * @return integer
+     * @ignore
      */
     public function getThreadId()
     {
@@ -414,6 +422,7 @@ abstract class ezcWorkflowNode implements ezcWorkflowVisitable
      * Sets the id of the thread this node is executing in.
      *
      * @param integer $threadId
+     * @ignore
      */
     public function setThreadId( $threadId )
     {
@@ -485,6 +494,7 @@ abstract class ezcWorkflowNode implements ezcWorkflowVisitable
      * @param ezcWorkflowExecution $execution
      * @param ezcWorkflowNode $activatedFrom
      * @param integer $threadId
+     * @ignore
      */
     public function activate( ezcWorkflowExecution $execution, ezcWorkflowNode $activatedFrom = null, $threadId = 0 )
     {
@@ -518,6 +528,7 @@ abstract class ezcWorkflowNode implements ezcWorkflowVisitable
      * and false if it is not.
      *
      * @return boolean
+     * @ignore
      */
     public function isExecutable()
     {
@@ -539,6 +550,7 @@ abstract class ezcWorkflowNode implements ezcWorkflowVisitable
      * @param  ezcWorkflowExecution $execution
      * @return boolean true when the node finished execution,
      *                 and false otherwise
+     * @ignore
      */
     public function execute( ezcWorkflowExecution $execution )
     {
@@ -553,6 +565,7 @@ abstract class ezcWorkflowNode implements ezcWorkflowVisitable
      * Returns a textual representation of this node.
      *
      * @return string
+     * @ignore
      */
     public function __toString()
     {

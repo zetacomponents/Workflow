@@ -33,6 +33,7 @@ class ezcWorkflowConditionVariable implements ezcWorkflowCondition
      *
      * @param  mixed $value
      * @return boolean true when the condition holds, false otherwise.
+     * @ignore
      */
     public function evaluate( $value )
     {
@@ -50,6 +51,7 @@ class ezcWorkflowConditionVariable implements ezcWorkflowCondition
      * Returns a textual representation of this condition.
      *
      * @return string
+     * @ignore
      */
     public function __toString()
     {
@@ -60,6 +62,7 @@ class ezcWorkflowConditionVariable implements ezcWorkflowCondition
      * Returns the name of the variable the condition is evaluated for.
      *
      * @return string
+     * @ignore
      */
     public function getVariableName()
     {
@@ -70,6 +73,7 @@ class ezcWorkflowConditionVariable implements ezcWorkflowCondition
      * Returns the condition.
      *
      * @return ezcWorkflowCondition
+     * @ignore
      */
     public function getCondition()
     {

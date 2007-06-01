@@ -47,6 +47,7 @@ class ezcWorkflowNodeAction extends ezcWorkflowNode
      * Executes this node by creating the service object and calling its execute() method.
      *
      * @param ezcWorkflowExecution $execution
+     * @ignore
      */
     public function execute( ezcWorkflowExecution $execution )
     {
@@ -62,6 +63,7 @@ class ezcWorkflowNodeAction extends ezcWorkflowNode
      * Returns a textual representation of this node.
      *
      * @return string
+     * @ignore
      */
     public function __toString()
     {

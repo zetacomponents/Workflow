@@ -31,6 +31,7 @@ class ezcWorkflowNodeParallelSplit extends ezcWorkflowNodeBranch
      * Executes this node.
      *
      * @param ezcWorkflowExecution $execution
+     * @ignore
      */
     public function execute( ezcWorkflowExecution $execution )
     {

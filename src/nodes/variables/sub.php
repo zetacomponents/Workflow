@@ -41,6 +41,7 @@ class ezcWorkflowNodeVariableSub extends ezcWorkflowNodeArithmeticBase
      * Returns a textual representation of this node.
      *
      * @return string
+     * @ignore
      */
     public function __toString()
     {

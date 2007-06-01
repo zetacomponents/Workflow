@@ -36,6 +36,7 @@ class ezcWorkflowNodeDiscriminator extends ezcWorkflowNodeMerge
      * @param ezcWorkflowExecution $execution
      * @param ezcWorkflowNode $activatedFrom
      * @param integer $threadId
+     * @ignore
      */
     public function activate( ezcWorkflowExecution $execution, ezcWorkflowNode $activatedFrom = null, $threadId = 0 )
     {
@@ -60,6 +61,7 @@ class ezcWorkflowNodeDiscriminator extends ezcWorkflowNodeMerge
      * Executes this node.
      *
      * @param ezcWorkflowExecution $execution
+     * @ignore
      */
     public function execute( ezcWorkflowExecution $execution )
     {

@@ -79,6 +79,7 @@ class ezcWorkflowNodeInput extends ezcWorkflowNode
      * Executes this node.
      *
      * @param ezcWorkflowExecution $execution
+     * @ignore
      */
     public function execute( ezcWorkflowExecution $execution )
     {

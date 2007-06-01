@@ -245,6 +245,7 @@ abstract class ezcWorkflowExecution
     /**
      * Suspend workflow execution.
      * @todo what exactly does this method do? Lots of magic going on here.. who calls this and when?
+     * @ignore
      */
     public function suspend()
     {
@@ -351,6 +352,7 @@ abstract class ezcWorkflowExecution
     /**
      * End workflow execution.
      * @todo who calls this and when?
+     * @ignore
      */
     public function end( ezcWorkflowNodeEnd $endNode )
     {
@@ -470,6 +472,7 @@ abstract class ezcWorkflowExecution
      * @todo correct see, what exactly does it mean to be activated?
      * @param ezcWorkflowNode $node
      * @return boolean
+     * @ignore
      */
     public function activate( ezcWorkflowNode $node )
     {
@@ -514,6 +517,7 @@ abstract class ezcWorkflowExecution
      * @param ezcWorkflowNode $node
      * @param string $variableName
      * @param ezcWorkflowCondition $condition
+     * @ignore
      */
     public function addWaitingFor( ezcWorkflowNode $node, $variableName, ezcWorkflowCondition $condition )
     {
@@ -530,6 +534,7 @@ abstract class ezcWorkflowExecution
      * Returns the variables that (input) nodes are waiting for.
      *
      * @return array
+     * @ignore
      */
     public function getWaitingFor()
     {
@@ -542,6 +547,7 @@ abstract class ezcWorkflowExecution
      * @param integer $parentId The id of the parent thread.
      * @param integer $numSiblings The number of threads that are started by the same node.
      * @return integer
+     * @ignore
      */
     public function startThread( $parentId = null, $numSiblings = 1 )
     {
@@ -571,6 +577,7 @@ abstract class ezcWorkflowExecution
      * Ends the thread with id $threadId
      *
      * @param  integer $threadId
+     * @ignore
      */
     public function endThread( $threadId )
     {
@@ -608,6 +615,7 @@ abstract class ezcWorkflowExecution
      * @param  integer $id
      * @param  boolean $interactive
      * @return ezcWorkflowExecution
+     * @ignore
      */
     public function getSubExecution( $id = null, $interactive = true )
     {
@@ -638,6 +646,7 @@ abstract class ezcWorkflowExecution
      *
      * @param  integer $threadId The id of the thread for which to return the number of siblings.
      * @return integer
+     * @ignore
      */
     public function getNumSiblingThreads( $threadId )
     {
@@ -656,6 +665,7 @@ abstract class ezcWorkflowExecution
      *
      * @param  integer $threadId The id of the thread for which to return the parent thread id.
      * @return integer
+     * @ignore
      */
     public function getParentThreadId( $threadId )
     {
@@ -725,6 +735,7 @@ abstract class ezcWorkflowExecution
      * Returns the execution ID.
      *
      * @return integer
+     * @ignore
      */
     public function getId()
     {
@@ -735,6 +746,7 @@ abstract class ezcWorkflowExecution
      * Returns a variable.
      *
      * @param string $variableName
+     * @ignore
      */
     public function getVariable( $variableName )
     {
@@ -757,6 +769,7 @@ abstract class ezcWorkflowExecution
      * Returns the variables.
      *
      * @return array
+     * @ignore
      */
     public function getVariables()
     {
@@ -768,6 +781,7 @@ abstract class ezcWorkflowExecution
      *
      * @param string $variableName
      * @param mixed $value
+     * @ignore
      */
     public function setVariable( $variableName, $value )
     {
@@ -791,6 +805,7 @@ abstract class ezcWorkflowExecution
      * Sets the variables.
      *
      * @param array $variables
+     * @ignore
      */
     public function setVariables( Array $variables )
     {
@@ -806,6 +821,7 @@ abstract class ezcWorkflowExecution
      * Unsets a variable.
      *
      * @param string $variableName
+     * @ignore
      */
     public function unsetVariable( $variableName )
     {
@@ -841,6 +857,7 @@ abstract class ezcWorkflowExecution
      * Returns true when the workflow execution has been resumed.
      *
      * @return boolean
+     * @ignore
      */
     public function isResumed()
     {

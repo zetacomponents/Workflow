@@ -111,6 +111,7 @@ class ezcWorkflowVisitorVisualization implements ezcWorkflowVisitor
      * Returns a the contents of a graphviz .dot file.
      *
      * @return boolean
+     * @ignore
      */
     public function __toString()
     {

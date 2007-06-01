@@ -13,7 +13,7 @@
  *
  * @package Workflow
  * @version //autogen//
- * @access private
+ * @ignore
  */
 class ezcWorkflowVisitorNodeCollector implements ezcWorkflowVisitor
 {

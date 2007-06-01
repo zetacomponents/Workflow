@@ -47,6 +47,7 @@ class ezcWorkflowNodeVariableSet extends ezcWorkflowNode
      * Executes this node.
      *
      * @param ezcWorkflowExecution $execution
+     * @ignore
      */
     public function execute( ezcWorkflowExecution $execution )
     {
@@ -64,6 +65,7 @@ class ezcWorkflowNodeVariableSet extends ezcWorkflowNode
      * Returns a textual representation of this node.
      *
      * @return string
+     * @ignore
      */
     public function __toString()
     {

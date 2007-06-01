@@ -37,6 +37,7 @@ abstract class ezcWorkflowConditionComparison implements ezcWorkflowCondition
      * Returns the value that this condition compares against.
      *
      * @return mixed
+     * @ignore
      */
     public function getValue()
     {

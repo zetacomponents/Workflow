@@ -76,6 +76,7 @@ abstract class ezcWorkflowNodeConditionalBranch extends ezcWorkflowNodeBranch
      *
      * @param  ezcWorkflowNode $node
      * @return ezcWorkflowCondition
+     * @ignore
      */
     public function getCondition( ezcWorkflowNode $node )
     {
@@ -104,6 +105,7 @@ abstract class ezcWorkflowNodeConditionalBranch extends ezcWorkflowNodeBranch
      * Executes this node.
      *
      * @param ezcWorkflowExecution $execution
+     * @ignore
      */
     public function execute( ezcWorkflowExecution $execution )
     {

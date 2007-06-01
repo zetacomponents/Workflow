@@ -53,6 +53,7 @@ abstract class ezcWorkflowConditionBooleanSet implements ezcWorkflowCondition
      * Returns the conditions in this boolean set.
      *
      * @return ezcWorkflowCondition[]
+     * @ignore
      */
     public function getConditions()
     {
@@ -63,6 +64,7 @@ abstract class ezcWorkflowConditionBooleanSet implements ezcWorkflowCondition
      * Returns a textual representation of this condition.
      *
      * @return string
+     * @ignore
      */
     public function __toString()
     {

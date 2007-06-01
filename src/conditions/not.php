@@ -47,6 +47,7 @@ class ezcWorkflowConditionNot implements ezcWorkflowCondition
      *
      * @param  mixed $value
      * @return boolean true when the condition holds, false otherwise.
+     * @ignore
      */
     public function evaluate( $value )
     {
@@ -57,6 +58,7 @@ class ezcWorkflowConditionNot implements ezcWorkflowCondition
      * Returns the condition that is negated.
      *
      * @return ezcWorkflowCondition
+     * @ignore
      */
     public function getCondition()
     {
@@ -67,6 +69,7 @@ class ezcWorkflowConditionNot implements ezcWorkflowCondition
      * Returns a textual representation of this condition.
      *
      * @return string
+     * @ignore
      */
     public function __toString()
     {
