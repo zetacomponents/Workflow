@@ -16,7 +16,7 @@
  *  $set = new ezcWorkflowNodeVariableSet ( array ( 'variable name' = > $value ) );
  * </code>
  *
- * Incomming nodes: 1
+ * Incoming nodes: 1
  * Outgoing nodes: 1
  *
  * @todo is this only meant for static use (e.g value defined at workflow build up) or also for dynamic use?

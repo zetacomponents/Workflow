@@ -18,7 +18,7 @@
  * charged, the activities of sending a con?rmation email and starting the shipping process can
  * be executed in parallel.
  *
- * Incomming nodes: 1
+ * Incoming nodes: 1
  * Outgoing nodes: 2..*
  *
  * $todo example

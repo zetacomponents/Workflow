@@ -15,7 +15,7 @@
  *   $inc = new ezcWorkflowNodeVariableIncrement ( ' variable name ' ) ;
  * </code>
  *
- * Incomming nodes: 1
+ * Incoming nodes: 1
  * Outgoing nodes: 1
  *
  * @package Workflow

@@ -18,7 +18,7 @@
  * Use Case Example: After the payment has been performed by either credit card or bank
  * transfer, the order can be processed further.
  *
- * Incomming nodes: 2..*
+ * Incoming nodes: 2..*
  * Outgoing nodes: 1
  *
  * @package Workflow

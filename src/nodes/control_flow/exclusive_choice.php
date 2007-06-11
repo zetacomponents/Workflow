@@ -15,7 +15,7 @@
  * for the workflow of which exactly one is chosen based on the conditions
  * set for the out nodes.
  *
- * Incomming nodes: 1
+ * Incoming nodes: 1
  * Outgoing nodes: 2..*
  *
  * @todo example

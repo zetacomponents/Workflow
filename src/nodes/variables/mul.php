@@ -21,7 +21,7 @@
  * </code>
  * If $value is a string, the value of the workflow variable identified by that string is used.
  *
- * Incomming nodes: 1
+ * Incoming nodes: 1
  * Outgoing nodes: 1
  *
  * @package Workflow

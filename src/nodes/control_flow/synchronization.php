@@ -20,7 +20,7 @@
  * Use Case Example: After the confirmation email has been sent and the shipping process has
  * been completed, the order can be archived.
  *
- * Incomming nodes: 2..*
+ * Incoming nodes: 2..*
  * Outgoing nodes: 1
  *
  * @todo example

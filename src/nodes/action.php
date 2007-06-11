@@ -14,7 +14,7 @@
  * When the node is reached during execution of the workflow, the business logic that is implemented
  * by the associated service object is executed.
  *
- * Incomming nodes: 1
+ * Incoming nodes: 1
  * Outgoing nodes: 1
  *
  * @package Workflow

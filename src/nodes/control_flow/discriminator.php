@@ -21,7 +21,7 @@
  * Use Case Example: To improve response time, an action is delegated to several distributed
  * servers. The first response proceeds the flow, the other responses are ignored.
  *
- * Incomming nodes: 2..*
+ * Incoming nodes: 2..*
  * Outgoing nodes: 1
  *
  * @todo example

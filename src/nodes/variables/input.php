@@ -16,7 +16,7 @@
  * the application that embeds the workflow engine may supply the input data and resume the workflow
  * execution (second activation of the input node). Input data is stored in a workflow variable.
  *
- * Incomming nodes: 1
+ * Incoming nodes: 1
  * Outgoing nodes: 1
  *
  * @todo example, how do you specify the name of the input to react on?
