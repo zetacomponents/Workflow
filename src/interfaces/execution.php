@@ -11,12 +11,18 @@
 /**
  * Abstract base class for workflow execution engines.
  *
+ * ezcWorkflowExecution provides all functionality necessary to execute
+ * a workflow. However, it does not provide functionality to make the
+ * execution of a workflow persistent and hence usuable over more than
+ * one PHP run.
+ *
+ * Implementations must implement the do* methods and provide the means
+ * to store the execution data to a persistent medium.
+ *
  * @property ezcWorkflowDefinitonStorage $definitionStorage
  *           The definition handler used to fetch subworkflows if needed.
  * @property ezcWorkflow $workflow The workflow being executed.
  *
- * @todo what does this class provide
- * @todo what must an implementor still do
  * @package Workflow
  * @version //autogen//
  */
@@ -196,6 +202,8 @@ abstract class ezcWorkflowExecution
      * when executing subworkflows. It should not be used when manually
      * starting workflows.
      *
+     * Calls doStart() right before the first node is activated.
+     *
      * @param integer $parentId
      * @return mixed Execution ID if the workflow has been suspended,
      *               null otherwise.
@@ -243,8 +251,15 @@ abstract class ezcWorkflowExecution
     }
 
     /**
-     * Suspend workflow execution.
-     * @todo what exactly does this method do? Lots of magic going on here.. who calls this and when?
+     * Suspends workflow execution.
+     *
+     * This method is usually called by the execution environment when there are no more
+     * more activated nodes that can be executed. This is commonly the case with input
+     * nodes waiting for input.
+     *
+     * This method calls doSuspend() before calling saveToVariableHandlers() allowing
+     * reimplementations to save variable and node information.
+     *
      * @ignore
      */
     public function suspend()
@@ -280,10 +295,14 @@ abstract class ezcWorkflowExecution
     }
 
     /**
-     * Resume workflow execution.
+     * Resumes workflow execution of a suspended workflow.
      *
-     * The format of $inputData is array( 'variableName' => value )
-     * @todo explain executionId..., who calls this and when?
+     * $executionId is the id of the execution to resume. $inputData is an
+     * associative array of the format array( 'variable name' => value ) that should
+     * contain new workflow variable data required to resume execution.
+     *
+     * Calls do doResume() before the variables are loaded using the variable handlers.
+     *
      * @param integer $executionId  ID of the execution to resume.
      * @param array   $inputData    The new input data.
      * @throws ezcWorkflowInvalidInputException if the input given does not match the expected data.
@@ -350,8 +369,10 @@ abstract class ezcWorkflowExecution
     }
 
     /**
-     * End workflow execution.
-     * @todo who calls this and when?
+     * Ends workflow execution with the node $endNode.
+     *
+     * End nodes must call this method to end the execution.
+     *
      * @ignore
      */
     public function end( ezcWorkflowNodeEnd $endNode )
@@ -393,6 +414,8 @@ abstract class ezcWorkflowExecution
     /**
      * The workflow engine's main execution loop. It is started by start() and
      * resume().
+     *
+     * @ignore
      */
     protected function execute()
     {
@@ -466,10 +489,10 @@ abstract class ezcWorkflowExecution
     /**
      * Activates a node and returns true if it was activated, false if not.
      *
-     * The node will only be activaated if the node is executable.
+     * The node will only be activated if the node is executable.
      * See ezcWorkflowNode::isExecutable().
      *
-     * @todo correct see, what exactly does it mean to be activated?
+     * @todo correct see
      * @param ezcWorkflowNode $node
      * @return boolean
      * @ignore
@@ -511,9 +534,8 @@ abstract class ezcWorkflowExecution
     }
 
     /**
-     * Add a variable that an (input) node is waiting for.
+     * Adds a variable that an (input) node is waiting for.
      *
-     * @todo internal only?
      * @param ezcWorkflowNode $node
      * @param string $variableName
      * @param ezcWorkflowCondition $condition
@@ -611,7 +633,15 @@ abstract class ezcWorkflowExecution
     /**
      * Returns a new execution object for a sub workflow.
      *
-     * @todo who and when is this calls?
+     * If this method is used to resume a subworkflow you must provide
+     * the execution id through $id.
+     *
+     * If $interactive is false an ezcWorkflowExecutionNonInteractive
+     * will be returned.
+     *
+     * This method can be used by nodes implementing sub-workflows
+     * to get a new execution environment for the subworkflow.
+     *
      * @param  integer $id
      * @param  boolean $interactive
      * @return ezcWorkflowExecution
@@ -875,7 +905,7 @@ abstract class ezcWorkflowExecution
     }
 
     /**
-     * Load data from variable handlers and 
+     * Loads data from variable handlers and 
      * merge it with the current execution data.
      */
     protected function loadFromVariableHandlers()
@@ -888,7 +918,7 @@ abstract class ezcWorkflowExecution
     }
 
     /**
-     * Save data to execution data handlers.
+     * Saves data to execution data handlers.
      */
     protected function saveToVariableHandlers()
     {
@@ -903,31 +933,49 @@ abstract class ezcWorkflowExecution
     }
 
     /**
-     * Start workflow execution.
+     * Called by start() when workflow execution is initiated.
+     *
+     * Reimplementations can use this method to store workflow information
+     * to a persistent medium when execution is started.
      *
      * @param  integer $parentId
      */
     abstract protected function doStart( $parentId );
 
     /**
-     * Suspend workflow execution.
+     * Called by suspend() when workflow execution is suspended.
+     *
+     * Reimplementations can use this method to variable and node information
+     * to a persistent medium.
      */
     abstract protected function doSuspend();
 
     /**
-     * Resume workflow execution.
+     * Called by resume() when workflow execution is resumed.
+     *
+     * Reimplementations can use this method to fetch execution
+     * data if necessary..
      *
      * @param integer $executionId  ID of the execution to resume.
      */
     abstract protected function doResume( $executionId );
 
     /**
-     * End workflow execution.
+     * Called by end() when workflow execution is ended.
+     *
+     * Reimplementations can use this method to remove execution
+     * data from the persistent medium.
      */
     abstract protected function doEnd();
 
     /**
      * Returns a new execution object for a sub workflow.
+     *
+     * Called by getSubExecution to get a new execution
+     * environment for the new execution thread.
+     *
+     * Reimplementations must return a new execution
+     * environment similar to themselves.
      *
      * @return ezcWorkflowExecution
      */

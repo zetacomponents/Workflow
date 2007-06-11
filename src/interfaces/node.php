@@ -486,11 +486,14 @@ abstract class ezcWorkflowNode implements ezcWorkflowVisitable
     }
 
     /**
-     * Activate this node.
+     * Activate this node in the execution environment $execution.
      *
-     * @todo Don't know the reason for the activatedFrom and treadId.
-     *       is this method always called from within the system?
-     *       (what happens if you don't?)
+     * $activatedFrom is the node that activated this node and $threadId is
+     * threadId of the thread the node should be activated in.
+     *
+     * This method is called by other nodes and/or the execution environment
+     * depending on the workflow.
+     *
      * @param ezcWorkflowExecution $execution
      * @param ezcWorkflowNode $activatedFrom
      * @param integer $threadId
