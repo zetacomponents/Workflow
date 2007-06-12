@@ -9,8 +9,10 @@
  */
 
 /**
- * Base class for nodes that conditionally branch multiple threads of
+ * Abstract base class for nodes that conditionally branch multiple threads of
  * execution.
+ *
+ * Most implementations only need to set the conditions for proper functioning.
  *
  * @package Workflow
  * @version //autogen//
@@ -50,12 +52,17 @@ abstract class ezcWorkflowNodeConditionalBranch extends ezcWorkflowNodeBranch
     protected $maxActivatedConditionalOutNodes = false;
 
     /**
-     * @var array
+     * Holds the conditions of the out nodes.
+     *
+     * The key is the position of the out node in the array of out nodes.
+     *
+     * @var array( 'int' => ezcWorkflowCondtion )
      */
     protected $configuration = array();
 
+
     /**
-     * Adds a conditional outgoing node to this node.
+     * Adds the conditional outgoing node $outNode to this node with the condition $condition.
      *
      * @param  ezcWorkflowCondition
      * @param  ezcWorkflowNode
@@ -102,7 +109,8 @@ abstract class ezcWorkflowNodeConditionalBranch extends ezcWorkflowNodeBranch
     }
 
     /**
-     * Executes this node.
+     * Evaluates all the conditions, checks the constraints and activates any nodes that have
+     * passed through both checks and condition evaluation.
      *
      * @param ezcWorkflowExecution $execution
      * @ignore

@@ -38,6 +38,26 @@ abstract class ezcWorkflowNodeArithmeticBase extends ezcWorkflowNode
     protected $operand = null;
 
     /**
+     * Constructs a new action node with the configuration $configuration.
+     *
+     * Configuration format
+     * String:
+     *   The name of the workflow variable to operate on.
+     *
+     * Array:
+     * name - The name of the workflow variable to operate on.
+     * operand - Name of workflow variable or a numerical value.
+     *           Not used by implementations without an operand.
+     *
+     * @param mixed $configuration
+     * @throws ezcWorkflowDefinitionStorageException
+     */
+    public function __construct( $configuration )
+    {
+        parent::__construct( $configuration );
+    }
+
+    /**
      * Executes this node and returns true.
      *
      * Expects the configuration parameters 'name' the name of the workflow

@@ -40,7 +40,7 @@ class ezcWorkflowNodeStart extends ezcWorkflowNode
     protected $maxInNodes = 0;
 
     /**
-     * Executes this node.
+     * Activates the sole output node.
      *
      * @param ezcWorkflowExecution $execution
      * @ignore

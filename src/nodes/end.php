@@ -41,7 +41,7 @@ class ezcWorkflowNodeEnd extends ezcWorkflowNode
     protected $maxOutNodes = 0;
 
     /**
-     * Executes this node.
+     * Ends the execution of this workflow.
      *
      * @param ezcWorkflowExecution $execution
      * @ignore

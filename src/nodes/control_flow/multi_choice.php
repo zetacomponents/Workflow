@@ -11,14 +11,14 @@
 /**
  * This node implements the Multi-Choice workflow pattern.
  *
- * The Multi-Choice work?ow pattern defines multiple possible paths for the workflow of
+ * The Multi-Choice workflow pattern defines multiple possible paths for the workflow of
  * which one or more are chosen. It is a generalization of the Parallel Split and
  * Exclusive Choice workflow patterns.
  *
  * Incoming nodes: 1
  * Outgoing nodes: 2..*
  *
- * @todo example, are they run in paralell as threads?
+ * @todo example
  * @package Workflow
  * @version //autogen//
  */

@@ -19,14 +19,24 @@
  * Incoming nodes: 1
  * Outgoing nodes: 1
  *
- * @todo example, how do you specify the name of the input to react on?
+ * @todo example
  * @package Workflow
  * @version //autogen//
  */
 class ezcWorkflowNodeInput extends ezcWorkflowNode
 {
     /**
-     * Constructor.
+     * Constructs a new input node.
+     *
+     * An input node accepts an array of workflow variables to accept
+     * and/or together with a condition on the variable if required.
+     *
+     * Each element in the configuration array must be either
+     * String - The name of the workflow variable to require. No conditions.
+     *
+     * or
+     * Key: The name of the workflow variable to require.
+     * Value: An object of type ezcWorkflowCondition
      *
      * @param mixed $configuration
      * @throws ezcBaseValueException

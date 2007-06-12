@@ -32,6 +32,22 @@ class ezcWorkflowNodeSubWorkflow extends ezcWorkflowNode
     protected $state = 0;
 
     /**
+     * Constructs a new sub workflow with the configuration $configuration.
+     *
+     * Configuration format
+     * String:
+     *  The name of the workflow to execute. The workflow is loaded using the
+     *  loadByName method on the execution engine.
+     *
+     * @param mixed $configuration
+     * @throws ezcWorkflowDefinitionStorageException
+     */
+    public function __construct( $configuration )
+    {
+        parent::__construct( $configuration );
+    }
+
+    /**
      * Executes this node.
      *
      * @param ezcWorkflowExecution $execution

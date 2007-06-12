@@ -26,7 +26,10 @@
 class ezcWorkflowNodeVariableSet extends ezcWorkflowNode
 {
     /**
-     * Constructor.
+     * Constructs a new variable set node with the configuration $configuration.
+     *
+     * The configuration is an array of keys and values of the format:
+     * array( 'workflow variable name' => value )
      *
      * @param mixed $configuration
      * @throws ezcBaseValueException
@@ -44,7 +47,8 @@ class ezcWorkflowNodeVariableSet extends ezcWorkflowNode
     }
 
     /**
-     * Executes this node.
+     * Executes this by setting all the variables specified by the
+     * configuration.
      *
      * @param ezcWorkflowExecution $execution
      * @ignore

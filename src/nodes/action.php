@@ -23,7 +23,16 @@
 class ezcWorkflowNodeAction extends ezcWorkflowNode
 {
     /**
-     * Constructor.
+     * Constructs a new action node with the configuration $configuration.
+     *
+     * Configuration format
+     * String:
+     *  The class name of the service object. Must implement ezcWorkflowServiceObject. No
+     *  arguments are passed to the constructor.
+     *
+     * Array:
+     * class - The class name of the service object. Must implement ezcWorkflowServiceObject.
+     * arguments - Array of values that are passed to the constructor of the service object.
      *
      * @param mixed $configuration
      * @throws ezcWorkflowDefinitionStorageException

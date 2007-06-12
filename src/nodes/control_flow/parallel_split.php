@@ -14,8 +14,8 @@
  * The Parallel Split work?ow pattern divides one thread of execution
  * unconditionally into multiple parallel threads of execution.
  *
- * Use Case Example: After the credit card speci?ed by the customer has been successfully
- * charged, the activities of sending a con?rmation email and starting the shipping process can
+ * Use Case Example: After the credit card specified by the customer has been successfully
+ * charged, the activities of sending a confirmation email and starting the shipping process can
  * be executed in parallel.
  *
  * Incoming nodes: 1
@@ -28,7 +28,7 @@
 class ezcWorkflowNodeParallelSplit extends ezcWorkflowNodeBranch
 {
     /**
-     * Executes this node.
+     * Activates all outgoing nodes.
      *
      * @param ezcWorkflowExecution $execution
      * @ignore

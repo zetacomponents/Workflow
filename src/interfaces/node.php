@@ -152,7 +152,12 @@ abstract class ezcWorkflowNode implements ezcWorkflowVisitable
     protected static $internalCall = false;
 
     /**
-     * Constructor.
+     * Constructs a new node with the configuration $configuration.
+     *
+     * The configuration is a structured (hash) array. Implementations
+     * must pass their complete configuration on to this object. We have
+     * chosen to use structured arrays for the configuration since it
+     * simplifies the process of creating new node types and storing workflows.
      *
      * @param mixed $configuration
      */

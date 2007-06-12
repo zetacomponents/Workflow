@@ -24,7 +24,14 @@
 class ezcWorkflowNodeVariableUnset extends ezcWorkflowNode
 {
     /**
-     * Constructor.
+     * Constructs a new unset node.
+     *
+     * Configuration format:
+     * String:
+     *    The name of the workflow variable to unset.
+     *
+     * Array:
+     *    An array of names of the workflow variables to unset.
      *
      * @param mixed $configuration
      * @throws ezcBaseValueException
