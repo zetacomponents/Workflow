@@ -204,7 +204,7 @@ abstract class ezcWorkflowExecution
      *
      * Calls doStart() right before the first node is activated.
      *
-     * @param integer $parentId
+     * @param int $parentId
      * @return mixed Execution ID if the workflow has been suspended,
      *               null otherwise.
      * @throws ezcWorkflowExecutionException
@@ -303,7 +303,7 @@ abstract class ezcWorkflowExecution
      *
      * Calls do doResume() before the variables are loaded using the variable handlers.
      *
-     * @param integer $executionId  ID of the execution to resume.
+     * @param int $executionId  ID of the execution to resume.
      * @param array   $inputData    The new input data.
      * @throws ezcWorkflowInvalidInputException if the input given does not match the expected data.
      * @throws ezcWorkflowExecutionException if executionId is not given and there is no prior ID for this execution.
@@ -373,6 +373,7 @@ abstract class ezcWorkflowExecution
      *
      * End nodes must call this method to end the execution.
      *
+     * @param ezcWorkflowNodeEnd $endNode
      * @ignore
      */
     public function end( ezcWorkflowNodeEnd $endNode )
@@ -566,9 +567,9 @@ abstract class ezcWorkflowExecution
     /**
      * Start a new thread and returns the id of the new thread.
      *
-     * @param integer $parentId The id of the parent thread.
-     * @param integer $numSiblings The number of threads that are started by the same node.
-     * @return integer
+     * @param int $parentId The id of the parent thread.
+     * @param int $numSiblings The number of threads that are started by the same node.
+     * @return int
      * @ignore
      */
     public function startThread( $parentId = null, $numSiblings = 1 )
@@ -642,7 +643,7 @@ abstract class ezcWorkflowExecution
      * This method can be used by nodes implementing sub-workflows
      * to get a new execution environment for the subworkflow.
      *
-     * @param  integer $id
+     * @param  int $id
      * @param  boolean $interactive
      * @return ezcWorkflowExecution
      * @ignore
@@ -674,8 +675,8 @@ abstract class ezcWorkflowExecution
     /**
      * Returns the number of siblings for a given thread.
      *
-     * @param  integer $threadId The id of the thread for which to return the number of siblings.
-     * @return integer
+     * @param  int $threadId The id of the thread for which to return the number of siblings.
+     * @return int
      * @ignore
      */
     public function getNumSiblingThreads( $threadId )
@@ -693,8 +694,8 @@ abstract class ezcWorkflowExecution
     /**
      * Returns the id of the parent thread for a given thread.
      *
-     * @param  integer $threadId The id of the thread for which to return the parent thread id.
-     * @return integer
+     * @param  int $threadId The id of the thread for which to return the parent thread id.
+     * @return int
      * @ignore
      */
     public function getParentThreadId( $threadId )
@@ -751,7 +752,7 @@ abstract class ezcWorkflowExecution
      * Notify listeners.
      *
      * @param string  $message
-     * @param integer $type
+     * @param int $type
      */
     protected function notifyListeners( $message, $type = ezcWorkflowExecutionListener::INFO )
     {
@@ -764,7 +765,7 @@ abstract class ezcWorkflowExecution
     /**
      * Returns the execution ID.
      *
-     * @return integer
+     * @return int
      * @ignore
      */
     public function getId()
@@ -956,7 +957,7 @@ abstract class ezcWorkflowExecution
      * Reimplementations can use this method to fetch execution
      * data if necessary..
      *
-     * @param integer $executionId  ID of the execution to resume.
+     * @param int $executionId  ID of the execution to resume.
      */
     abstract protected function doResume( $executionId );
 

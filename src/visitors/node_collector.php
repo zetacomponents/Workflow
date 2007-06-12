@@ -9,7 +9,7 @@
  */
 
 /**
- * Collects all the nodes in an array.
+ * Collects all the nodes in a workflow in an array.
  *
  * @package Workflow
  * @version //autogen//
@@ -32,6 +32,8 @@ class ezcWorkflowVisitorNodeCollector implements ezcWorkflowVisitor
     protected $nextId = 1;
 
     /**
+     * Constructs a new
+     *
      * @param ezcWorkflow $workflow
      */
     public function __construct( ezcWorkflow $workflow )

@@ -46,7 +46,7 @@ class ezcWorkflowDefinitionStorageXml implements ezcWorkflowDefinitionStorage
      * If the parameter $workflowVersion is omitted the most recent version is loaded.
      *
      * @param  string  $workflowName
-     * @param  integer $workflowVersion
+     * @param  int $workflowVersion
      * @return ezcWorkflow
      * @throws ezcWorkflowDefinitionStorageException
      */
@@ -674,7 +674,7 @@ class ezcWorkflowDefinitionStorageXml implements ezcWorkflowDefinitionStorage
      * The name of the workflow file is of the format [workFlowName]_[workFlowVersion].xml
      *
      * @param  string  $workflowName
-     * @param  integer $workflowVersion
+     * @param  int $workflowVersion
      * @return string
      */
     protected function getFilename( $workflowName, $workflowVersion )

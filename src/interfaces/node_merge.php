@@ -41,7 +41,7 @@ abstract class ezcWorkflowNodeMerge extends ezcWorkflowNode
      * Prepares this node for activation.
      *
      * @param ezcWorkflowExecution $execution
-     * @param integer $threadId
+     * @param int $threadId
      * @throws ezcWorkflowExecutionException
      */
     protected function prepareActivate( ezcWorkflowExecution $execution, $threadId = 0 )

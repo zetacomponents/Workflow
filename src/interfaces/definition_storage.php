@@ -20,7 +20,7 @@ interface ezcWorkflowDefinitionStorage
      * Load a workflow definition by name.
      *
      * @param  string  $workflowName
-     * @param  integer $workflowVersion
+     * @param  int $workflowVersion
      * @return ezcWorkflow
      * @throws ezcWorkflowDefinitionStorageException
      */

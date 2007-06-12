@@ -31,7 +31,7 @@ class ezcWorkflowNodeSimpleMerge extends ezcWorkflowNodeMerge
      *
      * @param ezcWorkflowExecution $execution
      * @param ezcWorkflowNode $activatedFrom
-     * @param integer $threadId
+     * @param int $threadId
      * @ignore
      */
     public function activate( ezcWorkflowExecution $execution, ezcWorkflowNode $activatedFrom = null, $threadId = 0 )

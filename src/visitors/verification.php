@@ -48,7 +48,7 @@ class ezcWorkflowVisitorVerification implements ezcWorkflowVisitor
      * Returns true if the node was verified. False if it was already
      * verified.
      *
-     * @param ezcWorkflowVisitable $node
+     * @param ezcWorkflowVisitable $visitable
      * @throws ezcWorkflowInvalidWorkflowException
      * @return boolean
      */

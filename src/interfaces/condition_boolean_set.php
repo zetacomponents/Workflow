@@ -17,11 +17,17 @@
 abstract class ezcWorkflowConditionBooleanSet implements ezcWorkflowCondition
 {
     /**
+     * Array of ezcWorkflowConditions
+     *
      * @var array
      */
     protected $conditions;
 
     /**
+     * String representation of the concatination.
+     *
+     * Used by the __toString() methods.
+     *
      * @var string
      */
     protected $concatenation;
@@ -31,10 +37,10 @@ abstract class ezcWorkflowConditionBooleanSet implements ezcWorkflowCondition
      *
      * The format of $conditions must be array( ezcWorkflowCondition )
      *
-     * @param  Array $conditions
+     * @param array $conditions
      * @throws ezcWorkflowDefinitionStorageException
      */
-    public function __construct( Array $conditions )
+    public function __construct( array $conditions )
     {
         foreach ( $conditions as $condition )
         {

@@ -55,7 +55,7 @@ class ezcWorkflowVisitorVisualization implements ezcWorkflowVisitor
      * Visits the node and sets the the member variables according to the node
      * type and contents.
      *
-     * @param ezcWorkflowVisitable $node
+     * @param ezcWorkflowVisitable $visitable
      * @return boolean
      */
     public function visit( ezcWorkflowVisitable $visitable )

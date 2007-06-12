@@ -60,7 +60,7 @@ interface ezcWorkflowExecutionListener
      * Called to inform about events.
      *
      * @param string  $message
-     * @param integer $type
+     * @param int $type
      */
     public function notify( $message, $type = self::INFO );
 }

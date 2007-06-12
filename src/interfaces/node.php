@@ -317,7 +317,9 @@ abstract class ezcWorkflowNode implements ezcWorkflowVisitable
     }
 
     /**
-     * @param integer $id
+     * Sets the Id of this node.
+     *
+     * @param int $id
      * @ignore
      */
     public function setId( $id )
@@ -326,7 +328,12 @@ abstract class ezcWorkflowNode implements ezcWorkflowVisitable
     }
 
     /**
-     * @param integer $state
+     * Sets the activation state for this node.
+     *
+     * One of ezcWorkflowNode::WAITING_FOR_ACTIVATION or
+     * ezcWorkflowNode::WAITING_FOR_EXECUTION.
+     *
+     * @param int $activationState
      * @ignore
      */
     public function setActivationState( $activationState )
@@ -426,7 +433,7 @@ abstract class ezcWorkflowNode implements ezcWorkflowVisitable
     /**
      * Sets the id of the thread this node is executing in.
      *
-     * @param integer $threadId
+     * @param int $threadId
      * @ignore
      */
     public function setThreadId( $threadId )
@@ -501,7 +508,7 @@ abstract class ezcWorkflowNode implements ezcWorkflowVisitable
      *
      * @param ezcWorkflowExecution $execution
      * @param ezcWorkflowNode $activatedFrom
-     * @param integer $threadId
+     * @param int $threadId
      * @ignore
      */
     public function activate( ezcWorkflowExecution $execution, ezcWorkflowNode $activatedFrom = null, $threadId = 0 )

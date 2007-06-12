@@ -64,8 +64,8 @@ abstract class ezcWorkflowNodeConditionalBranch extends ezcWorkflowNodeBranch
     /**
      * Adds the conditional outgoing node $outNode to this node with the condition $condition.
      *
-     * @param  ezcWorkflowCondition
-     * @param  ezcWorkflowNode
+     * @param ezcWorkflowCondition $condition
+     * @param ezcWorkflowNode $outNode
      * @return ezcWorkflowNode
      */
     public function addConditionalOutNode( ezcWorkflowCondition $condition, ezcWorkflowNode $outNode )

@@ -24,8 +24,12 @@
 interface ezcWorkflowVisitor
 {
     /**
+     * Visit the $visitable.
+     *
+     * Each node in the graph is visited once.
+     *
      * @param ezcWorkflowVisitable $visitable
-     * @return boolean
+     * @return bool
      */
     public function visit( ezcWorkflowVisitable $visitable );
 }
