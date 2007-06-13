@@ -498,7 +498,7 @@ abstract class ezcWorkflowExecution
      * @return boolean
      * @ignore
      */
-    public function activate( ezcWorkflowNode $node )
+    public function activate( ezcWorkflowNode $node, $notifyListeners = true )
     {
         // Check whether the node is ready to be activated
         // and not yet activated.
@@ -517,19 +517,22 @@ abstract class ezcWorkflowExecution
             $this->numActivatedEndNodes++;
         }
 
-        $this->notifyListeners(
-          sprintf(
-            'Activated node #%d(%s) for instance #%d ' .
-            'of workflow "%s" (version %d).',
+        if ( $notifyListeners )
+        {
+            $this->notifyListeners(
+              sprintf(
+                'Activated node #%d(%s) for instance #%d ' .
+                'of workflow "%s" (version %d).',
 
-            $node->getId(),
-            get_class( $node ),
-            $this->id,
-            $this->workflow->name,
-            $this->workflow->version
-          ),
-          ezcWorkflowExecutionListener::DEBUG
-        );
+                $node->getId(),
+                get_class( $node ),
+                $this->id,
+                $this->workflow->name,
+                $this->workflow->version
+              ),
+              ezcWorkflowExecutionListener::DEBUG
+            );
+        }
 
         return true;
     }
