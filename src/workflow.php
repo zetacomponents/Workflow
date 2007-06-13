@@ -22,8 +22,8 @@
  * @property int $version
  *           The version of the workflow. This must be incremented manually
  *           whenever you want a new version.
- * @property-read ezcNode $startNode The unique start node of the workflow.
- * @property-read ezcNode $endNode The default end node of the workflow.
+ * @property-read ezcWorkflowNode $startNode The unique start node of the workflow.
+ * @property-read ezcWorkflowNode $endNode The default end node of the workflow.
  * @property-read array(ezcWorkflowNode) $nodes All the nodes of this workflow.
  *
  * @package Workflow
