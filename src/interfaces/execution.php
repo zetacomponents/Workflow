@@ -331,6 +331,8 @@ abstract class ezcWorkflowExecution
         $this->doResume( $executionId );
         $this->loadFromVariableHandlers();
 
+        $errors = array();
+
         foreach ( $inputData as $variableName => $value )
         {
             if ( isset( $this->waitingFor[$variableName] ) )
@@ -342,11 +344,14 @@ abstract class ezcWorkflowExecution
                 }
                 else
                 {
-                    throw new ezcWorkflowInvalidInputException(
-                      (string)$this->waitingFor[$variableName]['condition']
-                    );
+                    $errors[] = (string)$this->waitingFor[$variableName]['condition'];
                 }
             }
+        }
+
+        if ( !empty( $errors ) )
+        {
+            throw new ezcWorkflowInvalidInputException( $errors );
         }
 
         $this->notifyListeners(

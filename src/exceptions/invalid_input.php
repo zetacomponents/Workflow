@@ -12,10 +12,87 @@
  * This exception will be thrown when an error occurs
  * during input validation in an input node.
  *
+ * @property-read array $errors The input validation error(s).
+ *
  * @package Workflow
  * @version //autogen//
  */
 class ezcWorkflowInvalidInputException extends ezcWorkflowExecutionException
 {
+    /**
+     * Container to hold the properties
+     *
+     * @var array(string=>mixed)
+     */
+    protected $properties = array(
+      'errors' => array(),
+    );
+
+    public function __construct( $message )
+    {
+        parent::__construct( join( "\n", $message ) );
+
+        $this->properties['errors'] = $message;
+    }
+
+    /**
+     * Property read access.
+     *
+     * @throws ezcBasePropertyNotFoundException 
+     *         If the the desired property is not found.
+     * 
+     * @param string $propertyName Name of the property.
+     * @return mixed Value of the property or null.
+     * @ignore
+     */
+    public function __get( $propertyName )
+    {
+        switch ( $propertyName ) 
+        {
+            case 'errors':
+                return $this->properties[$propertyName];
+        }
+
+        throw new ezcBasePropertyNotFoundException( $propertyName );
+    }
+
+    /**
+     * Property write access.
+     * 
+     * @param string $propertyName Name of the property.
+     * @param mixed $val  The value for the property.
+     *
+     * @throws ezcBasePropertyPermissionException 
+     *         If there is a write access to errors.
+     * @ignore
+     */
+    public function __set( $propertyName, $val )
+    {
+        switch ( $propertyName ) 
+        {
+            case 'errors':
+                throw new ezcBasePropertyPermissionException( $propertyName, ezcBasePropertyPermissionException::WRITE );
+        }
+
+        throw new ezcBasePropertyNotFoundException( $propertyName );
+    }
+ 
+    /**
+     * Property isset access.
+     * 
+     * @param string $propertyName Name of the property.
+     * @return bool True is the property is set, otherwise false.
+     * @ignore
+     */
+    public function __isset( $propertyName )
+    {
+        switch ( $propertyName )
+        {
+            case 'errors':
+                return true;
+        }
+
+        return false;
+    }
 }
 ?>
