@@ -171,6 +171,10 @@ class ezcWorkflowTest extends ezcWorkflowTestCase
               'foo', 'NotExisting'
             );
         }
+        catch ( ezcBaseAutoloadException $e )
+        {
+            return;
+        }
         catch ( ezcWorkflowInvalidWorkflowException $e )
         {
             return;

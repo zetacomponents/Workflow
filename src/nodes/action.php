@@ -79,6 +79,10 @@ class ezcWorkflowNodeAction extends ezcWorkflowNode
         try {
             $object = $this->createObject();
         }
+        catch ( ezcBaseAutoloadException $e )
+        {
+            return 'Class not found.';
+        }
         catch ( ezcWorkflowExecutionException $e )
         {
             return $e->getMessage();
