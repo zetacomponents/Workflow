@@ -133,7 +133,7 @@ Through the Workflow Execution API the execution of a workflow definition can be
 started (and resumed). The figure below shows the conceptual architecture for
 the workflow engine.
 
-.. figure:: architecture.png
+.. figure:: img/architecture.png
 
    Workflow component architecture
 
