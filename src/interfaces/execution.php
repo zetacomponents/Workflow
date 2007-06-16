@@ -659,11 +659,6 @@ abstract class ezcWorkflowExecution
             $execution = new ezcWorkflowExecutionNonInteractive;
         }
 
-        if ( $id !== NULL )
-        {
-            $execution->resume();
-        }
-
         foreach ( $this->listeners as $listener )
         {
             $execution->addListener( $listener );
