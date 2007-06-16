@@ -552,6 +552,8 @@ to get names for the nodes.
 .. include:: tutorial_example_06.dot
    :literal:
 
+.. figure:: img/tutorial_example_06.png
+
 Workflow Execution Usage
 ========================
 
