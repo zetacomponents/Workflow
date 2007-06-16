@@ -112,15 +112,6 @@ class ezcWorkflowTestExecution extends ezcWorkflowExecutionNonInteractive
     }
 
     /**
-     * Start workflow execution.
-     *
-     * @param  integer $parentId
-     */
-    protected function doStart( $parentId )
-    {
-    }
-
-    /**
      * Suspend workflow execution.
      */
     public function suspend()
@@ -149,46 +140,20 @@ class ezcWorkflowTestExecution extends ezcWorkflowExecutionNonInteractive
             );
         }
 
-        $this->resume( false, $inputData );
-    }
-
-    /**
-     * Suspend workflow execution.
-     */
-    protected function doSuspend()
-    {
-        parent::doSuspend();
-    }
-
-    /**
-     * Resume workflow execution.
-     *
-     * @param integer $executionId  ID of the execution to resume.
-     */
-    protected function doResume( $executionId )
-    {
-        parent::doResume( $executionId );
-    }
-
-    /**
-     * End workflow execution.
-     */
-    protected function doEnd()
-    {
-        parent::doEnd();
+        $this->resume( $inputData );
     }
 
     /**
      * Returns a new execution object for a sub workflow.
      *
-     * @param  integer $id
+     * @param  int $id
      * @return ezcWorkflowExecution
      */
     protected function doGetSubExecution( $id = NULL )
     {
         parent::doGetSubExecution( $id );
 
-        $execution = new ezcWorkflowTestExecution;
+        $execution = new ezcWorkflowTestExecution( $id );
 
         foreach ( $this->inputVariablesForSubWorkflow as $name => $value )
         {
@@ -197,7 +162,7 @@ class ezcWorkflowTestExecution extends ezcWorkflowExecutionNonInteractive
 
         if ( $id !== NULL )
         {
-            $execution->resume( $id );
+            $execution->resume();
         }
 
         return $execution;

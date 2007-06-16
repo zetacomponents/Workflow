@@ -303,32 +303,24 @@ abstract class ezcWorkflowExecution
      *
      * Calls do doResume() before the variables are loaded using the variable handlers.
      *
-     * @param int $executionId  ID of the execution to resume.
      * @param array   $inputData    The new input data.
      * @throws ezcWorkflowInvalidInputException if the input given does not match the expected data.
-     * @throws ezcWorkflowExecutionException if executionId is not given and there is no prior ID for this execution.
+     * @throws ezcWorkflowExecutionException if there is no prior ID for this execution.
      */
-    public function resume( $executionId = false, Array $inputData = array() )
+    public function resume( Array $inputData = array() )
     {
+        if ( $this->id === false )
+        {
+            throw new ezcWorkflowExecutionException(
+              'No execution id given.'
+            );
+        }
+
         $this->ended     = false;
         $this->resumed   = true;
         $this->suspended = false;
 
-        if ( $executionId === false )
-        {
-            if ( $this->id !== false )
-            {
-                $executionId = $this->id;
-            }
-            else
-            {
-                throw new ezcWorkflowExecutionException(
-                  'No execution id given.'
-                );
-            }
-        }
-
-        $this->doResume( $executionId );
+        $this->doResume();
         $this->loadFromVariableHandlers();
 
         $errors = array();
@@ -660,7 +652,7 @@ abstract class ezcWorkflowExecution
     {
         if ( $interactive )
         {
-            $execution = $this->doGetSubExecution();
+            $execution = $this->doGetSubExecution( $id );
         }
         else
         {
@@ -669,7 +661,7 @@ abstract class ezcWorkflowExecution
 
         if ( $id !== NULL )
         {
-            $execution->resume( $id );
+            $execution->resume();
         }
 
         foreach ( $this->listeners as $listener )
@@ -964,10 +956,8 @@ abstract class ezcWorkflowExecution
      *
      * Reimplementations can use this method to fetch execution
      * data if necessary..
-     *
-     * @param int $executionId  ID of the execution to resume.
      */
-    abstract protected function doResume( $executionId );
+    abstract protected function doResume();
 
     /**
      * Called by end() when workflow execution is ended.
@@ -986,8 +976,9 @@ abstract class ezcWorkflowExecution
      * Reimplementations must return a new execution
      * environment similar to themselves.
      *
+     * @param  int $id
      * @return ezcWorkflowExecution
      */
-    abstract protected function doGetSubExecution();
+    abstract protected function doGetSubExecution( $id = null );
 }
 ?>

@@ -1,3 +1,5 @@
+- Fixed issue #010922: Resuming with execution id.
+
 - Fixed issue #010919: Input validation of all waiting variables before
   throwing an exception.
 

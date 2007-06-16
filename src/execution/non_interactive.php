@@ -63,10 +63,8 @@ class ezcWorkflowExecutionNonInteractive extends ezcWorkflowExecution
 
     /**
      * Resume workflow execution.
-     *
-     * @param integer $executionId  ID of the execution to resume.
      */
-    protected function doResume( $executionId )
+    protected function doResume()
     {
     }
 
@@ -82,7 +80,7 @@ class ezcWorkflowExecutionNonInteractive extends ezcWorkflowExecution
      *
      * @return ezcWorkflowExecution
      */
-    protected function doGetSubExecution()
+    protected function doGetSubExecution( $id = null )
     {
     }
 }
