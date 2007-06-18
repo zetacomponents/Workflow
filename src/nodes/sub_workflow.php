@@ -64,12 +64,14 @@ class ezcWorkflowNodeSubWorkflow extends ezcWorkflowNode
 
         $workflow = $execution->definitionStorage->loadByName( $this->configuration );
 
+        // Sub Workflow is not interactive.
         if ( !$workflow->isInteractive() && !$workflow->hasSubWorkflows() )
         {
             $subExecution = $execution->getSubExecution( null, false );
             $subExecution->workflow = $workflow;
             $subExecution->start();
         }
+        // Sub Workflow is interactive.
         else
         {
             // Sub Workflow has not been started yet.
@@ -90,6 +92,7 @@ class ezcWorkflowNodeSubWorkflow extends ezcWorkflowNode
             }
         }
 
+        // Execution of Sub Workflow has ended.
         if ( $subExecution->hasEnded() )
         {
             $this->activateNode( $execution, $this->outNodes[0] );
@@ -99,6 +102,7 @@ class ezcWorkflowNodeSubWorkflow extends ezcWorkflowNode
             return parent::execute( $execution );
         }
 
+        // Execution of Sub Workflow has not ended, keep node activated.
         return false;
     }
 
