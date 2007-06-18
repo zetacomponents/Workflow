@@ -74,7 +74,7 @@ class ezcWorkflowNodeSubWorkflow extends ezcWorkflowNode
         // Sub Workflow is interactive.
         else
         {
-            // Sub Workflow has not been started yet.
+            // Sub Workflow is to be started.
             if ( $this->state == 0 )
             {
                 $subExecution = $execution->getSubExecution();
@@ -83,12 +83,12 @@ class ezcWorkflowNodeSubWorkflow extends ezcWorkflowNode
 
                 $this->state = $subExecution->getId();
             }
-            // Sub Workflow has been started before.
+            // Sub Workflow is to be resumed.
             else
             {
                 $subExecution = $execution->getSubExecution( $this->state );
                 $subExecution->workflow = $workflow;
-                $subExecution->resume();
+                $subExecution->resume( $execution->getVariables() );
             }
         }
 
@@ -102,7 +102,12 @@ class ezcWorkflowNodeSubWorkflow extends ezcWorkflowNode
             return parent::execute( $execution );
         }
 
-        // Execution of Sub Workflow has not ended, keep node activated.
+        // Execution of Sub Workflow has been suspended.
+        foreach ( $subExecution->getWaitingFor() as $variableName => $data )
+        {
+            $execution->addWaitingFor( $this, $variableName, $data['condition'] );
+        }
+
         return false;
     }
 
