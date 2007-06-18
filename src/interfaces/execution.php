@@ -336,7 +336,7 @@ abstract class ezcWorkflowExecution
                 }
                 else
                 {
-                    $errors[] = (string)$this->waitingFor[$variableName]['condition'];
+                    $errors[$variableName] = (string)$this->waitingFor[$variableName]['condition'];
                 }
             }
         }
