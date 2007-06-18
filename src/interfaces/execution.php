@@ -246,7 +246,7 @@ abstract class ezcWorkflowExecution
         // Return execution ID if the workflow has been suspended.
         if ( $this->isSuspended() )
         {
-            return $this->id;
+            return (int)$this->id;
         }
     }
 
