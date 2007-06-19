@@ -488,9 +488,8 @@ abstract class ezcWorkflowExecution
      * Activates a node and returns true if it was activated, false if not.
      *
      * The node will only be activated if the node is executable.
-     * See ezcWorkflowNode::isExecutable().
+     * See {@link ezcWorkflowNode::isExecutable()}.
      *
-     * @todo correct see
      * @param ezcWorkflowNode $node
      * @param bool $notifyListeners
      * @return bool

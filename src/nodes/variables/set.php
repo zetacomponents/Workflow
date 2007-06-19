@@ -19,7 +19,6 @@
  * Incoming nodes: 1
  * Outgoing nodes: 1
  *
- * @todo is this only meant for static use (e.g value defined at workflow build up) or also for dynamic use?
  * @package Workflow
  * @version //autogen//
  */

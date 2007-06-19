@@ -17,7 +17,7 @@
  * Incoming nodes: 1
  * Outgoing nodes: 1
  *
- * @todo Example, how do you set the sub workflow starting point?
+ * @todo Example of build up, example of resume with parameters.
  * @package Workflow
  * @version //autogen//
  */

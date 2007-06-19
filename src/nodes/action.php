@@ -14,6 +14,10 @@
  * When the node is reached during execution of the workflow, the business logic that is implemented
  * by the associated service object is executed.
  *
+ * Service objects can return true to resume execution of the
+ * workflow or false to suspend the workflow (unless there are other active nodes)
+ * and be re-executed later
+ *
  * Incoming nodes: 1
  * Outgoing nodes: 1
  *
@@ -54,6 +58,10 @@ class ezcWorkflowNodeAction extends ezcWorkflowNode
 
     /**
      * Executes this node by creating the service object and calling its execute() method.
+     *
+     * If the service object returns true, the output node will be activated.
+     * If the service node returns false the workflow will be suspended
+     * unless there are other activated nodes.
      *
      * @param ezcWorkflowExecution $execution
      * @return boolean true when the node finished execution,

@@ -20,8 +20,15 @@ interface ezcWorkflowServiceObject
     /**
      * Executes the business logic of this service object.
      *
+     * Implementations can return true if the execution of the
+     * service object was successful to resume the workflow and activate
+     * the next node.
+     *
+     * Returning false will cause the workflow to be suspended and the service
+     * object to be executed again on a later invokation.
+     *
      * @param  ezcWorkflowExecution $execution
-     * @return boolean $executionFinished
+     * @return boolean
      */
     public function execute( ezcWorkflowExecution $execution );
 
