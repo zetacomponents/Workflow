@@ -81,17 +81,17 @@ abstract class ezcWorkflowExecution
     protected $nextThreadId = 0;
 
     /**
-     * @var boolean
+     * @var bool
      */
     protected $ended;
 
     /**
-     * @var boolean
+     * @var bool
      */
     protected $resumed;
 
     /**
-     * @var boolean
+     * @var bool
      */
     protected $suspended;
 
@@ -492,7 +492,8 @@ abstract class ezcWorkflowExecution
      *
      * @todo correct see
      * @param ezcWorkflowNode $node
-     * @return boolean
+     * @param bool $notifyListeners
+     * @return bool
      * @ignore
      */
     public function activate( ezcWorkflowNode $node, $notifyListeners = true )
@@ -644,7 +645,7 @@ abstract class ezcWorkflowExecution
      * to get a new execution environment for the subworkflow.
      *
      * @param  int $id
-     * @param  boolean $interactive
+     * @param  bool $interactive
      * @return ezcWorkflowExecution
      * @ignore
      */
@@ -709,7 +710,7 @@ abstract class ezcWorkflowExecution
      * Adds a listener to this execution.
      *
      * @param ezcWorkflowExecutionListener $listener
-     * @return boolean true when the listener was added, false otherwise.
+     * @return bool true when the listener was added, false otherwise.
      */
     public function addListener( ezcWorkflowExecutionListener $listener )
     {
@@ -727,7 +728,7 @@ abstract class ezcWorkflowExecution
      * Removes a listener from this execution.
      *
      * @param ezcWorkflowExecutionListener $listener
-     * @return boolean true when the listener was removed, false otherwise.
+     * @return bool true when the listener was removed, false otherwise.
      */
     public function removeListener( ezcWorkflowExecutionListener $listener )
     {
@@ -872,7 +873,7 @@ abstract class ezcWorkflowExecution
     /**
      * Returns true when the workflow execution has ended.
      *
-     * @return boolean
+     * @return bool
      */
     public function hasEnded()
     {
@@ -882,7 +883,7 @@ abstract class ezcWorkflowExecution
     /**
      * Returns true when the workflow execution has been resumed.
      *
-     * @return boolean
+     * @return bool
      * @ignore
      */
     public function isResumed()
@@ -893,7 +894,7 @@ abstract class ezcWorkflowExecution
     /**
      * Returns true when the workflow execution has been suspended.
      *
-     * @return boolean
+     * @return bool
      */
     public function isSuspended()
     {

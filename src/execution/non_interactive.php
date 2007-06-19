@@ -78,6 +78,7 @@ class ezcWorkflowExecutionNonInteractive extends ezcWorkflowExecution
     /**
      * Returns a new execution object for a sub workflow.
      *
+     * @param  int $id
      * @return ezcWorkflowExecution
      */
     protected function doGetSubExecution( $id = null )
