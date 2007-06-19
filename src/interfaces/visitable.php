@@ -16,7 +16,7 @@
  * All elements that will be part of the workflow tree must
  * implement this interface.
  *
- * @link http://en.wikipedia.org/wiki/Visitor_pattern Information on the Visitor pattern.
+ * {@link http://en.wikipedia.org/wiki/Visitor_pattern Information on the Visitor pattern.}
  *
  * @package Workflow
  * @version //autogen//
