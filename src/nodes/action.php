@@ -56,16 +56,27 @@ class ezcWorkflowNodeAction extends ezcWorkflowNode
      * Executes this node by creating the service object and calling its execute() method.
      *
      * @param ezcWorkflowExecution $execution
+     * @return boolean true when the node finished execution,
+     *                 and false otherwise
      * @ignore
      */
     public function execute( ezcWorkflowExecution $execution )
     {
-        $object = $this->createObject();
-        $object->execute( $execution );
+        $object   = $this->createObject();
+        $finished = $object->execute( $execution );
 
-        $this->activateNode( $execution, $this->outNodes[0] );
+        // Execution of the Service Object has finished.
+        if ( $finished !== false )
+        {
+            $this->activateNode( $execution, $this->outNodes[0] );
 
-        return parent::execute( $execution );
+            return parent::execute( $execution );
+        }
+        // Execution of the Service Object has not finished.
+        else
+        {
+            return false;
+        }
     }
 
     /**

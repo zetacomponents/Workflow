@@ -11,9 +11,13 @@ class MyServiceObject implements ezcWorkflowServiceObject
     {
         echo $this->message;
 
-        // manipulate the workflow..
-        // doesn't affect the workflow, for illustration only
+        // Manipulate the workflow.
+        // Does not affect the workflow, for illustration only.
         $execution->setVariable( 'choice', true );
+
+        // Return true to signal that the service object has finished
+        // executing.
+        return true;
     }
 
     public function __toString()

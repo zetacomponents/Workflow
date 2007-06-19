@@ -20,7 +20,8 @@ interface ezcWorkflowServiceObject
     /**
      * Executes the business logic of this service object.
      *
-     * @param ezcWorkflowExecution $execution
+     * @param  ezcWorkflowExecution $execution
+     * @return boolean $executionFinished
      */
     public function execute( ezcWorkflowExecution $execution );
 

@@ -21,8 +21,6 @@ class ServiceObjectWithConstructor implements ezcWorkflowServiceObject
 {
     /**
      * Constructor.
-     *
-     * @param 
      */
     public function __construct()
     {
@@ -32,9 +30,11 @@ class ServiceObjectWithConstructor implements ezcWorkflowServiceObject
      * Executes the business logic of this service object.
      *
      * @param ezcWorkflowExecution $execution
+     * @return boolean $executionFinished
      */
     public function execute( ezcWorkflowExecution $execution )
     {
+        return true;
     }
 
     /**
@@ -44,6 +44,7 @@ class ServiceObjectWithConstructor implements ezcWorkflowServiceObject
      */
     public function __toString()
     {
+        return '';
     }
 }
 ?>
