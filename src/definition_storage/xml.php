@@ -272,7 +272,7 @@ class ezcWorkflowDefinitionStorageXml implements ezcWorkflowDefinitionStorage
                           $document->createElement( 'arguments' )
                         );
 
-                        foreach ($configuration['arguments'] as $argument )
+                        foreach ( $configuration['arguments'] as $argument )
                         {
                             $xmlArguments->appendChild(
                               $this->variableToXml(
@@ -537,7 +537,7 @@ class ezcWorkflowDefinitionStorageXml implements ezcWorkflowDefinitionStorage
         {
             $xmlResult = $document->createElement( 'array' );
 
-            foreach ($variable as $key => $value )
+            foreach ( $variable as $key => $value )
             {
                 $element = $document->createElement( 'element' );
                 $element->setAttribute( 'key', $key );
