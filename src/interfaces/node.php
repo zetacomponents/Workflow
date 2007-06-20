@@ -19,6 +19,7 @@
  *
  * @package Workflow
  * @version //autogen//
+ * @mainclass
  */
 abstract class ezcWorkflowNode implements ezcWorkflowVisitable
 {

@@ -28,6 +28,7 @@
  *
  * @package Workflow
  * @version //autogen//
+ * @mainclass
  */
 class ezcWorkflow implements ezcWorkflowVisitable
 {

@@ -25,6 +25,7 @@
  *
  * @package Workflow
  * @version //autogen//
+ * @mainclass
  */
 abstract class ezcWorkflowExecution
 {
