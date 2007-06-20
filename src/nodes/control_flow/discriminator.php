@@ -24,7 +24,22 @@
  * Incoming nodes: 2..*
  * Outgoing nodes: 1
  *
- * @todo example
+ * This example creates a workflow that splits in two parallel threads which
+ * are joined again using a ezcWorkflowNodeDiscriminator.
+ * <code>
+ * $workflow = new ezcWorkflow( 'Test' );
+ *
+ * $split = new ezcWorkflowNodeParallelSplit();
+ * $workflow->startNode->addOutNode( $split );
+ * $nodeExec1 = ....; // create nodes for the first thread of execution here..
+ * $nodeExec2 = ....; // create nodes for the second thread of execution here..
+ *
+ * $disc = new ezcWorkflowNodeDiscriminator();
+ * $disc->addInNode( $nodeExec1 );
+ * $disc->addInNode( $nodeExec2 );
+ * $disc->addOutNode( $workflow->endNode );
+ * </code>
+ *
  * @package Workflow
  * @version //autogen//
  */

@@ -17,7 +17,38 @@
  * Incoming nodes: 2..*
  * Outgoing nodes: 1
  *
- * @todo example
+ * This example displays how you can use ezcWorkflowNodeMultiChoice to activate one or more
+ * branches depending on the input and how you can use a synchronizing merge to merge them
+ * together again. Execution will not contiue until all activated branches have been completed.
+ * <code>
+ * $workflow = new ezcWorkflow( 'Test' );
+ *
+ * // wait for input into the workflow variable value.
+ * $input = new ezcWorkflowNodeInput( array( 'value' => new ezcWorkflowConditionIsInt ) );
+ * $workflow->startNode->addOutNode( $input );
+ *
+ * // create the exclusive choice branching node
+ * $choice = new ezcWorkflowNodeMultiChoice;
+ * $intput->addOutNode( $choice );
+ *
+ * $branch1 = ....; // create nodes for the first branch of execution here..
+ * $branch2 = ....; // create nodes for the second branch of execution here..
+ *
+ * // add the outnodes and set the conditions on the exclusive choice
+ * $choice->addConditionalOutNode( new ezcWorkflowConditionVariable( 'value',
+ *                                                                  new ezcWorkflowConditionGreaterThan( 1 ) ),
+ *                                $branch1 );
+ * $choice->addConditionalOutNode( new ezcWorkflowConditionVariable( 'value',
+ *                                                                  new ezcWorkflowConditionGreaterThan( 10 ) ),
+ *                                $branch2 );
+ *
+ * // Merge the two branches together and continue execution.
+ * $merge = new ezcWorkflowNodeSynchronizingMerge();
+ * $merge->addInNode( $branch1 );
+ * $merge->addInNode( $branch2 );
+ * $merge->addOutNode( $workflow->endNode );
+ * </code>
+ *
  * @package Workflow
  * @version //autogen//
  */

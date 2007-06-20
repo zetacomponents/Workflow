@@ -23,7 +23,6 @@
  * Incoming nodes: 2..*
  * Outgoing nodes: 1
  *
- * @todo example
  * @package Workflow
  * @version //autogen//
  */

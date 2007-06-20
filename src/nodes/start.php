@@ -13,10 +13,17 @@
  * tart node of a workflow. The execution of the workflow starts here.
  *
  * Creating an object of the ezcWorkflow class automatically creates the start node
- * for the new workflow. It can be accessed through the getStartNode() method.
+ * for the new workflow. It can be accessed through the $startNode property of the
+ * workflow.
  *
  * Incoming nodes: 0
  * Outgoing nodes: 1
+ *
+ * Example:
+ * <code>
+ * $workflow = new ezcWorkflow( 'Test' );
+ * $workflow->startNode->addOuttNode( ....some other node here .. );
+ * </code>
  *
  * @package Workflow
  * @version //autogen//

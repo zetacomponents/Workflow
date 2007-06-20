@@ -19,7 +19,25 @@
  * Incoming nodes: 1
  * Outgoing nodes: 1
  *
- * @todo example
+ * This example creates a simple workflow that expectes two input variables,
+ * once which can be any value and another that can only be an integer between
+ * one and ten.
+ * <code>
+ * $workflow = new ezcWorkflow( 'Test' );
+ *
+ * $input = new ezcWorkflowNodeInput( "mixedVar" => new ezcWorkflowConditionIsAnything,
+ *                                    "intVar" => new ezcWorkflowConditionAnd(
+ *                                                   array(
+ *                                                       new ezcWorkflowConditionIsInteger,
+ *                                                       new ezcWorkflowConditionIsGreatherThan( 0 )
+ *                                                       new ezcWorkflowConditionIsLessThan( 11 )
+ *                                                       )
+ *                                                ) );
+ *
+ * $input->addOutNode( $workflow->endNode );
+ * $workflow->startNode->addOutNode( $input );
+ * </code>
+
  * @package Workflow
  * @version //autogen//
  */
@@ -32,12 +50,14 @@ class ezcWorkflowNodeInput extends ezcWorkflowNode
      * and/or together with a condition on the variable if required.
      *
      * Each element in the configuration array must be either
-     * String - The name of the workflow variable to require. No conditions.
+     * <b>String:</b> The name of the workflow variable to require. No conditions.
      *
      * or
-     * Key: The name of the workflow variable to require.
-     * Value: An object of type ezcWorkflowCondition
+     * <ul>
+     *   <li><i>Key:</i> The name of the workflow variable to require.</li>
+     *   <li><i>Value:</i> An object of type ezcWorkflowCondition</li>
      *
+     * </ul>
      * @param mixed $configuration
      * @throws ezcBaseValueException
      */

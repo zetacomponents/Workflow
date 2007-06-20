@@ -19,6 +19,15 @@
  * Incoming nodes: 1
  * Outgoing nodes: 0
  *
+ * Example:
+ * <code>
+ * $workflow = new ezcWorkflow( 'Test' );
+ *  // build up your workflow here... result in $node
+ * $node = ....
+ * $workflow->startNode->addOutNode( ....some other node here .. );
+ * $node->addOutNode( $workflow->endNode );
+ * </code>
+ *
  * @package Workflow
  * @version //autogen//
  */

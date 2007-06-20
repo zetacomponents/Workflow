@@ -21,6 +21,34 @@
  * Incoming nodes: 1
  * Outgoing nodes: 1
  *
+ * The following example displays how to create a workflow with a very
+ * simple service object that prints the argument it was given to the
+ * constructor:
+ * <code>
+ * class MyPrintAction implements ezcWorkflowServiceObject
+ * {
+ *     private $whatToSay;
+ *
+ *     public function __construct( $whatToSay )
+ *     {
+ *         $this->whatToSay = $whatToSay;
+ *     }
+ *
+ *     public function execute()
+ *     {
+ *         print $this->whatToSay;
+ *         return true; // we're finished, activate next node
+ *     }
+ * }
+ *
+ * $workflow = new ezcWorkflow( 'Test' );
+ *
+ * $action = new ezcWorkflowNodeAction( array( "class" => "MyPrintAction",
+ *                                             "arguments" => "No. 1 The larch!" ) );
+ * $action->addOutNode( $workflow->endNode );
+ * $workflow->startNode->addOutNode( $action );
+ * </code>
+ *
  * @package Workflow
  * @version //autogen//
  */
@@ -30,13 +58,21 @@ class ezcWorkflowNodeAction extends ezcWorkflowNode
      * Constructs a new action node with the configuration $configuration.
      *
      * Configuration format
-     * String:
-     *  The class name of the service object. Must implement ezcWorkflowServiceObject. No
-     *  arguments are passed to the constructor.
+     * <ul>
+     * <li>
+     *   <b>String:</b>
+     *   The class name of the service object. Must implement ezcWorkflowServiceObject. No
+     *   arguments are passed to the constructor.
+     * </li>
      *
-     * Array:
-     * class - The class name of the service object. Must implement ezcWorkflowServiceObject.
-     * arguments - Array of values that are passed to the constructor of the service object.
+     * <li>
+     *   <b>Array:</b>
+     *   <ul>
+     *     <li><i>class:</i> The class name of the service object. Must implement ezcWorkflowServiceObject.</li>
+     *     <li><i>arguments:</i> Array of values that are passed to the constructor of the service object.</li>
+     *   </ul>
+     * <li>
+     * </ul>
      *
      * @param mixed $configuration
      * @throws ezcWorkflowDefinitionStorageException
@@ -61,7 +97,8 @@ class ezcWorkflowNodeAction extends ezcWorkflowNode
      *
      * If the service object returns true, the output node will be activated.
      * If the service node returns false the workflow will be suspended
-     * unless there are other activated nodes.
+     * unless there are other activated nodes. An action node suspended this way
+     * will be executed again the next time the workflow is resumed.
      *
      * @param ezcWorkflowExecution $execution
      * @return boolean true when the node finished execution,

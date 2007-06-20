@@ -9,10 +9,10 @@
  */
 
 /**
- * This node increments a workflow variable when executed..
+ * This node increments a workflow variable by one when executed..
  *
  * <code>
- *   $inc = new ezcWorkflowNodeVariableIncrement ( ' variable name ' ) ;
+ *   $inc = new ezcWorkflowNodeVariableIncrement ( 'variable name' ) ;
  * </code>
  *
  * Incoming nodes: 1

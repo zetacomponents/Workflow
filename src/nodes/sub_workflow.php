@@ -17,6 +17,9 @@
  * Incoming nodes: 1
  * Outgoing nodes: 1
  *
+ * <code>
+ * </code>
+ *
  * @todo Example of build up, example of resume with parameters.
  * @package Workflow
  * @version //autogen//
@@ -35,7 +38,7 @@ class ezcWorkflowNodeSubWorkflow extends ezcWorkflowNode
      * Constructs a new sub workflow with the configuration $configuration.
      *
      * Configuration format
-     * String:
+     * - <b>String:</b>
      *  The name of the workflow to execute. The workflow is loaded using the
      *  loadByName method on the execution engine.
      *

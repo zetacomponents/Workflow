@@ -9,10 +9,10 @@
  */
 
 /**
- * This node decrements a workflow variable when executed.
+ * This node decrements a workflow variable by one when executed.
  *
  * <code>
- *   $dec = new ezcWorkflowNodeVariableDecrement ( ' variable name ' ) ;
+ *   $dec = new ezcWorkflowNodeVariableDecrement ( 'variable name' ) ;
  * </code>
  *
  * Incoming nodes: 1

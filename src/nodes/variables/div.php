@@ -13,12 +13,17 @@
  *
  * An object of the ezcWorkflowNodeVariableDiv class divides a specified workflow variable
  * by a given operand, either a constant or the value of another workflow variable.
+ *
+ * This example will divide the contents of the workflow variable 'wfVar' by five and put it
+ * back into wfVar.
  * <code>
+ *   $op = 5;
  *   $div = new ezcWorkflowNodeVariableDiv (
- *           array ( 'name' = > 'variable name' , 'operand' = > $operand )
+ *           array ( 'name' = > 'wfVar',
+ *                   'operand' = > $op )
  *            );
  * </code>
- * If $value is a string, the value of the workflow variable identified by that string is used.
+ * If the operand is a string, the value of the workflow variable identified by that string is used.
  *
  * Incoming nodes: 1
  * Outgoing nodes: 1
