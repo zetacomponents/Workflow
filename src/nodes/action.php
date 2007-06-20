@@ -96,7 +96,7 @@ class ezcWorkflowNodeAction extends ezcWorkflowNode
     public function __toString()
     {
         try
-		{
+        {
             $object = $this->createObject();
         }
         catch ( ezcBaseAutoloadException $e )
