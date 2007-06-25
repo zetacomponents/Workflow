@@ -1,3 +1,4 @@
+<?php
 class MyServiceObject implements ezcWorkflowServiceObject
 {
     private $message;
@@ -32,3 +33,4 @@ $trueNode = new ezcWorkflowNodeAction( array( 'class' => 'MyServiceObject',
 $falseNode  = new ezcWorkflowNodeAction( array( 'class' => 'MyServiceObject',
                                                 'arguments' => array( 'message: FALSE' ) )
                                          );
+?>
