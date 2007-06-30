@@ -250,8 +250,14 @@ class ezcWorkflowDefinitionStorageXml implements ezcWorkflowDefinitionStorage
         $nodes    = $workflow->nodes;
         $numNodes = count( $nodes );
 
-        foreach ( $nodes as $id => $node )
+        // Workaround for foreach() bug in PHP 5.2.1.
+        $keys = array_keys( $nodes );
+
+        for ( $i = 0; $i < $numNodes; $i++ )
         {
+            $id   = $keys[$i];
+            $node = $nodes[$id];
+
             $nodeClass = get_class( $node );
 
             $xmlNode = $root->appendChild( $document->createElement( 'node' ) );
