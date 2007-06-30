@@ -73,7 +73,7 @@ class ezcWorkflowDefinitionStorageXml implements ezcWorkflowDefinitionStorage
             );
         }
 
-        $nodes  = array();
+        $nodes = array();
 
         // Create node objects.
         foreach ( $document->node as $node )
