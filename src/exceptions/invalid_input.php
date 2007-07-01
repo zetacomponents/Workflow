@@ -35,9 +35,16 @@ class ezcWorkflowInvalidInputException extends ezcWorkflowExecutionException
      */
     public function __construct( $message )
     {
-        parent::__construct( join( "\n", $message ) );
-
         $this->properties['errors'] = $message;
+
+        $messages = array();
+
+        foreach ( $message as $variable => $condition )
+        {
+            $messages[] = $variable . ' ' . $condition;
+        }
+
+        parent::__construct( join( "\n", $messages ) );
     }
 
     /**
