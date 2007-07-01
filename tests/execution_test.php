@@ -102,6 +102,114 @@ class ezcWorkflowExecutionTest extends ezcWorkflowTestCase
         $this->assertFalse( $this->execution->isSuspended() );
     }
 
+    public function testExecuteStartInputEnd2()
+    {
+        $this->setUpStartInputEnd();
+        $this->execution->workflow = $this->workflow;
+        $this->execution->setInputVariable( 'variable', false );
+
+        try
+        {
+            $this->execution->start();
+        }
+        catch ( ezcWorkflowInvalidInputException $e )
+        {
+            $this->assertTrue( isset( $e->errors ) );
+            $this->assertFalse( isset( $e->foo ) );
+            $this->assertArrayHasKey( 'variable', $e->errors );
+            $this->assertContains( 'is string', $e->errors );
+
+            $this->assertFalse( $this->execution->hasEnded() );
+            $this->assertTrue( $this->execution->isResumed() );
+            $this->assertFalse( $this->execution->isSuspended() );
+
+            return;
+        }
+
+        $this->fail();
+    }
+
+    public function testExecuteStartInputEnd3()
+    {
+        $this->setUpStartInputEnd();
+        $this->execution->workflow = $this->workflow;
+        $this->execution->setInputVariable( 'variable', false );
+
+        try
+        {
+            $this->execution->start();
+        }
+        catch ( ezcWorkflowInvalidInputException $e )
+        {
+            try
+            {
+                $e->errors = array();
+            }
+            catch ( ezcBasePropertyPermissionException $e )
+            {
+                return;
+            }
+
+            $this->fail();
+        }
+
+        $this->fail();
+    }
+
+    public function testExecuteStartInputEnd4()
+    {
+        $this->setUpStartInputEnd();
+        $this->execution->workflow = $this->workflow;
+        $this->execution->setInputVariable( 'variable', false );
+
+        try
+        {
+            $this->execution->start();
+        }
+        catch ( ezcWorkflowInvalidInputException $e )
+        {
+            try
+            {
+                $foo = $e->foo;
+            }
+            catch ( ezcBasePropertyNotFoundException $e )
+            {
+                return;
+            }
+
+            $this->fail();
+        }
+
+        $this->fail();
+    }
+
+    public function testExecuteStartInputEnd5()
+    {
+        $this->setUpStartInputEnd();
+        $this->execution->workflow = $this->workflow;
+        $this->execution->setInputVariable( 'variable', false );
+
+        try
+        {
+            $this->execution->start();
+        }
+        catch ( ezcWorkflowInvalidInputException $e )
+        {
+            try
+            {
+                $e->foo = 'bar';
+            }
+            catch ( ezcBasePropertyNotFoundException $e )
+            {
+                return;
+            }
+
+            $this->fail();
+        }
+
+        $this->fail();
+    }
+
     public function testExecuteStartSetUnsetEnd()
     {
         $this->setUpStartSetUnsetEnd();

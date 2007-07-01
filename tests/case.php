@@ -67,7 +67,7 @@ abstract class ezcWorkflowTestCase extends ezcTestCase
         $this->workflow = new ezcWorkflow( 'StartInputEnd' );
         $this->setUpReferences();
 
-        $inputNode = new ezcWorkflowNodeInput( array( 'variable' ) );
+        $inputNode = new ezcWorkflowNodeInput( array( 'variable' => new ezcWorkflowConditionIsString ) );
 
         $this->startNode->addOutNode( $inputNode );
         $this->endNode->addInNode( $inputNode );

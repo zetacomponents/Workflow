@@ -5,7 +5,7 @@
   </node>
   <node id="2" type="Input">
     <variable name="variable">
-      <condition type="IsAnything"/>
+      <condition type="IsString"/>
     </variable>
     <outNode id="3"/>
   </node>
