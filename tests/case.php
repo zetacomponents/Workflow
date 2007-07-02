@@ -10,8 +10,6 @@
 require_once 'service_object_with_constructor.php';
 require_once 'variable_handler.php';
 
-ezcTestRunner::addFileToFilter( __FILE__ );
-
 /**
  * @package Workflow
  * @subpackage Tests
