@@ -777,7 +777,7 @@ abstract class ezcWorkflowExecution
      */
     public function getVariable( $variableName )
     {
-        if ( isset( $this->variables[$variableName] ) )
+        if ( array_key_exists( $variableName, $this->variables ) )
         {
             return $this->variables[$variableName];
         }
@@ -852,7 +852,7 @@ abstract class ezcWorkflowExecution
      */
     public function unsetVariable( $variableName )
     {
-        if ( isset( $this->variables[$variableName] ) )
+        if ( array_key_exists( $variableName, $this->variables ) )
         {
             unset( $this->variables[$variableName] );
 

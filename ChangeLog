@@ -1,3 +1,7 @@
+- Fixed issue #11067: $execution->getVariable() throws an exeception if value of
+  variable is null.
+
+
 1.0 - Monday 02 July 2007
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
