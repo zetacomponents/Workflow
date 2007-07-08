@@ -412,6 +412,25 @@ class ezcWorkflowExecutionTest extends ezcWorkflowTestCase
         $this->fail();
     }
 
+    public function testEndNonExistingThread()
+    {
+        try
+        {
+            $this->execution->endThread( 0 );
+        }
+        catch ( ezcWorkflowExecutionException $e )
+        {
+            return;
+        }
+
+        $this->fail();
+    }
+
+    public function testGetSiblingsForNonExistingThread()
+    {
+        $this->assertFalse( $this->execution->getNumSiblingThreads( 0 ) );
+    }
+
     public function testListener()
     {
         $listener = $this->getMock( 'ezcWorkflowExecutionListener' );
@@ -437,6 +456,21 @@ class ezcWorkflowExecutionTest extends ezcWorkflowTestCase
         try
         {
             $execution = new ezcWorkflowExecutionNonInteractive;
+            $execution->workflow = new StdClass;
+        }
+        catch ( ezcBaseValueException $e )
+        {
+            return;
+        }
+
+        $this->fail();
+    }
+
+    public function testProperties3()
+    {
+        try
+        {
+            $execution = new ezcWorkflowExecutionNonInteractive;
             $foo = $execution->foo;
         }
         catch ( ezcBasePropertyNotFoundException $e )
@@ -447,7 +481,7 @@ class ezcWorkflowExecutionTest extends ezcWorkflowTestCase
         $this->fail();
     }
 
-    public function testProperties3()
+    public function testProperties4()
     {
         $this->setUpStartEnd();
 
@@ -464,7 +498,7 @@ class ezcWorkflowExecutionTest extends ezcWorkflowTestCase
         $this->fail();
     }
 
-    public function testProperties4()
+    public function testProperties5()
     {
         try
         {
