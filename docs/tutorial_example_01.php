@@ -43,7 +43,7 @@ $branch->addConditionalOutNode(
 // Create SimpleMerge node and add the two possible threads of
 // execution as incoming nodes of the end node.
 $merge = new ezcWorkflowNodeSimpleMerge;
-$merge->addInNode( $true );
-$merge->addInNode( $false );
+$merge->addInNode( $trueNode );
+$merge->addInNode( $falseNode );
 $merge->addOutNode( $workflow->endNode );
 ?>
