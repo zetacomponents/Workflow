@@ -625,7 +625,7 @@ abstract class ezcWorkflowExecution
         {
             throw new ezcWorkflowExecutionException(
               sprintf(
-                'There is no thread with id #%s',
+                'There is no thread with id #%d',
                 $threadId
               )
             );
