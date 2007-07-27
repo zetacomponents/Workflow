@@ -3,7 +3,7 @@
 
 - Fixed issue #11067: $execution->getVariable() throws an exeception if value
   of variable is null.
-
+- Fixed format string issue in ezcWorkflowExecution::endThread().
 
 1.0 - Monday 02 July 2007
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
