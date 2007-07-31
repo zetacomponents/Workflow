@@ -74,6 +74,15 @@ class ezcWorkflowNodeTest extends ezcWorkflowTestCase
         $this->fail();
     }
 
+    public function testInputConstructor4()
+    {
+        $input         = new ezcWorkflowNodeInput( array( 'variable' ) );
+        $configuration = $input->getConfiguration();
+
+        $this->assertArrayHasKey( 'variable', $configuration );
+        $this->assertType( 'ezcWorkflowConditionIsAnything', $configuration['variable'] );
+    }
+
     public function testVariableSetConstructor()
     {
         try
