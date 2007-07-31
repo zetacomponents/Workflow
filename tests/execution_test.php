@@ -336,6 +336,50 @@ class ezcWorkflowExecutionTest extends ezcWorkflowTestCase
         $this->assertFalse( $this->execution->isSuspended() );
     }
 
+    public function testExecuteNestedExclusiveChoiceSimpleMerge()
+    {
+        $this->setUpNestedExclusiveChoiceSimpleMerge();
+        $this->execution->workflow = $this->workflow;
+        $this->execution->start();
+
+        $this->assertTrue( $this->execution->hasEnded() );
+        $this->assertFalse( $this->execution->isResumed() );
+        $this->assertFalse( $this->execution->isSuspended() );
+
+        $this->assertTrue( $this->execution->getVariable( 'x' ) );
+        $this->assertTrue( $this->execution->getVariable( 'y' ) );
+        $this->assertTrue( $this->execution->getVariable( 'z' ) );
+    }
+
+    public function testExecuteNestedExclusiveChoiceSimpleMerge2()
+    {
+        $this->setUpNestedExclusiveChoiceSimpleMerge( true, false );
+        $this->execution->workflow = $this->workflow;
+        $this->execution->start();
+
+        $this->assertTrue( $this->execution->hasEnded() );
+        $this->assertFalse( $this->execution->isResumed() );
+        $this->assertFalse( $this->execution->isSuspended() );
+
+        $this->assertTrue( $this->execution->getVariable( 'x' ) );
+        $this->assertFalse( $this->execution->getVariable( 'y' ) );
+        $this->assertFalse( $this->execution->getVariable( 'z' ) );
+    }
+
+    public function testExecuteNestedExclusiveChoiceSimpleMerge3()
+    {
+        $this->setUpNestedExclusiveChoiceSimpleMerge( false );
+        $this->execution->workflow = $this->workflow;
+        $this->execution->start();
+
+        $this->assertTrue( $this->execution->hasEnded() );
+        $this->assertFalse( $this->execution->isResumed() );
+        $this->assertFalse( $this->execution->isSuspended() );
+
+        $this->assertFalse( $this->execution->getVariable( 'x' ) );
+        $this->assertFalse( $this->execution->getVariable( 'z' ) );
+    }
+
     public function testExecuteMultiChoiceSynchronizingMerge()
     {
         $this->setUpMultiChoice( 'SynchronizingMerge' );

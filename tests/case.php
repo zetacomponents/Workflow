@@ -290,6 +290,81 @@ abstract class ezcWorkflowTestCase extends ezcTestCase
         $this->endNode->addInNode( $simpleMerge );
     }
 
+    protected function setUpNestedExclusiveChoiceSimpleMerge($x = true, $y = true)
+    {
+        $this->workflow = new ezcWorkflow( 'NestedExclusiveChoiceSimpleMerge' );
+        $this->setUpReferences();
+
+        $setX = new ezcWorkflowNodeVariableSet(
+          array( 'x' => $x )
+        );
+
+        $setY = new ezcWorkflowNodeVariableSet(
+          array( 'y' => $y )
+        );
+
+        $setZ1 = new ezcWorkflowNodeVariableSet(
+          array( 'z' => true )
+        );
+
+        $setZ2 = new ezcWorkflowNodeVariableSet(
+          array( 'z' => false )
+        );
+
+        $setZ3 = new ezcWorkflowNodeVariableSet(
+          array( 'z' => false )
+        );
+
+        $this->startNode->addOutNode( $setX );
+
+        $branch1 = new ezcWorkflowNodeExclusiveChoice;
+        $branch1->addInNode( $setX );
+
+        $branch1->addConditionalOutNode(
+          new ezcWorkflowConditionVariable(
+            'x',
+            new ezcWorkflowConditionIsTrue
+          ),
+          $setY
+        );
+
+        $branch1->addConditionalOutNode(
+          new ezcWorkflowConditionVariable(
+            'x',
+            new ezcWorkflowConditionIsFalse
+          ),
+          $setZ3
+        );
+
+        $branch2 = new ezcWorkflowNodeExclusiveChoice;
+        $branch2->addInNode( $setY );
+
+        $branch2->addConditionalOutNode(
+          new ezcWorkflowConditionVariable(
+            'y',
+            new ezcWorkflowConditionIsTrue
+          ),
+          $setZ1
+        );
+
+        $branch2->addConditionalOutNode(
+          new ezcWorkflowConditionVariable(
+            'y',
+            new ezcWorkflowConditionIsFalse
+          ),
+          $setZ2
+        );
+
+        $nestedMerge = new ezcWorkflowNodeSimpleMerge;
+        $nestedMerge->addInNode( $setZ1 )
+                    ->addInNode( $setZ2 );
+
+        $merge = new ezcWorkflowNodeSimpleMerge;
+        $merge->addInNode( $nestedMerge )
+              ->addInNode( $setZ3 )
+              ->addOutNode( $this->endNode );
+    }
+
     protected function setUpMultiChoice( $mergeType )
     {
         $this->workflow = new ezcWorkflow( 'MultiChoice' . $mergeType );

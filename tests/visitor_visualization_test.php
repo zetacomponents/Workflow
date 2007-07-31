@@ -139,6 +139,17 @@ class ezcWorkflowVisitorVisualizationTest extends ezcWorkflowTestCase
         );
     }
 
+    public function testVisitNestedExclusiveChoiceSimpleMerge()
+    {
+        $this->setUpNestedExclusiveChoiceSimpleMerge();
+        $this->workflow->accept( $this->visitor );
+
+        $this->assertEquals(
+          $this->readExpected( 'NestedExclusiveChoiceSimpleMerge' ),
+          (string)$this->visitor
+        );
+    }
+
     public function testVisitMultiChoiceSynchronizingMerge()
     {
         $this->setUpMultiChoice( 'SynchronizingMerge' );
