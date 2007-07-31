@@ -290,6 +290,53 @@ abstract class ezcWorkflowTestCase extends ezcTestCase
         $this->endNode->addInNode( $simpleMerge );
     }
 
+    protected function setUpExclusiveChoiceWithUnconditionalOutNodeSimpleMerge()
+    {
+        $this->workflow = new ezcWorkflow( 'ExclusiveChoiceWithUnconditionalOutNodeSimpleMerge' );
+        $this->setUpReferences();
+
+        $setX = new ezcWorkflowNodeVariableSet(
+          array( 'x' => true )
+        );
+
+        $setY = new ezcWorkflowNodeVariableSet(
+          array( 'y' => true )
+        );
+
+        $setZ = new ezcWorkflowNodeVariableSet(
+          array( 'z' => true )
+        );
+
+        $this->branchNode = new ezcWorkflowNodeExclusiveChoice;
+
+        $this->branchNode->addConditionalOutNode(
+          new ezcWorkflowConditionVariable(
+            'condition',
+            new ezcWorkflowConditionIsTrue
+          ),
+          $setX
+        );
+
+        $this->branchNode->addConditionalOutNode(
+          new ezcWorkflowConditionVariable(
+            'condition',
+            new ezcWorkflowConditionIsFalse
+          ),
+          $setY
+        );
+
+        $this->branchNode->addOutNode( $setZ );
+
+        $simpleMerge = new ezcWorkflowNodeSimpleMerge;
+
+        $simpleMerge->addInNode( $setX )
+                    ->addInNode( $setY )
+                    ->addInNode( $setZ );
+
+        $this->startNode->addOutNode( $this->branchNode );
+        $this->endNode->addInNode( $simpleMerge );
+    }
+
     protected function setUpNestedExclusiveChoiceSimpleMerge($x = true, $y = true)
     {
         $this->workflow = new ezcWorkflow( 'NestedExclusiveChoiceSimpleMerge' );

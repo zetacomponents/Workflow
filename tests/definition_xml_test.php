@@ -163,6 +163,17 @@ class ezcWorkflowDefinitionStorageXmlTest extends ezcWorkflowTestCase
         );
     }
 
+    public function testSaveExclusiveChoiceWithUnconditionalOutNodeSimpleMerge()
+    {
+        $this->setUpExclusiveChoiceWithUnconditionalOutNodeSimpleMerge();
+        $this->definition->save( $this->workflow );
+
+        $this->assertEquals(
+          $this->readExpected( 'ExclusiveChoiceWithUnconditionalOutNodeSimpleMerge' ),
+          $this->readActual( 'ExclusiveChoiceWithUnconditionalOutNodeSimpleMerge' )
+        );
+    }
+
     public function testSaveNestedExclusiveChoiceSimpleMerge()
     {
         $this->setUpNestedExclusiveChoiceSimpleMerge();
@@ -326,6 +337,19 @@ class ezcWorkflowDefinitionStorageXmlTest extends ezcWorkflowTestCase
         $this->assertEquals(
           $this->readExpected( 'ExclusiveChoiceSimpleMerge' ),
           $this->readActual( 'ExclusiveChoiceSimpleMerge' )
+        );
+    }
+
+    public function testLoadExclusiveChoiceWithUnconditionalOutNodeSimpleMerge()
+    {
+        $this->markTestIncomplete();
+
+        $this->workflow = $this->definition->loadByName( 'ExclusiveChoiceWithUnconditionalOutNodeSimpleMerge' );
+        $this->definition->save( $this->workflow );
+
+        $this->assertEquals(
+          $this->readExpected( 'ExclusiveChoiceWithUnconditionalOutNodeSimpleMerge' ),
+          $this->readActual( 'ExclusiveChoiceWithUnconditionalOutNodeSimpleMerge' )
         );
     }
 

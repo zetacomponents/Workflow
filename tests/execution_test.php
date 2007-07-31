@@ -336,6 +336,36 @@ class ezcWorkflowExecutionTest extends ezcWorkflowTestCase
         $this->assertFalse( $this->execution->isSuspended() );
     }
 
+    public function testExclusiveChoiceWithUnconditionalOutNodeSimpleMerge()
+    {
+        $this->setUpExclusiveChoiceWithUnconditionalOutNodeSimpleMerge();
+        $this->execution->workflow = $this->workflow;
+        $this->execution->setVariables( array( 'condition' => false ) );
+        $this->execution->start();
+
+        $this->assertTrue( $this->execution->hasEnded() );
+        $this->assertFalse( $this->execution->isResumed() );
+        $this->assertFalse( $this->execution->isSuspended() );
+
+        $this->assertTrue( $this->execution->getVariable( 'y' ) );
+        $this->assertTrue( $this->execution->getVariable( 'z' ) );
+    }
+
+    public function testExclusiveChoiceWithUnconditionalOutNodeSimpleMerge2()
+    {
+        $this->setUpExclusiveChoiceWithUnconditionalOutNodeSimpleMerge();
+        $this->execution->workflow = $this->workflow;
+        $this->execution->setVariables( array( 'condition' => true ) );
+        $this->execution->start();
+
+        $this->assertTrue( $this->execution->hasEnded() );
+        $this->assertFalse( $this->execution->isResumed() );
+        $this->assertFalse( $this->execution->isSuspended() );
+
+        $this->assertTrue( $this->execution->getVariable( 'x' ) );
+        $this->assertTrue( $this->execution->getVariable( 'z' ) );
+    }
+
     public function testExecuteNestedExclusiveChoiceSimpleMerge()
     {
         $this->setUpNestedExclusiveChoiceSimpleMerge();
