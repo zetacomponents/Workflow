@@ -452,7 +452,6 @@ class ezcWorkflowExecutionTest extends ezcWorkflowTestCase
         {
             $this->execution->start();
         }
-
         catch ( ezcWorkflowExecutionException $e )
         {
             $this->assertEquals(
@@ -488,6 +487,28 @@ class ezcWorkflowExecutionTest extends ezcWorkflowTestCase
         $this->assertTrue( $this->execution->hasEnded() );
         $this->assertFalse( $this->execution->isResumed() );
         $this->assertFalse( $this->execution->isSuspended() );
+    }
+
+    public function testServiceObjectThatDoesNotFinish()
+    {
+        $this->workflow = $this->definition->loadByName( 'ServiceObjectThatDoesNotFinish' );
+        $this->execution->workflow = $this->workflow;
+
+        try
+        {
+            $this->execution->start();
+        }
+        catch( ezcWorkflowExecutionException $e )
+        {
+            $this->assertEquals(
+              'Workflow is waiting for input data that has not been mocked.',
+              $e->getMessage()
+            ); 
+
+            return;
+        }
+
+        $this->fail();
     }
 
     public function testGetVariable()

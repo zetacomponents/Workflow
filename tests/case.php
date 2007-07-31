@@ -7,6 +7,7 @@
  * @license http://ez.no/licenses/new_bsd New BSD License
  */
 
+require_once 'service_object_that_does_not_finish.php';
 require_once 'service_object_with_constructor.php';
 require_once 'variable_handler.php';
 
