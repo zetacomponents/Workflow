@@ -219,6 +219,17 @@ class ezcWorkflowDefinitionStorageXmlTest extends ezcWorkflowTestCase
         );
     }
 
+    public function testSaveNestedLoops()
+    {
+        $this->setUpNestedLoops();
+        $this->definition->save( $this->workflow );
+
+        $this->assertEquals(
+          $this->readExpected( 'NestedLoops' ),
+          $this->readActual( 'NestedLoops' )
+        );
+    }
+
     public function testLoadStartEnd()
     {
         $this->workflow = $this->definition->loadByName( 'StartEnd' );
@@ -411,6 +422,17 @@ class ezcWorkflowDefinitionStorageXmlTest extends ezcWorkflowTestCase
     public function testLoadServiceObjectWithArguments2()
     {
         $this->workflow = $this->definition->loadByName( 'ServiceObjectWithArguments2' );
+    }
+
+    public function testLoadNestedLoops()
+    {
+        $this->workflow = $this->definition->loadByName( 'NestedLoops' );
+        $this->definition->save( $this->workflow );
+
+        $this->assertEquals(
+          $this->readExpected( 'NestedLoops' ),
+          $this->readActual( 'NestedLoops' )
+        );
     }
 
     public function testExceptionWhenLoadingNotExistingWorkflow()

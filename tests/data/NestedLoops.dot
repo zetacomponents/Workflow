@@ -1,0 +1,20 @@
+digraph NestedLoops {
+node1 [label="Start"]
+node2 [label="i = 1"]
+node3 [label="Exclusive Choice"]
+node4 [label="j = 1"]
+node5 [label="Exclusive Choice"]
+node6 [label="j++"]
+node7 [label="i++"]
+node8 [label="End"]
+
+node1 -> node2
+node2 -> node3
+node3 -> node4 [label="i < 10"]
+node3 -> node8 [label="i == 10"]
+node4 -> node5
+node5 -> node6 [label="j < 10"]
+node5 -> node7 [label="j == 10"]
+node6 -> node5
+node7 -> node3
+}

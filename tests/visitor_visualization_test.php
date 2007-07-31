@@ -194,6 +194,17 @@ class ezcWorkflowVisitorVisualizationTest extends ezcWorkflowTestCase
         );
     }
 
+    public function testVisitNestedLoops()
+    {
+        $this->setUpNestedLoops();
+        $this->workflow->accept( $this->visitor );
+
+        $this->assertEquals(
+          $this->readExpected( 'NestedLoops' ),
+          (string)$this->visitor
+        );
+    }
+
     protected function readExpected( $name )
     {
         return file_get_contents(

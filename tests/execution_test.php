@@ -511,6 +511,20 @@ class ezcWorkflowExecutionTest extends ezcWorkflowTestCase
         $this->fail();
     }
 
+    public function testExecuteNestedLoops()
+    {
+        $this->setUpNestedLoops();
+        $this->execution->workflow = $this->workflow;
+        $this->execution->start();
+
+        $this->assertTrue( $this->execution->hasEnded() );
+        $this->assertFalse( $this->execution->isResumed() );
+        $this->assertFalse( $this->execution->isSuspended() );
+
+        $this->assertEquals( 10, $this->execution->getVariable( 'i' ) );
+        $this->assertEquals( 10, $this->execution->getVariable( 'j' ) );
+    }
+
     public function testGetVariable()
     {
         $this->setUpStartEnd();

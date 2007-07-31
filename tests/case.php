@@ -508,6 +508,38 @@ abstract class ezcWorkflowTestCase extends ezcTestCase
         $this->endNode->addInNode( $subWorkflow );
     }
 
+    protected function setUpNestedLoops()
+    {
+        $this->workflow = new ezcWorkflow( 'NestedLoops' );
+        $this->setUpReferences();
+
+        $innerSet      = new ezcWorkflowNodeVariableSet( array( 'j' => 1 ) );
+        $innerStep     = new ezcWorkflowNodeVariableIncrement( 'j' );
+        $innerBreak    = new ezcWorkflowConditionVariable( 'j', new ezcWorkflowConditionIsEqual( 10 ) );
+        $innerContinue = new ezcWorkflowConditionVariable( 'j', new ezcWorkflowConditionIsLessThan( 10 ) );
+
+        $innerBranch = new ezcWorkflowNodeExclusiveChoice;
+        $innerBranch->addInNode( $innerSet )
+                    ->addInNode( $innerStep );
+
+        $outerSet      = new ezcWorkflowNodeVariableSet( array( 'i' => 1 ) );
+        $outerStep     = new ezcWorkflowNodeVariableIncrement( 'i' );
+        $outerBreak    = new ezcWorkflowConditionVariable( 'i', new ezcWorkflowConditionIsEqual( 10 ) );
+        $outerContinue = new ezcWorkflowConditionVariable( 'i', new ezcWorkflowConditionIsLessThan( 10 ) );
+
+        $this->startNode->addOutNode( $outerSet );
+
+        $outerBranch = new ezcWorkflowNodeExclusiveChoice;
+        $outerBranch->addInNode( $outerSet )
+                    ->addInNode( $outerStep );
+
+        $innerBranch->addConditionalOutNode( $innerContinue, $innerStep )
+                    ->addConditionalOutNode( $innerBreak, $outerStep );
+
+        $outerBranch->addConditionalOutNode( $outerContinue, $innerSet )
+                    ->addConditionalOutNode( $outerBreak, $this->endNode );
+    }
+
     protected function setUpReferences()
     {
         $this->startNode = $this->workflow->startNode;
