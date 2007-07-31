@@ -301,7 +301,7 @@ abstract class ezcWorkflowTestCase extends ezcTestCase
           )
         );
 
-        $multiChoice        = new ezcWorkflowNodeMultiChoice;
+        $multiChoice  = new ezcWorkflowNodeMultiChoice;
         $actionNodeA  = new ezcWorkflowNodeAction( 'ServiceObject' );
         $actionNodeB  = new ezcWorkflowNodeAction( 'ServiceObject' );
         $actionNodeC  = new ezcWorkflowNodeAction( 'ServiceObject' );
