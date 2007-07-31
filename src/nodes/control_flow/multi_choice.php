@@ -15,7 +15,7 @@
  * which one or more are chosen. It is a generalization of the Parallel Split and
  * Exclusive Choice workflow patterns.
  *
- * Incoming nodes: 1
+ * Incoming nodes: 1..*
  * Outgoing nodes: 2..*
  *
  * This example displays how you can use ezcWorkflowNodeMultiChoice to activate one or more
