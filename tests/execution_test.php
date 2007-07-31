@@ -27,7 +27,6 @@ class ezcWorkflowExecutionTest extends ezcWorkflowTestCase
     {
         parent::setUp();
         $this->execution = new ezcWorkflowTestExecution;
-        $this->execution->definitionStorage = $this->definition;
     }
 
     public function testNoWorkflowRaisesException()
@@ -435,7 +434,7 @@ class ezcWorkflowExecutionTest extends ezcWorkflowTestCase
     public function testNonInteractiveSubWorkflow()
     {
         $this->setUpWorkflowWithSubWorkflow( 'StartEnd' );
-        $this->workflow->definitionStorage = $this->definition;
+        $this->execution->definitionStorage = $this->definition;
         $this->execution->workflow = $this->workflow;
         $this->execution->start();
 
@@ -444,10 +443,33 @@ class ezcWorkflowExecutionTest extends ezcWorkflowTestCase
         $this->assertFalse( $this->execution->isSuspended() );
     }
 
+    public function testNonInteractiveSubWorkflow2()
+    {
+        $this->setUpWorkflowWithSubWorkflow( 'StartEnd' );
+        $this->execution->workflow = $this->workflow;
+
+        try
+        {
+            $this->execution->start();
+        }
+
+        catch ( ezcWorkflowExecutionException $e )
+        {
+            $this->assertEquals(
+              'No ezcWorkflowDefinitionStorage implementation available.',
+              $e->getMessage()
+            ); 
+
+            return;
+        }
+
+        $this->fail();
+    }
+
     public function testInteractiveSubWorkflow()
     {
         $this->setUpWorkflowWithSubWorkflow( 'StartInputEnd' );
-        $this->workflow->definitionStorage = $this->definition;
+        $this->execution->definitionStorage = $this->definition;
         $this->execution->workflow = $this->workflow;
         $this->execution->setInputVariableForSubWorkflow( 'variable', 'value' );
         $this->execution->start();
