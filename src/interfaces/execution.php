@@ -804,6 +804,18 @@ abstract class ezcWorkflowExecution
     }
 
     /**
+     * Checks whether or not a workflow variable has been set.
+     *
+     * @param string $variableName
+     * @return bool true when the variable exists and false otherwise.
+     * @ignore
+     */
+    public function hasVariable( $variableName )
+    {
+        return array_key_exists( $variableName, $this->variables );
+    }
+
+    /**
      * Sets a variable.
      *
      * @param string $variableName

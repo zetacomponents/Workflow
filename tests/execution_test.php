@@ -599,6 +599,8 @@ class ezcWorkflowExecutionTest extends ezcWorkflowTestCase
         $this->execution->workflow = $this->workflow;
         $this->execution->start();
 
+        $this->assertFalse( $this->execution->hasVariable( 'foo' ) );
+
         try
         {
             $this->execution->getVariable( 'foo' );

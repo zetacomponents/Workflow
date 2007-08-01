@@ -1,4 +1,5 @@
 - Added ezcWorkflowNodeLoop class to conveniently express loops.
+- Fixed issue #11068: Implement ezcWorkflowExecution::hasVariable().
 
 1.0.1 - Monday 30 July 2007
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
