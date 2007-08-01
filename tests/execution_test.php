@@ -311,6 +311,28 @@ class ezcWorkflowExecutionTest extends ezcWorkflowTestCase
         $this->assertFalse( $this->execution->isSuspended() );
     }
 
+    public function testExecuteParallelSplitInvalidSynchronization()
+    {
+        $this->setUpParallelSplitInvalidSynchronization();
+        $this->execution->workflow = $this->workflow;
+
+        try
+        {
+            $this->execution->start();
+        }
+        catch ( ezcWorkflowExecutionException $e )
+        {
+            $this->assertEquals(
+              'Cannot synchronize threads that were started by different branches.',
+              $e->getMessage()
+            );
+
+            return;
+        }
+
+        $this->fail();
+    }
+
     public function testExecuteExclusiveChoiceSimpleMerge()
     {
         $this->setUpExclusiveChoiceSimpleMerge();

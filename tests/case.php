@@ -255,6 +255,30 @@ abstract class ezcWorkflowTestCase extends ezcTestCase
         $this->endNode->addInNode( $synchronization );
     }
 
+    protected function setUpParallelSplitInvalidSynchronization()
+    {
+        $this->workflow = new ezcWorkflow( 'ParallelSplitInvalidSynchronization' );
+        $this->setUpReferences();
+
+        $branchA = new ezcWorkflowNodeParallelSplit;
+        $branchB = new ezcWorkflowNodeParallelSplit;
+        $branchC = new ezcWorkflowNodeParallelSplit;
+
+        $branchA->addOutNode( $branchB )
+                ->addOutNode( $branchC );
+
+        $synchronization = new ezcWorkflowNodeSynchronization;
+
+        $branchB->addOutNode( new ezcWorkflowNodeEnd )
+                ->addOutNode( $synchronization );
+
+        $branchC->addOutNode( $synchronization )
+                ->addOutNode( new ezcWorkflowNodeEnd );
+
+        $this->startNode->addOutNode( $branchA );
+        $this->endNode->addInNode( $synchronization );
+    }
+
     protected function setUpExclusiveChoiceSimpleMerge()
     {
         $this->workflow = new ezcWorkflow( 'ExclusiveChoiceSimpleMerge' );
