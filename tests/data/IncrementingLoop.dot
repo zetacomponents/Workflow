@@ -1,7 +1,7 @@
 digraph IncrementingLoop {
 node1 [label="Start"]
 node2 [label="i = 1"]
-node3 [label="Exclusive Choice"]
+node3 [label="Loop"]
 node4 [label="i++"]
 node5 [label="End"]
 

@@ -17,14 +17,6 @@
 abstract class ezcWorkflowNodeBranch extends ezcWorkflowNode
 {
     /**
-     * Constraint: The maximum number of incoming nodes this node has to have
-     * to be valid.
-     *
-     * @var integer
-     */
-    protected $maxInNodes = false;
-
-    /**
      * Constraint: The minimum number of outgoing nodes this node has to have
      * to be valid.
      *

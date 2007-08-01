@@ -58,6 +58,7 @@ return array(
     'ezcWorkflowNodeEnd'                       => 'Workflow/nodes/end.php',
     'ezcWorkflowNodeExclusiveChoice'           => 'Workflow/nodes/control_flow/exclusive_choice.php',
     'ezcWorkflowNodeInput'                     => 'Workflow/nodes/variables/input.php',
+    'ezcWorkflowNodeLoop'                      => 'Workflow/nodes/control_flow/loop.php',
     'ezcWorkflowNodeMultiChoice'               => 'Workflow/nodes/control_flow/multi_choice.php',
     'ezcWorkflowNodeParallelSplit'             => 'Workflow/nodes/control_flow/parallel_split.php',
     'ezcWorkflowNodeSimpleMerge'               => 'Workflow/nodes/control_flow/simple_merge.php',

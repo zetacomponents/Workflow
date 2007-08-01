@@ -1,7 +1,7 @@
 digraph DecrementingLoop {
 node1 [label="Start"]
 node2 [label="i = 10"]
-node3 [label="Exclusive Choice"]
+node3 [label="Loop"]
 node4 [label="i--"]
 node5 [label="End"]
 

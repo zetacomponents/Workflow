@@ -1,9 +1,9 @@
 digraph NestedLoops {
 node1 [label="Start"]
 node2 [label="i = 1"]
-node3 [label="Exclusive Choice"]
+node3 [label="Loop"]
 node4 [label="j = 1"]
-node5 [label="Exclusive Choice"]
+node5 [label="Loop"]
 node6 [label="j++"]
 node7 [label="i++"]
 node8 [label="End"]

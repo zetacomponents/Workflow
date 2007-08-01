@@ -15,7 +15,7 @@
  * for the workflow of which exactly one is chosen based on the conditions
  * set for the out nodes.
  *
- * Incoming nodes: 1..*
+ * Incoming nodes: 1
  * Outgoing nodes: 2..*
  *
  * This example displays how you can use an exclusive choice to select one of two
