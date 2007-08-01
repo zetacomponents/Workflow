@@ -28,14 +28,6 @@ abstract class ezcWorkflowNodeConditionalBranch extends ezcWorkflowNodeBranch
     protected $minConditionalOutNodes = false;
 
     /**
-     * Constraint: The maximum number of conditional outgoing nodes this node
-     * may have. Set to false to disable this constraint.
-     *
-     * @var integer
-     */
-    protected $maxConditionalOutNodes = false;
-
-    /**
      * Constraint: The minimum number of conditional outgoing nodes this node
      * has to activate. Set to false to disable this constraint.
      *
@@ -172,13 +164,6 @@ abstract class ezcWorkflowNodeConditionalBranch extends ezcWorkflowNodeBranch
         {
             throw new ezcWorkflowInvalidWorkflowException(
               'Node has less conditional outgoing nodes than required.'
-            );
-        }
-
-        if ( $this->maxConditionalOutNodes !== false && $numConditionalOutNodes > $this->maxConditionalOutNodes )
-        {
-            throw new ezcWorkflowInvalidWorkflowException(
-              'Node has more conditional outgoing nodes than allowed.'
             );
         }
     }
