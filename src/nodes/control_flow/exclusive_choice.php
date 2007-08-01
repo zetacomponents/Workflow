@@ -78,6 +78,5 @@ class ezcWorkflowNodeExclusiveChoice extends ezcWorkflowNodeConditionalBranch
      * @var integer
      */
     protected $maxActivatedConditionalOutNodes = 1;
-
 }
 ?>
