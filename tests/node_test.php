@@ -139,6 +139,21 @@ class ezcWorkflowNodeTest extends ezcWorkflowTestCase
         $this->assertEquals( 'condition is false', (string)$this->branchNode->getCondition( $outNodes[1] ) );
     }
 
+    public function testBranchGetCondition2()
+    {
+        $this->setUpExclusiveChoiceWithUnconditionalOutNodeSimpleMerge();
+
+        $outNodes = $this->branchNode->getOutNodes();
+        $this->assertFalse( $this->branchNode->getCondition( $outNodes[2] ) );
+    }
+
+    public function testBranchGetCondition3()
+    {
+        $this->setUpExclusiveChoiceWithUnconditionalOutNodeSimpleMerge();
+
+        $this->assertFalse( $this->branchNode->getCondition( new ezcWorkflowNodeEnd ) );
+    }
+
     public function testRemoveInNode()
     {
         $this->setUpStartEnd();
@@ -257,6 +272,30 @@ class ezcWorkflowNodeTest extends ezcWorkflowTestCase
         }
         catch ( ezcWorkflowInvalidWorkflowException $e )
         {
+            return;
+        }
+
+        $this->fail();
+    }
+
+    public function testVerifyTooFewConditionalOutNodes()
+    {
+        try
+        {
+            $branch = new ezcWorkflowNodeExclusiveChoice;
+            $branch->addInNode( new ezcWorkflowNodeStart )
+                   ->addOutNode( new ezcWorkflowNodeEnd )
+                   ->addOutNode( new ezcWorkflowNodeEnd );
+
+            $branch->verify();
+        }
+        catch ( ezcWorkflowInvalidWorkflowException $e )
+        {
+            $this->assertEquals(
+              'Node has less conditional outgoing nodes than required.',
+              $e->getMessage()
+            );
+
             return;
         }
 
