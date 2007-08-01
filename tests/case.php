@@ -136,12 +136,11 @@ abstract class ezcWorkflowTestCase extends ezcTestCase
 
         $this->startNode->addOutNode( $set );
 
-        $branch = new ezcWorkflowNodeLoop;
-        $branch->addInNode( $set );
-        $branch->addInNode( $step );
-
-        $branch->addConditionalOutNode( $continue, $step );
-        $branch->addConditionalOutNode( $break, $this->endNode );
+        $loop = new ezcWorkflowNodeLoop;
+        $loop->addInNode( $set )
+             ->addInNode( $step )
+             ->addConditionalOutNode( $continue, $step )
+             ->addConditionalOutNode( $break, $this->endNode );
     }
 
     protected function setUpSetAddSubMulDiv()
@@ -518,9 +517,9 @@ abstract class ezcWorkflowTestCase extends ezcTestCase
         $innerBreak    = new ezcWorkflowConditionVariable( 'j', new ezcWorkflowConditionIsEqual( 2 ) );
         $innerContinue = new ezcWorkflowConditionVariable( 'j', new ezcWorkflowConditionIsLessThan( 2 ) );
 
-        $innerBranch = new ezcWorkflowNodeLoop;
-        $innerBranch->addInNode( $innerSet )
-                    ->addInNode( $innerStep );
+        $innerLoop = new ezcWorkflowNodeLoop;
+        $innerLoop->addInNode( $innerSet )
+                  ->addInNode( $innerStep );
 
         $outerSet      = new ezcWorkflowNodeVariableSet( array( 'i' => 1 ) );
         $outerStep     = new ezcWorkflowNodeVariableIncrement( 'i' );
@@ -529,15 +528,15 @@ abstract class ezcWorkflowTestCase extends ezcTestCase
 
         $this->startNode->addOutNode( $outerSet );
 
-        $outerBranch = new ezcWorkflowNodeLoop;
-        $outerBranch->addInNode( $outerSet )
-                    ->addInNode( $outerStep );
+        $outerLoop = new ezcWorkflowNodeLoop;
+        $outerLoop->addInNode( $outerSet )
+                  ->addInNode( $outerStep );
 
-        $innerBranch->addConditionalOutNode( $innerContinue, $innerStep )
-                    ->addConditionalOutNode( $innerBreak, $outerStep );
+        $innerLoop->addConditionalOutNode( $innerContinue, $innerStep )
+                  ->addConditionalOutNode( $innerBreak, $outerStep );
 
-        $outerBranch->addConditionalOutNode( $outerContinue, $innerSet )
-                    ->addConditionalOutNode( $outerBreak, $this->endNode );
+        $outerLoop->addConditionalOutNode( $outerContinue, $innerSet )
+                  ->addConditionalOutNode( $outerBreak, $this->endNode );
     }
 
     protected function setUpReferences()
