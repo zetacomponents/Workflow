@@ -10,8 +10,14 @@
     <outNode id="3"/>
   </node>
   <node id="3" type="Loop">
-    <outNode id="4"/>
-    <outNode id="5"/>
+    <condition type="Variable" name="i">
+      <condition type="IsLessThan" value="10"/>
+      <outNode id="4"/>
+    </condition>
+    <condition type="Variable" name="i">
+      <condition type="IsEqual" value="10"/>
+      <outNode id="5"/>
+    </condition>
   </node>
   <node id="4" type="VariableIncrement" variable="i">
     <outNode id="3"/>

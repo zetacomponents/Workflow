@@ -521,8 +521,8 @@ class ezcWorkflowExecutionTest extends ezcWorkflowTestCase
         $this->assertFalse( $this->execution->isResumed() );
         $this->assertFalse( $this->execution->isSuspended() );
 
-        $this->assertEquals( 10, $this->execution->getVariable( 'i' ) );
-        $this->assertEquals( 10, $this->execution->getVariable( 'j' ) );
+        $this->assertEquals( 2, $this->execution->getVariable( 'i' ) );
+        $this->assertEquals( 2, $this->execution->getVariable( 'j' ) );
     }
 
     public function testGetVariable()

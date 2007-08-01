@@ -515,8 +515,8 @@ abstract class ezcWorkflowTestCase extends ezcTestCase
 
         $innerSet      = new ezcWorkflowNodeVariableSet( array( 'j' => 1 ) );
         $innerStep     = new ezcWorkflowNodeVariableIncrement( 'j' );
-        $innerBreak    = new ezcWorkflowConditionVariable( 'j', new ezcWorkflowConditionIsEqual( 10 ) );
-        $innerContinue = new ezcWorkflowConditionVariable( 'j', new ezcWorkflowConditionIsLessThan( 10 ) );
+        $innerBreak    = new ezcWorkflowConditionVariable( 'j', new ezcWorkflowConditionIsEqual( 2 ) );
+        $innerContinue = new ezcWorkflowConditionVariable( 'j', new ezcWorkflowConditionIsLessThan( 2 ) );
 
         $innerBranch = new ezcWorkflowNodeLoop;
         $innerBranch->addInNode( $innerSet )
@@ -524,8 +524,8 @@ abstract class ezcWorkflowTestCase extends ezcTestCase
 
         $outerSet      = new ezcWorkflowNodeVariableSet( array( 'i' => 1 ) );
         $outerStep     = new ezcWorkflowNodeVariableIncrement( 'i' );
-        $outerBreak    = new ezcWorkflowConditionVariable( 'i', new ezcWorkflowConditionIsEqual( 10 ) );
-        $outerContinue = new ezcWorkflowConditionVariable( 'i', new ezcWorkflowConditionIsLessThan( 10 ) );
+        $outerBreak    = new ezcWorkflowConditionVariable( 'i', new ezcWorkflowConditionIsEqual( 2 ) );
+        $outerContinue = new ezcWorkflowConditionVariable( 'i', new ezcWorkflowConditionIsLessThan( 2 ) );
 
         $this->startNode->addOutNode( $outerSet );
 

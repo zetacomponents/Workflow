@@ -190,7 +190,7 @@ class ezcWorkflowDefinitionStorageXml implements ezcWorkflowDefinitionStorage
                 $nodes[$id]->addOutNode( $nodes[(int)$outNode['id']] );
             }
 
-            if ( $class == 'ezcWorkflowNodeExclusiveChoice' || $class == 'ezcWorkflowNodeMultiChoice')
+            if ( $class == 'ezcWorkflowNodeExclusiveChoice' || $class == 'ezcWorkflowNodeMultiChoice' || $class == 'ezcWorkflowNodeLoop' )
             {
                 foreach ( $node->condition as $conditionNode )
                 {
@@ -381,7 +381,8 @@ class ezcWorkflowDefinitionStorageXml implements ezcWorkflowDefinitionStorage
                 $xmlOutNode->setAttribute( 'id', $outNodeId );
 
                 if ( ( $nodeClass == 'ezcWorkflowNodeExclusiveChoice' ||
-                       $nodeClass == 'ezcWorkflowNodeMultiChoice' ) &&
+                       $nodeClass == 'ezcWorkflowNodeMultiChoice' ||
+                       $nodeClass == 'ezcWorkflowNodeLoop' ) &&
                        $condition = $node->getCondition( $outNode ) )
                 {
                     $xmlCondition = $this->conditionToXml(
