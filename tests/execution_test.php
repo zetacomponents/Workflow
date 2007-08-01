@@ -357,6 +357,52 @@ class ezcWorkflowExecutionTest extends ezcWorkflowTestCase
         $this->assertFalse( $this->execution->isSuspended() );
     }
 
+    public function testExecuteExclusiveChoiceSimpleMerge3()
+    {
+        $this->setUpExclusiveChoiceSimpleMerge( 'ezcWorkflowConditionIsTrue', 'ezcWorkflowConditionIsTrue' );
+        $this->execution->workflow = $this->workflow;
+        $this->execution->setVariables( array( 'condition' => false ) );
+
+        try
+        {
+            $this->execution->start();
+        }
+        catch ( ezcWorkflowExecutionException $e )
+        {
+            $this->assertEquals(
+              'Node activates less conditional outgoing nodes than required.',
+              $e->getMessage()
+            );
+
+            return;
+        }
+
+        $this->fail();
+    }
+
+    public function testExecuteExclusiveChoiceSimpleMerge4()
+    {
+        $this->setUpExclusiveChoiceSimpleMerge( 'ezcWorkflowConditionIsTrue', 'ezcWorkflowConditionIsTrue' );
+        $this->execution->workflow = $this->workflow;
+        $this->execution->setVariables( array( 'condition' => true ) );
+
+        try
+        {
+            $this->execution->start();
+        }
+        catch ( ezcWorkflowExecutionException $e )
+        {
+            $this->assertEquals(
+              'Node activates more conditional outgoing nodes than allowed.',
+              $e->getMessage()
+            );
+
+            return;
+        }
+
+        $this->fail();
+    }
+
     public function testExclusiveChoiceWithUnconditionalOutNodeSimpleMerge()
     {
         $this->setUpExclusiveChoiceWithUnconditionalOutNodeSimpleMerge();

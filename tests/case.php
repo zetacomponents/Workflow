@@ -279,7 +279,7 @@ abstract class ezcWorkflowTestCase extends ezcTestCase
         $this->endNode->addInNode( $synchronization );
     }
 
-    protected function setUpExclusiveChoiceSimpleMerge()
+    protected function setUpExclusiveChoiceSimpleMerge( $a = 'ezcWorkflowConditionIsTrue', $b = 'ezcWorkflowConditionIsFalse' )
     {
         $this->workflow = new ezcWorkflow( 'ExclusiveChoiceSimpleMerge' );
         $this->setUpReferences();
@@ -292,7 +292,7 @@ abstract class ezcWorkflowTestCase extends ezcTestCase
         $this->branchNode->addConditionalOutNode(
           new ezcWorkflowConditionVariable(
             'condition',
-            new ezcWorkflowConditionIsTrue
+            new $a
           ),
           $actionNodeA
         );
@@ -300,7 +300,7 @@ abstract class ezcWorkflowTestCase extends ezcTestCase
         $this->branchNode->addConditionalOutNode(
           new ezcWorkflowConditionVariable(
             'condition',
-            new ezcWorkflowConditionIsFalse
+            new $b
           ),
           $actionNodeB
         );
