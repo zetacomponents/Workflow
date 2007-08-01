@@ -9,10 +9,32 @@
  */
 
 /**
+ * The Loop node type is a special type of conditional branch node that has two
+ * incoming nodes instead of just one. It is used to conveniently express loops.
  * 
- *
  * Incoming nodes: 2
  * Outgoing nodes: 2
+ *
+ * The example below shows the equivalent of a for-loop that iterates the
+ * variable i from 1 to 10:
+ *
+ * <code>
+ * $workflow = new ezcWorkflow( 'IncrementingLoop' );
+ *
+ * $set      = new ezcWorkflowNodeVariableSet( array( 'i' => 1 ) );
+ * $step     = new ezcWorkflowNodeVariableIncrement( 'i' );
+ * $break    = new ezcWorkflowConditionVariable( 'i', new ezcWorkflowConditionIsEqual( 10 ) );
+ * $continue = new ezcWorkflowConditionVariable( 'i', new ezcWorkflowConditionIsLessThan( 10 ) );
+ *
+ * $workflow->startNode->addOutNode( $set );
+ *
+ * $loop = new ezcWorkflowNodeLoop;
+ * $loop->addInNode( $set );
+ * $loop->addInNode( $step );
+ *
+ * $loop->addConditionalOutNode( $continue, $step );
+ * $loop->addConditionalOutNode( $break, $workflow->endNode );
+ * </code>
  *
  * @package Workflow
  * @version //autogen//
