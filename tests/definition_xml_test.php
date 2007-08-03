@@ -298,12 +298,12 @@ class ezcWorkflowDefinitionStorageXmlTest extends ezcWorkflowTestCase
 
     public function testLoadDecrementingLoop()
     {
-        $this->workflow = $this->definition->loadByName( 'IncrementingLoop' );
+        $this->workflow = $this->definition->loadByName( 'DecrementingLoop' );
         $this->definition->save( $this->workflow );
 
         $this->assertEquals(
-          $this->readExpected( 'IncrementingLoop' ),
-          $this->readActual( 'IncrementingLoop' )
+          $this->readExpected( 'DecrementingLoop' ),
+          $this->readActual( 'DecrementingLoop' )
         );
     }
 
