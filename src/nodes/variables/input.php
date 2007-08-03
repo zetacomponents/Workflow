@@ -137,5 +137,45 @@ class ezcWorkflowNodeInput extends ezcWorkflowNode
             return false;
         }
     }
+
+    /**
+     * Generate node configuration from XML representation.
+     *
+     * @param DOMElement $element
+     */
+    public static function configurationFromXML( DOMElement $element )
+    {
+        $configuration = array();
+
+        foreach ( $element->getElementsByTagName( 'variable' ) as $variable )
+        {
+            $configuration[$variable->getAttribute( 'name' )] = ezcWorkflowDefinitionStorageXml::xmlToCondition( $variable->childNodes->item( 1 ) );
+        }
+
+        return $configuration;
+    }
+
+    /**
+     * Generate XML representation of this node's configuration.
+     *
+     * @param DOMElement $element
+     */
+    public function configurationToXML( DOMElement $element )
+    {
+        foreach ( $this->configuration as $variable => $condition )
+        {
+            $xmlVariable = $element->appendChild(
+              $element->ownerDocument->createElement( 'variable' )
+            );
+
+            $xmlVariable->setAttribute( 'name', $variable );
+
+            $xmlVariable->appendChild(
+              ezcWorkflowDefinitionStorageXml::conditionToXml(
+                $condition, $element->ownerDocument
+              )
+            );
+        }
+    }
 }
 ?>

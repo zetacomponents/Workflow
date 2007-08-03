@@ -65,6 +65,46 @@ class ezcWorkflowNodeVariableSet extends ezcWorkflowNode
     }
 
     /**
+     * Generate node configuration from XML representation.
+     *
+     * @param DOMElement $element
+     */
+    public static function configurationFromXML( DOMElement $element )
+    {
+        $configuration = array();
+
+        foreach ( $element->getElementsByTagName( 'variable' ) as $variable )
+        {
+            $configuration[$variable->getAttribute( 'name' )] = ezcWorkflowDefinitionStorageXml::xmlToVariable( $variable->childNodes->item( 1 ) );
+        }
+
+        return $configuration;
+    }
+
+    /**
+     * Generate XML representation of this node's configuration.
+     *
+     * @param DOMElement $element
+     */
+    public function configurationToXML( DOMElement $element )
+    {
+        foreach ( $this->configuration as $variable => $value )
+        {
+            $variableXml = $element->appendChild(
+              $element->ownerDocument->createElement( 'variable' )
+            );
+
+            $variableXml->setAttribute( 'name', $variable );
+
+            $variableXml->appendChild(
+              ezcWorkflowDefinitionStorageXml::variableToXml(
+                $value, $element->ownerDocument
+              )
+            );
+        }
+    }
+
+    /**
      * Returns a textual representation of this node.
      *
      * @return string

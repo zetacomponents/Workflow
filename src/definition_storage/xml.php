@@ -59,9 +59,12 @@ class ezcWorkflowDefinitionStorageXml implements ezcWorkflowDefinitionStorage
         }
 
         $filename = $this->getFilename( $workflowName, $workflowVersion );
-        $document = @simplexml_load_file( $filename );
 
-        if ( $document === false )
+        // Load the document.
+        $document = new DOMDocument;
+        $loaded   = @$document->load( $filename );
+
+        if ( $loaded === false )
         {
             throw new ezcWorkflowDefinitionStorageException(
               sprintf(
@@ -73,106 +76,31 @@ class ezcWorkflowDefinitionStorageXml implements ezcWorkflowDefinitionStorage
             );
         }
 
+        // Create node objects.
         $nodes = array();
 
-        // Create node objects.
-        foreach ( $document->node as $node )
+        foreach ( $document->getElementsByTagName( 'node' ) as $node )
         {
-            $id    = (int)$node['id'];
-            $class = 'ezcWorkflowNode' . (string)$node['type'];
-
+            $id            = (int)$node->getAttribute( 'id' );
+            $className     = 'ezcWorkflowNode' . $node->getAttribute( 'type' );
             $configuration = '';
 
-            switch ( $class )
+            if ( class_exists( $className ) )
             {
-                case 'ezcWorkflowNodeAction':
-                {
-                    $configuration = array(
-                      'class' => (string)$node['serviceObjectClass'],
-                      'arguments' => array()
-                    );
-
-                    $arguments = $node->arguments->children();
-
-                    if ( @count( $arguments ) > 0 )
-                    {
-                        foreach ( $arguments as $argument )
-                        {
-                            $configuration['arguments'][] = $this->xmlToVariable( $argument );
-                        }
-                    }
-                }
-                break;
-
-                case 'ezcWorkflowNodeInput':
-                {
-                    $configuration = array();
-
-                    foreach ( $node->variable as $variable )
-                    {
-                        $configuration[(string)$variable['name']] = $this->xmlToCondition( $variable->condition );
-                    }
-                }
-                break;
-
-                case 'ezcWorkflowNodeSubWorkflow':
-                {
-                    $configuration = (string)$node['subWorkflowName'];
-                }
-                break;
-
-                case 'ezcWorkflowNodeVariableSet':
-                {
-                    $configuration = array();
-
-                    foreach ( $node->variable as $variable )
-                    {
-                        $children = $variable->children();
-                        $configuration[(string)$variable['name']] = $this->xmlToVariable( $children[0] );
-                    }
-                }
-                break;
-
-                case 'ezcWorkflowNodeVariableUnset':
-                {
-                    $configuration = array();
-
-                    foreach ( $node->variable as $variable )
-                    {
-                        $configuration[] = (string)$variable['name'];
-                    }
-                }
-                break;
-
-                case 'ezcWorkflowNodeVariableAdd':
-                case 'ezcWorkflowNodeVariableSub':
-                case 'ezcWorkflowNodeVariableMul':
-                case 'ezcWorkflowNodeVariableDiv':
-                {
-                    $configuration = array(
-                      'name' => (string)$node['variable'],
-                      'operand' => (string)$node['operand']
-                    );
-                }
-                break;
-
-                case 'ezcWorkflowNodeVariableIncrement':
-                case 'ezcWorkflowNodeVariableDecrement':
-                {
-                    $configuration = (string)$node['variable'];
-                }
-                break;
+                $configuration = call_user_func_array(
+                  array( $className, 'configurationFromXML' ), array( $node )
+                );
             }
 
-            $nodes[$id] = new $class( $configuration );
+            $nodes[$id] = new $className( $configuration );
             $nodes[$id]->setId( $id );
 
-            if ( $class == 'ezcWorkflowNodeStart' )
+            if ( $className == 'ezcWorkflowNodeStart' )
             {
                 $startNode = $nodes[$id];
             }
 
-            else if ( $class == 'ezcWorkflowNodeEnd' &&
+            else if ( $className == 'ezcWorkflowNodeEnd' &&
                       !isset( $defaultEndNode ) )
             {
                 $defaultEndNode = $nodes[$id];
@@ -180,28 +108,31 @@ class ezcWorkflowDefinitionStorageXml implements ezcWorkflowDefinitionStorage
         }
 
         // Connect node objects.
-        foreach ( $document->node as $node )
+        foreach ( $document->getElementsByTagName( 'node' ) as $node )
         {
-            $class = 'ezcWorkflowNode' . (string)$node['type'];
-            $id    = (int)$node['id'];
+            $id        = (int)$node->getAttribute( 'id' );
+            $className = 'ezcWorkflowNode' . $node->getAttribute( 'type' );
 
-            foreach ( $node->outNode as $outNode )
+            foreach ( $node->getElementsByTagName( 'outNode' ) as $outNode )
             {
-                $nodes[$id]->addOutNode( $nodes[(int)$outNode['id']] );
+                $nodes[$id]->addOutNode( $nodes[(int)$outNode->getAttribute( 'id' )] );
             }
 
-            if ( $class == 'ezcWorkflowNodeExclusiveChoice' || $class == 'ezcWorkflowNodeMultiChoice' || $class == 'ezcWorkflowNodeLoop' )
+            if ( is_subclass_of( $className, 'ezcWorkflowNodeConditionalBranch' ) )
             {
-                foreach ( $node->condition as $conditionNode )
+                foreach ( $node->childNodes as $childNode )
                 {
-                    $condition = $this->xmlToCondition( $conditionNode );
-
-                    foreach ( $conditionNode->outNode as $outNode )
+                    if ( $childNode instanceof DOMElement && $childNode->tagName == 'condition' )
                     {
-                        $nodes[$id]->addConditionalOutNode(
-                          $condition,
-                          $nodes[(int)$outNode['id']]
-                        );
+                        $condition = $this->xmlToCondition( $childNode );
+
+                        foreach ( $childNode->getElementsByTagName( 'outNode' ) as $outNode )
+                        {
+                            $nodes[$id]->addConditionalOutNode(
+                              $condition,
+                              $nodes[(int)$outNode->getAttribute( 'id' )]
+                            );
+                        }
                     }
                 }
             }
@@ -210,14 +141,14 @@ class ezcWorkflowDefinitionStorageXml implements ezcWorkflowDefinitionStorage
         // Create workflow object and add the node objects to it.
         $workflow = new ezcWorkflow( $workflowName, $startNode, $defaultEndNode );
         $workflow->definitionStorage = $this;
-        $workflow->version = (int)$workflowVersion;
+        $workflow->version = $workflowVersion;
 
         // Handle the variable handlers.
-        foreach ( $document->variableHandler as $node )
+        foreach ( $document->getElementsByTagName( 'variableHandler' ) as $variableHandler )
         {
             $workflow->addVariableHandler(
-                (string)$node['variable'],
-                (string)$node['class']
+              $variableHandler->getAttribute( 'variable' ),
+              $variableHandler->getAttribute( 'class' )
             );
         }
 
@@ -255,117 +186,19 @@ class ezcWorkflowDefinitionStorageXml implements ezcWorkflowDefinitionStorage
 
         for ( $i = 0; $i < $numNodes; $i++ )
         {
-            $id   = $keys[$i];
-            $node = $nodes[$id];
-
+            $id        = $keys[$i];
+            $node      = $nodes[$id];
             $nodeClass = get_class( $node );
 
-            $xmlNode = $root->appendChild( $document->createElement( 'node' ) );
+            $xmlNode = $document->createElement( 'node' );
             $xmlNode->setAttribute( 'id', $id );
-            $xmlNode->setAttribute( 'type', str_replace( 'ezcWorkflowNode', '', $nodeClass ) );
+            $xmlNode->setAttribute(
+              'type',
+              str_replace( 'ezcWorkflowNode', '', get_class( $node ) )
+            );
 
-            $configuration = $node->getConfiguration();
-
-            switch ( $nodeClass )
-            {
-                case 'ezcWorkflowNodeAction':
-                {
-                    $xmlNode->setAttribute( 'serviceObjectClass', $configuration['class'] );
-
-                    if ( !empty( $configuration['arguments'] ) )
-                    {
-                        $xmlArguments = $xmlNode->appendChild(
-                          $document->createElement( 'arguments' )
-                        );
-
-                        foreach ( $configuration['arguments'] as $argument )
-                        {
-                            $xmlArguments->appendChild(
-                              $this->variableToXml(
-                                $argument,
-                                $document
-                              )
-                            );
-                        }
-
-                        $xmlNode->appendChild( $xmlArguments );
-                    }
-                }
-                break;
-
-                case 'ezcWorkflowNodeInput':
-                {
-                    foreach ( $configuration as $variable => $condition )
-                    {
-                        $xmlVariable = $xmlNode->appendChild(
-                          $document->createElement( 'variable' )
-                        );
-
-                        $xmlVariable->setAttribute( 'name', $variable );
-
-                        $xmlCondition = $this->conditionToXml(
-                          $condition,
-                          $document
-                        );
-
-                        $xmlVariable->appendChild( $xmlCondition );
-                    }
-                }
-                break;
-
-                case 'ezcWorkflowNodeSubWorkflow':
-                {
-                    $xmlNode->setAttribute( 'subWorkflowName', $configuration );
-                }
-                break;
-
-                case 'ezcWorkflowNodeVariableSet':
-                {
-                    foreach ( $configuration as $variable => $value )
-                    {
-                        $xmlVariable = $xmlNode->appendChild(
-                          $document->createElement( 'variable' )
-                        );
-
-                        $xmlVariable->setAttribute( 'name', $variable );
-
-                        $xmlVariable->appendChild(
-                          $this->variableToXml( $value, $document )
-                        );
-                    }
-                }
-                break;
-
-                case 'ezcWorkflowNodeVariableUnset':
-                {
-                    foreach ( $configuration as $variable )
-                    {
-                        $xmlVariable = $xmlNode->appendChild(
-                          $document->createElement( 'variable' )
-                        );
-
-                        $xmlVariable->setAttribute( 'name', $variable );
-                    }
-                }
-                break;
-
-                case 'ezcWorkflowNodeVariableAdd':
-                case 'ezcWorkflowNodeVariableSub':
-                case 'ezcWorkflowNodeVariableMul':
-                case 'ezcWorkflowNodeVariableDiv':
-                {
-                    $xmlNode->setAttribute( 'variable', $configuration['name'] );
-                    $xmlNode->setAttribute( 'operand', $configuration['operand'] );
-                }
-                break;
-
-                case 'ezcWorkflowNodeVariableIncrement':
-                case 'ezcWorkflowNodeVariableDecrement':
-                {
-                    $xmlNode->setAttribute( 'variable', $configuration );
-                }
-                break;
-            }
+            $node->configurationtoXML( $xmlNode );
+            $root->appendChild( $xmlNode );
 
             foreach ( $node->getOutNodes() as $outNode )
             {
@@ -380,12 +213,10 @@ class ezcWorkflowDefinitionStorageXml implements ezcWorkflowDefinitionStorage
                 $xmlOutNode = $document->createElement( 'outNode' );
                 $xmlOutNode->setAttribute( 'id', $outNodeId );
 
-                if ( ( $nodeClass == 'ezcWorkflowNodeExclusiveChoice' ||
-                       $nodeClass == 'ezcWorkflowNodeMultiChoice' ||
-                       $nodeClass == 'ezcWorkflowNodeLoop' ) &&
-                       $condition = $node->getCondition( $outNode ) )
+                if ( is_subclass_of( $nodeClass, 'ezcWorkflowNodeConditionalBranch' ) &&
+                      $condition = $node->getCondition( $outNode ) )
                 {
-                    $xmlCondition = $this->conditionToXml(
+                    $xmlCondition = self::conditionToXml(
                       $condition,
                       $document
                     );
@@ -420,7 +251,7 @@ class ezcWorkflowDefinitionStorageXml implements ezcWorkflowDefinitionStorage
      * @param  DOMDocument $document
      * @return DOMElement
      */
-    protected function conditionToXml( ezcWorkflowCondition $condition, DOMDocument $document )
+    public static function conditionToXml( ezcWorkflowCondition $condition, DOMDocument $document )
     {
         $xmlCondition = $document->createElement( 'condition' );
 
@@ -435,7 +266,7 @@ class ezcWorkflowDefinitionStorageXml implements ezcWorkflowDefinitionStorage
                 $xmlCondition->setAttribute( 'name', $condition->getVariableName() );
 
                 $xmlCondition->appendChild(
-                    $this->conditionToXml( $condition->getCondition(), $document )
+                  self::conditionToXml( $condition->getCondition(), $document )
                 );
             }
             break;
@@ -446,7 +277,7 @@ class ezcWorkflowDefinitionStorageXml implements ezcWorkflowDefinitionStorage
                 foreach ( $condition->getConditions() as $childCondition )
                 {
                     $xmlCondition->appendChild(
-                      $this->conditionToXml( $childCondition, $document )
+                      self::conditionToXml( $childCondition, $document )
                     );
                 }
             }
@@ -454,7 +285,7 @@ class ezcWorkflowDefinitionStorageXml implements ezcWorkflowDefinitionStorage
 
             case 'ezcWorkflowConditionNot': {
                 $xmlCondition->appendChild(
-                    $this->conditionToXml( $condition->getCondition(), $document )
+                  self::conditionToXml( $condition->getCondition(), $document )
                 );
             }
             break;
@@ -474,21 +305,21 @@ class ezcWorkflowDefinitionStorageXml implements ezcWorkflowDefinitionStorage
     }
 
     /**
-     * "Convert" an SimpleXMLElement object into an ezcWorkflowCondition object.
+     * "Convert" an DOMElement object into an ezcWorkflowCondition object.
      *
-     * @param  SimpleXMLElement $node
+     * @param  DOMElement $element
      * @return ezcWorkflowCondition
      */
-    protected function xmlToCondition( SimpleXMLElement $node )
+    public static function xmlToCondition( DOMElement $element )
     {
-        $class = 'ezcWorkflowCondition' . (string)$node['type'];
+        $class = 'ezcWorkflowCondition' . $element->getAttribute( 'type' );
 
         switch ( $class )
         {
             case 'ezcWorkflowConditionVariable': {
                 return new $class(
-                  (string)$node['name'],
-                  $this->xmlToCondition( $node->condition )
+                  $element->getAttribute( 'name' ),
+                  self::xmlToCondition( $element->childNodes->item( 1 ) )
                 );
             }
             break;
@@ -498,9 +329,12 @@ class ezcWorkflowDefinitionStorageXml implements ezcWorkflowDefinitionStorage
             case 'ezcWorkflowConditionXor': {
                 $conditions = array();
 
-                foreach ( $node->condition as $condition )
+                foreach ( $element->childNodes as $childNode )
                 {
-                    $conditions[] = $this->xmlToCondition( $condition );
+                    if ( $childNode instanceof DOMElement && $childNode->tagName == 'condition' )
+                    {
+                        $conditions[] = self::xmlToCondition( $childNode );
+                    }
                 }
 
                 return new $class( $conditions );
@@ -508,7 +342,7 @@ class ezcWorkflowDefinitionStorageXml implements ezcWorkflowDefinitionStorage
             break;
 
             case 'ezcWorkflowConditionNot': {
-                return new $class( $this->xmlToCondition( $node->condition ) );
+                return new $class( self::xmlToCondition( $element->childNodes->item( 1 ) ) );
             }
             break;
 
@@ -518,9 +352,7 @@ class ezcWorkflowDefinitionStorageXml implements ezcWorkflowDefinitionStorage
             case 'ezcWorkflowConditionIsGreaterThan':
             case 'ezcWorkflowConditionIsLessThan':
             case 'ezcWorkflowConditionIsNotEqual': {
-                $value = (string)$node['value'];
-
-                return new $class( $value );
+                return new $class( $element->getAttribute( 'value' ) );
             }
             break;
 
@@ -538,7 +370,7 @@ class ezcWorkflowDefinitionStorageXml implements ezcWorkflowDefinitionStorage
      * @param  DOMDocument $document
      * @return DOMElement
      */
-    protected function variableToXml( $variable, DOMDocument $document )
+    public static function variableToXml( $variable, DOMDocument $document )
     {
         if ( is_array( $variable ) )
         {
@@ -548,7 +380,7 @@ class ezcWorkflowDefinitionStorageXml implements ezcWorkflowDefinitionStorage
             {
                 $element = $document->createElement( 'element' );
                 $element->setAttribute( 'key', $key );
-                $element->appendChild( $this->variableToXml( $value, $document ) );
+                $element->appendChild( self::variableToXml( $value, $document ) );
 
                 $xmlResult->appendChild( $element );
             }
@@ -581,40 +413,41 @@ class ezcWorkflowDefinitionStorageXml implements ezcWorkflowDefinitionStorage
     }
 
     /**
-     * "Convert" an SimpleXMLElement object into a PHP variable.
+     * "Convert" an DOMElement object into a PHP variable.
      *
-     * @param  SimpleXMLElement $node
+     * @param  DOMElement $element
      * @return mixed
      */
-    protected function xmlToVariable( SimpleXMLElement $node )
+    public static function xmlToVariable( DOMElement $element )
     {
-        $type     = $node->getName();
         $variable = null;
 
-        switch ( $type )
+        switch ( $element->tagName )
         {
             case 'array': {
                 $variable = array();
 
-                foreach ( $node->element as $element )
+                foreach ( $element->getElementsByTagName( 'element' ) as $element )
                 {
-                    $children = $element->children();
-                    $variable[(string)$element['key']] = $this->xmlToVariable( $children[0] );
+                    $variable[(string)$element->getAttribute ('key') ] = self::xmlToVariable( $element->childNodes->item( 1 ) );
                 }
             }
             break;
 
             case 'object': {
-                $className = (string)$node['class'];
+                $className = $element->getAttribute( 'class' );
 
-                $arguments       = $node->arguments->children();
-                $constructorArgs = array();
-
-                if ( @count( $arguments ) > 0 )
+                if ( $element->hasChildNodes() )
                 {
+                    $arguments       = $element->childNodes->item( 1 )->childNodes;
+                    $constructorArgs = array();
+
                     foreach ( $arguments as $argument )
                     {
-                        $constructorArgs[] = $this->xmlToVariable( $argument );
+                        if ( $argument instanceof DOMElement )
+                        {
+                            $constructorArgs[] = self::xmlToVariable( $argument );
+                        }
                     }
 
                     $class = new ReflectionClass( $className );
@@ -630,18 +463,17 @@ class ezcWorkflowDefinitionStorageXml implements ezcWorkflowDefinitionStorage
             break;
 
             case 'boolean': {
-                $variable = (string)$node == 'true' ? true : false;
+                $variable = $element->nodeValue == 'true' ? true : false;
             }
             break;
 
             case 'integer':
             case 'double':
             case 'string': {
-                $variable = (string)$node;
+                $variable = $element->nodeValue;
 
-                settype( $variable, $type );
+                settype( $variable, $element->tagName );
             }
-            break;
         }
 
         return $variable;
@@ -660,7 +492,7 @@ class ezcWorkflowDefinitionStorageXml implements ezcWorkflowDefinitionStorage
 
         if ( !empty( $files ) )
         {
-            return str_replace(
+            return (int)str_replace(
               array(
                 $this->directory . $workflowName . '_',
                 '.xml'

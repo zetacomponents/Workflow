@@ -39,6 +39,26 @@ class ezcWorkflowNodeVariableIncrement extends ezcWorkflowNodeArithmeticBase
     }
 
     /**
+     * Generate node configuration from XML representation.
+     *
+     * @param DOMElement $element
+     */
+    public static function configurationFromXML( DOMElement $element )
+    {
+        return $element->getAttribute( 'variable' );
+    }
+
+    /**
+     * Generate XML representation of this node's configuration.
+     *
+     * @param DOMElement $element
+     */
+    public function configurationToXML( DOMElement $element )
+    {
+        $element->setAttribute( 'variable', $this->configuration );
+    }
+
+    /**
      * Returns a textual representation of this node.
      *
      * @return string

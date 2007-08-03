@@ -125,6 +125,59 @@ class ezcWorkflowNodeAction extends ezcWorkflowNode
     }
 
     /**
+     * Generate node configuration from XML representation.
+     *
+     * @param DOMElement $element
+     */
+    public static function configurationFromXML( DOMElement $element )
+    {
+        $configuration = array(
+          'class'     => $element->getAttribute( 'serviceObjectClass' ),
+          'arguments' => array()
+        );
+
+        if ( $element->childNodes->item( 1 ) instanceof DOMElement &&
+             $element->childNodes->item( 1 )->tagName == 'arguments' )
+        {
+            foreach ( $element->childNodes->item( 1 )->childNodes as $argument )
+            {
+                if ( $argument instanceof DOMElement )
+                {
+                    $configuration['arguments'][] = ezcWorkflowDefinitionStorageXml::xmlToVariable( $argument );
+                }
+            }
+        }
+
+        return $configuration;
+    }
+
+    /**
+     * Generate XML representation of this node's configuration.
+     *
+     * @param DOMElement $element
+     */
+    public function configurationToXML( DOMElement $element )
+    {
+        $element->setAttribute( 'serviceObjectClass', $this->configuration['class'] );
+
+        if ( !empty( $this->configuration['arguments'] ) )
+        {
+            $xmlArguments = $element->appendChild(
+              $element->ownerDocument->createElement( 'arguments' )
+            );
+
+            foreach ( $this->configuration['arguments'] as $argument )
+            {
+                $xmlArguments->appendChild(
+                  ezcWorkflowDefinitionStorageXml::variableToXml(
+                    $argument, $element->ownerDocument
+                  )
+                );
+            }
+        }
+    }
+
+    /**
      * Returns a textual representation of this node.
      *
      * @return string

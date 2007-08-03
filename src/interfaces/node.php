@@ -578,6 +578,24 @@ abstract class ezcWorkflowNode implements ezcWorkflowVisitable
     }
 
     /**
+     * Generate node configuration from XML representation.
+     *
+     * @param DOMElement $element
+     */
+    public static function configurationFromXML( DOMElement $element )
+    {
+    }
+
+    /**
+     * Generate XML representation of this node's configuration.
+     *
+     * @param DOMElement $element
+     */
+    public function configurationToXML( DOMElement $element )
+    {
+    }
+
+    /**
      * Returns a textual representation of this node.
      *
      * @return string

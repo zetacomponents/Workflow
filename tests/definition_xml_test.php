@@ -353,8 +353,6 @@ class ezcWorkflowDefinitionStorageXmlTest extends ezcWorkflowTestCase
 
     public function testLoadExclusiveChoiceWithUnconditionalOutNodeSimpleMerge()
     {
-        $this->markTestIncomplete();
-
         $this->workflow = $this->definition->loadByName( 'ExclusiveChoiceWithUnconditionalOutNodeSimpleMerge' );
         $this->definition->save( $this->workflow );
 
