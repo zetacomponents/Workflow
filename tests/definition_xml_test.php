@@ -461,6 +461,20 @@ class ezcWorkflowDefinitionStorageXmlTest extends ezcWorkflowTestCase
         $this->fail();
     }
 
+    public function testExceptionWhenLoadingNotWellFormedWorkflow()
+    {
+        try
+        {
+            $this->definition->loadByName( 'NotWellFormed' );
+        }
+        catch ( ezcWorkflowDefinitionStorageException $e )
+        {
+            return;
+        }
+
+        $this->fail();
+    }
+
     protected function readActual( $name )
     {
         $actual = str_replace(

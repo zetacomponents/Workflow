@@ -62,15 +62,39 @@ class ezcWorkflowDefinitionStorageXml implements ezcWorkflowDefinitionStorage
 
         // Load the document.
         $document = new DOMDocument;
-        $loaded   = @$document->load( $filename );
 
-        if ( $loaded === false )
+        if ( is_readable( $filename ) )
+        {
+            libxml_use_internal_errors( true );
+
+            $loaded = @$document->load( $filename );
+
+            if ( $loaded === false )
+            {
+                $message = '';
+
+                foreach ( libxml_get_errors() as $error )
+                {
+                    $message .= $error->message;
+                }
+
+                throw new ezcWorkflowDefinitionStorageException(
+                  sprintf(
+                    'Could not load workflow "%s" (version %d) from "%s".%s',
+
+                    $workflowName,
+                    $workflowVersion,
+                    $filename,
+                    $message != '' ? "\n" . $message : ''
+                  )
+                );
+            }
+        }
+        else
         {
             throw new ezcWorkflowDefinitionStorageException(
               sprintf(
-                'Could not load workflow "%s" (version %d) from "%s"',
-                $workflowName,
-                $workflowVersion,
+                'Could not read file "%s".',
                 $filename
               )
             );
