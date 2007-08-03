@@ -3,7 +3,7 @@ class MyServiceObject implements ezcWorkflowServiceObject
 {
     private $message;
 
-    public function construct( $message )
+    public function __construct( $message )
     {
         $this->message = $message;
     }
