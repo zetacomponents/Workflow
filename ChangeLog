@@ -5,6 +5,7 @@
     node classes. This makes it possible to have custom node classes handled by
     the XML definition storage.
 - Implemented issue #10918: Error messages when loading invalid XML.
+- Implemented issue #10985: Mapping variables between parent and sub workflows.
 - Fixed issue #11068: Implement ezcWorkflowExecution::hasVariable().
 
 1.0.1 - Monday 30 July 2007

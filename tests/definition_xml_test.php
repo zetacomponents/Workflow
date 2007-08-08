@@ -196,6 +196,17 @@ class ezcWorkflowDefinitionStorageXmlTest extends ezcWorkflowTestCase
         );
     }
 
+    public function testSaveWorkflowWithSubWorkflowAndVariablePassing()
+    {
+        $this->setUpWorkflowWithSubWorkflowAndVariablePassing();
+        $this->definition->save( $this->workflow );
+
+        $this->assertEquals(
+          $this->readExpected( 'WorkflowWithSubWorkflowAndVariablePassing' ),
+          $this->readActual( 'WorkflowWithSubWorkflowAndVariablePassing' )
+        );
+    }
+
     public function testSaveServiceObjectWithArguments()
     {
         $this->setUpEmptyWorkflow( 'ServiceObjectWithArguments' );
@@ -403,6 +414,17 @@ class ezcWorkflowDefinitionStorageXmlTest extends ezcWorkflowTestCase
         $this->assertEquals(
           $this->readExpected( 'WorkflowWithSubWorkflow' ),
           $this->readActual( 'WorkflowWithSubWorkflow' )
+        );
+    }
+
+    public function testLoadWorkflowWithSubWorkflowAndVariablePassing()
+    {
+        $this->workflow = $this->definition->loadByName( 'WorkflowWithSubWorkflowAndVariablePassing' );
+        $this->definition->save( $this->workflow );
+
+        $this->assertEquals(
+          $this->readExpected( 'WorkflowWithSubWorkflowAndVariablePassing' ),
+          $this->readActual( 'WorkflowWithSubWorkflowAndVariablePassing' )
         );
     }
 

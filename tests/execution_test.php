@@ -593,6 +593,21 @@ class ezcWorkflowExecutionTest extends ezcWorkflowTestCase
         $this->assertEquals( 2, $this->execution->getVariable( 'j' ) );
     }
 
+    public function testExecuteWorkflowWithSubWorkflowAndVariablePassing()
+    {
+        $this->setUpWorkflowWithSubWorkflowAndVariablePassing();
+        $this->execution->definitionStorage = $this->definition;
+        $this->execution->workflow = $this->workflow;
+        $this->execution->start();
+
+        $this->assertTrue( $this->execution->hasEnded() );
+        $this->assertFalse( $this->execution->isResumed() );
+        $this->assertFalse( $this->execution->isSuspended() );
+
+        $this->assertEquals( 1, $this->execution->getVariable( 'x' ) );
+        $this->assertEquals( 2, $this->execution->getVariable( 'z' ) );
+    }
+
     public function testGetVariable()
     {
         $this->setUpStartEnd();

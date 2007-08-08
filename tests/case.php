@@ -531,6 +531,33 @@ abstract class ezcWorkflowTestCase extends ezcTestCase
         $this->endNode->addInNode( $subWorkflow );
     }
 
+    protected function setUpWorkflowWithSubWorkflowAndVariablePassing()
+    {
+        $this->workflow = new ezcWorkflow( 'WorkflowWithSubWorkflowAndVariablePassing' );
+        $this->setUpReferences();
+
+        $set = new ezcWorkflowNodeVariableSet( array( 'x' => 1 ) );
+
+        $subWorkflow = new ezcWorkflowNodeSubWorkflow(
+          array(
+            'workflow'  => 'IncrementVariable',
+            'variables' => array(
+              'in' => array(
+                'x' => 'y'
+              ),
+              'out' => array(
+                'y' => 'z'
+              )
+            )
+          )
+        );
+
+        $subWorkflow->addInNode( $set );
+
+        $this->startNode->addOutNode( $set );
+        $this->endNode->addInNode( $subWorkflow );
+    }
+
     protected function setUpNestedLoops()
     {
         $this->workflow = new ezcWorkflow( 'NestedLoops' );
