@@ -37,14 +37,16 @@ class ezcWorkflowConditionVariables implements ezcWorkflowCondition
      * @param  string $variableNameA
      * @param  string $variableNameB
      * @param  ezcWorkflowCondition $condition
-     * @throws ezcWorkflowInvalidWorkflowException
+     * @throws ezcBaseValueException
      */
     public function __construct( $variableNameA, $variableNameB, ezcWorkflowCondition $condition )
     {
         if ( !$condition instanceof ezcWorkflowConditionComparison )
         {
-            throw new ezcWorkflowInvalidWorkflowException(
-              '$condition is not an instance of ezcWorkflowConditionComparison.'
+            throw new ezcBaseValueException(
+              'condition',
+              $condition,
+              'ezcWorkflowConditionComparison'
             );
         }
 

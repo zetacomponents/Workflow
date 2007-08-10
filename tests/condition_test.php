@@ -212,7 +212,7 @@ class ezcWorkflowConditionTest extends ezcTestCase
               new ezcWorkflowConditionIsAnything
             );
         }
-        catch ( ezcWorkflowInvalidWorkflowException $e )
+        catch ( ezcBaseValueException $e )
         {
             return;
         }
