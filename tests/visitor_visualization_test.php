@@ -117,6 +117,17 @@ class ezcWorkflowVisitorVisualizationTest extends ezcWorkflowTestCase
         );
     }
 
+    public function testVisitVariableEqualsVariable()
+    {
+        $this->setUpVariableEqualsVariable();
+        $this->workflow->accept( $this->visitor );
+
+        $this->assertEquals(
+          $this->readExpected( 'VariableEqualsVariable' ),
+          (string)$this->visitor
+        );
+    }
+
     public function testVisitParallelSplitSynchronization()
     {
         $this->setUpParallelSplitSynchronization();
