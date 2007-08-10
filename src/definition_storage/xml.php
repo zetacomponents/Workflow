@@ -295,6 +295,18 @@ class ezcWorkflowDefinitionStorageXml implements ezcWorkflowDefinitionStorage
             }
             break;
 
+            case 'ezcWorkflowConditionVariables': {
+                list( $variableNameA, $variableNameB ) = $condition->getVariableNames();
+
+                $xmlCondition->setAttribute( 'a', $variableNameA );
+                $xmlCondition->setAttribute( 'b', $variableNameB );
+
+                $xmlCondition->appendChild(
+                  self::conditionToXml( $condition->getCondition(), $document )
+                );
+            }
+            break;
+
             case 'ezcWorkflowConditionAnd':
             case 'ezcWorkflowConditionOr':
             case 'ezcWorkflowConditionXor': {
@@ -343,6 +355,15 @@ class ezcWorkflowDefinitionStorageXml implements ezcWorkflowDefinitionStorage
             case 'ezcWorkflowConditionVariable': {
                 return new $class(
                   $element->getAttribute( 'name' ),
+                  self::xmlToCondition( $element->childNodes->item( 1 ) )
+                );
+            }
+            break;
+
+            case 'ezcWorkflowConditionVariables': {
+                return new $class(
+                  $element->getAttribute( 'a' ),
+                  $element->getAttribute( 'b' ),
                   self::xmlToCondition( $element->childNodes->item( 1 ) )
                 );
             }

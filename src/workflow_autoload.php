@@ -49,6 +49,7 @@ return array(
     'ezcWorkflowConditionNot'                  => 'Workflow/conditions/not.php',
     'ezcWorkflowConditionOr'                   => 'Workflow/conditions/or.php',
     'ezcWorkflowConditionVariable'             => 'Workflow/conditions/variable.php',
+    'ezcWorkflowConditionVariables'            => 'Workflow/conditions/variables.php',
     'ezcWorkflowConditionXor'                  => 'Workflow/conditions/xor.php',
     'ezcWorkflowDefinitionStorageXml'          => 'Workflow/definition_storage/xml.php',
     'ezcWorkflowExecutionListener'             => 'Workflow/interfaces/execution_listener.php',

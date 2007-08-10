@@ -230,6 +230,49 @@ abstract class ezcWorkflowTestCase extends ezcTestCase
         $this->endNode->addInNode( $add );
     }
 
+    protected function setUpVariableEqualsVariable()
+    {
+        $this->workflow = new ezcWorkflow( 'VariableEqualsVariable' );
+        $this->setUpReferences();
+
+        $set = new ezcWorkflowNodeVariableSet(
+          array( 'a' => 1, 'b' => 1 )
+        );
+
+        $set2 = new ezcWorkflowNodeVariableSet(
+          array( 'c' => 1 )
+        );
+
+        $set3 = new ezcWorkflowNodeVariableSet(
+          array( 'c' => 0 )
+        );
+
+        $this->branchNode = new ezcWorkflowNodeExclusiveChoice;
+        $this->branchNode->addInNode( $set );
+
+        $this->branchNode->addConditionalOutNode(
+          new ezcWorkflowConditionVariables(
+            'a', 'b', new ezcWorkflowConditionIsEqual
+          ),
+          $set2
+        );
+
+        $this->branchNode->addConditionalOutNode(
+          new ezcWorkflowConditionVariables(
+            'a', 'b', new ezcWorkflowConditionIsNotEqual
+          ),
+          $set3
+        );
+
+        $simpleMerge = new ezcWorkflowNodeSimpleMerge;
+
+        $simpleMerge->addInNode( $set2 )
+                    ->addInNode( $set3 );
+
+        $this->startNode->addOutNode( $set );
+        $this->endNode->addInNode( $simpleMerge );
+    }
+
     protected function setUpParallelSplitSynchronization()
     {
         $this->workflow = new ezcWorkflow( 'ParallelSplitSynchronization' );

@@ -190,6 +190,18 @@ class ezcWorkflowConditionTest extends ezcTestCase
         $this->assertFalse( $condition->evaluate( array( 'bar' => 'foo' ) ) );
     }
 
+    public function testVariables()
+    {
+        $condition = new ezcWorkflowConditionVariables(
+          'foo',
+          'bar',
+          new ezcWorkflowConditionIsEqual
+        );
+
+        $this->assertTrue( $condition->evaluate( array( 'foo' => 'baz', 'bar' => 'baz' ) ) );
+        $this->assertFalse( $condition->evaluate( array( 'foo' => 'bar', 'bar' => 'foo' ) ) );
+    }
+
     public function testAnd()
     {
         $true = new ezcWorkflowConditionIsTrue;

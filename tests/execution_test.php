@@ -300,6 +300,18 @@ class ezcWorkflowExecutionTest extends ezcWorkflowTestCase
         $this->fail();
     }
 
+    public function testExecuteVariableEqualsVariable()
+    {
+        $this->setUpVariableEqualsVariable();
+        $this->execution->workflow = $this->workflow;
+        $this->execution->start();
+
+        $this->assertTrue( $this->execution->hasEnded() );
+        $this->assertFalse( $this->execution->isResumed() );
+        $this->assertFalse( $this->execution->isSuspended() );
+        $this->assertEquals( 1, $this->execution->getVariable( 'c' ) );
+    }
+
     public function testExecuteParallelSplitSynchronization()
     {
         $this->setUpParallelSplitSynchronization();

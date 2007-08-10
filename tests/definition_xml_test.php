@@ -119,6 +119,17 @@ class ezcWorkflowDefinitionStorageXmlTest extends ezcWorkflowTestCase
         );
     }
 
+    public function testSaveVariableEqualsVariable()
+    {
+        $this->setUpVariableEqualsVariable();
+        $this->definition->save( $this->workflow );
+
+        $this->assertEquals(
+          $this->readExpected( 'VariableEqualsVariable' ),
+          $this->readActual( 'VariableEqualsVariable' )
+        );
+    }
+
     public function testSaveParallelSplitSynchronization()
     {
         $this->setUpParallelSplitSynchronization();
@@ -337,6 +348,17 @@ class ezcWorkflowDefinitionStorageXmlTest extends ezcWorkflowTestCase
         $this->assertEquals(
           $this->readExpected( 'AddVariables' ),
           $this->readActual( 'AddVariables' )
+        );
+    }
+
+    public function testLoadVariableEqualsVariable()
+    {
+        $this->workflow = $this->definition->loadByName( 'VariableEqualsVariable' );
+        $this->definition->save( $this->workflow );
+
+        $this->assertEquals(
+          $this->readExpected( 'VariableEqualsVariable' ),
+          $this->readActual( 'VariableEqualsVariable' )
         );
     }
 
