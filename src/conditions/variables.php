@@ -43,7 +43,9 @@ class ezcWorkflowConditionVariables implements ezcWorkflowCondition
     {
         if ( !$condition instanceof ezcWorkflowConditionComparison )
         {
-            throw new ezcWorkflowInvalidWorkflowException;
+            throw new ezcWorkflowInvalidWorkflowException(
+              '$condition is not an instance of ezcWorkflowConditionComparison.'
+            );
         }
 
         $this->variableNameA = $variableNameA;
