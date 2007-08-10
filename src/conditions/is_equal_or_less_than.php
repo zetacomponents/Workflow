@@ -26,6 +26,11 @@
 class ezcWorkflowConditionIsEqualOrLessThan extends ezcWorkflowConditionComparison
 {
     /**
+     * @var mixed
+     */
+    protected $operator = '<=';
+
+    /**
      * Evaluates this condition with $value and returns true if $value is less than
      * or equal to the reference value or false if not.
      *
@@ -36,17 +41,6 @@ class ezcWorkflowConditionIsEqualOrLessThan extends ezcWorkflowConditionComparis
     public function evaluate( $value )
     {
         return $value <= $this->value;
-    }
-
-    /**
-     * Returns a textual representation of this condition.
-     *
-     * @return string
-     * @ignore
-     */
-    public function __toString()
-    {
-        return '<= ' . $this->value;
     }
 }
 ?>

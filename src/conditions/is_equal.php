@@ -26,6 +26,11 @@
 class ezcWorkflowConditionIsEqual extends ezcWorkflowConditionComparison
 {
     /**
+     * @var mixed
+     */
+    protected $operator = '==';
+
+    /**
      * Evaluates this condition with $value and returns true if it is false or false if it is not.
      *
      * @param  mixed $value
@@ -35,17 +40,6 @@ class ezcWorkflowConditionIsEqual extends ezcWorkflowConditionComparison
     public function evaluate( $value )
     {
         return $value == $this->value;
-    }
-
-    /**
-     * Returns a textual representation of this condition.
-     *
-     * @return string
-     * @ignore
-     */
-    public function __toString()
-    {
-        return '== ' . $this->value;
     }
 }
 ?>

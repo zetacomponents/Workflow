@@ -19,6 +19,11 @@ abstract class ezcWorkflowConditionComparison implements ezcWorkflowCondition
     /**
      * @var mixed
      */
+    protected $operator = '';
+
+    /**
+     * @var mixed
+     */
     protected $value;
 
     /**
@@ -28,7 +33,7 @@ abstract class ezcWorkflowConditionComparison implements ezcWorkflowCondition
      *
      * @param  mixed  $value
      */
-    public function __construct( $value )
+    public function __construct( $value = null )
     {
         $this->value = $value;
     }
@@ -42,6 +47,39 @@ abstract class ezcWorkflowConditionComparison implements ezcWorkflowCondition
     public function getValue()
     {
         return $this->value;
+    }
+
+    /**
+     * Sets the value that this condition compares against.
+     *
+     * @param mixed $value
+     * @ignore
+     */
+    public function setValue( $value )
+    {
+        $this->value = $value;
+    }
+
+    /**
+     * Returns the operator.
+     *
+     * @return string
+     * @ignore
+     */
+    public function getOperator()
+    {
+        return $this->operator;
+    }
+
+    /**
+     * Returns a textual representation of this condition.
+     *
+     * @return string
+     * @ignore
+     */
+    public function __toString()
+    {
+        return $this->operator . ' ' . $this->value;
     }
 }
 ?>
