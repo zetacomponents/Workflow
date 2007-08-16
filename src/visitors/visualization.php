@@ -63,6 +63,10 @@ class ezcWorkflowVisitorVisualization implements ezcWorkflowVisitor
         if ( $visitable instanceof ezcWorkflow )
         {
             $this->workflowName = $visitable->name;
+
+            // The following line of code is not a no-op. It triggers the
+            // ezcWorkflow::__get() method, thus initializing the respective
+            // ezcWorkflowVisitorNodeCollector object.
             $visitable->nodes;
         }
 
