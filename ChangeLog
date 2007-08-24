@@ -1,13 +1,19 @@
+1.1alpha1 - [RELEASEDATE]
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
 - Added ezcWorkflowNodeLoop class to conveniently express loops.
-- Refactored the XML definition storage.
+- Refactored the XML definition storage:
+
   - DOM is now used for both the loading and saving of workflows (issue #10702).
   - The marshalling of the node configuration is now handled in the individual
     node classes. This makes it possible to have custom node classes handled by
     the XML definition storage.
+
 - Implemented issue #10883: Apply comparison conditions to two variables.
 - Implemented issue #10918: Error messages when loading invalid XML.
 - Implemented issue #10985: Mapping variables between parent and sub workflows.
 - Fixed issue #11068: Implement ezcWorkflowExecution::hasVariable().
+
 
 1.0.1 - Monday 30 July 2007
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
