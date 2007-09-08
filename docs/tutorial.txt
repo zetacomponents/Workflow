@@ -569,6 +569,8 @@ Bibliography
   Expressiveness and Suitability of Languages for Control Flow Modelling in Workflows.
   PhD Thesis, Faculty of Information Technology, Queensland University of Technology, Australia, 2003.
 
+- [FG02] Florent Guillaume.
+  Trying to unify Entity-based and Activity-based workflows}.
 
 
 ..
