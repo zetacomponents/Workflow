@@ -19,7 +19,7 @@
  *
  * The example below creates a sub-workflow node that passes the parent
  * execution's variable 'x' to the variable 'y' in the child execution when the
- * sub-workflow is started. When it end, the child execution's 'y' variable is
+ * sub-workflow is started. When it ends, the child execution's 'y' variable is
  * passed to the parent execution as 'z'.
  *
  * <code>
