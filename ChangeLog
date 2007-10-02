@@ -9,6 +9,7 @@
     node classes. This makes it possible to have custom node classes handled by
     the XML definition storage.
 
+- Default node configurations are handled better now.
 - Implemented issue #10883: Apply comparison conditions to two variables.
 - Implemented issue #10918: Error messages when loading invalid XML.
 - Implemented issue #10985: Mapping variables between parent and sub workflows.

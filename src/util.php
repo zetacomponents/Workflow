@@ -42,6 +42,27 @@ abstract class ezcWorkflowUtil
     }
 
     /**
+     * Returns the default configuration for a node class.
+     *
+     * @param string $className
+     * @return mixed
+     */
+    public static function getDefaultConfiguration( $className )
+    {
+        $configuration = null;
+
+        $class    = new ReflectionClass( $className );
+        $defaults = $class->getDefaultProperties();
+
+        if ( isset( $defaults['configuration'] ) )
+        {
+            $configuration = $defaults['configuration'];
+        }
+
+        return $configuration;
+    }
+
+    /**
      * Returns a compact textual representation of a PHP variable.
      *
      * @param mixed $variable

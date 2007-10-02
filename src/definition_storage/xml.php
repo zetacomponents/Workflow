@@ -105,15 +105,19 @@ class ezcWorkflowDefinitionStorageXml implements ezcWorkflowDefinitionStorage
 
         foreach ( $document->getElementsByTagName( 'node' ) as $node )
         {
-            $id            = (int)$node->getAttribute( 'id' );
-            $className     = 'ezcWorkflowNode' . $node->getAttribute( 'type' );
-            $configuration = '';
+            $id        = (int)$node->getAttribute( 'id' );
+            $className = 'ezcWorkflowNode' . $node->getAttribute( 'type' );
 
             if ( class_exists( $className ) )
             {
                 $configuration = call_user_func_array(
                   array( $className, 'configurationFromXML' ), array( $node )
                 );
+
+                if ( is_null( $configuration ) )
+                {
+                    $configuration = ezcWorkflowUtil::getDefaultConfiguration( $className );
+                }
             }
 
             $nodes[$id] = new $className( $configuration );

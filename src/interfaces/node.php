@@ -162,9 +162,12 @@ abstract class ezcWorkflowNode implements ezcWorkflowVisitable
      *
      * @param mixed $configuration
      */
-    public function __construct( $configuration = '' )
+    public function __construct( $configuration = null )
     {
-        $this->configuration = $configuration;
+        if ( $configuration !== null )
+        {
+            $this->configuration = $configuration;
+        }
 
         $this->setActivationState( self::WAITING_FOR_ACTIVATION );
         $this->initState();
