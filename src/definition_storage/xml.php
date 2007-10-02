@@ -152,14 +152,35 @@ class ezcWorkflowDefinitionStorageXml implements ezcWorkflowDefinitionStorage
                 {
                     if ( $childNode instanceof DOMElement && $childNode->tagName == 'condition' )
                     {
+                        foreach ( $childNode->getElementsByTagName( 'else' ) as $elseNode )
+                        {
+                            foreach ( $elseNode->getElementsByTagName( 'outNode' ) as $outNode )
+                            {
+                                $elseId = (int)$outNode->getAttribute( 'id' );
+                            }
+                        }
+
                         $condition = $this->xmlToCondition( $childNode );
 
                         foreach ( $childNode->getElementsByTagName( 'outNode' ) as $outNode )
                         {
-                            $nodes[$id]->addConditionalOutNode(
-                              $condition,
-                              $nodes[(int)$outNode->getAttribute( 'id' )]
-                            );
+                            if ( !isset( $elseId ) )
+                            {
+                                $nodes[$id]->addConditionalOutNode(
+                                  $condition,
+                                  $nodes[(int)$outNode->getAttribute( 'id' )]
+                                );
+                            }
+                            else
+                            {
+                                $nodes[$id]->addConditionalOutNode(
+                                  $condition,
+                                  $nodes[(int)$outNode->getAttribute( 'id' )],
+                                  $nodes[$elseId]
+                                );
+
+                                unset( $elseId );
+                            }
                         }
                     }
                 }
@@ -228,11 +249,15 @@ class ezcWorkflowDefinitionStorageXml implements ezcWorkflowDefinitionStorage
             $node->configurationtoXML( $xmlNode );
             $root->appendChild( $xmlNode );
 
-            foreach ( $node->getOutNodes() as $outNode )
+            $outNodes    = $node->getOutNodes();
+            $_keys       = array_keys( $outNodes );
+            $numOutNodes = count( $_keys );
+
+            for ( $j = 0; $j < $numOutNodes; $j++ )
             {
                 foreach ( $nodes as $outNodeId => $_node )
                 {
-                    if ( $_node === $outNode )
+                    if ( $_node === $outNodes[$_keys[$j]] )
                     {
                         break;
                     }
@@ -242,15 +267,23 @@ class ezcWorkflowDefinitionStorageXml implements ezcWorkflowDefinitionStorage
                 $xmlOutNode->setAttribute( 'id', $outNodeId );
 
                 if ( is_subclass_of( $nodeClass, 'ezcWorkflowNodeConditionalBranch' ) &&
-                      $condition = $node->getCondition( $outNode ) )
+                      $condition = $node->getCondition( $outNodes[$_keys[$j]] ) )
                 {
-                    $xmlCondition = self::conditionToXml(
-                      $condition,
-                      $document
-                    );
+                    if ( !$node->isElse( $outNodes[$_keys[$j]] ) )
+                    {
+                        $xmlCondition = self::conditionToXml(
+                          $condition,
+                          $document
+                        );
 
-                    $xmlCondition->appendChild( $xmlOutNode );
-                    $xmlNode->appendChild( $xmlCondition );
+                        $xmlCondition->appendChild( $xmlOutNode );
+                        $xmlNode->appendChild( $xmlCondition );
+                    }
+                    else
+                    {
+                        $xmlElse = $xmlCondition->appendChild( $document->createElement( 'else' ) );
+                        $xmlElse->appendChild( $xmlOutNode );
+                    }
                 }
                 else
                 {

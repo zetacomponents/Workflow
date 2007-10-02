@@ -415,6 +415,32 @@ class ezcWorkflowExecutionTest extends ezcWorkflowTestCase
         $this->fail();
     }
 
+    public function testExclusiveChoiceWithElseSimpleMerge()
+    {
+        $this->setUpExclusiveChoiceWithElseSimpleMerge();
+        $this->execution->workflow = $this->workflow;
+        $this->execution->setVariables( array( 'condition' => true ) );
+        $this->execution->start();
+
+        $this->assertTrue( $this->execution->hasEnded() );
+        $this->assertFalse( $this->execution->isResumed() );
+        $this->assertFalse( $this->execution->isSuspended() );
+        $this->assertEquals( true, $this->execution->getVariable( 'x' ) );
+    }
+
+    public function testExclusiveChoiceWithElseSimpleMerge2()
+    {
+        $this->setUpExclusiveChoiceWithElseSimpleMerge();
+        $this->execution->workflow = $this->workflow;
+        $this->execution->setVariables( array( 'condition' => false ) );
+        $this->execution->start();
+
+        $this->assertTrue( $this->execution->hasEnded() );
+        $this->assertFalse( $this->execution->isResumed() );
+        $this->assertFalse( $this->execution->isSuspended() );
+        $this->assertEquals( true, $this->execution->getVariable( 'y' ) );
+    }
+
     public function testExclusiveChoiceWithUnconditionalOutNodeSimpleMerge()
     {
         $this->setUpExclusiveChoiceWithUnconditionalOutNodeSimpleMerge();

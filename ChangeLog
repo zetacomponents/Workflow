@@ -13,6 +13,7 @@
 - Implemented issue #10883: Apply comparison conditions to two variables.
 - Implemented issue #10918: Error messages when loading invalid XML.
 - Implemented issue #10985: Mapping variables between parent and sub workflows.
+- Implemented issue #11003: Add ELSE option to exclusive choice.
 - Fixed issue #11068: Implement ezcWorkflowExecution::hasVariable().
 
 

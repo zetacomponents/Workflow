@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<workflow name="ExclusiveChoiceWithElseSimpleMerge" version="1">
+  <node id="1" type="Start">
+    <outNode id="2"/>
+  </node>
+  <node id="2" type="ExclusiveChoice">
+    <condition type="Variable" name="condition">
+      <condition type="IsTrue"/>
+      <outNode id="3"/>
+      <else>
+        <outNode id="6"/>
+      </else>
+    </condition>
+  </node>
+  <node id="3" type="VariableSet">
+    <variable name="x">
+      <boolean>true</boolean>
+    </variable>
+    <outNode id="4"/>
+  </node>
+  <node id="4" type="SimpleMerge">
+    <outNode id="5"/>
+  </node>
+  <node id="5" type="End"/>
+  <node id="6" type="VariableSet">
+    <variable name="y">
+      <boolean>true</boolean>
+    </variable>
+    <outNode id="4"/>
+  </node>
+</workflow>

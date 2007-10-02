@@ -48,22 +48,36 @@ abstract class ezcWorkflowNodeConditionalBranch extends ezcWorkflowNodeBranch
      *
      * The key is the position of the out node in the array of out nodes.
      *
-     * @var array( 'int' => ezcWorkflowCondtion )
+     * @var array( 'condition' => array( 'int' => ezcWorkflowCondtion ) )
      */
-    protected $configuration = array();
-
+    protected $configuration = array(
+      'condition' => array(),
+      'else' => array()
+    );
 
     /**
-     * Adds the conditional outgoing node $outNode to this node with the condition $condition.
+     * Adds the conditional outgoing node $outNode to this node with the
+     * condition $condition. Optionally, an $else node can be specified that is
+     * activated when the $condition evaluates to false.
      *
      * @param ezcWorkflowCondition $condition
-     * @param ezcWorkflowNode $outNode
+     * @param ezcWorkflowNode      $outNode
+     * @param ezcWorkflowNode      $else
      * @return ezcWorkflowNode
      */
-    public function addConditionalOutNode( ezcWorkflowCondition $condition, ezcWorkflowNode $outNode )
+    public function addConditionalOutNode( ezcWorkflowCondition $condition, ezcWorkflowNode $outNode, ezcWorkflowNode $else = null )
     {
         $this->addOutNode( $outNode );
-        $this->configuration[ezcWorkflowUtil::findObject( $this->outNodes, $outNode )] = $condition;
+        $this->configuration['condition'][ezcWorkflowUtil::findObject( $this->outNodes, $outNode )] = $condition;
+
+        if ( !is_null( $else ) )
+        {
+            $this->addOutNode( $else );
+
+            $key = ezcWorkflowUtil::findObject( $this->outNodes, $else );
+            $this->configuration['condition'][$key] = new ezcWorkflowConditionNot( $condition );
+            $this->configuration['else'][$key] = true;
+        }
 
         return $this;
     }
@@ -86,9 +100,9 @@ abstract class ezcWorkflowNodeConditionalBranch extends ezcWorkflowNodeBranch
         {
             if ( $this->outNodes[$keys[$i]] === $node )
             {
-                if ( isset( $this->configuration[$keys[$i]] ) )
+                if ( isset( $this->configuration['condition'][$keys[$i]] ) )
                 {
-                    return $this->configuration[$keys[$i]];
+                    return $this->configuration['condition'][$keys[$i]];
                 }
                 else
                 {
@@ -98,6 +112,18 @@ abstract class ezcWorkflowNodeConditionalBranch extends ezcWorkflowNodeBranch
         }
 
         return false;
+    }
+
+    /**
+     * Returns true when the $node belongs to an ELSE condition.
+     *
+     * @param ezcWorkflowNode $node
+     * @return bool
+     * @ignore
+     */
+    public function isElse( ezcWorkflowNode $node )
+    {
+        return isset( $this->configuration['else'][ezcWorkflowUtil::findObject( $this->outNodes, $node )] );
     }
 
     /**
@@ -116,10 +142,10 @@ abstract class ezcWorkflowNodeConditionalBranch extends ezcWorkflowNodeBranch
 
         for ( $i = 0; $i < $numKeys; $i++ )
         {
-            if ( isset( $this->configuration[$keys[$i]] ) )
+            if ( isset( $this->configuration['condition'][$keys[$i]] ) )
             {
                 // Conditional outgoing node.
-                if ( $this->configuration[$keys[$i]]->evaluate( $execution->getVariables() ) )
+                if ( $this->configuration['condition'][$keys[$i]]->evaluate( $execution->getVariables() ) )
                 {
                     $nodesToStart[] = $this->outNodes[$keys[$i]];
                     $numActivatedConditionalOutNodes++;
@@ -158,7 +184,7 @@ abstract class ezcWorkflowNodeConditionalBranch extends ezcWorkflowNodeBranch
     {
         parent::verify();
 
-        $numConditionalOutNodes = count( $this->configuration );
+        $numConditionalOutNodes = count( $this->configuration['condition'] );
 
         if ( $this->minConditionalOutNodes !== false && $numConditionalOutNodes < $this->minConditionalOutNodes )
         {

@@ -357,6 +357,39 @@ abstract class ezcWorkflowTestCase extends ezcTestCase
         $this->endNode->addInNode( $simpleMerge );
     }
 
+    protected function setUpExclusiveChoiceWithElseSimpleMerge()
+    {
+        $this->workflow = new ezcWorkflow( 'ExclusiveChoiceWithElseSimpleMerge' );
+        $this->setUpReferences();
+
+        $this->branchNode = new ezcWorkflowNodeExclusiveChoice;
+
+        $setX = new ezcWorkflowNodeVariableSet(
+          array( 'x' => true )
+        );
+
+        $setY = new ezcWorkflowNodeVariableSet(
+          array( 'y' => true )
+        );
+
+        $this->branchNode->addConditionalOutNode(
+          new ezcWorkflowConditionVariable(
+            'condition',
+            new ezcWorkflowConditionIsTrue
+          ),
+          $setX,
+          $setY
+        );
+
+        $simpleMerge = new ezcWorkflowNodeSimpleMerge;
+
+        $simpleMerge->addInNode( $setX );
+        $simpleMerge->addInNode( $setY );
+
+        $this->startNode->addOutNode( $this->branchNode );
+        $this->endNode->addInNode( $simpleMerge );
+    }
+
     protected function setUpExclusiveChoiceWithUnconditionalOutNodeSimpleMerge()
     {
         $this->workflow = new ezcWorkflow( 'ExclusiveChoiceWithUnconditionalOutNodeSimpleMerge' );
