@@ -10,4 +10,5 @@
     <outNode id="3"/>
   </node>
   <node id="3" type="End"/>
+  <variableHandler variable="foo" class="ezcWorkflowTestVariableHandler"/>
 </workflow>
