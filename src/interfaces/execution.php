@@ -310,7 +310,7 @@ abstract class ezcWorkflowExecution
      */
     public function resume( Array $inputData = array() )
     {
-        if ( $this->id === false )
+        if ( $this->id === null )
         {
             throw new ezcWorkflowExecutionException(
               'No execution id given.'

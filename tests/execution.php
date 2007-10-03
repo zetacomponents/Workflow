@@ -18,6 +18,13 @@
 class ezcWorkflowTestExecution extends ezcWorkflowExecutionNonInteractive
 {
     /**
+     * Execution ID.
+     *
+     * @var integer
+     */
+    protected $id = 0;
+
+    /**
      * @var array
      */
     protected $inputVariables = array();

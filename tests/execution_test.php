@@ -29,43 +29,6 @@ class ezcWorkflowExecutionTest extends ezcWorkflowTestCase
         $this->execution = new ezcWorkflowTestExecution;
     }
 
-    public function testNoWorkflowRaisesException()
-    {
-        try
-        {
-            $execution = new ezcWorkflowExecutionNonInteractive;
-            $execution->start();
-        }
-        catch ( ezcWorkflowExecutionException $e )
-        {
-            return;
-        }
-
-        $this->fail();
-    }
-
-    public function testInteractiveWorkflowRaisesException()
-    {
-        $this->setupEmptyWorkflow();
-
-        $input = new ezcWorkflowNodeInput( array( 'choice' => new ezcWorkflowConditionIsBool ) );
-
-        $this->startNode->addOutNode( $input );
-        $this->endNode->addInNode( $input );
-
-        try
-        {
-            $execution = new ezcWorkflowExecutionNonInteractive;
-            $execution->workflow = $this->workflow;
-        }
-        catch ( ezcWorkflowExecutionException $e )
-        {
-            return;
-        }
-
-        $this->fail();
-    }
-
     public function testExecuteStartEnd()
     {
         $this->setUpStartEnd();
@@ -646,6 +609,69 @@ class ezcWorkflowExecutionTest extends ezcWorkflowTestCase
         $this->assertEquals( 2, $this->execution->getVariable( 'z' ) );
     }
 
+    public function testListener()
+    {
+        $listener = $this->getMock( 'ezcWorkflowExecutionListener' );
+
+        $this->assertTrue( $this->execution->addListener( $listener ) );
+        $this->assertFalse( $this->execution->addListener( $listener ) );
+
+        $this->assertTrue( $this->execution->removeListener( $listener ) );
+        $this->assertFalse( $this->execution->removeListener( $listener ) );
+    }
+
+    public function testNoWorkflowStartRaisesException()
+    {
+        try
+        {
+            $execution = new ezcWorkflowExecutionNonInteractive;
+            $execution->start();
+        }
+        catch ( ezcWorkflowExecutionException $e )
+        {
+            return;
+        }
+
+        $this->fail();
+    }
+
+    public function testNoExecutionIdResumeRaisesException()
+    {
+        try
+        {
+            $execution = new ezcWorkflowExecutionNonInteractive;
+            $execution->resume();
+        }
+        catch ( ezcWorkflowExecutionException $e )
+        {
+            return;
+        }
+
+        $this->fail();
+    }
+
+    public function testInteractiveWorkflowRaisesException()
+    {
+        $this->setupEmptyWorkflow();
+
+        $input = new ezcWorkflowNodeInput( array( 'choice' => new ezcWorkflowConditionIsBool ) );
+
+        $this->startNode->addOutNode( $input );
+        $this->endNode->addInNode( $input );
+
+        try
+        {
+            $execution = new ezcWorkflowExecutionNonInteractive;
+            $execution->workflow = $this->workflow;
+        }
+        catch ( ezcWorkflowExecutionException $e )
+        {
+            return;
+        }
+
+        $this->fail();
+    }
+
     public function testGetVariable()
     {
         $this->setUpStartEnd();
@@ -683,17 +709,6 @@ class ezcWorkflowExecutionTest extends ezcWorkflowTestCase
     public function testGetSiblingsForNonExistingThread()
     {
         $this->assertFalse( $this->execution->getNumSiblingThreads( 0 ) );
-    }
-
-    public function testListener()
-    {
-        $listener = $this->getMock( 'ezcWorkflowExecutionListener' );
-
-        $this->assertTrue( $this->execution->addListener( $listener ) );
-        $this->assertFalse( $this->execution->addListener( $listener ) );
-
-        $this->assertTrue( $this->execution->removeListener( $listener ) );
-        $this->assertFalse( $this->execution->removeListener( $listener ) );
     }
 
     public function testProperties()
