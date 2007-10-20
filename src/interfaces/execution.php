@@ -362,7 +362,9 @@ abstract class ezcWorkflowExecution
         // Return execution ID if the workflow has been suspended.
         if ( $this->isSuspended() )
         {
+            // @codeCoverageIgnoreStart
             return $this->id;
+            // @codeCoverageIgnoreEnd
         }
     }
 
@@ -503,7 +505,9 @@ abstract class ezcWorkflowExecution
         if ( !$node->isExecutable() ||
              ezcWorkflowUtil::findObject( $this->activatedNodes, $node ) !== FALSE )
         {
+            // @codeCoverageIgnoreStart
             return false;
+            // @codeCoverageIgnoreEnd
         }
 
         // Add node to list of activated nodes.
