@@ -1,4 +1,4 @@
-1.1alpha1 - [RELEASEDATE]
+1.1alpha1 - Monday 29 October 2007
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 - Added ezcWorkflowNodeLoop class to conveniently express loops.
