@@ -511,7 +511,16 @@ class ezcWorkflowDefinitionStorageXml implements ezcWorkflowDefinitionStorage
 
                 foreach ( $element->getElementsByTagName( 'element' ) as $element )
                 {
-                    $variable[(string)$element->getAttribute ('key') ] = self::xmlToVariable( $element->childNodes->item( 1 ) );
+                    $value = self::xmlToVariable( $element->childNodes->item( 1 ) );
+
+                    if ( $element->hasAttribute ( 'key' ) )
+                    {
+                        $variable[ (string)$element->getAttribute ('key') ] = $value;
+                    }
+                    else
+                    {
+                        $variable[] = $value;
+                    }
                 }
             }
             break;

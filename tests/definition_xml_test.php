@@ -488,6 +488,11 @@ class ezcWorkflowDefinitionStorageXmlTest extends ezcWorkflowTestCase
         $this->workflow = $this->definition->loadByName( 'ServiceObjectWithArguments2' );
     }
 
+    public function testLoadServiceObjectWithArguments3()
+    {
+        $this->workflow = $this->definition->loadByName( 'ServiceObjectWithArguments3' );
+    }
+
     public function testLoadNestedLoops()
     {
         $this->workflow = $this->definition->loadByName( 'NestedLoops' );
