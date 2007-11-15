@@ -189,15 +189,15 @@ ezcWorkflowDatabaseExecution
 Workflow Definition
 -------------------
 
-ezcWorkflowDefinitionXml
+ezcWorkflowDefinitionStorageXml
 
-  The ezcWorkflowDefinitionXml class provides the functionality to save workflow
-  definitions to and load workflow definitions from XML files.
+  The ezcWorkflowDefinitionStorageXml class provides the functionality to save
+  workflow definitions to and load workflow definitions from XML files.
 
-ezcWorkflowDatabaseDefinition
+ezcWorkflowDatabaseDefinitionStorage
 
-  The ezcWorkflowDatabaseDefinition class provides the functionality to save
-  workflow definitions to and load workflow definitions from a relational
+  The ezcWorkflowDatabaseDefinition Storageclass provides the functionality to
+  save workflow definitions to and load workflow definitions from a relational
   database.
 
 Graph Node Classes
@@ -432,9 +432,9 @@ ezcWorkflowConditionIsGreaterThan
   evaluates to true when the associated workflow variable is greater than the
   comparison value.
 
-ezcWorkflowConditionIsEqualToOrGreaterThan
+ezcWorkflowConditionIsEqualOrGreaterThan
 
-  The condition represented by an ezcWorkflowConditionIsEqualToOrGreaterThan
+  The condition represented by an ezcWorkflowConditionIsEqualOrGreaterThan
   object evaluates to true when the associated workflow variable is equal to or
   greater than the comparison value.
 
@@ -444,9 +444,9 @@ ezcWorkflowConditionIsLessThan
   evaluates to true when the associated workflow variable is less than the
   comparison value.
 
-ezcWorkflowConditionIsEqualToOrLessThan
+ezcWorkflowConditionIsEqualOrLessThan
 
-  The condition represented by an ezcWorkflowConditionIsEqualToOrLessThan
+  The condition represented by an ezcWorkflowConditionIsEqualOrLessThan
   object evaluates to true when the associated workflow variable is equal to or
   less than the comparison value.
 
