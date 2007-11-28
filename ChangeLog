@@ -1,4 +1,4 @@
-1.1beta1 - [RELEASEDATE]
+1.1beta1 - Wednesday 28 November 2007
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 - Implemented issue #11862: Allow arrays to have automatically generated keys.
