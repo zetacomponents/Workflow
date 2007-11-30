@@ -39,13 +39,7 @@ class ezcWorkflowNodeSynchronization extends ezcWorkflowNodeMerge
     public function activate( ezcWorkflowExecution $execution, ezcWorkflowNode $activatedFrom = null, $threadId = 0 )
     {
         $this->prepareActivate( $execution, $threadId );
-
-        $parentThreadId = $execution->getParentThreadId( $threadId );
-
-        if ( count( $this->state ) == $execution->getNumSiblingThreads( $threadId ) )
-        {
-            parent::activate( $execution, $activatedFrom, $parentThreadId );
-        }
+        parent::activate( $execution, $activatedFrom, $execution->getParentThreadId( $threadId ) );
     }
 
     /**
@@ -56,7 +50,14 @@ class ezcWorkflowNodeSynchronization extends ezcWorkflowNodeMerge
      */
     public function execute( ezcWorkflowExecution $execution )
     {
-        return $this->doMerge( $execution );
+        if ( count( $this->state['threads'] ) == $this->state['siblings'] )
+        {
+            return $this->doMerge( $execution );
+        }
+        else
+        {
+            return false;
+        }
     }
 }
 ?>

@@ -69,9 +69,9 @@ class ezcWorkflowNodeSimpleMerge extends ezcWorkflowNodeMerge
     {
         $parentThreadId = $execution->getParentThreadId( $threadId );
 
-        if ( empty( $this->state ) )
+        if ( empty( $this->state['threads'] ) )
         {
-            $this->state[] = $threadId;
+            $this->state['threads'][] = $threadId;
 
             parent::activate( $execution, $activatedFrom, $parentThreadId );
         }

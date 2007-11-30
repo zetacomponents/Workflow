@@ -48,17 +48,24 @@ abstract class ezcWorkflowNodeMerge extends ezcWorkflowNode
     {
         $parentThreadId = $execution->getParentThreadId( $threadId );
 
-        foreach ( $this->state as $oldThreadId )
+        if ( $this->state['siblings'] == -1 )
         {
-            if ( $parentThreadId != $execution->getParentThreadId( $oldThreadId ) )
+            $this->state['siblings'] = $execution->getNumSiblingThreads( $threadId );
+        }
+        else
+        {
+            foreach ( $this->state['threads'] as $oldThreadId )
             {
-                throw new ezcWorkflowExecutionException(
-                  'Cannot synchronize threads that were started by different branches.'
-                );
+                if ( $parentThreadId != $execution->getParentThreadId( $oldThreadId ) )
+                {
+                    throw new ezcWorkflowExecutionException(
+                      'Cannot synchronize threads that were started by different branches.'
+                    );
+                }
             }
         }
 
-        $this->state[] = $threadId;
+        $this->state['threads'][] = $threadId;
     }
 
     /**
@@ -69,7 +76,7 @@ abstract class ezcWorkflowNodeMerge extends ezcWorkflowNode
      */
     protected function doMerge( ezcWorkflowExecution $execution )
     {
-        foreach ( $this->state as $threadId )
+        foreach ( $this->state['threads'] as $threadId )
         {
             $execution->endThread( $threadId );
         }
@@ -85,7 +92,7 @@ abstract class ezcWorkflowNodeMerge extends ezcWorkflowNode
      */
     protected function initState()
     {
-        $this->state = array();
+        $this->state = array( 'threads' => array(), 'siblings' => -1 );
     }
 }
 ?>
