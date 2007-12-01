@@ -139,6 +139,17 @@ class ezcWorkflowVisitorVisualizationTest extends ezcWorkflowTestCase
         );
     }
 
+    public function testVisitParallelSplitSynchronization2()
+    {
+        $this->setUpParallelSplitSynchronization2();
+        $this->workflow->accept( $this->visitor );
+
+        $this->assertEquals(
+          $this->readExpected( 'ParallelSplitSynchronization2' ),
+          (string)$this->visitor
+        );
+    }
+
     public function testVisitExclusiveChoiceSimpleMerge()
     {
         $this->setUpExclusiveChoiceSimpleMerge();

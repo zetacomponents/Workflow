@@ -1,0 +1,15 @@
+digraph ParallelSplitSynchronization2 {
+node1 [label="Start"]
+node2 [label="Parallel Split"]
+node3 [label="Input"]
+node4 [label="Synchronization"]
+node5 [label="End"]
+node6 [label="Input"]
+
+node1 -> node2
+node2 -> node3
+node2 -> node6
+node3 -> node4
+node4 -> node5
+node6 -> node4
+}

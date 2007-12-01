@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<workflow name="ParallelSplitSynchronization2" version="1">
+  <node id="1" type="Start">
+    <outNode id="2"/>
+  </node>
+  <node id="2" type="ParallelSplit">
+    <outNode id="3"/>
+    <outNode id="6"/>
+  </node>
+  <node id="3" type="Input">
+    <variable name="foo">
+      <condition type="IsString"/>
+    </variable>
+    <outNode id="4"/>
+  </node>
+  <node id="4" type="Synchronization">
+    <outNode id="5"/>
+  </node>
+  <node id="5" type="End"/>
+  <node id="6" type="Input">
+    <variable name="bar">
+      <condition type="IsString"/>
+    </variable>
+    <outNode id="4"/>
+  </node>
+</workflow>

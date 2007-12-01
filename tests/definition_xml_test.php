@@ -141,6 +141,17 @@ class ezcWorkflowDefinitionStorageXmlTest extends ezcWorkflowTestCase
         );
     }
 
+    public function testSaveParallelSplitSynchronization2()
+    {
+        $this->setUpParallelSplitSynchronization2();
+        $this->definition->save( $this->workflow );
+
+        $this->assertEquals(
+          $this->readExpected( 'ParallelSplitSynchronization2' ),
+          $this->readActual( 'ParallelSplitSynchronization2' )
+        );
+    }
+
     public function testSaveMultiChoiceSynchronizingMerge()
     {
         $this->setUpMultiChoice( 'SynchronizingMerge' );
