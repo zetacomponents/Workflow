@@ -1,4 +1,4 @@
-1.1rc1 - [RELEASEDATE]
+1.1rc1 - Wednesday 05 December 2007
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 - Fixed issue #12144: Resuming from synchronization of parallel split fails.
