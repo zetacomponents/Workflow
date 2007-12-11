@@ -73,7 +73,7 @@ class ezcWorkflowConditionNot implements ezcWorkflowCondition
      */
     public function __toString()
     {
-        return '! ' . (string) $this->condition;
+        return '! ' . $this->condition->__toString();
     }
 }
 ?>

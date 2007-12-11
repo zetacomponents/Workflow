@@ -15,7 +15,7 @@
  * <code>
  *  $visitor = new ezcWorkflowVisitorVisualization;
  *  $workflow->accept( $visitor );
- *  echo (string)$visitor; // print the plot
+ *  print $visitor;
  * </code>
  *
  * @package Workflow
@@ -83,7 +83,7 @@ class ezcWorkflowVisitorVisualization implements ezcWorkflowVisitor
 
             if ( !isset( $this->nodes[ $id ] ) )
             {
-                $this->nodes[ $id ] = (string)$visitable;
+                $this->nodes[ $id ] = $visitable->__toString();
             }
 
             $outNodes = array();
@@ -98,7 +98,7 @@ class ezcWorkflowVisitorVisualization implements ezcWorkflowVisitor
 
                     if ( $condition !== false )
                     {
-                        $label = ' [label="' . (string) $condition . '"]';
+                        $label = ' [label="' . $condition->__toString() . '"]';
                     }
                 }
 

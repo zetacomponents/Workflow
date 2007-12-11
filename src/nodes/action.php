@@ -198,7 +198,7 @@ class ezcWorkflowNodeAction extends ezcWorkflowNode
             return $e->getMessage();
         }
 
-        return (string)$object;
+        return $object->__toString();
     }
 
     /**
