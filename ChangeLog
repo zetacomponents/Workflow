@@ -1,3 +1,7 @@
+- Changed default value for the ezcWorkflowExecutionListener::notify() method's
+  $type argument from self::::INFO to ezcWorkflowExecutionListener::INFO to work
+  around an issue in PHP 5.1's Reflection API that breaks the test suite.
+
 1.1rc1 - Wednesday 05 December 2007
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
