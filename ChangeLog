@@ -1,4 +1,4 @@
-1.1 - [RELEASEDATE]
+1.1 - Monday 17 December 2007
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 - Added explicit calls to __toString() for PHP 5.1 compatiblity.
