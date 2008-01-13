@@ -21,7 +21,8 @@
  *
  * @property ezcWorkflowDefinitonStorage $definitionStorage
  *           The definition handler used to fetch subworkflows if needed.
- * @property ezcWorkflow $workflow The workflow being executed.
+ * @property ezcWorkflow                 $workflow
+ *           The workflow being executed.
  *
  * @package Workflow
  * @version //autogen//
@@ -503,7 +504,7 @@ abstract class ezcWorkflowExecution
         // Check whether the node is ready to be activated
         // and not yet activated.
         if ( !$node->isExecutable() ||
-             ezcWorkflowUtil::findObject( $this->activatedNodes, $node ) !== FALSE )
+             ezcWorkflowUtil::findObject( $this->activatedNodes, $node ) !== false )
         {
             // @codeCoverageIgnoreStart
             return false;

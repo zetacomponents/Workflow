@@ -37,7 +37,7 @@
  * $input->addOutNode( $workflow->endNode );
  * $workflow->startNode->addOutNode( $input );
  * </code>
-
+ *
  * @package Workflow
  * @version //autogen//
  */
@@ -58,6 +58,7 @@ class ezcWorkflowNodeInput extends ezcWorkflowNode
      *   <li><i>Value:</i> An object of type ezcWorkflowCondition</li>
      *
      * </ul>
+     *
      * @param mixed $configuration
      * @throws ezcBaseValueException
      */

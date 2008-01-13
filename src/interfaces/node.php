@@ -312,6 +312,8 @@ abstract class ezcWorkflowNode implements ezcWorkflowVisitable
     }
 
     /**
+     * Returns the Id of this node.
+     *
      * @return integer
      * @ignore
      */
