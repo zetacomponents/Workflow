@@ -41,12 +41,13 @@ class ezcWorkflowDefinitionStorageXml implements ezcWorkflowDefinitionStorage
     }
 
     /**
-     * Load a workflow definition by name.
+     * Load a workflow definition from a file.
      *
-     * If the parameter $workflowVersion is omitted the most recent version is loaded.
+     * When the $workflowVersion argument is omitted,
+     * the most recent version is loaded.
      *
-     * @param  string  $workflowName
-     * @param  int $workflowVersion
+     * @param  string $workflowName
+     * @param  int    $workflowVersion
      * @return ezcWorkflow
      * @throws ezcWorkflowDefinitionStorageException
      */
@@ -99,6 +100,20 @@ class ezcWorkflowDefinitionStorageXml implements ezcWorkflowDefinitionStorage
               )
             );
         }
+
+        return $this->loadFromDocument( $document );
+    }
+
+    /**
+     * Load a workflow definition from a DOMDocument.
+     *
+     * @param  DOMDocument $document
+     * @return ezcWorkflow
+     */
+    public function loadFromDocument( DOMDocument $document )
+    {
+        $workflowName    = $document->documentElement->getAttribute('name');
+        $workflowVersion = (int)$document->documentElement->getAttribute('version');
 
         // Create node objects.
         $nodes = array();
@@ -160,7 +175,7 @@ class ezcWorkflowDefinitionStorageXml implements ezcWorkflowDefinitionStorage
                             }
                         }
 
-                        $condition = $this->xmlToCondition( $childNode );
+                        $condition = self::xmlToCondition( $childNode );
 
                         foreach ( $childNode->getElementsByTagName( 'outNode' ) as $outNode )
                         {
@@ -208,7 +223,7 @@ class ezcWorkflowDefinitionStorageXml implements ezcWorkflowDefinitionStorage
     }
 
     /**
-     * Save a workflow definition.
+     * Save a workflow definition to a file.
      *
      * @param  ezcWorkflow $workflow
      * @throws ezcWorkflowDefinitionStorageException
@@ -216,8 +231,21 @@ class ezcWorkflowDefinitionStorageXml implements ezcWorkflowDefinitionStorage
     public function save( ezcWorkflow $workflow )
     {
         $workflowVersion = $this->getCurrentVersion( $workflow->name ) + 1;
-        $filename = $this->getFilename( $workflow->name, $workflowVersion );
+        $filename        = $this->getFilename( $workflow->name, $workflowVersion );
+        $document        = $this->saveToDocument( $workflow, $workflowVersion );
 
+        file_put_contents( $filename, $document->saveXML() );
+    }
+
+    /**
+     * Save a workflow definition to a DOMDocument.
+     *
+     * @param  ezcWorkflow $workflow
+     * @param  int         $workflowVersion
+     * @return DOMDocument
+     */
+    public function saveToDocument( ezcWorkflow $workflow, $workflowVersion )
+    {
         $document = new DOMDocument( '1.0', 'UTF-8' );
         $document->formatOutput = true;
 
@@ -302,7 +330,7 @@ class ezcWorkflowDefinitionStorageXml implements ezcWorkflowDefinitionStorage
             $variableHandler->setAttribute( 'class', $class );
         }
 
-        file_put_contents( $filename, $document->saveXML() );
+        return $document;
     }
 
     /**
