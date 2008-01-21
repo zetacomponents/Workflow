@@ -556,14 +556,15 @@ abstract class ezcWorkflowExecution
      */
     public function activate( ezcWorkflowNode $node, $notifyListeners = true )
     {
-        // Check whether the node is ready to be activated
-        // and not yet activated.
-        if ( !$node->isExecutable() ||
+        // Only activate the node when
+        //  - the execution of the workflow has not been cancelled,
+        //  - the node is ready to be activated,
+        //  - and the node is not already activated.
+        if ( $this->isCancelled() ||
+             !$node->isExecutable() ||
              ezcWorkflowUtil::findObject( $this->activatedNodes, $node ) !== false )
         {
-            // @codeCoverageIgnoreStart
             return false;
-            // @codeCoverageIgnoreEnd
         }
 
         // Add node to list of activated nodes.
@@ -649,26 +650,31 @@ abstract class ezcWorkflowExecution
      */
     public function startThread( $parentId = null, $numSiblings = 1 )
     {
-        $this->threads[$this->nextThreadId] = array(
-          'parentId' => $parentId,
-          'numSiblings' => $numSiblings
-        );
+        if ( !$this->isCancelled() )
+        {
+            $this->threads[$this->nextThreadId] = array(
+              'parentId' => $parentId,
+              'numSiblings' => $numSiblings
+            );
 
-        $this->notifyListeners(
-          sprintf(
-            'Started thread #%d (%s%d sibling(s)) for execution #%d of workflow "%s" (version %d).',
+            $this->notifyListeners(
+              sprintf(
+                'Started thread #%d (%s%d sibling(s)) for execution #%d of workflow "%s" (version %d).',
 
-            $this->nextThreadId,
-            $parentId != null ? 'parent: ' . $parentId . ', ' : '',
-            $numSiblings,
-            $this->id,
-            $this->workflow->name,
-            $this->workflow->version
-          ),
-          ezcWorkflowExecutionListener::DEBUG
-        );
+                $this->nextThreadId,
+                $parentId != null ? 'parent: ' . $parentId . ', ' : '',
+                $numSiblings,
+                $this->id,
+                $this->workflow->name,
+                $this->workflow->version
+              ),
+              ezcWorkflowExecutionListener::DEBUG
+            );
 
-        return $this->nextThreadId++;
+            return $this->nextThreadId++;
+        }
+
+        return false;
     }
 
     /**
