@@ -274,6 +274,28 @@ class ezcWorkflowDefinitionStorageXmlTest extends ezcWorkflowTestCase
         );
     }
 
+    public function testSaveParallelSplitCancelCaseActionActionSynchronization()
+    {
+        $this->setUpCancelCase( 'first' );
+        $this->definition->save( $this->workflow );
+
+        $this->assertEquals(
+          $this->readExpected( 'ParallelSplitCancelCaseActionActionSynchronization' ),
+          $this->readActual( 'ParallelSplitCancelCaseActionActionSynchronization' )
+        );
+    }
+
+    public function testSaveParallelSplitActionActionCancelCaseSynchronization()
+    {
+        $this->setUpCancelCase( 'last' );
+        $this->definition->save( $this->workflow );
+
+        $this->assertEquals(
+          $this->readExpected( 'ParallelSplitActionActionCancelCaseSynchronization' ),
+          $this->readActual( 'ParallelSplitActionActionCancelCaseSynchronization' )
+        );
+    }
+
     public function testLoadStartEnd()
     {
         $this->workflow = $this->definition->loadByName( 'StartEnd' );
@@ -512,6 +534,28 @@ class ezcWorkflowDefinitionStorageXmlTest extends ezcWorkflowTestCase
         $this->assertEquals(
           $this->readExpected( 'NestedLoops' ),
           $this->readActual( 'NestedLoops' )
+        );
+    }
+
+    public function testLoadParallelSplitCancelCaseActionActionSynchronization()
+    {
+        $this->workflow = $this->definition->loadByName( 'ParallelSplitCancelCaseActionActionSynchronization' );
+        $this->definition->save( $this->workflow );
+
+        $this->assertEquals(
+          $this->readExpected( 'ParallelSplitCancelCaseActionActionSynchronization' ),
+          $this->readActual( 'ParallelSplitCancelCaseActionActionSynchronization' )
+        );
+    }
+
+    public function testLoadParallelSplitActionActionCancelCaseSynchronization()
+    {
+        $this->workflow = $this->definition->loadByName( 'ParallelSplitActionActionCancelCaseSynchronization' );
+        $this->definition->save( $this->workflow );
+
+        $this->assertEquals(
+          $this->readExpected( 'ParallelSplitActionActionCancelCaseSynchronization' ),
+          $this->readActual( 'ParallelSplitActionActionCancelCaseSynchronization' )
         );
     }
 

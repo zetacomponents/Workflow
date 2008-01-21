@@ -69,6 +69,14 @@ abstract class ezcWorkflowExecution
     protected $numActivatedEndNodes = 0;
 
     /**
+     * Rollbackable service objects that have been executed
+     * in the current execution loop.
+     *
+     * @var array
+     */
+    protected $rollbackableServiceObjects = array();
+
+    /**
      * Nodes of the workflow that started a new thread of execution.
      *
      * @var array
@@ -81,6 +89,11 @@ abstract class ezcWorkflowExecution
      * @var integer
      */
     protected $nextThreadId = 0;
+
+    /**
+     * @var bool
+     */
+    protected $cancelled;
 
     /**
      * @var bool
@@ -221,6 +234,7 @@ abstract class ezcWorkflowExecution
             );
         }
 
+        $this->cancelled = false;
         $this->ended     = false;
         $this->resumed   = false;
         $this->suspended = false;
@@ -266,6 +280,7 @@ abstract class ezcWorkflowExecution
      */
     public function suspend()
     {
+        $this->cancelled = false;
         $this->ended     = false;
         $this->resumed   = false;
         $this->suspended = true;
@@ -318,6 +333,7 @@ abstract class ezcWorkflowExecution
             );
         }
 
+        $this->cancelled = false;
         $this->ended     = false;
         $this->resumed   = true;
         $this->suspended = false;
@@ -370,6 +386,41 @@ abstract class ezcWorkflowExecution
     }
 
     /**
+     * Cancels workflow execution with the node $endNode.
+     *
+     * @param ezcWorkflowNodeEnd $endNode
+     * @ignore
+     */
+    public function cancel( ezcWorkflowNodeEnd $endNode )
+    {
+        $this->activatedNodes    = array();
+        $this->cancelled         = true;
+        $this->numActivatedNodes = 0;
+
+        foreach ( $this->rollbackableServiceObjects as $object )
+        {
+            $result = $object['object']->rollback( $this );
+
+            $this->notifyListeners(
+              sprintf(
+                '%s back service object "%s" of node #%d for instance #%d ' .
+                'of workflow "%s" (version %d).',
+
+                $result ? 'Rolled' : 'Could not roll',
+                get_class( $object['object'] ),
+                $object['node']->getId(),
+                $this->id,
+                $this->workflow->name,
+                $this->workflow->version
+              ),
+              ezcWorkflowExecutionListener::DEBUG
+            );
+        }
+
+        $this->end( $endNode );
+    }
+
+    /**
      * Ends workflow execution with the node $endNode.
      *
      * End nodes must call this method to end the execution.
@@ -400,12 +451,16 @@ abstract class ezcWorkflowExecution
           ezcWorkflowExecutionListener::DEBUG
         );
 
-        $this->endThread( $endNode->getThreadId() );
+        if ( !$this->cancelled )
+        {
+            $this->endThread( $endNode->getThreadId() );
+        }
 
         $this->notifyListeners(
           sprintf(
-            'Ended execution #%d of workflow "%s" (version %d).',
+            '%s execution #%d of workflow "%s" (version %d).',
 
+            $this->cancelled ? 'Cancelled' : 'Ended',
             $this->id,
             $this->workflow->name,
             $this->workflow->version
@@ -421,8 +476,7 @@ abstract class ezcWorkflowExecution
      */
     protected function execute()
     {
-        // Try to execute nodes until while there are executable nodes on the
-        // stack of activated nodes.
+        // Try to execute nodes while there are executable nodes on the stack.
         do
         {
             // Flag that indicates whether a node has been executed during the
@@ -438,7 +492,8 @@ abstract class ezcWorkflowExecution
                 {
                     // The current node is an end node but there are still
                     // activated nodes on the stack.
-                    if ( $node instanceof ezcWorkflowNodeEnd &&
+                    if ( $node  instanceof ezcWorkflowNodeEnd &&
+                         !$node instanceof ezcWorkflowNodeCancel &&
                          $this->numActivatedNodes != $this->numActivatedEndNodes )
                     {
                         continue;
@@ -538,6 +593,20 @@ abstract class ezcWorkflowExecution
         }
 
         return true;
+    }
+
+    /**
+     * Adds a variable that an (input) node is waiting for.
+     *
+     * @param ezcWorkflowNodeAction                $node
+     * @param ezcWorkflowRollbackableServiceObject $object
+     * @ignore
+     */
+    public function addRollbackableServiceObject( ezcWorkflowNodeAction $node, ezcWorkflowRollbackableServiceObject $object )
+    {
+        $this->rollbackableServiceObjects[] = array(
+          'node'   => $node, 'object' => $object
+        );
     }
 
     /**
@@ -885,6 +954,16 @@ abstract class ezcWorkflowExecution
               ezcWorkflowExecutionListener::DEBUG
             );
         }
+    }
+
+    /**
+     * Returns true when the workflow execution has been cancelled.
+     *
+     * @return bool
+     */
+    public function isCancelled()
+    {
+        return $this->cancelled;
     }
 
     /**

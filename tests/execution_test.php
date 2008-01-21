@@ -35,6 +35,7 @@ class ezcWorkflowExecutionTest extends ezcWorkflowTestCase
         $this->execution->workflow = $this->workflow;
         $this->execution->start();
 
+        $this->assertFalse( $this->execution->isCancelled() );
         $this->assertTrue( $this->execution->hasEnded() );
         $this->assertFalse( $this->execution->isResumed() );
         $this->assertFalse( $this->execution->isSuspended() );
@@ -46,6 +47,7 @@ class ezcWorkflowExecutionTest extends ezcWorkflowTestCase
         $this->execution->workflow = $this->workflow;
         $this->execution->start();
 
+        $this->assertFalse( $this->execution->isCancelled() );
         $this->assertTrue( $this->execution->hasEnded() );
         $this->assertFalse( $this->execution->isResumed() );
         $this->assertFalse( $this->execution->isSuspended() );
@@ -59,6 +61,7 @@ class ezcWorkflowExecutionTest extends ezcWorkflowTestCase
         $this->execution->setInputVariable( 'variable', 'value' );
         $this->execution->start();
 
+        $this->assertFalse( $this->execution->isCancelled() );
         $this->assertTrue( $this->execution->hasEnded() );
         $this->assertFalse( $this->execution->isResumed() );
         $this->assertFalse( $this->execution->isSuspended() );
@@ -81,6 +84,7 @@ class ezcWorkflowExecutionTest extends ezcWorkflowTestCase
             $this->assertArrayHasKey( 'variable', $e->errors );
             $this->assertContains( 'is string', $e->errors );
 
+            $this->assertFalse( $this->execution->isCancelled() );
             $this->assertFalse( $this->execution->hasEnded() );
             $this->assertTrue( $this->execution->isResumed() );
             $this->assertFalse( $this->execution->isSuspended() );
@@ -178,6 +182,7 @@ class ezcWorkflowExecutionTest extends ezcWorkflowTestCase
         $this->execution->workflow = $this->workflow;
         $this->execution->start();
 
+        $this->assertFalse( $this->execution->isCancelled() );
         $this->assertTrue( $this->execution->hasEnded() );
         $this->assertFalse( $this->execution->isResumed() );
         $this->assertFalse( $this->execution->isSuspended() );
@@ -189,6 +194,7 @@ class ezcWorkflowExecutionTest extends ezcWorkflowTestCase
         $this->execution->workflow = $this->workflow;
         $this->execution->start();
 
+        $this->assertFalse( $this->execution->isCancelled() );
         $this->assertTrue( $this->execution->hasEnded() );
         $this->assertFalse( $this->execution->isResumed() );
         $this->assertFalse( $this->execution->isSuspended() );
@@ -200,6 +206,7 @@ class ezcWorkflowExecutionTest extends ezcWorkflowTestCase
         $this->execution->workflow = $this->workflow;
         $this->execution->start();
 
+        $this->assertFalse( $this->execution->isCancelled() );
         $this->assertTrue( $this->execution->hasEnded() );
         $this->assertFalse( $this->execution->isResumed() );
         $this->assertFalse( $this->execution->isSuspended() );
@@ -211,6 +218,7 @@ class ezcWorkflowExecutionTest extends ezcWorkflowTestCase
         $this->execution->workflow = $this->workflow;
         $this->execution->start();
 
+        $this->assertFalse( $this->execution->isCancelled() );
         $this->assertTrue( $this->execution->hasEnded() );
         $this->assertFalse( $this->execution->isResumed() );
         $this->assertFalse( $this->execution->isSuspended() );
@@ -223,6 +231,7 @@ class ezcWorkflowExecutionTest extends ezcWorkflowTestCase
         $this->execution->workflow = $this->workflow;
         $this->execution->start();
 
+        $this->assertFalse( $this->execution->isCancelled() );
         $this->assertTrue( $this->execution->hasEnded() );
         $this->assertFalse( $this->execution->isResumed() );
         $this->assertFalse( $this->execution->isSuspended() );
@@ -269,6 +278,7 @@ class ezcWorkflowExecutionTest extends ezcWorkflowTestCase
         $this->execution->workflow = $this->workflow;
         $this->execution->start();
 
+        $this->assertFalse( $this->execution->isCancelled() );
         $this->assertTrue( $this->execution->hasEnded() );
         $this->assertFalse( $this->execution->isResumed() );
         $this->assertFalse( $this->execution->isSuspended() );
@@ -281,6 +291,7 @@ class ezcWorkflowExecutionTest extends ezcWorkflowTestCase
         $this->execution->workflow = $this->workflow;
         $this->execution->start();
 
+        $this->assertFalse( $this->execution->isCancelled() );
         $this->assertTrue( $this->execution->hasEnded() );
         $this->assertFalse( $this->execution->isResumed() );
         $this->assertFalse( $this->execution->isSuspended() );
@@ -293,6 +304,7 @@ class ezcWorkflowExecutionTest extends ezcWorkflowTestCase
         $this->execution->setVariables( array( 'foo' => 'bar', 'bar' => 'foo' ) );
         $this->execution->start();
 
+        $this->assertFalse( $this->execution->isCancelled() );
         $this->assertTrue( $this->execution->hasEnded() );
         $this->assertFalse( $this->execution->isResumed() );
         $this->assertFalse( $this->execution->isSuspended() );
@@ -327,6 +339,7 @@ class ezcWorkflowExecutionTest extends ezcWorkflowTestCase
         $this->execution->setVariables( array( 'condition' => true ) );
         $this->execution->start();
 
+        $this->assertFalse( $this->execution->isCancelled() );
         $this->assertTrue( $this->execution->hasEnded() );
         $this->assertFalse( $this->execution->isResumed() );
         $this->assertFalse( $this->execution->isSuspended() );
@@ -339,6 +352,7 @@ class ezcWorkflowExecutionTest extends ezcWorkflowTestCase
         $this->execution->setVariables( array( 'condition' => false ) );
         $this->execution->start();
 
+        $this->assertFalse( $this->execution->isCancelled() );
         $this->assertTrue( $this->execution->hasEnded() );
         $this->assertFalse( $this->execution->isResumed() );
         $this->assertFalse( $this->execution->isSuspended() );
@@ -397,6 +411,7 @@ class ezcWorkflowExecutionTest extends ezcWorkflowTestCase
         $this->execution->setVariables( array( 'condition' => true ) );
         $this->execution->start();
 
+        $this->assertFalse( $this->execution->isCancelled() );
         $this->assertTrue( $this->execution->hasEnded() );
         $this->assertFalse( $this->execution->isResumed() );
         $this->assertFalse( $this->execution->isSuspended() );
@@ -410,6 +425,7 @@ class ezcWorkflowExecutionTest extends ezcWorkflowTestCase
         $this->execution->setVariables( array( 'condition' => false ) );
         $this->execution->start();
 
+        $this->assertFalse( $this->execution->isCancelled() );
         $this->assertTrue( $this->execution->hasEnded() );
         $this->assertFalse( $this->execution->isResumed() );
         $this->assertFalse( $this->execution->isSuspended() );
@@ -423,6 +439,7 @@ class ezcWorkflowExecutionTest extends ezcWorkflowTestCase
         $this->execution->setVariables( array( 'condition' => false ) );
         $this->execution->start();
 
+        $this->assertFalse( $this->execution->isCancelled() );
         $this->assertTrue( $this->execution->hasEnded() );
         $this->assertFalse( $this->execution->isResumed() );
         $this->assertFalse( $this->execution->isSuspended() );
@@ -438,6 +455,7 @@ class ezcWorkflowExecutionTest extends ezcWorkflowTestCase
         $this->execution->setVariables( array( 'condition' => true ) );
         $this->execution->start();
 
+        $this->assertFalse( $this->execution->isCancelled() );
         $this->assertTrue( $this->execution->hasEnded() );
         $this->assertFalse( $this->execution->isResumed() );
         $this->assertFalse( $this->execution->isSuspended() );
@@ -452,6 +470,7 @@ class ezcWorkflowExecutionTest extends ezcWorkflowTestCase
         $this->execution->workflow = $this->workflow;
         $this->execution->start();
 
+        $this->assertFalse( $this->execution->isCancelled() );
         $this->assertTrue( $this->execution->hasEnded() );
         $this->assertFalse( $this->execution->isResumed() );
         $this->assertFalse( $this->execution->isSuspended() );
@@ -467,6 +486,7 @@ class ezcWorkflowExecutionTest extends ezcWorkflowTestCase
         $this->execution->workflow = $this->workflow;
         $this->execution->start();
 
+        $this->assertFalse( $this->execution->isCancelled() );
         $this->assertTrue( $this->execution->hasEnded() );
         $this->assertFalse( $this->execution->isResumed() );
         $this->assertFalse( $this->execution->isSuspended() );
@@ -482,6 +502,7 @@ class ezcWorkflowExecutionTest extends ezcWorkflowTestCase
         $this->execution->workflow = $this->workflow;
         $this->execution->start();
 
+        $this->assertFalse( $this->execution->isCancelled() );
         $this->assertTrue( $this->execution->hasEnded() );
         $this->assertFalse( $this->execution->isResumed() );
         $this->assertFalse( $this->execution->isSuspended() );
@@ -496,6 +517,7 @@ class ezcWorkflowExecutionTest extends ezcWorkflowTestCase
         $this->execution->workflow = $this->workflow;
         $this->execution->start();
 
+        $this->assertFalse( $this->execution->isCancelled() );
         $this->assertTrue( $this->execution->hasEnded() );
         $this->assertFalse( $this->execution->isResumed() );
         $this->assertFalse( $this->execution->isSuspended() );
@@ -507,6 +529,7 @@ class ezcWorkflowExecutionTest extends ezcWorkflowTestCase
         $this->execution->workflow = $this->workflow;
         $this->execution->start();
 
+        $this->assertFalse( $this->execution->isCancelled() );
         $this->assertTrue( $this->execution->hasEnded() );
         $this->assertFalse( $this->execution->isResumed() );
         $this->assertFalse( $this->execution->isSuspended() );
@@ -519,6 +542,7 @@ class ezcWorkflowExecutionTest extends ezcWorkflowTestCase
         $this->execution->workflow = $this->workflow;
         $this->execution->start();
 
+        $this->assertFalse( $this->execution->isCancelled() );
         $this->assertTrue( $this->execution->hasEnded() );
         $this->assertFalse( $this->execution->isResumed() );
         $this->assertFalse( $this->execution->isSuspended() );
@@ -554,6 +578,7 @@ class ezcWorkflowExecutionTest extends ezcWorkflowTestCase
         $this->execution->setInputVariableForSubWorkflow( 'variable', 'value' );
         $this->execution->start();
 
+        $this->assertFalse( $this->execution->isCancelled() );
         $this->assertTrue( $this->execution->hasEnded() );
         $this->assertFalse( $this->execution->isResumed() );
         $this->assertFalse( $this->execution->isSuspended() );
@@ -565,6 +590,7 @@ class ezcWorkflowExecutionTest extends ezcWorkflowTestCase
         $this->execution->workflow = $this->workflow;
         $this->execution->start();
 
+        $this->assertFalse( $this->execution->isCancelled() );
         $this->assertTrue( $this->execution->hasEnded() );
         $this->assertFalse( $this->execution->isResumed() );
         $this->assertFalse( $this->execution->isSuspended() );
@@ -598,6 +624,7 @@ class ezcWorkflowExecutionTest extends ezcWorkflowTestCase
         $this->execution->workflow = $this->workflow;
         $this->execution->start();
 
+        $this->assertFalse( $this->execution->isCancelled() );
         $this->assertTrue( $this->execution->hasEnded() );
         $this->assertFalse( $this->execution->isResumed() );
         $this->assertFalse( $this->execution->isSuspended() );
@@ -613,12 +640,37 @@ class ezcWorkflowExecutionTest extends ezcWorkflowTestCase
         $this->execution->workflow = $this->workflow;
         $this->execution->start();
 
+        $this->assertFalse( $this->execution->isCancelled() );
         $this->assertTrue( $this->execution->hasEnded() );
         $this->assertFalse( $this->execution->isResumed() );
         $this->assertFalse( $this->execution->isSuspended() );
 
         $this->assertEquals( 1, $this->execution->getVariable( 'x' ) );
         $this->assertEquals( 2, $this->execution->getVariable( 'z' ) );
+    }
+
+    public function testExecuteParallelSplitCancelCaseActionActionSynchronization()
+    {
+        $this->setUpCancelCase( 'first' );
+        $this->execution->workflow = $this->workflow;
+        $this->execution->start();
+
+        $this->assertTrue( $this->execution->isCancelled() );
+        $this->assertTrue( $this->execution->hasEnded() );
+        $this->assertFalse( $this->execution->isResumed() );
+        $this->assertFalse( $this->execution->isSuspended() );
+    }
+
+    public function testExecuteParallelSplitActionActionCancelCaseSynchronization()
+    {
+        $this->setUpCancelCase( 'last' );
+        $this->execution->workflow = $this->workflow;
+        $this->execution->start();
+
+        $this->assertTrue( $this->execution->isCancelled() );
+        $this->assertTrue( $this->execution->hasEnded() );
+        $this->assertFalse( $this->execution->isResumed() );
+        $this->assertFalse( $this->execution->isSuspended() );
     }
 
     public function testListener()

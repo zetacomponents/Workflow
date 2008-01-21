@@ -227,6 +227,28 @@ class ezcWorkflowVisitorVisualizationTest extends ezcWorkflowTestCase
         );
     }
 
+    public function testVisitParallelSplitCancelCaseActionActionSynchronization()
+    {
+        $this->setUpCancelCase( 'first' );
+        $this->workflow->accept( $this->visitor );
+
+        $this->assertEquals(
+          $this->readExpected( 'ParallelSplitCancelCaseActionActionSynchronization' ),
+          $this->visitor->__toString()
+        );
+    }
+
+    public function testVisitParallelSplitActionActionCancelCaseSynchronization()
+    {
+        $this->setUpCancelCase( 'last' );
+        $this->workflow->accept( $this->visitor );
+
+        $this->assertEquals(
+          $this->readExpected( 'ParallelSplitActionActionCancelCaseSynchronization' ),
+          $this->visitor->__toString()
+        );
+    }
+
     protected function readExpected( $name )
     {
         return file_get_contents(

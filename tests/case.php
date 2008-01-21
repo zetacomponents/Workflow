@@ -33,7 +33,7 @@ abstract class ezcWorkflowTestCase extends ezcTestCase
 
         if ( !class_exists( 'ServiceObject', false ) )
         {
-            $this->getMock( 'ezcWorkflowServiceObject', array(), array(), 'ServiceObject' );
+            $this->getMock( 'ezcWorkflowRollbackableServiceObject', array(), array(), 'ServiceObject' );
         }
     }
 
@@ -688,6 +688,51 @@ abstract class ezcWorkflowTestCase extends ezcTestCase
 
         $outerLoop->addConditionalOutNode( $outerContinue, $innerSet )
                   ->addConditionalOutNode( $outerBreak, $this->endNode );
+    }
+
+    protected function setUpCancelCase( $order )
+    {
+        if ( $order == 'first' )
+        {
+            $workflowName = 'ParallelSplitCancelCaseActionActionSynchronization';
+        }
+        else
+        {
+            $workflowName = 'ParallelSplitActionActionCancelCaseSynchronization';
+        }
+
+        $this->workflow = new ezcWorkflow( $workflowName );
+        $this->setUpReferences();
+
+        $this->branchNode = new ezcWorkflowNodeParallelSplit;
+        $cancelNode       = new ezcWorkflowNodeCancel;
+        $actionNodeA      = new ezcWorkflowNodeAction( 'ServiceObject' );
+        $actionNodeB      = new ezcWorkflowNodeAction( 'ServiceObject' );
+        $synchronization  = new ezcWorkflowNodeSynchronization;
+
+        if ( $order == 'first' )
+        {
+            $this->branchNode->addOutNode( $cancelNode );
+            $this->branchNode->addOutNode( $actionNodeA );
+            $this->branchNode->addOutNode( $actionNodeB );
+
+            $synchronization->addInNode( $cancelNode );
+            $synchronization->addInNode( $actionNodeA );
+            $synchronization->addInNode( $actionNodeB );
+        }
+        else
+        {
+            $this->branchNode->addOutNode( $actionNodeA );
+            $this->branchNode->addOutNode( $actionNodeB );
+            $this->branchNode->addOutNode( $cancelNode );
+
+            $synchronization->addInNode( $actionNodeA );
+            $synchronization->addInNode( $actionNodeB );
+            $synchronization->addInNode( $cancelNode );
+        }
+
+        $this->startNode->addOutNode( $this->branchNode );
+        $this->endNode->addInNode( $synchronization );
     }
 
     protected function setUpReferences()

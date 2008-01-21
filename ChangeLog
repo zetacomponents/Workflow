@@ -1,3 +1,5 @@
+- Implemented issue #10941: Support for the Cancel Case workflow pattern.
+
 - Implemented issue #12404: Separate file i/o from XML processing in
   ezcWorkflowDefinitionStorageXml.
 
