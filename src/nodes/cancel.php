@@ -29,7 +29,7 @@ class ezcWorkflowNodeCancel extends ezcWorkflowNodeEnd
      *
      * @var integer
      */
-    protected $minOutNodes = false;
+    protected $minOutNodes = 0;
 
     /**
      * Constraint: The maximum number of outgoing nodes this node has to have
@@ -37,7 +37,7 @@ class ezcWorkflowNodeCancel extends ezcWorkflowNodeEnd
      *
      * @var integer
      */
-    protected $maxOutNodes = false;
+    protected $maxOutNodes = 1;
 
     /**
      * Cancels the execution of this workflow.
