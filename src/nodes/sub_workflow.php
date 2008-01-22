@@ -147,6 +147,12 @@ class ezcWorkflowNodeSubWorkflow extends ezcWorkflowNode
             }
         }
 
+        // Execution of Sub Workflow was cancelled.
+        if ( $subExecution->isCancelled() )
+        {
+            $execution->cancel( $this );
+        }
+
         // Execution of Sub Workflow has ended.
         if ( $subExecution->hasEnded() )
         {

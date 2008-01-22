@@ -1,0 +1,8 @@
+digraph WorkflowWithSubWorkflowParallelSplitActionActionCancelCaseSynchronization {
+node1 [label="Start"]
+node2 [label="Sub Workflow: ParallelSplitActionActionCancelCaseSynchronization"]
+node3 [label="End"]
+
+node1 -> node2
+node2 -> node3
+}

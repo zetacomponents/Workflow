@@ -211,7 +211,18 @@ class ezcWorkflowVisitorVisualizationTest extends ezcWorkflowTestCase
         $this->workflow->accept( $this->visitor );
 
         $this->assertEquals(
-          $this->readExpected( 'WorkflowWithSubWorkflow' ),
+          $this->readExpected( 'WorkflowWithSubWorkflowStartEnd' ),
+          $this->visitor->__toString()
+        );
+    }
+
+    public function testVisitWorkflowWithCancelCaseSubWorkflow()
+    {
+        $this->setUpWorkflowWithSubWorkflow( 'ParallelSplitActionActionCancelCaseSynchronization' );
+        $this->workflow->accept( $this->visitor );
+
+        $this->assertEquals(
+          $this->readExpected( 'WorkflowWithSubWorkflowParallelSplitActionActionCancelCaseSynchronization' ),
           $this->visitor->__toString()
         );
     }

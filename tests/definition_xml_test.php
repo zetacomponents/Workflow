@@ -224,8 +224,8 @@ class ezcWorkflowDefinitionStorageXmlTest extends ezcWorkflowTestCase
         $this->definition->save( $this->workflow );
 
         $this->assertEquals(
-          $this->readExpected( 'WorkflowWithSubWorkflow' ),
-          $this->readActual( 'WorkflowWithSubWorkflow' )
+          $this->readExpected( 'WorkflowWithSubWorkflowStartEnd' ),
+          $this->readActual( 'WorkflowWithSubWorkflowStartEnd' )
         );
     }
 
@@ -237,6 +237,17 @@ class ezcWorkflowDefinitionStorageXmlTest extends ezcWorkflowTestCase
         $this->assertEquals(
           $this->readExpected( 'WorkflowWithSubWorkflowAndVariablePassing' ),
           $this->readActual( 'WorkflowWithSubWorkflowAndVariablePassing' )
+        );
+    }
+
+    public function testSaveWorkflowWithCancelCaseSubWorkflow()
+    {
+        $this->setUpWorkflowWithSubWorkflow( 'ParallelSplitActionActionCancelCaseSynchronization' );
+        $this->definition->save( $this->workflow );
+
+        $this->assertEquals(
+          $this->readExpected( 'WorkflowWithSubWorkflowParallelSplitActionActionCancelCaseSynchronization' ),
+          $this->readActual( 'WorkflowWithSubWorkflowParallelSplitActionActionCancelCaseSynchronization' )
         );
     }
 
@@ -485,12 +496,23 @@ class ezcWorkflowDefinitionStorageXmlTest extends ezcWorkflowTestCase
 
     public function testLoadWorkflowWithSubWorkflow()
     {
-        $this->workflow = $this->definition->loadByName( 'WorkflowWithSubWorkflow' );
+        $this->workflow = $this->definition->loadByName( 'WorkflowWithSubWorkflowStartEnd' );
         $this->definition->save( $this->workflow );
 
         $this->assertEquals(
-          $this->readExpected( 'WorkflowWithSubWorkflow' ),
-          $this->readActual( 'WorkflowWithSubWorkflow' )
+          $this->readExpected( 'WorkflowWithSubWorkflowStartEnd' ),
+          $this->readActual( 'WorkflowWithSubWorkflowStartEnd' )
+        );
+    }
+
+    public function testLoadWorkflowWithCancelCaseSubWorkflow()
+    {
+        $this->workflow = $this->definition->loadByName( 'WorkflowWithSubWorkflowParallelSplitActionActionCancelCaseSynchronization' );
+        $this->definition->save( $this->workflow );
+
+        $this->assertEquals(
+          $this->readExpected( 'WorkflowWithSubWorkflowParallelSplitActionActionCancelCaseSynchronization' ),
+          $this->readActual( 'WorkflowWithSubWorkflowParallelSplitActionActionCancelCaseSynchronization' )
         );
     }
 

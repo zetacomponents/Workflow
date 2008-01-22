@@ -584,6 +584,19 @@ class ezcWorkflowExecutionTest extends ezcWorkflowTestCase
         $this->assertFalse( $this->execution->isSuspended() );
     }
 
+    public function testWorkflowWithCancelCaseSubWorkflow()
+    {
+        $this->setUpWorkflowWithSubWorkflow( 'ParallelSplitActionActionCancelCaseSynchronization' );
+        $this->execution->definitionStorage = $this->definition;
+        $this->execution->workflow = $this->workflow;
+        $this->execution->start();
+
+        $this->assertTrue( $this->execution->isCancelled() );
+        $this->assertTrue( $this->execution->hasEnded() );
+        $this->assertFalse( $this->execution->isResumed() );
+        $this->assertFalse( $this->execution->isSuspended() );
+    }
+
     public function testServiceObjectWithConstructor()
     {
         $this->workflow = $this->definition->loadByName( 'ServiceObjectWithArguments' );

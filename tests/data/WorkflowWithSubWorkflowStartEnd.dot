@@ -1,4 +1,4 @@
-digraph WorkflowWithSubWorkflow {
+digraph WorkflowWithSubWorkflowStartEnd {
 node1 [label="Start"]
 node2 [label="Sub Workflow: StartEnd"]
 node3 [label="End"]

@@ -622,7 +622,7 @@ abstract class ezcWorkflowTestCase extends ezcTestCase
 
     protected function setUpWorkflowWithSubWorkflow( $subWorkflow )
     {
-        $this->workflow = new ezcWorkflow( 'WorkflowWithSubWorkflow' );
+        $this->workflow = new ezcWorkflow( 'WorkflowWithSubWorkflow' . $subWorkflow );
         $this->setUpReferences();
 
         $subWorkflow = new ezcWorkflowNodeSubWorkflow( $subWorkflow );

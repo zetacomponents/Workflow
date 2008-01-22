@@ -388,10 +388,10 @@ abstract class ezcWorkflowExecution
     /**
      * Cancels workflow execution with the node $endNode.
      *
-     * @param ezcWorkflowNodeEnd $endNode
+     * @param ezcWorkflowNode $node
      * @ignore
      */
-    public function cancel( ezcWorkflowNodeEnd $endNode )
+    public function cancel( ezcWorkflowNode $node )
     {
         $this->activatedNodes    = array();
         $this->cancelled         = true;
@@ -417,7 +417,7 @@ abstract class ezcWorkflowExecution
             );
         }
 
-        $this->end( $endNode );
+        $this->end( $node );
     }
 
     /**
@@ -425,10 +425,10 @@ abstract class ezcWorkflowExecution
      *
      * End nodes must call this method to end the execution.
      *
-     * @param ezcWorkflowNodeEnd $endNode
+     * @param ezcWorkflowNode $node
      * @ignore
      */
-    public function end( ezcWorkflowNodeEnd $endNode )
+    public function end( ezcWorkflowNode $node )
     {
         $this->ended     = true;
         $this->resumed   = false;
@@ -442,8 +442,8 @@ abstract class ezcWorkflowExecution
             'Executed node #%d(%s) for instance #%d ' .
             'of workflow "%s" (version %d).',
 
-            $endNode->getId(),
-            get_class( $endNode ),
+            $node->getId(),
+            get_class( $node ),
             $this->id,
             $this->workflow->name,
             $this->workflow->version
@@ -453,7 +453,7 @@ abstract class ezcWorkflowExecution
 
         if ( !$this->cancelled )
         {
-            $this->endThread( $endNode->getThreadId() );
+            $this->endThread( $node->getThreadId() );
         }
 
         $this->notifyListeners(
