@@ -708,30 +708,32 @@ abstract class ezcWorkflowTestCase extends ezcTestCase
         $cancelNode       = new ezcWorkflowNodeCancel;
         $actionNodeA      = new ezcWorkflowNodeAction( 'ServiceObject' );
         $actionNodeB      = new ezcWorkflowNodeAction( 'ServiceObject' );
+        $actionNodeC      = new ezcWorkflowNodeAction( 'ServiceObject' );
         $synchronization  = new ezcWorkflowNodeSynchronization;
 
         if ( $order == 'first' )
         {
             $this->branchNode->addOutNode( $cancelNode );
-            $this->branchNode->addOutNode( $actionNodeA );
             $this->branchNode->addOutNode( $actionNodeB );
+            $this->branchNode->addOutNode( $actionNodeC );
 
             $synchronization->addInNode( $cancelNode );
-            $synchronization->addInNode( $actionNodeA );
             $synchronization->addInNode( $actionNodeB );
+            $synchronization->addInNode( $actionNodeC );
         }
         else
         {
-            $this->branchNode->addOutNode( $actionNodeA );
             $this->branchNode->addOutNode( $actionNodeB );
+            $this->branchNode->addOutNode( $actionNodeC );
             $this->branchNode->addOutNode( $cancelNode );
 
-            $synchronization->addInNode( $actionNodeA );
             $synchronization->addInNode( $actionNodeB );
+            $synchronization->addInNode( $actionNodeC );
             $synchronization->addInNode( $cancelNode );
         }
 
-        $this->startNode->addOutNode( $this->branchNode );
+        $this->startNode->addOutNode( $actionNodeA );
+        $actionNodeA->addOutNode( $this->branchNode );
         $this->endNode->addInNode( $synchronization );
     }
 
