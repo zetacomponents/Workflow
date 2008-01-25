@@ -112,8 +112,8 @@ class ezcWorkflowDefinitionStorageXml implements ezcWorkflowDefinitionStorage
      */
     public function loadFromDocument( DOMDocument $document )
     {
-        $workflowName    = $document->documentElement->getAttribute('name');
-        $workflowVersion = (int)$document->documentElement->getAttribute('version');
+        $workflowName    = $document->documentElement->getAttribute( 'name' );
+        $workflowVersion = (int) $document->documentElement->getAttribute( 'version' );
 
         // Create node objects.
         $nodes = array();
