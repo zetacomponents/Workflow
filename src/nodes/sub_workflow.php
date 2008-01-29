@@ -96,6 +96,8 @@ class ezcWorkflowNodeSubWorkflow extends ezcWorkflowNode
      * Executes this node.
      *
      * @param ezcWorkflowExecution $execution
+     * @return boolean true when the node finished execution,
+     *                 and false otherwise
      * @ignore
      */
     public function execute( ezcWorkflowExecution $execution )
@@ -180,6 +182,8 @@ class ezcWorkflowNodeSubWorkflow extends ezcWorkflowNode
      * Generate node configuration from XML representation.
      *
      * @param DOMElement $element
+     * @return array
+     * @ignore
      */
     public static function configurationFromXML( DOMElement $element )
     {
@@ -211,6 +215,7 @@ class ezcWorkflowNodeSubWorkflow extends ezcWorkflowNode
      * Generate XML representation of this node's configuration.
      *
      * @param DOMElement $element
+     * @ignore
      */
     public function configurationToXML( DOMElement $element )
     {

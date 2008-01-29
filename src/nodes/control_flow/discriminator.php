@@ -76,6 +76,8 @@ class ezcWorkflowNodeDiscriminator extends ezcWorkflowNodeMerge
      * Executes this node.
      *
      * @param ezcWorkflowExecution $execution
+     * @return boolean true when the node finished execution,
+     *                 and false otherwise
      * @ignore
      */
     public function execute( ezcWorkflowExecution $execution )

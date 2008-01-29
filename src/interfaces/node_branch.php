@@ -36,7 +36,9 @@ abstract class ezcWorkflowNodeBranch extends ezcWorkflowNode
      * Activates this node's outgoing nodes.
      *
      * @param ezcWorkflowExecution $execution
-     * @param array $nodes
+     * @param array                $nodes
+     * @return boolean true when the node finished execution,
+     *                 and false otherwise
      */
     protected function activateOutgoingNodes( ezcWorkflowExecution $execution, Array $nodes )
     {

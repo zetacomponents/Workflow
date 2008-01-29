@@ -46,6 +46,8 @@ class ezcWorkflowNodeParallelSplit extends ezcWorkflowNodeBranch
      * Activates all outgoing nodes.
      *
      * @param ezcWorkflowExecution $execution
+     * @return boolean true when the node finished execution,
+     *                 and false otherwise
      * @ignore
      */
     public function execute( ezcWorkflowExecution $execution )

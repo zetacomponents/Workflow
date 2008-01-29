@@ -42,6 +42,8 @@ class ezcWorkflowNodeVariableIncrement extends ezcWorkflowNodeArithmeticBase
      * Generate node configuration from XML representation.
      *
      * @param DOMElement $element
+     * @return string
+     * @ignore
      */
     public static function configurationFromXML( DOMElement $element )
     {
@@ -52,6 +54,7 @@ class ezcWorkflowNodeVariableIncrement extends ezcWorkflowNodeArithmeticBase
      * Generate XML representation of this node's configuration.
      *
      * @param DOMElement $element
+     * @ignore
      */
     public function configurationToXML( DOMElement $element )
     {

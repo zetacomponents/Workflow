@@ -73,6 +73,8 @@ abstract class ezcWorkflowNodeMerge extends ezcWorkflowNode
      * activating the outgoing node.
      *
      * @param ezcWorkflowExecution $execution
+     * @return boolean true when the node finished execution,
+     *                 and false otherwise
      */
     protected function doMerge( ezcWorkflowExecution $execution )
     {

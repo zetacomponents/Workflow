@@ -131,6 +131,8 @@ abstract class ezcWorkflowNodeConditionalBranch extends ezcWorkflowNodeBranch
      * passed through both checks and condition evaluation.
      *
      * @param ezcWorkflowExecution $execution
+     * @return boolean true when the node finished execution,
+     *                 and false otherwise
      * @ignore
      */
     public function execute( ezcWorkflowExecution $execution )

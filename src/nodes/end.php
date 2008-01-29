@@ -53,6 +53,8 @@ class ezcWorkflowNodeEnd extends ezcWorkflowNode
      * Ends the execution of this workflow.
      *
      * @param ezcWorkflowExecution $execution
+     * @return boolean true when the node finished execution,
+     *                 and false otherwise
      * @ignore
      */
     public function execute( ezcWorkflowExecution $execution )
