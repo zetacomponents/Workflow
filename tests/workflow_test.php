@@ -233,7 +233,7 @@ class ezcWorkflowTest extends ezcWorkflowTestCase
 
         try
         {
-            $foo = $this->workflow->definitionStorage = null;
+            $this->workflow->definitionStorage = null;
         }
         catch ( ezcBaseValueException $e )
         {
@@ -249,7 +249,7 @@ class ezcWorkflowTest extends ezcWorkflowTestCase
 
         try
         {
-            $foo = $this->workflow->id = null;
+            $this->workflow->id = null;
         }
         catch ( ezcBaseValueException $e )
         {
@@ -265,7 +265,7 @@ class ezcWorkflowTest extends ezcWorkflowTestCase
 
         try
         {
-            $foo = $this->workflow->name = null;
+            $this->workflow->name = null;
         }
         catch ( ezcBaseValueException $e )
         {
@@ -281,7 +281,7 @@ class ezcWorkflowTest extends ezcWorkflowTestCase
 
         try
         {
-            $foo = $this->workflow->nodes = null;
+            $this->workflow->nodes = null;
         }
         catch ( ezcBasePropertyPermissionException $e )
         {
@@ -297,7 +297,7 @@ class ezcWorkflowTest extends ezcWorkflowTestCase
 
         try
         {
-            $foo = $this->workflow->version = null;
+            $this->workflow->version = null;
         }
         catch ( ezcBaseValueException $e )
         {
