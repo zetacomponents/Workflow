@@ -1,11 +1,11 @@
 digraph ExclusiveChoiceWithUnconditionalOutNodeSimpleMerge {
-node1 [label="Start"]
-node2 [label="Exclusive Choice"]
-node3 [label="x = <true>"]
-node4 [label="Simple Merge"]
-node5 [label="End"]
-node6 [label="y = <true>"]
-node7 [label="z = <true>"]
+node1 [label="Start", color="#2e3436"]
+node2 [label="Exclusive Choice", color="#2e3436"]
+node3 [label="x = <true>", color="#2e3436"]
+node4 [label="Simple Merge", color="#2e3436"]
+node5 [label="End", color="#2e3436"]
+node6 [label="y = <true>", color="#2e3436"]
+node7 [label="z = <true>", color="#2e3436"]
 
 node1 -> node2
 node2 -> node3 [label="condition is true"]

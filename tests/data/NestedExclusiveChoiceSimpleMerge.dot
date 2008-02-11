@@ -1,15 +1,15 @@
 digraph NestedExclusiveChoiceSimpleMerge {
-node1 [label="Start"]
-node2 [label="x = <true>"]
-node3 [label="Exclusive Choice"]
-node4 [label="y = <true>"]
-node5 [label="Exclusive Choice"]
-node6 [label="z = <true>"]
-node7 [label="Simple Merge"]
-node8 [label="Simple Merge"]
-node9 [label="End"]
-node10 [label="z = <false>"]
-node11 [label="z = <false>"]
+node1 [label="Start", color="#2e3436"]
+node2 [label="x = <true>", color="#2e3436"]
+node3 [label="Exclusive Choice", color="#2e3436"]
+node4 [label="y = <true>", color="#2e3436"]
+node5 [label="Exclusive Choice", color="#2e3436"]
+node6 [label="z = <true>", color="#2e3436"]
+node7 [label="Simple Merge", color="#2e3436"]
+node8 [label="Simple Merge", color="#2e3436"]
+node9 [label="End", color="#2e3436"]
+node10 [label="z = <false>", color="#2e3436"]
+node11 [label="z = <false>", color="#2e3436"]
 
 node1 -> node2
 node2 -> node3

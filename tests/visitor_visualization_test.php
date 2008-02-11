@@ -40,6 +40,19 @@ class ezcWorkflowVisitorVisualizationTest extends ezcWorkflowTestCase
         );
     }
 
+    public function testVisitStartEnd2()
+    {
+        $this->visitor = new ezcWorkflowVisitorVisualization( array( 1 ) );
+
+        $this->setUpStartEnd();
+        $this->workflow->accept( $this->visitor );
+
+        $this->assertEquals(
+          $this->readExpected( 'StartEnd2' ),
+          $this->visitor->__toString()
+        );
+    }
+
     public function testVisitStartInputEnd()
     {
         $this->setUpStartInputEnd();
@@ -258,6 +271,64 @@ class ezcWorkflowVisitorVisualizationTest extends ezcWorkflowTestCase
           $this->readExpected( 'ParallelSplitActionActionCancelCaseSynchronization' ),
           $this->visitor->__toString()
         );
+    }
+
+    public function testProperties()
+    {
+        $this->assertTrue( isset( $this->visitor->colorHighlighted ) );
+        $this->assertTrue( isset( $this->visitor->colorNormal ) );
+        $this->assertFalse( isset( $this->visitor->foo ) );
+
+        $this->assertEquals( '#204a87', $this->visitor->colorHighlighted );
+        $this->assertEquals( '#2e3436', $this->visitor->colorNormal );
+
+        $this->visitor->colorHighlighted   = '#2e3436';
+        $this->visitor->colorNormal = '#204a87';
+
+        $this->assertEquals( '#2e3436', $this->visitor->colorHighlighted );
+        $this->assertEquals( '#204a87', $this->visitor->colorNormal );
+    }
+
+    public function testProperties2()
+    {
+        try
+        {
+            $foo = $this->visitor->foo;
+        }
+        catch ( ezcBasePropertyNotFoundException $e )
+        {
+            return;
+        }
+
+        $this->fail();
+    }
+
+    public function testProperties3()
+    {
+        try
+        {
+            $this->visitor->foo = 'foo';
+        }
+        catch ( ezcBasePropertyNotFoundException $e )
+        {
+            return;
+        }
+
+        $this->fail();
+    }
+
+    public function testProperties4()
+    {
+        try
+        {
+            $this->visitor->colorHighlighted = null;
+        }
+        catch ( ezcBaseValueException $e )
+        {
+            return;
+        }
+
+        $this->fail();
     }
 
     protected function readExpected( $name )

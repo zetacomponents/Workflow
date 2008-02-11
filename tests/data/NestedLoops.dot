@@ -1,12 +1,12 @@
 digraph NestedLoops {
-node1 [label="Start"]
-node2 [label="i = 1"]
-node3 [label="Loop"]
-node4 [label="j = 1"]
-node5 [label="Loop"]
-node6 [label="j++"]
-node7 [label="i++"]
-node8 [label="End"]
+node1 [label="Start", color="#2e3436"]
+node2 [label="i = 1", color="#2e3436"]
+node3 [label="Loop", color="#2e3436"]
+node4 [label="j = 1", color="#2e3436"]
+node5 [label="Loop", color="#2e3436"]
+node6 [label="j++", color="#2e3436"]
+node7 [label="i++", color="#2e3436"]
+node8 [label="End", color="#2e3436"]
 
 node1 -> node2
 node2 -> node3

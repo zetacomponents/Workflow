@@ -18,11 +18,24 @@
  *  print $visitor;
  * </code>
  *
+ * @property string $colorHighlighted Color used for active nodes.
+ * @property string $colorNormal      Color used for inactive nodes.
+ *
  * @package Workflow
  * @version //autogen//
  */
 class ezcWorkflowVisitorVisualization implements ezcWorkflowVisitor
 {
+    /**
+     * Container to hold the properties.
+     *
+     * @var array(string=>mixed)
+     */
+    protected $properties = array(
+      'colorHighlighted' => '#204a87',
+      'colorNormal'      => '#2e3436'
+    );
+
     /**
      * Holds the displayed strings for each of the nodes.
      *
@@ -45,11 +58,100 @@ class ezcWorkflowVisitorVisualization implements ezcWorkflowVisitor
     protected $visited = array();
 
     /**
-     * The name of the workflow.
+     * Holds the name of the workflow.
      *
      * @var string
      */
     protected $workflowName = 'Workflow';
+
+    /**
+     * Holds the nodes that are to be highlighted.
+     *
+     * @var array
+     */
+    protected $highlightedNodes = array();
+
+    /**
+     * Constructor.
+     *
+     * @param array $highlightedNodes Array of nodes that should be highlighted.
+     */
+    public function __construct( array $highlightedNodes = array() )
+    {
+        $this->highlightedNodes = $highlightedNodes;
+    }
+
+    /**
+     * Property read access.
+     *
+     * @throws ezcBasePropertyNotFoundException 
+     *         If the the desired property is not found.
+     * 
+     * @param string $propertyName Name of the property.
+     * @return mixed Value of the property or null.
+     * @ignore
+     */
+    public function __get( $propertyName )
+    {
+        switch ( $propertyName ) 
+        {
+            case 'colorHighlighted':
+            case 'colorNormal':
+                return $this->properties[$propertyName];
+        }
+
+        throw new ezcBasePropertyNotFoundException( $propertyName );
+    }
+
+    /**
+     * Property write access.
+     * 
+     * @param string $propertyName Name of the property.
+     * @param mixed $val  The value for the property.
+     *
+     * @throws ezcBaseValueException 
+     *         If the value for the property colorHighlighted is not a string.
+     * @throws ezcBaseValueException 
+     *         If the value for the property colorNormal is not a string.
+     * @ignore
+     */
+    public function __set( $propertyName, $val )
+    {
+        switch ( $propertyName ) 
+        {
+            case 'colorHighlighted':
+            case 'colorNormal':
+                if ( !is_string( $val ) )
+                {
+                    throw new ezcBaseValueException( $propertyName, $val, 'string' );
+                }
+
+                $this->properties[$propertyName] = $val;
+
+                return;
+        }
+
+        throw new ezcBasePropertyNotFoundException( $propertyName );
+    }
+ 
+    /**
+     * Property isset access.
+     * 
+     * @param string $propertyName Name of the property.
+     * @return bool True is the property is set, otherwise false.
+     * @ignore
+     */
+    public function __isset( $propertyName )
+    {
+        switch ( $propertyName )
+        {
+            case 'colorHighlighted':
+            case 'colorNormal':
+                return true;
+        }
+
+        return false;
+    }
 
     /**
      * Visits the node and sets the the member variables according to the node
@@ -81,9 +183,21 @@ class ezcWorkflowVisitorVisualization implements ezcWorkflowVisitor
 
             $this->visited[$id] = true;
 
-            if ( !isset( $this->nodes[ $id ] ) )
+            if ( in_array( $id, $this->highlightedNodes ) )
             {
-                $this->nodes[ $id ] = $visitable->__toString();
+                $color = $this->properties['colorHighlighted'];
+            }
+            else
+            {
+                $color = $this->properties['colorNormal'];
+            }
+
+            if ( !isset( $this->nodes[$id] ) )
+            {
+                $this->nodes[$id] = array(
+                  'label' => $visitable->__toString(),
+                  'color' => $color
+                );
             }
 
             $outNodes = array();
@@ -105,7 +219,7 @@ class ezcWorkflowVisitorVisualization implements ezcWorkflowVisitor
                 $outNodes[] = array( $outNode->getId(), $label );
             }
 
-            $this->edges[ $id ] = $outNodes;
+            $this->edges[$id] = $outNodes;
         }
 
         return true;
@@ -121,12 +235,13 @@ class ezcWorkflowVisitorVisualization implements ezcWorkflowVisitor
     {
         $dot = 'digraph ' . $this->workflowName . " {\n";
 
-        foreach ( $this->nodes as $key => $value )
+        foreach ( $this->nodes as $key => $data )
         {
             $dot .= sprintf(
-              "node%s [label=\"%s\"]\n",
+              "node%s [label=\"%s\", color=\"%s\"]\n",
               $key,
-              $value
+              $data['label'],
+              $data['color']
             );
         }
 

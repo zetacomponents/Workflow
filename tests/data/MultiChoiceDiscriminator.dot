@@ -1,12 +1,12 @@
 digraph MultiChoiceDiscriminator {
-node1 [label="Start"]
-node2 [label="x = 1, y = 2"]
-node3 [label="Multi Choice"]
-node4 [label=""]
-node5 [label="Discriminator"]
-node6 [label="End"]
-node7 [label=""]
-node8 [label=""]
+node1 [label="Start", color="#2e3436"]
+node2 [label="x = 1, y = 2", color="#2e3436"]
+node3 [label="Multi Choice", color="#2e3436"]
+node4 [label="", color="#2e3436"]
+node5 [label="Discriminator", color="#2e3436"]
+node6 [label="End", color="#2e3436"]
+node7 [label="", color="#2e3436"]
+node8 [label="", color="#2e3436"]
 
 node1 -> node2
 node2 -> node3
