@@ -1,6 +1,6 @@
 <?php
 /**
- * File containing the ezcWorkflowExecutionListenerPlugin interface.
+ * File containing the ezcWorkflowExecutionListenerPlugin class.
  *
  * @package Workflow
  * @version //autogen//
