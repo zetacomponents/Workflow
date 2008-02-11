@@ -111,11 +111,9 @@ abstract class ezcWorkflowExecution
     protected $suspended;
 
     /**
-     * Listeners attached to this execution.
-     *
      * @var array
      */
-    protected $listeners = array();
+    protected $plugins = array();
 
     /**
      * @var array
@@ -242,15 +240,10 @@ abstract class ezcWorkflowExecution
         $this->doStart( $parentId );
         $this->loadFromVariableHandlers();
 
-        $this->notifyListeners(
-          sprintf(
-            'Started execution #%d of workflow "%s" (version %d).',
-
-            $this->id,
-            $this->workflow->name,
-            $this->workflow->version
-          )
-        );
+        foreach ( $this->plugins as $plugin )
+        {
+            $plugin->afterExecutionStarted( $this );
+        }
 
         // Start workflow execution by activating the start node.
         $this->workflow->startNode->activate( $this );
@@ -300,15 +293,10 @@ abstract class ezcWorkflowExecution
         $this->doSuspend();
         $this->saveToVariableHandlers();
 
-        $this->notifyListeners(
-          sprintf(
-            'Suspended execution #%d of workflow "%s" (version %d).',
-
-            $this->id,
-            $this->workflow->name,
-            $this->workflow->version
-          )
-        );
+        foreach ( $this->plugins as $plugin )
+        {
+            $plugin->afterExecutionSuspended( $this );
+        }
     }
 
     /**
@@ -364,15 +352,10 @@ abstract class ezcWorkflowExecution
             throw new ezcWorkflowInvalidInputException( $errors );
         }
 
-        $this->notifyListeners(
-          sprintf(
-            'Resumed execution #%d of workflow "%s" (version %d).',
-
-            $this->id,
-            $this->workflow->name,
-            $this->workflow->version
-          )
-        );
+        foreach ( $this->plugins as $plugin )
+        {
+            $plugin->afterExecutionResumed( $this );
+        }
 
         $this->execute();
 
@@ -401,20 +384,10 @@ abstract class ezcWorkflowExecution
         {
             $result = $object['object']->rollback( $this );
 
-            $this->notifyListeners(
-              sprintf(
-                '%s back service object "%s" of node #%d for instance #%d ' .
-                'of workflow "%s" (version %d).',
-
-                $result ? 'Rolled' : 'Could not roll',
-                get_class( $object['object'] ),
-                $object['node']->getId(),
-                $this->id,
-                $this->workflow->name,
-                $this->workflow->version
-              ),
-              ezcWorkflowExecutionListener::DEBUG
-            );
+            foreach ( $this->plugins as $plugin )
+            {
+                $plugin->afterRolledBackServiceObject( $this, $object['node'], $object['object'], $result );
+            }
         }
 
         $this->end( $node );
@@ -437,35 +410,27 @@ abstract class ezcWorkflowExecution
         $this->doEnd();
         $this->saveToVariableHandlers();
 
-        $this->notifyListeners(
-          sprintf(
-            'Executed node #%d(%s) for instance #%d ' .
-            'of workflow "%s" (version %d).',
-
-            $node->getId(),
-            get_class( $node ),
-            $this->id,
-            $this->workflow->name,
-            $this->workflow->version
-          ),
-          ezcWorkflowExecutionListener::DEBUG
-        );
-
-        if ( !$this->cancelled )
+        foreach ( $this->plugins as $plugin )
         {
-            $this->endThread( $node->getThreadId() );
+            $plugin->afterNodeExecuted( $this, $node );
         }
 
-        $this->notifyListeners(
-          sprintf(
-            '%s execution #%d of workflow "%s" (version %d).',
+        if ( $this->cancelled )
+        {
+            foreach ( $this->plugins as $plugin )
+            {
+                $plugin->afterExecutionCancelled( $this );
+            }
+        }
+        else
+        {
+            $this->endThread( $node->getThreadId() );
 
-            $this->cancelled ? 'Cancelled' : 'Ended',
-            $this->id,
-            $this->workflow->name,
-            $this->workflow->version
-          )
-        );
+            foreach ( $this->plugins as $plugin )
+            {
+                $plugin->afterExecutionEnded( $this );
+            }
+        }
     }
 
     /**
@@ -508,23 +473,13 @@ abstract class ezcWorkflowExecution
                         unset( $this->activatedNodes[$key] );
                         $this->numActivatedNodes--;
 
-                        // Notify workflow listeners about the node that has
-                        // been executed.
+                        // Notify plugins that the node has been executed.
                         if ( !$this->hasEnded() )
                         {
-                            $this->notifyListeners(
-                              sprintf(
-                                'Executed node #%d(%s) for instance #%d ' .
-                                'of workflow "%s" (version %d).',
-
-                                $node->getId(),
-                                get_class( $node ),
-                                $this->id,
-                                $this->workflow->name,
-                                $this->workflow->version
-                              ),
-                              ezcWorkflowExecutionListener::DEBUG
-                            );
+                            foreach ( $this->plugins as $plugin )
+                            {
+                                $plugin->afterNodeExecuted( $this, $node );
+                            }
                         }
 
                         // Toggle flag (see above).
@@ -550,11 +505,11 @@ abstract class ezcWorkflowExecution
      * See {@link ezcWorkflowNode::isExecutable()}.
      *
      * @param ezcWorkflowNode $node
-     * @param bool $notifyListeners
+     * @param bool            $notifyPlugins
      * @return bool
      * @ignore
      */
-    public function activate( ezcWorkflowNode $node, $notifyListeners = true )
+    public function activate( ezcWorkflowNode $node, $notifyPlugins = true )
     {
         // Only activate the node when
         //  - the execution of the workflow has not been cancelled,
@@ -567,33 +522,43 @@ abstract class ezcWorkflowExecution
             return false;
         }
 
-        // Add node to list of activated nodes.
-        $this->activatedNodes[] = $node;
-        $this->numActivatedNodes++;
+        $activateNode = true;
 
-        if ( $node instanceof ezcWorkflowNodeEnd )
+        foreach ( $this->plugins as $plugin )
         {
-            $this->numActivatedEndNodes++;
+            $activateNode = $plugin->beforeNodeActivated( $this, $node );
+
+            if ( !$activateNode )
+            {
+                break;
+            }
         }
 
-        if ( $notifyListeners )
+        if ( $activateNode )
         {
-            $this->notifyListeners(
-              sprintf(
-                'Activated node #%d(%s) for instance #%d ' .
-                'of workflow "%s" (version %d).',
+            // Add node to list of activated nodes.
+            $this->activatedNodes[] = $node;
+            $this->numActivatedNodes++;
 
-                $node->getId(),
-                get_class( $node ),
-                $this->id,
-                $this->workflow->name,
-                $this->workflow->version
-              ),
-              ezcWorkflowExecutionListener::DEBUG
-            );
+            if ( $node instanceof ezcWorkflowNodeEnd )
+            {
+                $this->numActivatedEndNodes++;
+            }
+
+            if ( $notifyPlugins )
+            {
+                foreach ( $this->plugins as $plugin )
+                {
+                    $plugin->afterNodeActivated( $this, $node );
+                }
+            }
+
+            return true;
         }
-
-        return true;
+        else
+        {
+            return false;
+        }
     }
 
     /**
@@ -657,19 +622,10 @@ abstract class ezcWorkflowExecution
               'numSiblings' => $numSiblings
             );
 
-            $this->notifyListeners(
-              sprintf(
-                'Started thread #%d (%s%d sibling(s)) for execution #%d of workflow "%s" (version %d).',
-
-                $this->nextThreadId,
-                $parentId != null ? 'parent: ' . $parentId . ', ' : '',
-                $numSiblings,
-                $this->id,
-                $this->workflow->name,
-                $this->workflow->version
-              ),
-              ezcWorkflowExecutionListener::DEBUG
-            );
+            foreach ( $this->plugins as $plugin )
+            {
+                $plugin->afterThreadStarted( $this, $this->nextThreadId, $parentId, $numSiblings );
+            }
 
             return $this->nextThreadId++;
         }
@@ -689,17 +645,10 @@ abstract class ezcWorkflowExecution
         {
             unset( $this->threads[$threadId] );
 
-            $this->notifyListeners(
-              sprintf(
-                'Ended thread #%d for execution #%d of workflow "%s" (version %d).',
-
-                $threadId,
-                $this->id,
-                $this->workflow->name,
-                $this->workflow->version
-              ),
-              ezcWorkflowExecutionListener::DEBUG
-            );
+            foreach ( $this->plugins as $plugin )
+            {
+                $plugin->afterThreadEnded( $this, $threadId );
+            }
         }
         else
         {
@@ -740,9 +689,9 @@ abstract class ezcWorkflowExecution
             $execution = new ezcWorkflowExecutionNonInteractive;
         }
 
-        foreach ( $this->listeners as $listener )
+        foreach ( $this->plugins as $plugin )
         {
-            $execution->addListener( $listener );
+            $execution->addPlugin( $plugin );
         }
 
         return $execution;
@@ -787,6 +736,50 @@ abstract class ezcWorkflowExecution
     }
 
     /**
+     * Adds a plugin to this execution.
+     *
+     * @param ezcWorkflowExecutionPlugin $plugin
+     * @return bool true when the plugin was added, false otherwise.
+     */
+    public function addPlugin( ezcWorkflowExecutionPlugin $plugin )
+    {
+        $pluginClass = get_class( $plugin );
+
+        if ( !isset( $this->plugins[$pluginClass] ) )
+        {
+            $this->plugins[$pluginClass] = $plugin;
+
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    /**
+     * Removes a plugin from this execution.
+     *
+     * @param ezcWorkflowExecutionPlugin $plugin
+     * @return bool true when the plugin was removed, false otherwise.
+     */
+    public function removePlugin( ezcWorkflowExecutionPlugin $plugin )
+    {
+        $pluginClass = get_class( $plugin );
+
+        if ( isset( $this->plugins[$pluginClass] ) )
+        {
+            unset( $this->plugins[$pluginClass] );
+
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    /**
      * Adds a listener to this execution.
      *
      * @param ezcWorkflowExecutionListener $listener
@@ -794,14 +787,12 @@ abstract class ezcWorkflowExecution
      */
     public function addListener( ezcWorkflowExecutionListener $listener )
     {
-        if ( ezcWorkflowUtil::findObject( $this->listeners, $listener ) !== false )
+        if ( !isset( $this->plugins['ezcWorkflowExecutionListenerPlugin'] ) )
         {
-            return false;
+            $this->addPlugin( new ezcWorkflowExecutionListenerPlugin );
         }
 
-        $this->listeners[] = $listener;
-
-        return true;
+        return $this->plugins['ezcWorkflowExecutionListenerPlugin']->addListener( $listener );
     }
 
     /**
@@ -812,30 +803,12 @@ abstract class ezcWorkflowExecution
      */
     public function removeListener( ezcWorkflowExecutionListener $listener )
     {
-        $index = ezcWorkflowUtil::findObject( $this->listeners, $listener );
-
-        if ( $index === false )
+        if ( isset( $this->plugins['ezcWorkflowExecutionListenerPlugin'] ) )
         {
-            return false;
+            return $this->plugins['ezcWorkflowExecutionListenerPlugin']->removeListener( $listener );
         }
 
-        unset( $this->listeners[$index] );
-
-        return true;
-    }
-
-    /**
-     * Notify listeners.
-     *
-     * @param string  $message
-     * @param int $type
-     */
-    protected function notifyListeners( $message, $type = ezcWorkflowExecutionListener::INFO )
-    {
-        foreach ( $this->listeners as $listener )
-        {
-            $listener->notify( $message, $type );
-        }
+        return false;
     }
 
     /**
@@ -898,26 +871,26 @@ abstract class ezcWorkflowExecution
     /**
      * Sets a variable.
      *
-     * @param string $variableName
-     * @param mixed $value
+     * @param  string $variableName
+     * @param  mixed  $value
+     * @return mixed the value that the variable has been set to
      * @ignore
      */
     public function setVariable( $variableName, $value )
     {
+        foreach ( $this->plugins as $plugin )
+        {
+            $value = $plugin->beforeVariableSet( $this, $variableName, $value );
+        }
+
         $this->variables[$variableName] = $value;
 
-        $this->notifyListeners(
-          sprintf(
-            'Set variable "%s" to "%s" for execution #%d of workflow "%s" (version %d).',
+        foreach ( $this->plugins as $plugin )
+        {
+            $plugin->afterVariableSet( $this, $variableName, $value );
+        }
 
-            $variableName,
-            ezcWorkflowUtil::variableToString( $value ),
-            $this->id,
-            $this->workflow->name,
-            $this->workflow->version
-          ),
-          ezcWorkflowExecutionListener::DEBUG
-        );
+        return $value;
     }
 
     /**
@@ -939,27 +912,38 @@ abstract class ezcWorkflowExecution
     /**
      * Unsets a variable.
      *
-     * @param string $variableName
+     * @param  string $variableName
+     * @return true, when the variable has been unset, false otherwise
      * @ignore
      */
     public function unsetVariable( $variableName )
     {
         if ( array_key_exists( $variableName, $this->variables ) )
         {
-            unset( $this->variables[$variableName] );
+            $unsetVariable = true;
 
-            $this->notifyListeners(
-              sprintf(
-                'Unset variable "%s" for execution #%d of workflow "%s" (version %d).',
+            foreach ( $this->plugins as $plugin )
+            {
+                $unsetVariable = $plugin->beforeVariableUnset( $this, $variableName );
 
-                $variableName,
-                $this->id,
-                $this->workflow->name,
-                $this->workflow->version
-              ),
-              ezcWorkflowExecutionListener::DEBUG
-            );
+                if ( !$unsetVariable )
+                {
+                    break;
+                }
+            }
+
+            if ( $unsetVariable )
+            {
+                unset( $this->variables[$variableName] );
+
+                foreach ( $this->plugins as $plugin )
+                {
+                    $plugin->afterVariableUnset( $this, $variableName );
+                }
+            }
         }
+
+        return $unsetVariable;
     }
 
     /**
