@@ -18,8 +18,8 @@
  *  print $visitor;
  * </code>
  *
- * @property string $colorHighlighted Color used for active nodes.
- * @property string $colorNormal      Color used for inactive nodes.
+ * @property string $colorHighlighted Color used for highlighted nodes.
+ * @property string $colorNormal      Color used for non-highlighted nodes.
  *
  * @package Workflow
  * @version //autogen//
