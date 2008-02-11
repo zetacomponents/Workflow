@@ -812,6 +812,17 @@ abstract class ezcWorkflowExecution
     }
 
     /**
+     * Returns the activated nodes.
+     *
+     * @return array
+     * @ignore
+     */
+    public function getActivatedNodes()
+    {
+        return $this->activatedNodes;
+    }
+
+    /**
      * Returns the execution ID.
      *
      * @return int
