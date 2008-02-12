@@ -279,14 +279,14 @@ class ezcWorkflowVisitorVisualizationTest extends ezcWorkflowTestCase
         $this->assertTrue( isset( $this->visitor->colorNormal ) );
         $this->assertFalse( isset( $this->visitor->foo ) );
 
-        $this->assertEquals( '#204a87', $this->visitor->colorHighlighted );
+        $this->assertEquals( '#cc0000', $this->visitor->colorHighlighted );
         $this->assertEquals( '#2e3436', $this->visitor->colorNormal );
 
-        $this->visitor->colorHighlighted   = '#2e3436';
-        $this->visitor->colorNormal = '#204a87';
+        $this->visitor->colorHighlighted = '#2e3436';
+        $this->visitor->colorNormal = '#cc0000';
 
         $this->assertEquals( '#2e3436', $this->visitor->colorHighlighted );
-        $this->assertEquals( '#204a87', $this->visitor->colorNormal );
+        $this->assertEquals( '#cc0000', $this->visitor->colorNormal );
     }
 
     public function testProperties2()

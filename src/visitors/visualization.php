@@ -32,7 +32,7 @@ class ezcWorkflowVisitorVisualization implements ezcWorkflowVisitor
      * @var array(string=>mixed)
      */
     protected $properties = array(
-      'colorHighlighted' => '#204a87',
+      'colorHighlighted' => '#cc0000',
       'colorNormal'      => '#2e3436'
     );
 
