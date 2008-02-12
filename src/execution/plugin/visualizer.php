@@ -88,12 +88,12 @@ class ezcWorkflowExecutionVisualizerPlugin extends ezcWorkflowExecutionPlugin
             $activatedNodes[] = $node->getId();
         }
 
-        $visitor = new ezcWorkflowVisitorVisualization( $activatedNodes );
+        $visitor = new ezcWorkflowVisitorVisualization( $activatedNodes, $execution->getVariables() );
         $execution->workflow->accept( $visitor );
 
         file_put_contents(
           sprintf(
-            '%s%s%s_%d_%d.dot',
+            '%s%s%s_%03d_%03d.dot',
 
             $this->directory,
             DIRECTORY_SEPARATOR,

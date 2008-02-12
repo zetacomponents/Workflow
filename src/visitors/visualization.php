@@ -72,13 +72,22 @@ class ezcWorkflowVisitorVisualization implements ezcWorkflowVisitor
     protected $highlightedNodes = array();
 
     /**
+     * Holds the workflow variables.
+     *
+     * @var array
+     */
+    protected $workflowVariables = array();
+
+    /**
      * Constructor.
      *
-     * @param array $highlightedNodes Array of nodes that should be highlighted.
+     * @param array $highlightedNodes Array of nodes that should be highlighted
+     * @param array $workflowVariables Array of workflow variables
      */
-    public function __construct( array $highlightedNodes = array() )
+    public function __construct( array $highlightedNodes = array(), array $workflowVariables = array() )
     {
-        $this->highlightedNodes = $highlightedNodes;
+        $this->highlightedNodes  = $highlightedNodes;
+        $this->workflowVariables = $workflowVariables;
     }
 
     /**
@@ -259,6 +268,23 @@ class ezcWorkflowVisitorVisualization implements ezcWorkflowVisitor
                   $toNode[1]
                 );
             }
+        }
+
+        if ( !empty( $this->workflowVariables ) )
+        {
+            $dot .= 'variables [shape=none, label=<<table>';
+
+            foreach ( $this->workflowVariables as $name => $value )
+            {
+                $dot .= sprintf(
+                  '<tr><td>%s</td><td>%s</td></tr>',
+
+                  $name,
+                  ezcWorkflowUtil::variableToString( $value )
+                );
+            }
+
+            $dot .= "</table>>]\n";
         }
 
         return $dot . "}\n";
