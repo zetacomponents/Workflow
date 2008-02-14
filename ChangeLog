@@ -6,7 +6,13 @@
 - Implemented a plugin system that allows plugin developers to hook into
   various extension points in the workflow execution engine.
 
-- The visualization visitor can now highlight a set of nodes.
+- The visualization visitor can now show the current state of a workflow in
+  execution. This includes the highlighting of activated nodes as well as the
+  contents of the workflow variables.
+
+- The new execution visualizer plugin (ezcWorkflowExecutionVisualizerPlugin)
+  uses the visualization visitor to create visualizations of each step of a
+  workflow execution.
 
 1.1 - Monday 17 December 2007
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
