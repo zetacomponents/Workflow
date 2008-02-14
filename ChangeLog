@@ -1,18 +1,18 @@
-- Implemented issue #10941: Support for the Cancel Case workflow pattern.
+1.2alpha1 - [RELEASEDATE]
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+- Implemented issue #10941: Support for the Cancel Case workflow pattern.
 - Implemented issue #12404: Separate file i/o from XML processing in
   ezcWorkflowDefinitionStorageXml.
-
 - Implemented a plugin system that allows plugin developers to hook into
   various extension points in the workflow execution engine.
-
 - The visualization visitor can now show the current state of a workflow in
   execution. This includes the highlighting of activated nodes as well as the
   contents of the workflow variables.
-
 - The new execution visualizer plugin (ezcWorkflowExecutionVisualizerPlugin)
   uses the visualization visitor to create visualizations of each step of a
   workflow execution.
+
 
 1.1 - Monday 17 December 2007
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
