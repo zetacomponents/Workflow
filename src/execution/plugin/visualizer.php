@@ -31,13 +31,21 @@ class ezcWorkflowExecutionVisualizerPlugin extends ezcWorkflowExecutionPlugin
     protected $fileCounter = 0;
 
     /**
+     * Whether or not to include workflow variables.
+     *
+     * @var integer
+     */
+    protected $includeVariables = true;
+
+    /**
      * Constructor.
      *
-     * @param  string $directory
+     * @param  string $directory The directory the DOT files are written to
+     * @param  bool   $includeVariables Whether or not to include workflow variables
      * @throws ezcBaseFileNotFoundException when the directory does not exist
      * @throws ezcBaseFilePermissionException when the directory is not writable
      */
-    public function __construct( $directory )
+    public function __construct( $directory, $includeVariables = true )
     {
         if ( !is_dir( $directory ) )
         {
@@ -49,7 +57,8 @@ class ezcWorkflowExecutionVisualizerPlugin extends ezcWorkflowExecutionPlugin
             throw new ezcBaseFilePermissionException( $directory, ezcBaseFileException::WRITE );
         }
 
-        $this->directory = $directory;
+        $this->directory        = $directory;
+        $this->includeVariables = $includeVariables;
     }
 
     /**
@@ -88,7 +97,16 @@ class ezcWorkflowExecutionVisualizerPlugin extends ezcWorkflowExecutionPlugin
             $activatedNodes[] = $node->getId();
         }
 
-        $visitor = new ezcWorkflowVisitorVisualization( $activatedNodes, $execution->getVariables() );
+        if ( $this->includeVariables )
+        {
+            $variables = $execution->getVariables();
+        }
+        else
+        {
+            $variables = array();
+        }
+
+        $visitor = new ezcWorkflowVisitorVisualization( $activatedNodes, $variables );
         $execution->workflow->accept( $visitor );
 
         file_put_contents(
