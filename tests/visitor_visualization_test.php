@@ -42,7 +42,7 @@ class ezcWorkflowVisitorVisualizationTest extends ezcWorkflowTestCase
 
     public function testVisitStartEnd2()
     {
-        $this->visitor = new ezcWorkflowVisitorVisualization( array( 1 ) );
+        $this->visitor->options['highlightedNodes'] = array( 1 );
 
         $this->setUpStartEnd();
         $this->workflow->accept( $this->visitor );
@@ -275,22 +275,6 @@ class ezcWorkflowVisitorVisualizationTest extends ezcWorkflowTestCase
 
     public function testProperties()
     {
-        $this->assertTrue( isset( $this->visitor->colorHighlighted ) );
-        $this->assertTrue( isset( $this->visitor->colorNormal ) );
-        $this->assertFalse( isset( $this->visitor->foo ) );
-
-        $this->assertEquals( '#cc0000', $this->visitor->colorHighlighted );
-        $this->assertEquals( '#2e3436', $this->visitor->colorNormal );
-
-        $this->visitor->colorHighlighted = '#2e3436';
-        $this->visitor->colorNormal = '#cc0000';
-
-        $this->assertEquals( '#2e3436', $this->visitor->colorHighlighted );
-        $this->assertEquals( '#cc0000', $this->visitor->colorNormal );
-    }
-
-    public function testProperties2()
-    {
         try
         {
             $foo = $this->visitor->foo;
@@ -303,7 +287,7 @@ class ezcWorkflowVisitorVisualizationTest extends ezcWorkflowTestCase
         $this->fail();
     }
 
-    public function testProperties3()
+    public function testProperties2()
     {
         try
         {
@@ -317,13 +301,71 @@ class ezcWorkflowVisitorVisualizationTest extends ezcWorkflowTestCase
         $this->fail();
     }
 
-    public function testProperties4()
+    public function testOptions()
+    {
+        $this->assertTrue( isset( $this->visitor->options['colorHighlighted'] ) );
+        $this->assertTrue( isset( $this->visitor->options['colorNormal'] ) );
+        $this->assertFalse( isset( $this->visitor->foo ) );
+
+        $this->assertEquals( '#cc0000', $this->visitor->options['colorHighlighted'] );
+        $this->assertEquals( '#2e3436', $this->visitor->options['colorNormal'] );
+
+        $this->visitor->options['colorHighlighted'] = '#2e3436';
+        $this->visitor->options['colorNormal'] = '#cc0000';
+
+        $this->assertEquals( '#2e3436', $this->visitor->options['colorHighlighted'] );
+        $this->assertEquals( '#cc0000', $this->visitor->options['colorNormal'] );
+    }
+
+    public function testOptions2()
     {
         try
         {
-            $this->visitor->colorHighlighted = null;
+            $this->visitor->options['colorHighlighted'] = null;
         }
         catch ( ezcBaseValueException $e )
+        {
+            return;
+        }
+
+        $this->fail();
+    }
+
+    public function testOptions3()
+    {
+        try
+        {
+            $this->visitor->options = null;
+        }
+        catch ( ezcBaseValueException $e )
+        {
+            return;
+        }
+
+        $this->fail();
+    }
+
+    public function testOptions4()
+    {
+        try
+        {
+            $this->visitor->options['highlightedNodes'] = null;
+        }
+        catch ( ezcBaseValueException $e )
+        {
+            return;
+        }
+
+        $this->fail();
+    }
+
+    public function testOptions5()
+    {
+        try
+        {
+            $this->visitor->options['foo'] = null;
+        }
+        catch ( ezcBasePropertyNotFoundException $e )
         {
             return;
         }

@@ -697,6 +697,17 @@ class ezcWorkflowExecutionTest extends ezcWorkflowTestCase
         $this->assertFalse( $this->execution->removeListener( $listener ) );
     }
 
+    public function testPlugin()
+    {
+        $plugin = $this->getMock( 'ezcWorkflowExecutionPlugin' );
+
+        $this->assertTrue( $this->execution->addPlugin( $plugin ) );
+        $this->assertFalse( $this->execution->addPlugin( $plugin ) );
+
+        $this->assertTrue( $this->execution->removePlugin( $plugin ) );
+        $this->assertFalse( $this->execution->removePlugin( $plugin ) );
+    }
+
     public function testNoWorkflowStartRaisesException()
     {
         try

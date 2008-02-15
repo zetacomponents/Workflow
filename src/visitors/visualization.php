@@ -27,16 +27,6 @@
 class ezcWorkflowVisitorVisualization implements ezcWorkflowVisitor
 {
     /**
-     * Container to hold the properties.
-     *
-     * @var array(string=>mixed)
-     */
-    protected $properties = array(
-      'colorHighlighted' => '#cc0000',
-      'colorNormal'      => '#2e3436'
-    );
-
-    /**
      * Holds the displayed strings for each of the nodes.
      *
      * @var array(string => string)
@@ -65,101 +55,75 @@ class ezcWorkflowVisitorVisualization implements ezcWorkflowVisitor
     protected $workflowName = 'Workflow';
 
     /**
-     * Holds the nodes that are to be highlighted.
-     *
-     * @var array
+     * Properties. 
+     * 
+     * @var array(string=>mixed)
      */
-    protected $highlightedNodes = array();
-
-    /**
-     * Holds the workflow variables.
-     *
-     * @var array
-     */
-    protected $workflowVariables = array();
+    protected $properties = array();
 
     /**
      * Constructor.
-     *
-     * @param array $highlightedNodes Array of nodes that should be highlighted
-     * @param array $workflowVariables Array of workflow variables
      */
-    public function __construct( array $highlightedNodes = array(), array $workflowVariables = array() )
+    public function __construct()
     {
-        $this->highlightedNodes  = $highlightedNodes;
-        $this->workflowVariables = $workflowVariables;
+        $this->options = new ezcWorkflowVisitorVisualizationOptions;
     }
 
     /**
-     * Property read access.
+     * Property get access.
      *
-     * @throws ezcBasePropertyNotFoundException 
-     *         If the the desired property is not found.
-     * 
-     * @param string $propertyName Name of the property.
-     * @return mixed Value of the property or null.
+     * @throws ezcBasePropertyNotFoundException
+     *         If the given property could not be found.
+     * @param string $propertyName
      * @ignore
      */
     public function __get( $propertyName )
     {
-        switch ( $propertyName ) 
+        if ( $this->__isset( $propertyName ) )
         {
-            case 'colorHighlighted':
-            case 'colorNormal':
-                return $this->properties[$propertyName];
+            return $this->properties[$propertyName];
         }
-
         throw new ezcBasePropertyNotFoundException( $propertyName );
     }
 
     /**
-     * Property write access.
-     * 
-     * @param string $propertyName Name of the property.
-     * @param mixed $val  The value for the property.
+     * Property set access.
      *
-     * @throws ezcBaseValueException 
-     *         If the value for the property colorHighlighted is not a string.
-     * @throws ezcBaseValueException 
-     *         If the value for the property colorNormal is not a string.
+     * @throws ezcBasePropertyNotFoundException
+     * @param string $propertyName
+     * @param string $propertyValue
      * @ignore
      */
-    public function __set( $propertyName, $val )
+    public function __set( $propertyName, $propertyValue )
     {
-        switch ( $propertyName ) 
+        switch ( $propertyName )
         {
-            case 'colorHighlighted':
-            case 'colorNormal':
-                if ( !is_string( $val ) )
+            case 'options':
+                if ( !( $propertyValue instanceof ezcWorkflowVisitorVisualizationOptions ) )
                 {
-                    throw new ezcBaseValueException( $propertyName, $val, 'string' );
+                    throw new ezcBaseValueException(
+                        $propertyName,
+                        $propertyValue,
+                        'ezcWorkflowVisitorVisualizationOptions'
+                    );
                 }
-
-                $this->properties[$propertyName] = $val;
-
-                return;
+                break;
+            default:
+                throw new ezcBasePropertyNotFoundException( $propertyName );
         }
-
-        throw new ezcBasePropertyNotFoundException( $propertyName );
+        $this->properties[$propertyName] = $propertyValue;
     }
- 
+
     /**
-     * Property isset access.
+     * Property isset access. 
      * 
-     * @param string $propertyName Name of the property.
-     * @return bool True is the property is set, otherwise false.
+     * @param string $propertyName 
+     * @return bool
      * @ignore
      */
     public function __isset( $propertyName )
     {
-        switch ( $propertyName )
-        {
-            case 'colorHighlighted':
-            case 'colorNormal':
-                return true;
-        }
-
-        return false;
+        return array_key_exists( $propertyName, $this->properties );
     }
 
     /**
@@ -192,13 +156,13 @@ class ezcWorkflowVisitorVisualization implements ezcWorkflowVisitor
 
             $this->visited[$id] = true;
 
-            if ( in_array( $id, $this->highlightedNodes ) )
+            if ( in_array( $id, $this->options['highlightedNodes'] ) )
             {
-                $color = $this->properties['colorHighlighted'];
+                $color = $this->options['colorHighlighted'];
             }
             else
             {
-                $color = $this->properties['colorNormal'];
+                $color = $this->options['colorNormal'];
             }
 
             if ( !isset( $this->nodes[$id] ) )
@@ -270,11 +234,11 @@ class ezcWorkflowVisitorVisualization implements ezcWorkflowVisitor
             }
         }
 
-        if ( !empty( $this->workflowVariables ) )
+        if ( !empty( $this->options['workflowVariables'] ) )
         {
             $dot .= 'variables [shape=none, label=<<table>';
 
-            foreach ( $this->workflowVariables as $name => $value )
+            foreach ( $this->options['workflowVariables'] as $name => $value )
             {
                 $dot .= sprintf(
                   '<tr><td>%s</td><td>%s</td></tr>',

@@ -17,13 +17,6 @@
 class ezcWorkflowExecutionVisualizerPlugin extends ezcWorkflowExecutionPlugin
 {
     /**
-     * The directory to which the DOT files are written.
-     *
-     * @var string
-     */
-    protected $directory;
-
-    /**
      * Filename counter.
      *
      * @var integer
@@ -31,34 +24,78 @@ class ezcWorkflowExecutionVisualizerPlugin extends ezcWorkflowExecutionPlugin
     protected $fileCounter = 0;
 
     /**
-     * Whether or not to include workflow variables.
-     *
-     * @var integer
+     * Properties. 
+     * 
+     * @var array(string=>mixed)
      */
-    protected $includeVariables = true;
+    protected $properties = array();
 
     /**
      * Constructor.
      *
-     * @param  string $directory The directory the DOT files are written to
-     * @param  bool   $includeVariables Whether or not to include workflow variables
-     * @throws ezcBaseFileNotFoundException when the directory does not exist
-     * @throws ezcBaseFilePermissionException when the directory is not writable
+     * @param string $directory The directory to which the DOT files are written.
      */
-    public function __construct( $directory, $includeVariables = true )
+    public function __construct( $directory )
     {
-        if ( !is_dir( $directory ) )
-        {
-            throw new ezcBaseFileNotFoundException( $directory );
-        }
+        $this->options = new ezcWorkflowExecutionVisualizerPluginOptions;
+        $this->options['directory'] = $directory;
+    }
 
-        if ( !is_writable( $directory ) )
+    /**
+     * Property get access.
+     *
+     * @throws ezcBasePropertyNotFoundException
+     *         If the given property could not be found.
+     * @param string $propertyName
+     * @ignore
+     */
+    public function __get( $propertyName )
+    {
+        if ( $this->__isset( $propertyName ) )
         {
-            throw new ezcBaseFilePermissionException( $directory, ezcBaseFileException::WRITE );
+            return $this->properties[$propertyName];
         }
+        throw new ezcBasePropertyNotFoundException( $propertyName );
+    }
 
-        $this->directory        = $directory;
-        $this->includeVariables = $includeVariables;
+    /**
+     * Property set access.
+     *
+     * @throws ezcBasePropertyNotFoundException
+     * @param string $propertyName
+     * @param string $propertyValue
+     * @ignore
+     */
+    public function __set( $propertyName, $propertyValue )
+    {
+        switch ( $propertyName )
+        {
+            case 'options':
+                if ( !( $propertyValue instanceof ezcWorkflowExecutionVisualizerPluginOptions ) )
+                {
+                    throw new ezcBaseValueException(
+                        $propertyName,
+                        $propertyValue,
+                        'ezcWorkflowExecutionVisualizerPluginOptions'
+                    );
+                }
+                break;
+            default:
+                throw new ezcBasePropertyNotFoundException( $propertyName );
+        }
+        $this->properties[$propertyName] = $propertyValue;
+    }
+
+    /**
+     * Property isset access. 
+     * 
+     * @param string $propertyName 
+     * @return bool
+     * @ignore
+     */
+    public function __isset( $propertyName )
+    {
+        return array_key_exists( $propertyName, $this->properties );
     }
 
     /**
@@ -97,7 +134,7 @@ class ezcWorkflowExecutionVisualizerPlugin extends ezcWorkflowExecutionPlugin
             $activatedNodes[] = $node->getId();
         }
 
-        if ( $this->includeVariables )
+        if ( $this->options['includeVariables'] )
         {
             $variables = $execution->getVariables();
         }
@@ -106,14 +143,17 @@ class ezcWorkflowExecutionVisualizerPlugin extends ezcWorkflowExecutionPlugin
             $variables = array();
         }
 
-        $visitor = new ezcWorkflowVisitorVisualization( $activatedNodes, $variables );
+        $visitor = new ezcWorkflowVisitorVisualization;
+        $visitor->options['highlightedNodes']  = $activatedNodes;
+        $visitor->options['workflowVariables'] = $variables;
+
         $execution->workflow->accept( $visitor );
 
         file_put_contents(
           sprintf(
             '%s%s%s_%03d_%03d.dot',
 
-            $this->directory,
+            $this->options['directory'],
             DIRECTORY_SEPARATOR,
             $execution->workflow->name,
             $execution->getId(),
