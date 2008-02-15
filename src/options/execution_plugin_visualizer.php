@@ -61,7 +61,7 @@ class ezcWorkflowExecutionVisualizerPluginOptions extends ezcBaseOptions
 
                 if ( !is_dir( $propertyValue ) )
                 {
-                    throw new ezcBaseFileNotFoundException( $propertyValue );
+                    throw new ezcBaseFileNotFoundException( $propertyValue, 'directory' );
                 }
 
                 if ( !is_writable( $propertyValue ) )
