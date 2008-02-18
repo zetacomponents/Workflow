@@ -186,6 +186,26 @@ class ezcWorkflowExecutionTest extends ezcWorkflowTestCase
         $this->assertTrue( $this->execution->hasEnded() );
         $this->assertFalse( $this->execution->isResumed() );
         $this->assertFalse( $this->execution->isSuspended() );
+        $this->assertFalse( $this->execution->hasVariable( 'x' ) );
+    }
+
+    public function testExecuteStartSetUnsetEnd2()
+    {
+        $plugin = $this->getMock( 'ezcWorkflowExecutionPlugin', array( 'beforeVariableUnset' ) );
+        $plugin->expects( $this->any() )
+               ->method( 'beforeVariableUnset' )
+               ->will( $this->returnValue( false ) );
+
+        $this->setUpStartSetUnsetEnd();
+        $this->execution->workflow = $this->workflow;
+        $this->execution->addPlugin( $plugin );
+        $this->execution->start();
+
+        $this->assertFalse( $this->execution->isCancelled() );
+        $this->assertTrue( $this->execution->hasEnded() );
+        $this->assertFalse( $this->execution->isResumed() );
+        $this->assertFalse( $this->execution->isSuspended() );
+        $this->assertTrue( $this->execution->hasVariable( 'x' ) );
     }
 
     public function testExecuteIncrementingLoop()
@@ -689,6 +709,8 @@ class ezcWorkflowExecutionTest extends ezcWorkflowTestCase
     public function testListener()
     {
         $listener = $this->getMock( 'ezcWorkflowExecutionListener' );
+
+        $this->assertFalse( $this->execution->removeListener( $listener ) );
 
         $this->assertTrue( $this->execution->addListener( $listener ) );
         $this->assertFalse( $this->execution->addListener( $listener ) );
