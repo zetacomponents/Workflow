@@ -530,7 +530,9 @@ abstract class ezcWorkflowExecution
 
             if ( !$activateNode )
             {
+            // @codeCoverageIgnoreStart
                 break;
+            // @codeCoverageIgnoreEnd
             }
         }
 
@@ -557,7 +559,9 @@ abstract class ezcWorkflowExecution
         }
         else
         {
+            // @codeCoverageIgnoreStart
             return false;
+            // @codeCoverageIgnoreEnd
         }
     }
 
