@@ -66,7 +66,9 @@ class ezcWorkflowExecutionVisualizerPluginOptions extends ezcBaseOptions
 
                 if ( !is_writable( $propertyValue ) )
                 {
+                    // @codeCoverageIgnoreStart
                     throw new ezcBaseFilePermissionException( $propertyValue, ezcBaseFileException::WRITE );
+                    // @codeCoverageIgnoreEnd
                 }
                 break;
             case 'includeVariables':
