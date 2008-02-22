@@ -424,7 +424,7 @@ class ezcWorkflowExecutionTest extends ezcWorkflowTestCase
         $this->fail();
     }
 
-    public function testExclusiveChoiceWithElseSimpleMerge()
+    public function testExecuteExclusiveChoiceWithElseSimpleMerge()
     {
         $this->setUpExclusiveChoiceWithElseSimpleMerge();
         $this->execution->workflow = $this->workflow;
@@ -438,7 +438,7 @@ class ezcWorkflowExecutionTest extends ezcWorkflowTestCase
         $this->assertEquals( true, $this->execution->getVariable( 'x' ) );
     }
 
-    public function testExclusiveChoiceWithElseSimpleMerge2()
+    public function testExecuteExclusiveChoiceWithElseSimpleMerge2()
     {
         $this->setUpExclusiveChoiceWithElseSimpleMerge();
         $this->execution->workflow = $this->workflow;
@@ -452,7 +452,7 @@ class ezcWorkflowExecutionTest extends ezcWorkflowTestCase
         $this->assertEquals( true, $this->execution->getVariable( 'y' ) );
     }
 
-    public function testExclusiveChoiceWithUnconditionalOutNodeSimpleMerge()
+    public function testExecuteExclusiveChoiceWithUnconditionalOutNodeSimpleMerge()
     {
         $this->setUpExclusiveChoiceWithUnconditionalOutNodeSimpleMerge();
         $this->execution->workflow = $this->workflow;
@@ -468,7 +468,7 @@ class ezcWorkflowExecutionTest extends ezcWorkflowTestCase
         $this->assertTrue( $this->execution->getVariable( 'z' ) );
     }
 
-    public function testExclusiveChoiceWithUnconditionalOutNodeSimpleMerge2()
+    public function testExecuteExclusiveChoiceWithUnconditionalOutNodeSimpleMerge2()
     {
         $this->setUpExclusiveChoiceWithUnconditionalOutNodeSimpleMerge();
         $this->execution->workflow = $this->workflow;
@@ -555,7 +555,7 @@ class ezcWorkflowExecutionTest extends ezcWorkflowTestCase
         $this->assertFalse( $this->execution->isSuspended() );
     }
 
-    public function testNonInteractiveSubWorkflow()
+    public function testExecuteNonInteractiveSubWorkflow()
     {
         $this->setUpWorkflowWithSubWorkflow( 'StartEnd' );
         $this->execution->definitionStorage = $this->definition;
@@ -568,7 +568,7 @@ class ezcWorkflowExecutionTest extends ezcWorkflowTestCase
         $this->assertFalse( $this->execution->isSuspended() );
     }
 
-    public function testNonInteractiveSubWorkflow2()
+    public function testExecuteNonInteractiveSubWorkflow2()
     {
         $this->setUpWorkflowWithSubWorkflow( 'StartEnd' );
         $this->execution->workflow = $this->workflow;
@@ -590,7 +590,7 @@ class ezcWorkflowExecutionTest extends ezcWorkflowTestCase
         $this->fail();
     }
 
-    public function testInteractiveSubWorkflow()
+    public function testExecuteInteractiveSubWorkflow()
     {
         $this->setUpWorkflowWithSubWorkflow( 'StartInputEnd' );
         $this->execution->definitionStorage = $this->definition;
@@ -604,7 +604,7 @@ class ezcWorkflowExecutionTest extends ezcWorkflowTestCase
         $this->assertFalse( $this->execution->isSuspended() );
     }
 
-    public function testWorkflowWithCancelCaseSubWorkflow()
+    public function testExecuteWorkflowWithCancelCaseSubWorkflow()
     {
         $this->setUpWorkflowWithSubWorkflow( 'ParallelSplitActionActionCancelCaseSynchronization' );
         $this->execution->definitionStorage = $this->definition;
@@ -617,7 +617,7 @@ class ezcWorkflowExecutionTest extends ezcWorkflowTestCase
         $this->assertFalse( $this->execution->isSuspended() );
     }
 
-    public function testServiceObjectWithConstructor()
+    public function testExecuteServiceObjectWithConstructor()
     {
         $this->workflow = $this->definition->loadByName( 'ServiceObjectWithArguments' );
         $this->execution->workflow = $this->workflow;
@@ -629,7 +629,7 @@ class ezcWorkflowExecutionTest extends ezcWorkflowTestCase
         $this->assertFalse( $this->execution->isSuspended() );
     }
 
-    public function testServiceObjectThatDoesNotFinish()
+    public function testExecuteServiceObjectThatDoesNotFinish()
     {
         $this->workflow = $this->definition->loadByName( 'ServiceObjectThatDoesNotFinish' );
         $this->execution->workflow = $this->workflow;
