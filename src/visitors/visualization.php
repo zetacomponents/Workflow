@@ -18,8 +18,7 @@
  *  print $visitor;
  * </code>
  *
- * @property string $colorHighlighted Color used for highlighted nodes.
- * @property string $colorNormal      Color used for non-highlighted nodes.
+ * @property ezcWorkflowVisitorVisualizationOptions $options
  *
  * @package Workflow
  * @version //autogen//

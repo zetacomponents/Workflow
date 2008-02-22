@@ -11,6 +11,8 @@
 /**
  * Execution plugin that visualizes the execution.
  *
+ * @property ezcWorkflowExecutionVisualizerPluginOptions $options
+ *
  * @package Workflow
  * @version //autogen//
  */
