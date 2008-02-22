@@ -72,5 +72,12 @@ class ezcWorkflowNodeLoop extends ezcWorkflowNodeConditionalBranch
      * @var integer
      */
     protected $maxOutNodes = 2;
+
+    /**
+     * Whether or not to start a new thread for a branch.
+     *
+     * @var bool
+     */
+    protected $startNewThreadForBranch = false;
 }
 ?>

@@ -33,6 +33,13 @@ abstract class ezcWorkflowNodeBranch extends ezcWorkflowNode
     protected $maxOutNodes = false;
 
     /**
+     * Whether or not to start a new thread for a branch.
+     *
+     * @var bool
+     */
+    protected $startNewThreadForBranch = true;
+
+    /**
      * Activates this node's outgoing nodes.
      *
      * @param ezcWorkflowExecution $execution
@@ -47,11 +54,14 @@ abstract class ezcWorkflowNodeBranch extends ezcWorkflowNode
 
         foreach ( $nodes as $node )
         {
-            $node->activate(
-              $execution,
-              $this,
-              $execution->startThread( $threadId, $numNodesToActivate )
-            );
+            if ( $this->startNewThreadForBranch )
+            {
+                $node->activate( $execution, $this, $execution->startThread( $threadId, $numNodesToActivate ) );
+            }
+            else
+            {
+                $node->activate( $execution, $this, $threadId );
+            }
         }
 
         return parent::execute( $execution );
