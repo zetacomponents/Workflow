@@ -74,11 +74,12 @@ Control Flow
 
 The control flow semantics of the workflow model draws upon the workflow
 patterns from [BK03]. The Sequence, Parallel Split, Synchronization, Exclusive
-Choice, Simple Merge, Multi-Choice, Synchronizing Merge, and Discriminator
-workflow patterns are all directly supported by the workflow model.
+Choice, Simple Merge, Multi-Choice, Synchronizing Merge, Discriminator, and
+Cancel Case workflow patterns are all directly supported by the workflow model.
 
 Exclusive Choice and Multi-Choice nodes have branching conditions attached to
 them that operate on workflow variables to make their control flow decisions.
+A special node to conveniently express loops is also available.
 
 Action Nodes and Service Objects
 --------------------------------
@@ -227,6 +228,13 @@ ezcWorkflowNodeEnd
   Creating an object of the ezcWorkflow automatically creates a default end node
   for this new workflow. It can be accessed through the getEndNode() method.
   
+ezcWorkflowNodeCancel
+
+  As soon as a node of the ezcWorkflowNodeCancel type is activated, the complete
+  workflow instance is removed. This includes currently executing nodes, those
+  which may execute at some future time, and all parent and sub-workflows. The
+  workflow instance is recorded as having completed unsuccessfully.
+
 ezcWorkflowNodeAction
 
   An object of the ezcWorkflowNodeAction class represents an activity node. When
