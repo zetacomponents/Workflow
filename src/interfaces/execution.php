@@ -372,7 +372,6 @@ abstract class ezcWorkflowExecution
      * Cancels workflow execution with the node $endNode.
      *
      * @param ezcWorkflowNode $node
-     * @ignore
      */
     public function cancel( ezcWorkflowNode $node = null )
     {
