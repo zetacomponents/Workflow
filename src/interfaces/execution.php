@@ -374,11 +374,12 @@ abstract class ezcWorkflowExecution
      * @param ezcWorkflowNode $node
      * @ignore
      */
-    public function cancel( ezcWorkflowNode $node )
+    public function cancel( ezcWorkflowNode $node = null )
     {
         $this->activatedNodes    = array();
         $this->cancelled         = true;
         $this->numActivatedNodes = 0;
+        $this->waitingFor        = array();
 
         foreach ( $this->rollbackableServiceObjects as $object )
         {
@@ -401,7 +402,7 @@ abstract class ezcWorkflowExecution
      * @param ezcWorkflowNode $node
      * @ignore
      */
-    public function end( ezcWorkflowNode $node )
+    public function end( ezcWorkflowNode $node = null )
     {
         $this->ended     = true;
         $this->resumed   = false;
@@ -410,9 +411,12 @@ abstract class ezcWorkflowExecution
         $this->doEnd();
         $this->saveToVariableHandlers();
 
-        foreach ( $this->plugins as $plugin )
+        if ( $node !== null )
         {
-            $plugin->afterNodeExecuted( $this, $node );
+            foreach ( $this->plugins as $plugin )
+            {
+                $plugin->afterNodeExecuted( $this, $node );
+            }
         }
 
         if ( $this->cancelled )
@@ -422,7 +426,8 @@ abstract class ezcWorkflowExecution
                 $plugin->afterExecutionCancelled( $this );
             }
         }
-        else
+
+        else if ( $node !== null )
         {
             $this->endThread( $node->getThreadId() );
 
@@ -566,7 +571,8 @@ abstract class ezcWorkflowExecution
     }
 
     /**
-     * Adds a variable that an (input) node is waiting for.
+     * Adds a service object that can be rolled back
+     * when the execution is cancel()led.
      *
      * @param ezcWorkflowNodeAction                $node
      * @param ezcWorkflowRollbackableServiceObject $object
