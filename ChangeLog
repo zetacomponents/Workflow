@@ -1,7 +1,13 @@
 1.2alpha1 - [RELEASEDATE]
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-- Implemented issue #10941: Support for the Cancel Case workflow pattern.
+- Implemented issue #10941: Support for the Cancel Case workflow pattern. The
+  execution of a workflow can now be cancelled by either reaching a
+  ezcWorkflowNodeCancel node or by calling the cancel() node on an
+  ezcWorkflowExecution object. In either case, the execution is immediately
+  halted, already activated nodes will not be executed. The actions performed by
+  service objects that support this (ezcWorkflowRollbackableServiceObject) will
+  be rolled back.
 - Implemented issue #12404: Separate file i/o from XML processing in
   ezcWorkflowDefinitionStorageXml.
 - Implemented a plugin system that allows plugin developers to hook into
