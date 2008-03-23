@@ -69,14 +69,6 @@ abstract class ezcWorkflowExecution
     protected $numActivatedEndNodes = 0;
 
     /**
-     * Rollbackable service objects that have been executed
-     * in the current execution loop.
-     *
-     * @var array
-     */
-    protected $rollbackableServiceObjects = array();
-
-    /**
      * Nodes of the workflow that started a new thread of execution.
      *
      * @var array
@@ -380,16 +372,6 @@ abstract class ezcWorkflowExecution
         $this->numActivatedNodes = 0;
         $this->waitingFor        = array();
 
-        foreach ( $this->rollbackableServiceObjects as $object )
-        {
-            $result = $object['object']->rollback( $this );
-
-            foreach ( $this->plugins as $plugin )
-            {
-                $plugin->afterRolledBackServiceObject( $this, $object['node'], $object['object'], $result );
-            }
-        }
-
         $this->end( $node );
     }
 
@@ -567,21 +549,6 @@ abstract class ezcWorkflowExecution
             return false;
             // @codeCoverageIgnoreEnd
         }
-    }
-
-    /**
-     * Adds a service object that can be rolled back
-     * when the execution is cancel()led.
-     *
-     * @param ezcWorkflowNodeAction                $node
-     * @param ezcWorkflowRollbackableServiceObject $object
-     * @ignore
-     */
-    public function addRollbackableServiceObject( ezcWorkflowNodeAction $node, ezcWorkflowRollbackableServiceObject $object )
-    {
-        $this->rollbackableServiceObjects[] = array(
-          'node'   => $node, 'object' => $object
-        );
     }
 
     /**

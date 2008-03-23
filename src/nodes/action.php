@@ -107,13 +107,7 @@ class ezcWorkflowNodeAction extends ezcWorkflowNode
      */
     public function execute( ezcWorkflowExecution $execution )
     {
-        $object = $this->createObject();
-
-        if ( $object instanceof ezcWorkflowRollbackableServiceObject )
-        {
-            $execution->addRollbackableServiceObject( $this, $object );
-        }
-
+        $object   = $this->createObject();
         $finished = $object->execute( $execution );
 
         // Execution of the Service Object has finished.

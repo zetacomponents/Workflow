@@ -33,7 +33,7 @@ abstract class ezcWorkflowTestCase extends ezcTestCase
 
         if ( !class_exists( 'ServiceObject', false ) )
         {
-            $this->getMock( 'ezcWorkflowRollbackableServiceObject', array(), array(), 'ServiceObject' );
+            $this->getMock( 'ezcWorkflowServiceObject', array(), array(), 'ServiceObject' );
         }
     }
 
