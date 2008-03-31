@@ -458,31 +458,45 @@ abstract class ezcWorkflowNode implements ezcWorkflowVisitable
      */
     public function verify()
     {
+        $type = str_replace( 'ezcWorkflowNode', '', get_class( $this ) );
+
         if ( $this->minInNodes !== false && $this->numInNodes < $this->minInNodes )
         {
             throw new ezcWorkflowInvalidWorkflowException(
-              'Node has less incoming nodes than required.'
+              sprintf(
+                'Node of type "%s" has less incoming nodes than required.',
+                $type
+              )
             );
         }
 
         if ( $this->maxInNodes !== false && $this->numInNodes > $this->maxInNodes )
         {
             throw new ezcWorkflowInvalidWorkflowException(
-              'Node has more incoming nodes than allowed.'
+              sprintf(
+                'Node of type "%s" has more incoming nodes than allowed.',
+                $type
+              )
             );
         }
 
         if ( $this->minOutNodes !== false && $this->numOutNodes < $this->minOutNodes )
         {
             throw new ezcWorkflowInvalidWorkflowException(
-              'Node has less outgoing nodes than required.'
+              sprintf(
+                'Node of type "%s" has less outgoing nodes than required.',
+                $type
+              )
             );
         }
 
         if ( $this->maxOutNodes !== false && $this->numOutNodes > $this->maxOutNodes )
         {
             throw new ezcWorkflowInvalidWorkflowException(
-              'Node has more outgoing nodes than allowed.'
+              sprintf(
+                'Node of type "%s" has more outgoing nodes than allowed.',
+                $type
+              )
             );
         }
     }
