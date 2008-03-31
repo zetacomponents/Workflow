@@ -12,7 +12,7 @@
  * XML workflow definition storage handler.
  *
  * The definitions are stored inside the directory specified to the constructor with the name:
- * [workFlowName]_[workFlowVersion].xml where the name of the workflow has dots and spaces
+ * [workflowName]_[workflowVersion].xml where the name of the workflow has dots and spaces
  * replaced by '_'.
  *
  * @todo DTD for the XML file.
