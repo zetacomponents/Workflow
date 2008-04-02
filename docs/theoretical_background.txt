@@ -7,19 +7,19 @@ Introduction
 ============
 
 This document contains theoretical background information on the Workflow
-engine. It is an excerpt from Sebastian Bergmann's `diploma thesis`.
+engine. It is an excerpt from Sebastian Bergmann's `diploma thesis`__.
 
 __ http://sebastian-bergmann.de/publications/bergmann-WorkflowEngine-DiplomaThesis.pdf
 
 Workflow Patterns
 =================
 
-In Chapter 3 of his `PhD thesis`, Kiepuszewski lists *requirements for workflow
-languages through workflow patterns*.
+In Chapter 3 of his `PhD thesis`__, Kiepuszewski lists *requirements for
+workflow languages through workflow patterns*.
 
 __ http://is.tm.tue.nl/research/patterns/download/phd_bartek.pdf
 
-Much like the `software design patterns`, these workflow patterns describe
+Much like the `software design patterns`__, these workflow patterns describe
 recurring solutions to common problems. They are relevant to both the
 implementor and the user of a workflow management system. The former uses the
 workflow patterns as a common vocabulary for workflow description language
@@ -30,7 +30,7 @@ other workflow systems with regard to expressiveness and power.
 
 __ http://en.wikipedia.org/wiki/Design_Patterns
 
-In Chapter 4 of his `PhD thesis`, Kiepuszewski maps the workflow patterns that
+In Chapter 4 of his `PhD thesis`__, Kiepuszewski maps the workflow patterns that
 he identified to Petri nets to provide a formal foundation for this more
 pragmatic approach to defining workflow semantics.
 
@@ -45,7 +45,7 @@ Basic Control Flow Patterns
 The workflow patterns for basic control flow *capture elementary aspects of
 process control* and *closely match the definitions of elementary
 control flow concepts* provided by the Workflow Management Coalition in
-[`WfMC95`, `WfMC99`].
+[`WfMC95`__, `WfMC99`__].
 
 __ http://www.wfmc.org/standards/docs/tc003v11.pdf
 __ http://www.wfmc.org/standards/docs/TC-1011_term_glossary_v3.pdf
@@ -315,11 +315,11 @@ Architecture
 ------------
 
 The Workflow engine has been designed and implemented as four loosely coupled
-components. The **Workflow* component provides an object-oriented framework to
+components. The **Workflow** component provides an object-oriented framework to
 define workflows and an execution engine to execute them. The
 **WorkflowDatabaseTiein** and **WorkflowEventLogTiein** components tie the
 **Database** and **EventLog** components into the main Workflow component for
-persistence and monitoring, respectively. The **WorkflowSignalSlotTiein*
+persistence and monitoring, respectively. The **WorkflowSignalSlotTiein**
 component leverages the **SignalSlot** component for the **Workflow**
 component's plugin system.
 
@@ -338,10 +338,10 @@ architecture for the workflow engine.
    Workflow component architecture
 
 The idea that a workflow system should be comprised of loosely coupled
-components is discussed, for instance, in [`DAM01`, `DG95`, `PM99`]. Manolescu
-states that *an object-oriented workflow architecture must provide abstractions
-that enable software developers to define and enact how the work flows through
-the system* [`DAM01`].
+components is discussed, for instance, in [`DAM01`__, `DG95`__, `PM99`__].
+Manolescu states that *an object-oriented workflow architecture must provide
+abstractions that enable software developers to define and enact how the work
+flows through the system* [`DAM01`__].
 
 __ http://historical.ncstrl.org/tr/pdf/uiuc_cs/UIUCDCS-R-2000-2186.pdf
 __ http://citeseer.ist.psu.edu/georgakopoulos95overview.html
@@ -349,12 +349,12 @@ __ http://citeseer.ist.psu.edu/muth99integrating.html
 __ http://historical.ncstrl.org/tr/pdf/uiuc_cs/UIUCDCS-R-2000-2186.pdf
 
 The component-based workflow architecture Micro-Workflow *encapsulates
-workflow features in separate components". This architecture follows the
+workflow features in separate components*. This architecture follows the
 *Microkernel* pattern which *applies to software systems that must be able to
 adapt to changing system requirements. It separates a minimal functional core
 from extended functionality and customer-specific parts. The microkernel also
 serves as a socket for plugging in these extensions and coordinating their
-collaboration* [`FB96`].
+collaboration* [`FB96`__].
 
 __ http://en.wikipedia.org/wiki/Special:BookSources/0471958697
 
@@ -364,8 +364,8 @@ Workflow Virtual Machine
 This section proposes a so-called *workflow virtual machine* as the executing
 component of a component-based workflow architecture.
 
-Given the fact that *standardization efforts, e.g. XPDL [`WfMC05`] proposed by
-the WfMC, have essentially failed to gain universal acceptance* [`WA04`], the
+Given the fact that *standardization efforts, e.g. XPDL* [`WfMC05`__] *proposed by
+the WfMC, have essentially failed to gain universal acceptance* [`WA04`__], the
 *problem of developing a [workflow system] that supports
 changes in the [workflow description language]* needs to be addressed.
 
@@ -373,11 +373,11 @@ __ http://www.wfmc.org/standards/docs/TC-1025_xpdl_2_2005-09-07_xpdl_2.pdf
 __ http://www.yawlfoundation.org/documents/yawls.pdf
 
 Fernandes et. al. propose to *split the [workflow system] into two layers: (1) a
-layer implementing a *Workflow Virtual Machine*, which is responsible for most
+layer implementing a* Workflow Virtual Machine, *which is responsible for most
 of the [workflow system] activities; and (2) a layer where the different
 [workflow description languages] are handled, which is responsible for making
 the mapping between each [workflow description language] and the Workflow
-Virtual Machine* [`SF04`].
+Virtual Machine* [`SF04`__].
 
 __ http://www.esw.inesc.pt/~ars/ps/sofsem2004.pdf
 
@@ -392,7 +392,7 @@ mapped to the system's backend language.
 Graph-Oriented Programming
 --------------------------
 
-The manual of JBoss jBPM [`JBOSS`], a platform for multiple process languages
+The manual of JBoss jBPM [`JBOSS`__], a platform for multiple process languages
 supporting workflow, business process management, and process orchestration,
 introduces *Graph-Oriented Programming [as a] new implementation technique that
 serves as a basis for all graph-based process languages*.
@@ -407,7 +407,7 @@ objects represent the edges. Such an object graph can then be traversed for
 execution. These executions need to be persistable, for instance in a relational
 database, to support the wait states.
 
-The aforementioned node classes implement the `Command design pattern` and
+The aforementioned node classes implement the `Command design pattern`__ and
 encapsulate an action and its parameters.
 
 __ http://en.wikipedia.org/wiki/Command_pattern
@@ -421,7 +421,7 @@ not only responsible for executing the node's action, but also for propagating
 the execution: *a node can pass the execution that arrived in the node [to] one
 of its leaving transitions to the next node*.
 
-Like Fowler in [`MF05`], the authors of the JBoss jBPM manual acknowledge the
+Like Fowler in [`MF05`__], the authors of the JBoss jBPM manual acknowledge the
 fact that *current software development relies more and more on domain specific
 languages*. They see Graph-Oriented Programming as a means to implement domain
 specific languages *that describe how graphs can be defined and executed* on top
@@ -438,7 +438,7 @@ command objects. The workflow patterns (see above) make up the requirements for
 and can be mapped to the respective classes.
 
 One of the advantages of using a domain specific language that Fowler gives in
-[`MF05`] regards the *involvement of lay programmers: domain experts who are not
+[`MF05`__] regards the *involvement of lay programmers: domain experts who are not
 professional programmers but program in domain specific languages as part of the
 development effort*. In essence this means that a software system that provides
 a domain specific language can be customized and extended without knowledge of
