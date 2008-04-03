@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<workflow name="WorkflowWithFinalActivitiesAfterCancellation" version="1">
+  <node id="1" type="Start">
+    <outNode id="4"/>
+  </node>
+  <node id="2" type="End"/>
+  <node id="3" type="Finally">
+    <outNode id="5"/>
+  </node>
+  <node id="4" type="Cancel">
+    <outNode id="2"/>
+  </node>
+  <node id="5" type="End"/>
+</workflow>

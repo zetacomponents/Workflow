@@ -115,18 +115,18 @@ class ezcWorkflowNodeTest extends ezcWorkflowTestCase
     {
         $this->setUpStartEnd();
 
-        $inNodes = $this->endNode->getInNodes();
+        $inNodes = $this->workflow->endNode->getInNodes();
 
-        $this->assertSame( $this->startNode, $inNodes[0] );
+        $this->assertSame( $this->workflow->startNode, $inNodes[0] );
     }
 
     public function testGetOutNodes()
     {
         $this->setUpStartEnd();
 
-        $outNodes = $this->startNode->getOutNodes();
+        $outNodes = $this->workflow->startNode->getOutNodes();
 
-        $this->assertSame( $this->endNode, $outNodes[0] );
+        $this->assertSame( $this->workflow->endNode, $outNodes[0] );
     }
 
     public function testBranchGetCondition()
@@ -158,24 +158,24 @@ class ezcWorkflowNodeTest extends ezcWorkflowTestCase
     {
         $this->setUpStartEnd();
 
-        $this->assertTrue( $this->endNode->removeInNode( $this->startNode ) );
-        $this->assertFalse( $this->endNode->removeInNode( $this->startNode ) );
+        $this->assertTrue( $this->workflow->endNode->removeInNode( $this->workflow->startNode ) );
+        $this->assertFalse( $this->workflow->endNode->removeInNode( $this->workflow->startNode ) );
     }
 
     public function testRemoveOutNode()
     {
         $this->setUpStartEnd();
 
-        $this->assertTrue( $this->startNode->removeOutNode( $this->endNode ) );
-        $this->assertFalse( $this->startNode->removeOutNode( $this->endNode ) );
+        $this->assertTrue( $this->workflow->startNode->removeOutNode( $this->workflow->endNode ) );
+        $this->assertFalse( $this->workflow->startNode->removeOutNode( $this->workflow->endNode ) );
     }
 
     public function testToString()
     {
         $this->setUpEmptyWorkflow();
 
-        $this->assertEquals( 'Start', $this->startNode->__toString() );
-        $this->assertEquals( 'End', $this->endNode->__toString() );
+        $this->assertEquals( 'Start', $this->workflow->startNode->__toString() );
+        $this->assertEquals( 'End', $this->workflow->endNode->__toString() );
     }
 
     public function testStartVerifyFails()
@@ -184,7 +184,7 @@ class ezcWorkflowNodeTest extends ezcWorkflowTestCase
 
         try
         {
-            $this->startNode->verify();
+            $this->workflow->startNode->verify();
         }
         catch ( ezcWorkflowInvalidWorkflowException $e )
         {
@@ -200,7 +200,7 @@ class ezcWorkflowNodeTest extends ezcWorkflowTestCase
 
         try
         {
-            $this->endNode->verify();
+            $this->workflow->endNode->verify();
         }
         catch ( ezcWorkflowInvalidWorkflowException $e )
         {

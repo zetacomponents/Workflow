@@ -18,6 +18,20 @@
 class ezcWorkflowVisitorNodeCollector implements ezcWorkflowVisitor
 {
     /**
+     * Holds the finally node object.
+     *
+     * @var ezcWorkflowNodeFinally
+     */
+    protected $finallyNode;
+
+    /**
+     * Flag that indicates whether the finally node has been visited.
+     *
+     * @var boolean
+     */
+    protected $finallyNodeVisited = false;
+
+    /**
      * Holds the visited nodes.
      *
      * @var array(ezcWorkflowVisitable)
@@ -30,6 +44,13 @@ class ezcWorkflowVisitorNodeCollector implements ezcWorkflowVisitor
      * @var integer
      */
     protected $nextId = 1;
+
+    /**
+     * Flag that indicates whether the node list has been sorted.
+     *
+     * @var boolean
+     */
+    protected $sorted = false;
 
     /**
      * Constructs a new
@@ -52,7 +73,19 @@ class ezcWorkflowVisitorNodeCollector implements ezcWorkflowVisitor
      */
     public function visit( ezcWorkflowVisitable $visitable )
     {
-        if ( $visitable instanceof ezcWorkflowNode )
+        if ( $visitable instanceof ezcWorkflow )
+        {
+            $visitable->startNode->setId( $this->nextId++ );
+            $visitable->endNode->setId( $this->nextId++ );
+
+            if ( count( $visitable->finallyNode->getOutNodes() ) > 0 )
+            {
+                $visitable->finallyNode->setId( $this->nextId++ );
+                $this->finallyNode = $visitable->finallyNode;
+            }
+        }
+
+        else if ( $visitable instanceof ezcWorkflowNode )
         {
             $id = $visitable->getId();
 
@@ -80,6 +113,18 @@ class ezcWorkflowVisitorNodeCollector implements ezcWorkflowVisitor
      */
     public function getNodes()
     {
+        if ( $this->finallyNode !== null && !$this->finallyNodeVisited )
+        {
+            $this->finallyNode->accept( $this );
+            $this->finallyNode = true;
+        }
+
+        if ( !$this->sorted )
+        {
+            ksort($this->nodes);
+            $this->sorted = true;
+        }
+
         return $this->nodes;
     }
 }

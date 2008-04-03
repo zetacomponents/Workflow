@@ -148,6 +148,19 @@ class ezcWorkflowDefinitionStorageXml implements ezcWorkflowDefinitionStorage
             {
                 $defaultEndNode = $nodes[$id];
             }
+
+            else if ( $className == 'ezcWorkflowNodeFinally' &&
+                      !isset( $finallyNode ) )
+            {
+                $finallyNode = $nodes[$id];
+            }
+        }
+
+        if ( !isset( $startNode ) || !isset( $defaultEndNode ) )
+        {
+            throw new ezcWorkflowDefinitionStorageException(
+              'Could not load workflow definition.'
+            );
         }
 
         // Connect node objects.
@@ -202,8 +215,14 @@ class ezcWorkflowDefinitionStorageXml implements ezcWorkflowDefinitionStorage
             }
         }
 
+        if ( !isset( $finallyNode ) ||
+             count( $finallyNode->getInNodes() ) > 0 )
+        {
+            $finallyNode = null;
+        }
+
         // Create workflow object and add the node objects to it.
-        $workflow = new ezcWorkflow( $workflowName, $startNode, $defaultEndNode );
+        $workflow = new ezcWorkflow( $workflowName, $startNode, $defaultEndNode, $finallyNode );
         $workflow->definitionStorage = $this;
         $workflow->version = $workflowVersion;
 

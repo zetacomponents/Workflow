@@ -21,6 +21,7 @@ abstract class ezcWorkflowTestCase extends ezcTestCase
     protected $workflow;
     protected $startNode;
     protected $endNode;
+    protected $cancelNode;
     protected $branchNode;
 
     protected function setUp()
@@ -40,36 +41,28 @@ abstract class ezcWorkflowTestCase extends ezcTestCase
     protected function setUpEmptyWorkflow( $name = 'Empty' )
     {
         $this->workflow = new ezcWorkflow( $name );
-        $this->setUpReferences();
     }
 
     protected function setUpStartEnd()
     {
         $this->workflow = new ezcWorkflow( 'StartEnd' );
-        $this->setUpReferences();
-
-        $this->startNode->addOutNode( $this->endNode );
+        $this->workflow->startNode->addOutNode( $this->workflow->endNode );
     }
 
     protected function setUpStartEndVariableHandler()
     {
         $this->workflow = new ezcWorkflow( 'StartEndVariableHandler' );
-        $this->setUpReferences();
-
-        $this->startNode->addOutNode( $this->endNode );
-
+        $this->workflow->startNode->addOutNode( $this->workflow->endNode );
         $this->workflow->addVariableHandler( 'foo', 'ezcWorkflowTestVariableHandler' );
     }
 
     protected function setUpStartInputEnd()
     {
         $this->workflow = new ezcWorkflow( 'StartInputEnd' );
-        $this->setUpReferences();
-
         $inputNode = new ezcWorkflowNodeInput( array( 'variable' => new ezcWorkflowConditionIsString ) );
 
-        $this->startNode->addOutNode( $inputNode );
-        $this->endNode->addInNode( $inputNode );
+        $this->workflow->startNode->addOutNode( $inputNode );
+        $this->workflow->endNode->addInNode( $inputNode );
 
         $this->workflow->addVariableHandler( 'foo', 'ezcWorkflowTestVariableHandler' );
     }
@@ -77,7 +70,6 @@ abstract class ezcWorkflowTestCase extends ezcTestCase
     protected function setUpStartSetEnd()
     {
         $this->workflow = new ezcWorkflow( 'StartSetEnd' );
-        $this->setUpReferences();
 
         $set = new ezcWorkflowNodeVariableSet(
           array(
@@ -89,14 +81,13 @@ abstract class ezcWorkflowTestCase extends ezcTestCase
           )
         );
 
-        $this->startNode->addOutNode( $set );
-        $set->addOutNode( $this->endNode );
+        $this->workflow->startNode->addOutNode( $set );
+        $set->addOutNode( $this->workflow->endNode );
     }
 
     protected function setUpStartSetUnsetEnd()
     {
         $this->workflow = new ezcWorkflow( 'StartSetUnsetEnd' );
-        $this->setUpReferences();
 
         $set = new ezcWorkflowNodeVariableSet(
           array( 'x' => 1 )
@@ -104,9 +95,9 @@ abstract class ezcWorkflowTestCase extends ezcTestCase
 
         $unset = new ezcWorkflowNodeVariableUnset( 'x' );
 
-        $this->startNode->addOutNode( $set );
+        $this->workflow->startNode->addOutNode( $set );
         $set->addOutNode( $unset );
-        $unset->addOutNode( $this->endNode );
+        $unset->addOutNode( $this->workflow->endNode );
     }
 
     protected function setUpLoop( $direction )
@@ -130,25 +121,22 @@ abstract class ezcWorkflowTestCase extends ezcTestCase
             $continue = new ezcWorkflowConditionVariable( 'i', new ezcWorkflowConditionIsGreaterThan( 1 ) );
         }
 
-        $this->setUpReferences();
-
         $set = new ezcWorkflowNodeVariableSet(
           array( 'i' => $start )
         );
 
-        $this->startNode->addOutNode( $set );
+        $this->workflow->startNode->addOutNode( $set );
 
         $loop = new ezcWorkflowNodeLoop;
         $loop->addInNode( $set )
              ->addInNode( $step )
              ->addConditionalOutNode( $continue, $step )
-             ->addConditionalOutNode( $break, $this->endNode );
+             ->addConditionalOutNode( $break, $this->workflow->endNode );
     }
 
     protected function setUpSetAddSubMulDiv()
     {
         $this->workflow = new ezcWorkflow( 'SetAddSubMulDiv' );
-        $this->setUpReferences();
 
         $set = new ezcWorkflowNodeVariableSet(
           array( 'x' => 1 )
@@ -170,18 +158,17 @@ abstract class ezcWorkflowTestCase extends ezcTestCase
           array( 'name' => 'x', 'operand' => 2 )
         );
 
-        $this->startNode->addOutNode( $set );
+        $this->workflow->startNode->addOutNode( $set );
         $set->addOutNode( $add );
         $add->addOutNode( $sub );
         $sub->addOutNode( $mul );
         $mul->addOutNode( $div );
-        $this->endNode->addInNode( $div );
+        $this->workflow->endNode->addInNode( $div );
     }
 
     protected function setUpAddVariables()
     {
         $this->workflow = new ezcWorkflow( 'AddVariables' );
-        $this->setUpReferences();
 
         $set = new ezcWorkflowNodeVariableSet(
           array( 'a' => 1, 'b' => 1 )
@@ -191,15 +178,14 @@ abstract class ezcWorkflowTestCase extends ezcTestCase
           array( 'name' => 'b', 'operand' => 'a' )
         );
 
-        $this->startNode->addOutNode( $set );
+        $this->workflow->startNode->addOutNode( $set );
         $set->addOutNode( $add );
-        $this->endNode->addInNode( $add );
+        $this->workflow->endNode->addInNode( $add );
     }
 
     protected function setUpAddVariables2()
     {
         $this->workflow = new ezcWorkflow( 'AddVariables2' );
-        $this->setUpReferences();
 
         $set = new ezcWorkflowNodeVariableSet(
           array( 'a' => 'a', 'b' => 1 )
@@ -209,15 +195,14 @@ abstract class ezcWorkflowTestCase extends ezcTestCase
           array( 'name' => 'b', 'operand' => 'a' )
         );
 
-        $this->startNode->addOutNode( $set );
+        $this->workflow->startNode->addOutNode( $set );
         $set->addOutNode( $add );
-        $this->endNode->addInNode( $add );
+        $this->workflow->endNode->addInNode( $add );
     }
 
     protected function setUpAddVariables3()
     {
         $this->workflow = new ezcWorkflow( 'AddVariables3' );
-        $this->setUpReferences();
 
         $set = new ezcWorkflowNodeVariableSet(
           array( 'a' => 1, 'b' => 'b' )
@@ -227,15 +212,14 @@ abstract class ezcWorkflowTestCase extends ezcTestCase
           array( 'name' => 'b', 'operand' => 'a' )
         );
 
-        $this->startNode->addOutNode( $set );
+        $this->workflow->startNode->addOutNode( $set );
         $set->addOutNode( $add );
-        $this->endNode->addInNode( $add );
+        $this->workflow->endNode->addInNode( $add );
     }
 
     protected function setUpVariableEqualsVariable()
     {
         $this->workflow = new ezcWorkflow( 'VariableEqualsVariable' );
-        $this->setUpReferences();
 
         $set = new ezcWorkflowNodeVariableSet(
           array( 'a' => 1, 'b' => 1 )
@@ -271,15 +255,13 @@ abstract class ezcWorkflowTestCase extends ezcTestCase
         $simpleMerge->addInNode( $set2 )
                     ->addInNode( $set3 );
 
-        $this->startNode->addOutNode( $set );
-        $this->endNode->addInNode( $simpleMerge );
+        $this->workflow->startNode->addOutNode( $set );
+        $this->workflow->endNode->addInNode( $simpleMerge );
     }
 
     protected function setUpParallelSplitSynchronization()
     {
-        $this->workflow = new ezcWorkflow( 'ParallelSplitSynchronization' );
-        $this->setUpReferences();
-
+        $this->workflow   = new ezcWorkflow( 'ParallelSplitSynchronization' );
         $this->branchNode = new ezcWorkflowNodeParallelSplit;
 
         $actionNodeA = new ezcWorkflowNodeAction( 'ServiceObject' );
@@ -296,15 +278,13 @@ abstract class ezcWorkflowTestCase extends ezcTestCase
         $synchronization->addInNode( $actionNodeB );
         $synchronization->addInNode( $actionNodeC );
 
-        $this->startNode->addOutNode( $this->branchNode );
-        $this->endNode->addInNode( $synchronization );
+        $this->workflow->startNode->addOutNode( $this->branchNode );
+        $this->workflow->endNode->addInNode( $synchronization );
     }
 
     protected function setUpParallelSplitSynchronization2()
     {
-        $this->workflow = new ezcWorkflow( 'ParallelSplitSynchronization2' );
-        $this->setUpReferences();
-
+        $this->workflow   = new ezcWorkflow( 'ParallelSplitSynchronization2' );
         $this->branchNode = new ezcWorkflowNodeParallelSplit;
 
         $foo = new ezcWorkflowNodeInput( array( 'foo' => new ezcWorkflowConditionIsString ) );
@@ -318,14 +298,13 @@ abstract class ezcWorkflowTestCase extends ezcTestCase
         $synchronization->addInNode( $foo );
         $synchronization->addInNode( $bar );
 
-        $this->startNode->addOutNode( $this->branchNode );
-        $this->endNode->addInNode( $synchronization );
+        $this->workflow->startNode->addOutNode( $this->branchNode );
+        $this->workflow->endNode->addInNode( $synchronization );
     }
 
     protected function setUpParallelSplitInvalidSynchronization()
     {
         $this->workflow = new ezcWorkflow( 'ParallelSplitInvalidSynchronization' );
-        $this->setUpReferences();
 
         $branchA = new ezcWorkflowNodeParallelSplit;
         $branchB = new ezcWorkflowNodeParallelSplit;
@@ -342,15 +321,13 @@ abstract class ezcWorkflowTestCase extends ezcTestCase
         $branchC->addOutNode( $synchronization )
                 ->addOutNode( new ezcWorkflowNodeEnd );
 
-        $this->startNode->addOutNode( $branchA );
-        $this->endNode->addInNode( $synchronization );
+        $this->workflow->startNode->addOutNode( $branchA );
+        $this->workflow->endNode->addInNode( $synchronization );
     }
 
     protected function setUpExclusiveChoiceSimpleMerge( $a = 'ezcWorkflowConditionIsTrue', $b = 'ezcWorkflowConditionIsFalse' )
     {
-        $this->workflow = new ezcWorkflow( 'ExclusiveChoiceSimpleMerge' );
-        $this->setUpReferences();
-
+        $this->workflow   = new ezcWorkflow( 'ExclusiveChoiceSimpleMerge' );
         $this->branchNode = new ezcWorkflowNodeExclusiveChoice;
 
         $actionNodeA = new ezcWorkflowNodeAction( 'ServiceObject' );
@@ -377,15 +354,13 @@ abstract class ezcWorkflowTestCase extends ezcTestCase
         $simpleMerge->addInNode( $actionNodeA );
         $simpleMerge->addInNode( $actionNodeB );
 
-        $this->startNode->addOutNode( $this->branchNode );
-        $this->endNode->addInNode( $simpleMerge );
+        $this->workflow->startNode->addOutNode( $this->branchNode );
+        $this->workflow->endNode->addInNode( $simpleMerge );
     }
 
     protected function setUpExclusiveChoiceWithElseSimpleMerge()
     {
-        $this->workflow = new ezcWorkflow( 'ExclusiveChoiceWithElseSimpleMerge' );
-        $this->setUpReferences();
-
+        $this->workflow   = new ezcWorkflow( 'ExclusiveChoiceWithElseSimpleMerge' );
         $this->branchNode = new ezcWorkflowNodeExclusiveChoice;
 
         $setX = new ezcWorkflowNodeVariableSet(
@@ -410,14 +385,13 @@ abstract class ezcWorkflowTestCase extends ezcTestCase
         $simpleMerge->addInNode( $setX );
         $simpleMerge->addInNode( $setY );
 
-        $this->startNode->addOutNode( $this->branchNode );
-        $this->endNode->addInNode( $simpleMerge );
+        $this->workflow->startNode->addOutNode( $this->branchNode );
+        $this->workflow->endNode->addInNode( $simpleMerge );
     }
 
     protected function setUpExclusiveChoiceWithUnconditionalOutNodeSimpleMerge()
     {
         $this->workflow = new ezcWorkflow( 'ExclusiveChoiceWithUnconditionalOutNodeSimpleMerge' );
-        $this->setUpReferences();
 
         $setX = new ezcWorkflowNodeVariableSet(
           array( 'x' => true )
@@ -457,14 +431,13 @@ abstract class ezcWorkflowTestCase extends ezcTestCase
                     ->addInNode( $setY )
                     ->addInNode( $setZ );
 
-        $this->startNode->addOutNode( $this->branchNode );
-        $this->endNode->addInNode( $simpleMerge );
+        $this->workflow->startNode->addOutNode( $this->branchNode );
+        $this->workflow->endNode->addInNode( $simpleMerge );
     }
 
     protected function setUpNestedExclusiveChoiceSimpleMerge($x = true, $y = true)
     {
         $this->workflow = new ezcWorkflow( 'NestedExclusiveChoiceSimpleMerge' );
-        $this->setUpReferences();
 
         $setX = new ezcWorkflowNodeVariableSet(
           array( 'x' => $x )
@@ -486,7 +459,7 @@ abstract class ezcWorkflowTestCase extends ezcTestCase
           array( 'z' => false )
         );
 
-        $this->startNode->addOutNode( $setX );
+        $this->workflow->startNode->addOutNode( $setX );
 
         $branch1 = new ezcWorkflowNodeExclusiveChoice;
         $branch1->addInNode( $setX );
@@ -533,13 +506,12 @@ abstract class ezcWorkflowTestCase extends ezcTestCase
         $merge = new ezcWorkflowNodeSimpleMerge;
         $merge->addInNode( $nestedMerge )
               ->addInNode( $setZ3 )
-              ->addOutNode( $this->endNode );
+              ->addOutNode( $this->workflow->endNode );
     }
 
     protected function setUpMultiChoice( $mergeType )
     {
         $this->workflow = new ezcWorkflow( 'MultiChoice' . $mergeType );
-        $this->setUpReferences();
 
         $set = new ezcWorkflowNodeVariableSet(
           array(
@@ -615,28 +587,24 @@ abstract class ezcWorkflowTestCase extends ezcTestCase
         $merge->addInNode( $actionNodeB );
         $merge->addInNode( $actionNodeC );
 
-        $this->startNode->addOutNode( $set );
+        $this->workflow->startNode->addOutNode( $set );
         $set->addOutNode( $multiChoice );
-        $this->endNode->addInNode( $merge );
+        $this->workflow->endNode->addInNode( $merge );
     }
 
     protected function setUpWorkflowWithSubWorkflow( $subWorkflow )
     {
         $this->workflow = new ezcWorkflow( 'WorkflowWithSubWorkflow' . $subWorkflow );
-        $this->setUpReferences();
+        $subWorkflow    = new ezcWorkflowNodeSubWorkflow( $subWorkflow );
 
-        $subWorkflow = new ezcWorkflowNodeSubWorkflow( $subWorkflow );
-
-        $this->startNode->addOutNode( $subWorkflow );
-        $this->endNode->addInNode( $subWorkflow );
+        $this->workflow->startNode->addOutNode( $subWorkflow );
+        $this->workflow->endNode->addInNode( $subWorkflow );
     }
 
     protected function setUpWorkflowWithSubWorkflowAndVariablePassing()
     {
         $this->workflow = new ezcWorkflow( 'WorkflowWithSubWorkflowAndVariablePassing' );
-        $this->setUpReferences();
-
-        $set = new ezcWorkflowNodeVariableSet( array( 'x' => 1 ) );
+        $set            = new ezcWorkflowNodeVariableSet( array( 'x' => 1 ) );
 
         $subWorkflow = new ezcWorkflowNodeSubWorkflow(
           array(
@@ -654,14 +622,13 @@ abstract class ezcWorkflowTestCase extends ezcTestCase
 
         $subWorkflow->addInNode( $set );
 
-        $this->startNode->addOutNode( $set );
-        $this->endNode->addInNode( $subWorkflow );
+        $this->workflow->startNode->addOutNode( $set );
+        $this->workflow->endNode->addInNode( $subWorkflow );
     }
 
     protected function setUpNestedLoops()
     {
         $this->workflow = new ezcWorkflow( 'NestedLoops' );
-        $this->setUpReferences();
 
         $innerSet      = new ezcWorkflowNodeVariableSet( array( 'j' => 1 ) );
         $innerStep     = new ezcWorkflowNodeVariableIncrement( 'j' );
@@ -677,7 +644,7 @@ abstract class ezcWorkflowTestCase extends ezcTestCase
         $outerBreak    = new ezcWorkflowConditionVariable( 'i', new ezcWorkflowConditionIsEqual( 2 ) );
         $outerContinue = new ezcWorkflowConditionVariable( 'i', new ezcWorkflowConditionIsLessThan( 2 ) );
 
-        $this->startNode->addOutNode( $outerSet );
+        $this->workflow->startNode->addOutNode( $outerSet );
 
         $outerLoop = new ezcWorkflowNodeLoop;
         $outerLoop->addInNode( $outerSet )
@@ -687,7 +654,7 @@ abstract class ezcWorkflowTestCase extends ezcTestCase
                   ->addConditionalOutNode( $innerBreak, $outerStep );
 
         $outerLoop->addConditionalOutNode( $outerContinue, $innerSet )
-                  ->addConditionalOutNode( $outerBreak, $this->endNode );
+                  ->addConditionalOutNode( $outerBreak, $this->workflow->endNode );
     }
 
     protected function setUpCancelCase( $order )
@@ -702,7 +669,6 @@ abstract class ezcWorkflowTestCase extends ezcTestCase
         }
 
         $this->workflow = new ezcWorkflow( $workflowName );
-        $this->setUpReferences();
 
         $this->branchNode = new ezcWorkflowNodeParallelSplit;
         $cancelNode       = new ezcWorkflowNodeCancel;
@@ -732,15 +698,19 @@ abstract class ezcWorkflowTestCase extends ezcTestCase
             $synchronization->addInNode( $cancelNode );
         }
 
-        $this->startNode->addOutNode( $actionNodeA );
+        $this->workflow->startNode->addOutNode( $actionNodeA );
         $actionNodeA->addOutNode( $this->branchNode );
-        $this->endNode->addInNode( $synchronization );
+        $this->workflow->endNode->addInNode( $synchronization );
     }
 
-    protected function setUpReferences()
+    protected function setUpWorkflowWithFinalActivitiesAfterCancellation()
     {
-        $this->startNode = $this->workflow->startNode;
-        $this->endNode = $this->workflow->endNode;
+        $this->workflow = new ezcWorkflow( 'WorkflowWithFinalActivitiesAfterCancellation' );
+        $cancelNode     = new ezcWorkflowNodeCancel;
+
+        $this->workflow->startNode->addOutNode( $cancelNode );
+        $this->workflow->endNode->addInNode( $cancelNode );
+        $this->workflow->finallyNode->addOutNode( new ezcWorkflowNodeEnd );
     }
 }
 ?>

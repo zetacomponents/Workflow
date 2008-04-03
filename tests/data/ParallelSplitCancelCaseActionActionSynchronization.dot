@@ -1,20 +1,20 @@
 digraph ParallelSplitCancelCaseActionActionSynchronization {
 node1 [label="Start", color="#2e3436"]
-node2 [label="", color="#2e3436"]
-node3 [label="Parallel Split", color="#2e3436"]
-node4 [label="Cancel", color="#2e3436"]
-node5 [label="Synchronization", color="#2e3436"]
-node6 [label="End", color="#2e3436"]
+node3 [label="", color="#2e3436"]
+node4 [label="Parallel Split", color="#2e3436"]
+node5 [label="Cancel", color="#2e3436"]
+node6 [label="Synchronization", color="#2e3436"]
+node2 [label="End", color="#2e3436"]
 node7 [label="", color="#2e3436"]
 node8 [label="", color="#2e3436"]
 
-node1 -> node2
-node2 -> node3
+node1 -> node3
 node3 -> node4
-node3 -> node7
-node3 -> node8
 node4 -> node5
+node4 -> node7
+node4 -> node8
 node5 -> node6
-node7 -> node5
-node8 -> node5
+node6 -> node2
+node7 -> node6
+node8 -> node6
 }

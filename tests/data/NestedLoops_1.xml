@@ -1,45 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <workflow name="NestedLoops" version="1">
   <node id="1" type="Start">
-    <outNode id="2"/>
+    <outNode id="3"/>
   </node>
-  <node id="2" type="VariableSet">
+  <node id="2" type="End"/>
+  <node id="3" type="VariableSet">
     <variable name="i">
       <integer>1</integer>
     </variable>
-    <outNode id="3"/>
+    <outNode id="4"/>
   </node>
-  <node id="3" type="Loop">
+  <node id="4" type="Loop">
     <condition type="Variable" name="i">
       <condition type="IsLessThan" value="2"/>
-      <outNode id="4"/>
+      <outNode id="5"/>
     </condition>
     <condition type="Variable" name="i">
+      <condition type="IsEqual" value="2"/>
+      <outNode id="2"/>
+    </condition>
+  </node>
+  <node id="5" type="VariableSet">
+    <variable name="j">
+      <integer>1</integer>
+    </variable>
+    <outNode id="6"/>
+  </node>
+  <node id="6" type="Loop">
+    <condition type="Variable" name="j">
+      <condition type="IsLessThan" value="2"/>
+      <outNode id="7"/>
+    </condition>
+    <condition type="Variable" name="j">
       <condition type="IsEqual" value="2"/>
       <outNode id="8"/>
     </condition>
   </node>
-  <node id="4" type="VariableSet">
-    <variable name="j">
-      <integer>1</integer>
-    </variable>
-    <outNode id="5"/>
+  <node id="7" type="VariableIncrement" variable="j">
+    <outNode id="6"/>
   </node>
-  <node id="5" type="Loop">
-    <condition type="Variable" name="j">
-      <condition type="IsLessThan" value="2"/>
-      <outNode id="6"/>
-    </condition>
-    <condition type="Variable" name="j">
-      <condition type="IsEqual" value="2"/>
-      <outNode id="7"/>
-    </condition>
+  <node id="8" type="VariableIncrement" variable="i">
+    <outNode id="4"/>
   </node>
-  <node id="6" type="VariableIncrement" variable="j">
-    <outNode id="5"/>
-  </node>
-  <node id="7" type="VariableIncrement" variable="i">
-    <outNode id="3"/>
-  </node>
-  <node id="8" type="End"/>
 </workflow>

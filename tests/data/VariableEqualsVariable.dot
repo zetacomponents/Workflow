@@ -1,17 +1,17 @@
 digraph VariableEqualsVariable {
 node1 [label="Start", color="#2e3436"]
-node2 [label="a = 1, b = 1", color="#2e3436"]
-node3 [label="Exclusive Choice", color="#2e3436"]
-node4 [label="c = 1", color="#2e3436"]
-node5 [label="Simple Merge", color="#2e3436"]
-node6 [label="End", color="#2e3436"]
+node3 [label="a = 1, b = 1", color="#2e3436"]
+node4 [label="Exclusive Choice", color="#2e3436"]
+node5 [label="c = 1", color="#2e3436"]
+node6 [label="Simple Merge", color="#2e3436"]
+node2 [label="End", color="#2e3436"]
 node7 [label="c = 0", color="#2e3436"]
 
-node1 -> node2
-node2 -> node3
-node3 -> node4 [label="a == b"]
-node3 -> node7 [label="a != b"]
-node4 -> node5
+node1 -> node3
+node3 -> node4
+node4 -> node5 [label="a == b"]
+node4 -> node7 [label="a != b"]
 node5 -> node6
-node7 -> node5
+node6 -> node2
+node7 -> node6
 }

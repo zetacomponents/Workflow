@@ -25,6 +25,9 @@
  *           whenever you want a new version.
  * @property-read ezcWorkflowNodeStart   $startNode The unique start node of the workflow.
  * @property-read ezcWorkflowNodeEnd     $endNode The default end node of the workflow.
+ * @property-read ezcWorkflowNodeFinally $finallyNode The start of a node
+ *                                       sequence that is executed when a
+ *                                       workflow execution is cancelled.
  * @property-read array(ezcWorkflowNode) $nodes All the nodes of this workflow.
  *
  * @package Workflow
@@ -44,6 +47,7 @@ class ezcWorkflow implements ezcWorkflowVisitable
       'name'              => '',
       'startNode'         => null,
       'endNode'           => null,
+      'finallyNode'       => null,
       'version'           => false
     );
 
@@ -62,11 +66,14 @@ class ezcWorkflow implements ezcWorkflowVisitable
      *
      * $name must uniquely identify the workflow within the system.
      *
-     * @param string               $name      The name of the workflow.
-     * @param ezcWorkflowNodeStart $startNode The start node of the workflow.
-     * @param ezcWorkflowNodeEnd   $endNode   The default end node of the workflow.
+     * @param string                 $name        The name of the workflow.
+     * @param ezcWorkflowNodeStart   $startNode   The start node of the workflow.
+     * @param ezcWorkflowNodeEnd     $endNode     The default end node of the workflow.
+     * @param ezcWorkflowNodeFinally $finallyNode The start of a node sequence
+     *                                            that is executed when a workflow
+     *                                            execution is cancelled.
      */
-    public function __construct( $name, ezcWorkflowNodeStart $startNode = null, ezcWorkflowNodeEnd $endNode = null )
+    public function __construct( $name, ezcWorkflowNodeStart $startNode = null, ezcWorkflowNodeEnd $endNode = null, ezcWorkflowNodeFinally $finallyNode = null )
     {
         $this->name = $name;
 
@@ -89,6 +96,16 @@ class ezcWorkflow implements ezcWorkflowVisitable
         {
             $this->properties['endNode'] = $endNode;
         }
+
+        // Create a new ezcWorkflowNodeFinally object, if necessary.
+        if ( $finallyNode === null )
+        {
+            $this->properties['finallyNode'] = new ezcWorkflowNodeFinally;
+        }
+        else
+        {
+            $this->properties['finallyNode'] = $finallyNode;
+        }
     }
 
     /**
@@ -110,6 +127,7 @@ class ezcWorkflow implements ezcWorkflowVisitable
             case 'name':
             case 'startNode':
             case 'endNode':
+            case 'finallyNode':
             case 'version':
                 return $this->properties[$propertyName];
 
@@ -139,6 +157,8 @@ class ezcWorkflow implements ezcWorkflowVisitable
      *         If there is a write access to startNode.
      * @throws ezcBasePropertyPermissionException 
      *         If there is a write access to endNode.
+     * @throws ezcBasePropertyPermissionException 
+     *         If there is a write access to finallyNode.
      * @throws ezcBasePropertyPermissionException 
      *         If there is a write access to nodes.
      * @throws ezcBaseValueException 
@@ -181,6 +201,7 @@ class ezcWorkflow implements ezcWorkflowVisitable
 
             case 'startNode':
             case 'endNode':
+            case 'finallyNode':
             case 'nodes':
                 throw new ezcBasePropertyPermissionException(
                   $propertyName, ezcBasePropertyPermissionException::READ
@@ -216,6 +237,7 @@ class ezcWorkflow implements ezcWorkflowVisitable
             case 'name':
             case 'startNode':
             case 'endNode':
+            case 'finallyNode':
             case 'nodes':
             case 'version':
                 return true;

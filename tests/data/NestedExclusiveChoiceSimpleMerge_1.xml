@@ -1,63 +1,63 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <workflow name="NestedExclusiveChoiceSimpleMerge" version="1">
   <node id="1" type="Start">
-    <outNode id="2"/>
+    <outNode id="3"/>
   </node>
-  <node id="2" type="VariableSet">
+  <node id="2" type="End"/>
+  <node id="3" type="VariableSet">
     <variable name="x">
       <boolean>true</boolean>
     </variable>
-    <outNode id="3"/>
+    <outNode id="4"/>
   </node>
-  <node id="3" type="ExclusiveChoice">
+  <node id="4" type="ExclusiveChoice">
     <condition type="Variable" name="x">
       <condition type="IsTrue"/>
-      <outNode id="4"/>
+      <outNode id="5"/>
     </condition>
     <condition type="Variable" name="x">
       <condition type="IsFalse"/>
       <outNode id="11"/>
     </condition>
   </node>
-  <node id="4" type="VariableSet">
+  <node id="5" type="VariableSet">
     <variable name="y">
       <boolean>true</boolean>
     </variable>
-    <outNode id="5"/>
+    <outNode id="6"/>
   </node>
-  <node id="5" type="ExclusiveChoice">
+  <node id="6" type="ExclusiveChoice">
     <condition type="Variable" name="y">
       <condition type="IsTrue"/>
-      <outNode id="6"/>
+      <outNode id="7"/>
     </condition>
     <condition type="Variable" name="y">
       <condition type="IsFalse"/>
       <outNode id="10"/>
     </condition>
   </node>
-  <node id="6" type="VariableSet">
+  <node id="7" type="VariableSet">
     <variable name="z">
       <boolean>true</boolean>
     </variable>
-    <outNode id="7"/>
-  </node>
-  <node id="7" type="SimpleMerge">
     <outNode id="8"/>
   </node>
   <node id="8" type="SimpleMerge">
     <outNode id="9"/>
   </node>
-  <node id="9" type="End"/>
+  <node id="9" type="SimpleMerge">
+    <outNode id="2"/>
+  </node>
   <node id="10" type="VariableSet">
     <variable name="z">
       <boolean>false</boolean>
     </variable>
-    <outNode id="7"/>
+    <outNode id="8"/>
   </node>
   <node id="11" type="VariableSet">
     <variable name="z">
       <boolean>false</boolean>
     </variable>
-    <outNode id="8"/>
+    <outNode id="9"/>
   </node>
 </workflow>

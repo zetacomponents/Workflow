@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <workflow name="MultiChoiceDiscriminator" version="1">
   <node id="1" type="Start">
-    <outNode id="2"/>
+    <outNode id="3"/>
   </node>
-  <node id="2" type="VariableSet">
+  <node id="2" type="End"/>
+  <node id="3" type="VariableSet">
     <variable name="x">
       <integer>1</integer>
     </variable>
     <variable name="y">
       <integer>2</integer>
     </variable>
-    <outNode id="3"/>
+    <outNode id="4"/>
   </node>
-  <node id="3" type="MultiChoice">
+  <node id="4" type="MultiChoice">
     <condition type="And">
       <condition type="Variable" name="x">
         <condition type="IsEqual" value="1"/>
@@ -22,7 +23,7 @@
           <condition type="IsEqual" value="3"/>
         </condition>
       </condition>
-      <outNode id="4"/>
+      <outNode id="5"/>
     </condition>
     <condition type="Or">
       <condition type="Variable" name="x">
@@ -43,17 +44,16 @@
       <outNode id="8"/>
     </condition>
   </node>
-  <node id="4" type="Action" serviceObjectClass="ServiceObject">
-    <outNode id="5"/>
-  </node>
-  <node id="5" type="Discriminator">
+  <node id="5" type="Action" serviceObjectClass="ServiceObject">
     <outNode id="6"/>
   </node>
-  <node id="6" type="End"/>
+  <node id="6" type="Discriminator">
+    <outNode id="2"/>
+  </node>
   <node id="7" type="Action" serviceObjectClass="ServiceObject">
-    <outNode id="5"/>
+    <outNode id="6"/>
   </node>
   <node id="8" type="Action" serviceObjectClass="ServiceObject">
-    <outNode id="5"/>
+    <outNode id="6"/>
   </node>
 </workflow>

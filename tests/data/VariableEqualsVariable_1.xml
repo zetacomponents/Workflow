@@ -1,41 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <workflow name="VariableEqualsVariable" version="1">
   <node id="1" type="Start">
-    <outNode id="2"/>
+    <outNode id="3"/>
   </node>
-  <node id="2" type="VariableSet">
+  <node id="2" type="End"/>
+  <node id="3" type="VariableSet">
     <variable name="a">
       <integer>1</integer>
     </variable>
     <variable name="b">
       <integer>1</integer>
     </variable>
-    <outNode id="3"/>
+    <outNode id="4"/>
   </node>
-  <node id="3" type="ExclusiveChoice">
+  <node id="4" type="ExclusiveChoice">
     <condition type="Variables" a="a" b="b">
       <condition type="IsEqual" value=""/>
-      <outNode id="4"/>
+      <outNode id="5"/>
     </condition>
     <condition type="Variables" a="a" b="b">
       <condition type="IsNotEqual" value=""/>
       <outNode id="7"/>
     </condition>
   </node>
-  <node id="4" type="VariableSet">
+  <node id="5" type="VariableSet">
     <variable name="c">
       <integer>1</integer>
     </variable>
-    <outNode id="5"/>
-  </node>
-  <node id="5" type="SimpleMerge">
     <outNode id="6"/>
   </node>
-  <node id="6" type="End"/>
+  <node id="6" type="SimpleMerge">
+    <outNode id="2"/>
+  </node>
   <node id="7" type="VariableSet">
     <variable name="c">
       <integer>0</integer>
     </variable>
-    <outNode id="5"/>
+    <outNode id="6"/>
   </node>
 </workflow>

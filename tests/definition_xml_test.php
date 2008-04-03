@@ -264,8 +264,8 @@ class ezcWorkflowDefinitionStorageXmlTest extends ezcWorkflowTestCase
           )
         );
 
-        $this->startNode->addOutNode( $action );
-        $this->endNode->addInNode( $action );
+        $this->workflow->startNode->addOutNode( $action );
+        $this->workflow->endNode->addInNode( $action );
         $this->definition->save( $this->workflow );
 
         $this->assertEquals(
@@ -304,6 +304,17 @@ class ezcWorkflowDefinitionStorageXmlTest extends ezcWorkflowTestCase
         $this->assertEquals(
           $this->readExpected( 'ParallelSplitActionActionCancelCaseSynchronization' ),
           $this->readActual( 'ParallelSplitActionActionCancelCaseSynchronization' )
+        );
+    }
+
+    public function testSaveWorkflowWithFinalActivitiesAfterCancellation()
+    {
+        $this->setUpWorkflowWithFinalActivitiesAfterCancellation();
+        $this->definition->save( $this->workflow );
+
+        $this->assertEquals(
+          $this->readExpected( 'WorkflowWithFinalActivitiesAfterCancellation' ),
+          $this->readActual( 'WorkflowWithFinalActivitiesAfterCancellation' )
         );
     }
 
@@ -578,6 +589,17 @@ class ezcWorkflowDefinitionStorageXmlTest extends ezcWorkflowTestCase
         $this->assertEquals(
           $this->readExpected( 'ParallelSplitActionActionCancelCaseSynchronization' ),
           $this->readActual( 'ParallelSplitActionActionCancelCaseSynchronization' )
+        );
+    }
+
+    public function testLoadWorkflowWithFinalActivitiesAfterCancellation()
+    {
+        $this->workflow = $this->definition->loadByName( 'WorkflowWithFinalActivitiesAfterCancellation' );
+        $this->definition->save( $this->workflow );
+
+        $this->assertEquals(
+          $this->readExpected( 'WorkflowWithFinalActivitiesAfterCancellation' ),
+          $this->readActual( 'WorkflowWithFinalActivitiesAfterCancellation' )
         );
     }
 

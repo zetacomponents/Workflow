@@ -612,7 +612,7 @@ class ezcWorkflowExecutionTest extends ezcWorkflowTestCase
         $this->execution->start();
 
         $this->assertTrue( $this->execution->isCancelled() );
-        $this->assertTrue( $this->execution->hasEnded() );
+        $this->assertFalse( $this->execution->hasEnded() );
         $this->assertFalse( $this->execution->isResumed() );
         $this->assertFalse( $this->execution->isSuspended() );
     }
@@ -689,7 +689,7 @@ class ezcWorkflowExecutionTest extends ezcWorkflowTestCase
         $this->execution->start();
 
         $this->assertTrue( $this->execution->isCancelled() );
-        $this->assertTrue( $this->execution->hasEnded() );
+        $this->assertFalse( $this->execution->hasEnded() );
         $this->assertFalse( $this->execution->isResumed() );
         $this->assertFalse( $this->execution->isSuspended() );
     }
@@ -701,7 +701,19 @@ class ezcWorkflowExecutionTest extends ezcWorkflowTestCase
         $this->execution->start();
 
         $this->assertTrue( $this->execution->isCancelled() );
-        $this->assertTrue( $this->execution->hasEnded() );
+        $this->assertFalse( $this->execution->hasEnded() );
+        $this->assertFalse( $this->execution->isResumed() );
+        $this->assertFalse( $this->execution->isSuspended() );
+    }
+
+    public function testExecuteWorkflowWithFinalActivitiesAfterCancellation()
+    {
+        $this->setUpWorkflowWithFinalActivitiesAfterCancellation();
+        $this->execution->workflow = $this->workflow;
+        $this->execution->start();
+
+        $this->assertTrue( $this->execution->isCancelled() );
+        $this->assertFalse( $this->execution->hasEnded() );
         $this->assertFalse( $this->execution->isResumed() );
         $this->assertFalse( $this->execution->isSuspended() );
     }
@@ -766,8 +778,8 @@ class ezcWorkflowExecutionTest extends ezcWorkflowTestCase
 
         $input = new ezcWorkflowNodeInput( array( 'choice' => new ezcWorkflowConditionIsBool ) );
 
-        $this->startNode->addOutNode( $input );
-        $this->endNode->addInNode( $input );
+        $this->workflow->startNode->addOutNode( $input );
+        $this->workflow->endNode->addInNode( $input );
 
         try
         {

@@ -367,10 +367,23 @@ abstract class ezcWorkflowExecution
      */
     public function cancel( ezcWorkflowNode $node = null )
     {
-        $this->activatedNodes    = array();
+        if ( $node !== null )
+        {
+            foreach ( $this->plugins as $plugin )
+            {
+                $plugin->afterNodeExecuted( $this, $node );
+            }
+        }
+
         $this->cancelled         = true;
+        $this->activatedNodes    = array();
         $this->numActivatedNodes = 0;
         $this->waitingFor        = array();
+
+        if ( count( $this->workflow->finallyNode->getOutNodes() ) > 0 )
+        {
+            $this->workflow->finallyNode->activate( $this );
+        }
 
         $this->end( $node );
     }
@@ -385,36 +398,38 @@ abstract class ezcWorkflowExecution
      */
     public function end( ezcWorkflowNode $node = null )
     {
-        $this->ended     = true;
-        $this->resumed   = false;
-        $this->suspended = false;
-
-        $this->doEnd();
-        $this->saveToVariableHandlers();
-
-        if ( $node !== null )
+        if ( !$this->cancelled )
         {
-            foreach ( $this->plugins as $plugin )
+            if ( $node !== null )
             {
-                $plugin->afterNodeExecuted( $this, $node );
+                foreach ( $this->plugins as $plugin )
+                {
+                    $plugin->afterNodeExecuted( $this, $node );
+                }
+            }
+
+            $this->ended     = true;
+            $this->resumed   = false;
+            $this->suspended = false;
+
+            $this->doEnd();
+            $this->saveToVariableHandlers();
+
+            if ( $node !== null )
+            {
+                $this->endThread( $node->getThreadId() );
+
+                foreach ( $this->plugins as $plugin )
+                {
+                    $plugin->afterExecutionEnded( $this );
+                }
             }
         }
-
-        if ( $this->cancelled )
+        else
         {
             foreach ( $this->plugins as $plugin )
             {
                 $plugin->afterExecutionCancelled( $this );
-            }
-        }
-
-        else if ( $node !== null )
-        {
-            $this->endThread( $node->getThreadId() );
-
-            foreach ( $this->plugins as $plugin )
-            {
-                $plugin->afterExecutionEnded( $this );
             }
         }
     }
@@ -439,7 +454,7 @@ abstract class ezcWorkflowExecution
             {
                 // Only try to execute a node if the execution of the
                 // workflow instance has not ended yet.
-                if ( !$this->hasEnded() )
+                if ( !$this->cancelled || !$this->ended )
                 {
                     // The current node is an end node but there are still
                     // activated nodes on the stack.
@@ -460,7 +475,7 @@ abstract class ezcWorkflowExecution
                         $this->numActivatedNodes--;
 
                         // Notify plugins that the node has been executed.
-                        if ( !$this->hasEnded() )
+                        if ( !$this->cancelled && !$this->ended )
                         {
                             foreach ( $this->plugins as $plugin )
                             {
@@ -478,7 +493,7 @@ abstract class ezcWorkflowExecution
 
         // The stack of activated nodes is not empty but at the moment none of
         // its nodes can be executed.
-        if ( !$this->hasEnded() )
+        if ( !$this->cancelled && !$this->ended )
         {
             $this->suspend();
         }
@@ -501,7 +516,7 @@ abstract class ezcWorkflowExecution
         //  - the execution of the workflow has not been cancelled,
         //  - the node is ready to be activated,
         //  - and the node is not already activated.
-        if ( $this->isCancelled() ||
+        if ( $this->cancelled ||
              !$node->isExecutable() ||
              ezcWorkflowUtil::findObject( $this->activatedNodes, $node ) !== false )
         {
@@ -591,7 +606,7 @@ abstract class ezcWorkflowExecution
      */
     public function startThread( $parentId = null, $numSiblings = 1 )
     {
-        if ( !$this->isCancelled() )
+        if ( !$this->cancelled )
         {
             $this->threads[$this->nextThreadId] = array(
               'parentId' => $parentId,

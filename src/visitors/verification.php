@@ -36,6 +36,13 @@ class ezcWorkflowVisitorVerification implements ezcWorkflowVisitor
     protected $numStartNodes = 0;
 
     /**
+     * Holds the number of finally nodes encountered during visiting.
+     *
+     * @var integer
+     */
+    protected $numFinallyNodes = 0;
+
+    /**
      * Holds the id of each node that has been visited already.
      *
      * @var array
@@ -58,7 +65,8 @@ class ezcWorkflowVisitorVerification implements ezcWorkflowVisitor
         {
             foreach ( $visitable->nodes as $node )
             {
-                if ( $node instanceof ezcWorkflowNodeStart )
+                if ( $node instanceof ezcWorkflowNodeStart &&
+                    !$node instanceof ezcWorkflowNodeFinally )
                 {
                     $this->numStartNodes++;
 
@@ -66,6 +74,18 @@ class ezcWorkflowVisitorVerification implements ezcWorkflowVisitor
                     {
                         throw new ezcWorkflowInvalidWorkflowException(
                           'A workflow may have only one start node.'
+                        );
+                    }
+                }
+
+                if ( $node instanceof ezcWorkflowNodeFinally )
+                {
+                    $this->numFinallyNodes++;
+
+                    if ( $this->numFinallyNodes > 1 )
+                    {
+                        throw new ezcWorkflowInvalidWorkflowException(
+                          'A workflow may have only one finally node.'
                         );
                     }
                 }

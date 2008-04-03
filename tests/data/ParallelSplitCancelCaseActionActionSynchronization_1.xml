@@ -1,27 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <workflow name="ParallelSplitCancelCaseActionActionSynchronization" version="1">
   <node id="1" type="Start">
-    <outNode id="2"/>
-  </node>
-  <node id="2" type="Action" serviceObjectClass="ServiceObject">
     <outNode id="3"/>
   </node>
-  <node id="3" type="ParallelSplit">
+  <node id="2" type="End"/>
+  <node id="3" type="Action" serviceObjectClass="ServiceObject">
     <outNode id="4"/>
+  </node>
+  <node id="4" type="ParallelSplit">
+    <outNode id="5"/>
     <outNode id="7"/>
     <outNode id="8"/>
   </node>
-  <node id="4" type="Cancel">
-    <outNode id="5"/>
-  </node>
-  <node id="5" type="Synchronization">
+  <node id="5" type="Cancel">
     <outNode id="6"/>
   </node>
-  <node id="6" type="End"/>
+  <node id="6" type="Synchronization">
+    <outNode id="2"/>
+  </node>
   <node id="7" type="Action" serviceObjectClass="ServiceObject">
-    <outNode id="5"/>
+    <outNode id="6"/>
   </node>
   <node id="8" type="Action" serviceObjectClass="ServiceObject">
-    <outNode id="5"/>
+    <outNode id="6"/>
   </node>
 </workflow>

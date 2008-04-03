@@ -1,26 +1,26 @@
 digraph NestedExclusiveChoiceSimpleMerge {
 node1 [label="Start", color="#2e3436"]
-node2 [label="x = <true>", color="#2e3436"]
-node3 [label="Exclusive Choice", color="#2e3436"]
-node4 [label="y = <true>", color="#2e3436"]
-node5 [label="Exclusive Choice", color="#2e3436"]
-node6 [label="z = <true>", color="#2e3436"]
-node7 [label="Simple Merge", color="#2e3436"]
+node3 [label="x = <true>", color="#2e3436"]
+node4 [label="Exclusive Choice", color="#2e3436"]
+node5 [label="y = <true>", color="#2e3436"]
+node6 [label="Exclusive Choice", color="#2e3436"]
+node7 [label="z = <true>", color="#2e3436"]
 node8 [label="Simple Merge", color="#2e3436"]
-node9 [label="End", color="#2e3436"]
+node9 [label="Simple Merge", color="#2e3436"]
+node2 [label="End", color="#2e3436"]
 node10 [label="z = <false>", color="#2e3436"]
 node11 [label="z = <false>", color="#2e3436"]
 
-node1 -> node2
-node2 -> node3
-node3 -> node4 [label="x is true"]
-node3 -> node11 [label="x is false"]
-node4 -> node5
-node5 -> node6 [label="y is true"]
-node5 -> node10 [label="y is false"]
-node6 -> node7
+node1 -> node3
+node3 -> node4
+node4 -> node5 [label="x is true"]
+node4 -> node11 [label="x is false"]
+node5 -> node6
+node6 -> node7 [label="y is true"]
+node6 -> node10 [label="y is false"]
 node7 -> node8
 node8 -> node9
-node10 -> node7
-node11 -> node8
+node9 -> node2
+node10 -> node8
+node11 -> node9
 }
