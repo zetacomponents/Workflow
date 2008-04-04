@@ -215,9 +215,8 @@ ezcWorkflowNodeStart
   An object of the ezcWorkflowNodeStart class represents the one and only start
   node of a workflow. The execution of the workflow starts here.
 
-  Creating an object of the \texttt{ezcWorkflow} automatically creates the start
-  node for this new workflow. It can be accessed through the getStartNode()
-  method.
+  Creating an object of the ezcWorkflow class automatically creates the start
+  node for this new workflow. It can be accessed through the startNode property.
 
 ezcWorkflowNodeEnd
 
@@ -225,8 +224,9 @@ ezcWorkflowNodeEnd
   workflow. A workflow must have at least one end node. The execution of the
   workflow ends when an end node is reached.
 
-  Creating an object of the ezcWorkflow automatically creates a default end node
-  for this new workflow. It can be accessed through the getEndNode() method.
+  Creating an object of the ezcWorkflow class automatically creates a default
+  end node for this new workflow. It can be accessed through the endNode
+  property.
   
 ezcWorkflowNodeCancel
 
@@ -234,6 +234,15 @@ ezcWorkflowNodeCancel
   workflow instance is removed. This includes currently executing nodes, those
   which may execute at some future time, and all parent and sub-workflows. The
   workflow instance is recorded as having completed unsuccessfully.
+
+ezcWorkflowNodeFinally
+
+  Start node of a sequence of final activities that is executed when a workflow
+  execution is cancelled.
+
+  Creating an object of the ezcWorkflow class automatically creates the finally
+  node for this new workflow. It can be accessed through the finallyNode
+  property.
 
 ezcWorkflowNodeAction
 
