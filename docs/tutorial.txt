@@ -398,6 +398,11 @@ parameters specified and run the execute() method. Our execute method will
 print the message passed to the constructor and change the workflow variable
 'choice'.
 
+The execute() method of a service object may return false to indicate that it is
+not finished yet. The workflow execution will then be suspended. The next time
+the workflow execution is resumed the service object's execute() method will be
+invoked again.
+
 Saving a workflow to an XML file
 --------------------------------
 
