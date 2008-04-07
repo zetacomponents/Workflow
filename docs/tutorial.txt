@@ -17,151 +17,16 @@ The relationship between Enterprise Content Management and Workflow
 Management is analogous to that of attributes (data) and methods (operations on
 the data) that are encapsulated in a class in object-oriented programming.
 
-The Workflow component provides the means to structure software around graphs
-and makes up an pragmatic approach to describe workflows through objects that
-encapsulate the workflow patterns. A workflow definition is an object graph that
-can be programmatically created using the Workflow Definition API or loaded from
-an XML file before it is executed via the Workflow Execution API.
-
-
-Workflow Model
-==============
-
-Activities and Transitions
---------------------------
-
-The workflow model is activity-based [FG02]. The activities that are to be
-completed throughout the workflow and the transitions between them are mapped to
-the nodes and edges of a directed graph. This choice was made to faciliate the
-application of the Graph-Oriented Programming paradigm for the implementation.
-
-Graph Traversal and Execution Strategy
---------------------------------------
-
-The execution of a workflow starts with the graph's only Start node. A graph may
-have one or more End nodes that explicitly terminate the workflow execution.
-
-After a node has finished executing, it can activate one or more of its possible
-outgoing nodes. Activation adds a node to a set of nodes that are waiting for
-execution. During each execution step, a node from this set is executed. When
-the execution of a node has been completed, the node is removed from the set.
-
-The workflow execution is implicitly terminated when no nodes are activated
-and no more nodes can be activated.
-
-State and Workflow Variables
-----------------------------
-
-The workflow model supports state through the concept of workflow variables.
-Such a variable can either be requested as user input (from an Input node) or be
-set and manipulated through the VariableSet, VariableAdd, VariableSub,
-VariableMul, VariableDiv, VariableIncrement, and VariableDecrement nodes.
-
-While a VariableSet node may set the value of a workflow variable to any type
-that is supported by PHP, the other variable manipulation nodes only operate on
-numeric values.
-
-Variables are bound to the scope of the thread in which they were defined. This
-allows parallel threads of execution to use variables of the same name without
-side effects.
-
-When the execution of a workflow reaches an Input node (see above), the
-execution is suspended until such time when the user input has been provided and
-the execution can be resumed.
-
-Control Flow
-------------
-
-The control flow semantics of the workflow model draws upon the workflow
-patterns from [BK03]. The Sequence, Parallel Split, Synchronization, Exclusive
-Choice, Simple Merge, Multi-Choice, Synchronizing Merge, Discriminator, and
-Cancel Case workflow patterns are all directly supported by the workflow model.
-
-Exclusive Choice and Multi-Choice nodes have branching conditions attached to
-them that operate on workflow variables to make their control flow decisions.
-A special node to conveniently express loops is also available.
-
-Action Nodes and Service Objects
---------------------------------
-
-So far we have only discussed nodes that control the flow or that can
-manipulate workflow variables. We are still missing a type of node that
-actually performs an activity. This is where the Action node comes into play.
-
-When the execution of a workflow reaches an Action node, the business logic of
-the attached service object is executed. Service Objects live in the domain of
-the application into which the workflow engine is embedded. They have read and
-write access to the workflow variables to interact with the rest of the
-workflow.
-
-Sub-Workflows
--------------
-
-The workflow model supports sub-workflows to break down a complex workflow into
-parts that are easier to conceive, understand, maintain, and which can be
-reused.
-
-A sub-workflow is started when the respective Sub-Workflow node is reached
-during workflow execution. The execution of the parent workflow is suspended
-while the sub-workflow is executing. It is resumed once the execution of the
-sub-workflow has ended.
-
-
-Software Design
-===============
-
-Architecture and extensions
----------------------------
-
-The workflow engine been designed and implemented as three loosely coupled
-components. The Workflow component provides an object-oriented framework to
-define workflows and an execution engine to execute them.
-The `WorkflowDatabaseTiein`_ and `WorkflowEventLogTiein`_ components tie the Database
-and EventLog components into the main Workflow component for execution persistence
-and monitoring, respectively.
-
-.. _WorkflowDatabaseTiein: introduction_WorkflowDatabaseTiein.html
-.. _WorkflowEventLogTiein: introduction_WorkflowEventLogTiein.html
-
-
-A workflow can be defined programmatically by creating and connecting objects
-that represent control flow constructs. The classes for these objects are
-provided by the Workflow Definition API. This API also provides the
-functionality to save workflow definitions (ie. object graphs) to and load
-workflow definitions from a data storage. Two data storage backends have been
-implemented, one for relational database systems and another for XML files.
-Through the Workflow Execution API the execution of a workflow definition can be
-started (and resumed). The figure below shows the conceptual architecture for
-the workflow engine.
-
-.. figure:: img/architecture.png
-
-   Workflow component architecture
-
-The minimalistic core of the Workflow component is provides basic workflow
-functionality:
-
-- The Workflow Definition API implements an activity-based workflow model and
-  provides the abstractions required to build workflows.
-- The Workflow Execution API implements the functionality to execute workflows.
-
-On top of these core components other components, for instance for persistence
-(suspending and resuming workflow execution), monitoring (status of running
-workflows), history (history of executed workflows), and worklist management
-(human-computer interface), can be implemented. Each of these components
-encapsulates a design decision and can be customized or replaced.
-
-
-Summary
--------
-
-The core of the workflow engine is a virtual machine that executes workflows
+The Workflow component provides a virtual machine that executes workflows
 represented through object graphs. These object graphs can be created
 programmatically through the software component's Workflow Definition API.
 Alternatively, a workflow definition can be loaded from an XML file. Object
 graph and XML file are two different representations of a workflow definition
-that uses the so-called backend language of the workflow engine's core.
+that uses a backend language built on the workflow patterns.
 
+More information on the theoretical background is available `here`__.
+
+__ Workflow_theoretical_background.html
 
 Class Overview
 ==============
@@ -505,7 +370,7 @@ ezcWorkflowConditionIsString
 Workflow Definition Usage
 =========================
 
-This chapter gives a few basic examples on how to create, save and load
+This section gives a few basic examples on how to create, save and load
 workflows. It also demonstrates how to make a graphical representation of your
 workflow.
 
@@ -577,18 +442,6 @@ Workflow Execution Usage
 For examples on how to execute workflows see the `WorkflowDatabaseTiein`_ tutorial.
 
 .. _WorkflowDatabaseTiein: introduction_WorkflowDatabaseTiein.html
-
-
-Bibliography
-============
-
-- [BK03] Bartosz Kiepuszewski.
-  Expressiveness and Suitability of Languages for Control Flow Modelling in Workflows.
-  PhD Thesis, Faculty of Information Technology, Queensland University of Technology, Australia, 2003.
-
-- [FG02] Florent Guillaume.
-  Trying to unify Entity-based and Activity-based workflows}.
-
 
 ..
    Local Variables:
