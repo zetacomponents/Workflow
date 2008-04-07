@@ -130,6 +130,22 @@ class ezcWorkflowTest extends ezcWorkflowTestCase
         $this->fail();
     }
 
+    public function testVerify4()
+    {
+        try
+        {
+            $workflow = new ezcWorkflow( 'Test' );
+            $workflow->finallyNode->addOutNode( new ezcWorkflowNodeFinally );
+            $workflow->verify();
+        }
+        catch ( ezcWorkflowDefinitionStorageException $e )
+        {
+            return;
+        }
+
+        $this->fail();
+    }
+
     public function testVariableHandler()
     {
         $this->setUpStartEnd();
