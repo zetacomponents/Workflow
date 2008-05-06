@@ -121,7 +121,7 @@ class ezcWorkflowVisitorNodeCollector implements ezcWorkflowVisitor
 
         if ( !$this->sorted )
         {
-            ksort($this->nodes);
+            ksort( $this->nodes );
             $this->sorted = true;
         }
 
