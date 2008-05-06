@@ -1,0 +1,8 @@
+[ ] ezcWorkflowDefinitionStorageXml mentions a @todo: DTD for the XML file.
+[ ] Listeners or plugins are not mentioned in the tutorial.
+[ ] The class docs for ezcWorkflowExecutionListenerPlugin and
+    ezcWorkflowExecutionVisualizerPlugin need an example on how they can be used.
+[ ] Why is ezcWorkflowExecution::endThread marked with @ignore? As well as some
+    other methods in this class?
+[ ] There is only 95.54% code coverage when running just the Workflow tests.
+    Especially the listener doesn't seem to have any direct tests.
