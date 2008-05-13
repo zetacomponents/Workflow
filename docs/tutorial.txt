@@ -222,6 +222,12 @@ ezcWorkflowNodeSimpleMerge
   Use Case Example: After the payment has been performed by either credit card
   or bank transfer, the order can be processed further.
 
+ezcWorkflowNodeLoop
+
+  The ezcWorkflowNodeLoop class is a specialization of the
+  ezcWorkflowNodeExclusiveChoice class and may be used to conveniently express
+  loops.
+
 ezcWorkflowNodeMultiChoice
 
   The ezcWorkflowNodeMultiChoice class implements the Multi Choice workflow
