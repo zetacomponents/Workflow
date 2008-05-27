@@ -301,5 +301,21 @@ class ezcWorkflowNodeTest extends ezcWorkflowTestCase
 
         $this->fail();
     }
+
+    public function testActivatedFrom()
+    {
+        $node = new ezcWorkflowNodeStart;
+        $this->assertEquals( array(), $node->getActivatedFrom() );
+        $node->setActivatedFrom( array( TRUE ) );
+        $this->assertEquals( array( TRUE ), $node->getActivatedFrom() );
+    }
+
+    public function testState()
+    {
+        $node = new ezcWorkflowNodeStart;
+        $this->assertNull( $node->getState() );
+        $node->setState( TRUE );
+        $this->assertTrue( $node->getState() );
+    }
 }
 ?>

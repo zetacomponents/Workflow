@@ -9,6 +9,8 @@
 
 require_once 'definition_xml_test.php';
 require_once 'execution_test.php';
+require_once 'execution_listener_test.php';
+require_once 'execution_plugin_test.php';
 require_once 'execution_plugin_visualizer_test.php';
 require_once 'workflow_test.php';
 require_once 'node_test.php';
@@ -28,6 +30,8 @@ class ezcWorkflowSuite extends PHPUnit_Framework_TestSuite
 
         $this->addTest( ezcWorkflowDefinitionStorageXmlTest::suite() );
         $this->addTest( ezcWorkflowExecutionTest::suite() );
+        $this->addTest( ezcWorkflowExecutionListenerTest::suite() );
+        $this->addTest( ezcWorkflowExecutionPluginTest::suite() );
         $this->addTest( ezcWorkflowExecutionPluginVisualizerTest::suite() );
         $this->addTest( ezcWorkflowTest::suite() );
         $this->addTest( ezcWorkflowNodeTest::suite() );

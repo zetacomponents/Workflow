@@ -80,8 +80,10 @@ abstract class ezcWorkflowExecutionPlugin
      */
     public function beforeNodeActivated( ezcWorkflowExecution $execution, ezcWorkflowNode $node )
     {
+    // @codeCoverageIgnoreStart
         return true;
     }
+    // @codeCoverageIgnoreEnd
 
     /**
      * Called after a node has been activated.
@@ -143,8 +145,10 @@ abstract class ezcWorkflowExecutionPlugin
      */
     public function beforeVariableSet( ezcWorkflowExecution $execution, $variableName, $value )
     {
+    // @codeCoverageIgnoreStart
         return $value;
     }
+    // @codeCoverageIgnoreEnd
 
     /**
      * Called after a variable has been set.
@@ -168,8 +172,10 @@ abstract class ezcWorkflowExecutionPlugin
      */
     public function beforeVariableUnset( ezcWorkflowExecution $execution, $variableName )
     {
+    // @codeCoverageIgnoreStart
         return true;
     }
+    // @codeCoverageIgnoreEnd
 
     /**
      * Called after a variable has been unset.

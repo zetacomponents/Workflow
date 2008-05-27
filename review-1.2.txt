@@ -21,12 +21,5 @@
       by the developer that uses the component(s). They are declared public
       because other classes of the component(s) need access to them.
 
-[/] There is only 95.54% code coverage when running just the Workflow tests.
+[X] There is only 95.54% code coverage when running just the Workflow tests.
     Especially the listener doesn't seem to have any direct tests.
-
-      Some parts of the base Workflow component can only be tested when the
-      functionality of the WorkflowDatabaseTiein in present/used. We are
-      already mocking a lot of functionality in the Workflow component's
-      tests using the ezcWorkflowTestExecution class. I am not sure if
-      mocking even more functionality makes sense. I will look into the
-      particular example of the listener functionality.
