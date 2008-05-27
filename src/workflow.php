@@ -48,7 +48,7 @@ class ezcWorkflow implements ezcWorkflowVisitable
       'startNode'         => null,
       'endNode'           => null,
       'finallyNode'       => null,
-      'version'           => false
+      'version'           => 1
     );
 
     /**
