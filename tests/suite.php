@@ -31,7 +31,7 @@ class ezcWorkflowSuite extends PHPUnit_Framework_TestSuite
         $this->addTest( ezcWorkflowDefinitionStorageXmlTest::suite() );
         $this->addTest( ezcWorkflowExecutionTest::suite() );
         $this->addTest( ezcWorkflowExecutionListenerTest::suite() );
-        $this->addTest( ezcWorkflowExecutionPluginTest::suite() );
+        #$this->addTest( ezcWorkflowExecutionPluginTest::suite() );
         $this->addTest( ezcWorkflowExecutionPluginVisualizerTest::suite() );
         $this->addTest( ezcWorkflowTest::suite() );
         $this->addTest( ezcWorkflowNodeTest::suite() );
