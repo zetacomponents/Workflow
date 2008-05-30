@@ -23,6 +23,7 @@
  * passed to the parent execution as 'z'.
  *
  * <code>
+ * <?php
  * $subWorkflow = new ezcWorkflowNodeSubWorkflow(
  *   array(
  *     'workflow'  => 'IncrementVariable',
@@ -36,6 +37,7 @@
  *     )
  *   )
  * );
+ * ?>
  * </code>
  *
  * @package Workflow

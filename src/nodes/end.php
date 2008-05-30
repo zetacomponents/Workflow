@@ -21,11 +21,13 @@
  *
  * Example:
  * <code>
+ * <?php
  * $workflow = new ezcWorkflow( 'Test' );
- *  // build up your workflow here... result in $node
- * $node = ....
- * $workflow->startNode->addOutNode( ....some other node here .. );
+ * // build up your workflow here... result in $node
+ * $node = ...
+ * $workflow->startNode->addOutNode( ... some other node here ... );
  * $node->addOutNode( $workflow->endNode );
+ * ?>
  * </code>
  *
  * @package Workflow

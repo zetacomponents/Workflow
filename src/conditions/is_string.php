@@ -15,9 +15,12 @@
  * condition on a workflow variable.
  *
  * <code>
- *  $condition = new ezcWorkflowConditionVariable ( 'variable name' ,
- *     new ezcWorkflowConditionIsString
- *  );
+ * <?php
+ * $condition = new ezcWorkflowConditionVariable(
+ *   'variable name',
+ *   new ezcWorkflowConditionIsString
+ * );
+ * ?>
  * </code>
  *
  * @package Workflow

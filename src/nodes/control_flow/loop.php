@@ -19,6 +19,7 @@
  * variable i from 1 to 10:
  *
  * <code>
+ * <?php
  * $workflow = new ezcWorkflow( 'IncrementingLoop' );
  *
  * $set      = new ezcWorkflowNodeVariableSet( array( 'i' => 1 ) );
@@ -34,6 +35,7 @@
  *
  * $loop->addConditionalOutNode( $continue, $step );
  * $loop->addConditionalOutNode( $break, $workflow->endNode );
+ * ?>
  * </code>
  *
  * @package Workflow

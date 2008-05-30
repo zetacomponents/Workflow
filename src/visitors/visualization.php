@@ -13,9 +13,11 @@
  * generates GraphViz/dot markup for a workflow definition.
  *
  * <code>
- *  $visitor = new ezcWorkflowVisitorVisualization;
- *  $workflow->accept( $visitor );
- *  print $visitor;
+ * <?php
+ * $visitor = new ezcWorkflowVisitorVisualization;
+ * $workflow->accept( $visitor );
+ * print $visitor;
+ * ?>
  * </code>
  *
  * @property ezcWorkflowVisitorVisualizationOptions $options

@@ -24,7 +24,9 @@
  * The following example displays how to create a workflow with a very
  * simple service object that prints the argument it was given to the
  * constructor:
+ *
  * <code>
+ * <?php
  * class MyPrintAction implements ezcWorkflowServiceObject
  * {
  *     private $whatToSay;
@@ -47,6 +49,7 @@
  *                                             "arguments" => "No. 1 The larch!" ) );
  * $action->addOutNode( $workflow->endNode );
  * $workflow->startNode->addOutNode( $action );
+ * ?>
  * </code>
  *
  * @package Workflow

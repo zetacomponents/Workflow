@@ -12,7 +12,9 @@
  * An object of the ezcWorkflowNodeVariableUnset class unset the specified workflow variable.
  *
  * <code>
- * $unset = new ezcWorkflowNodeVariableUnset ( 'variable name' ) ;
+ * <?php
+ * $unset = new ezcWorkflowNodeVariableUnset( 'variable name' );
+ * ?>
  * </code>
  *
  * Incoming nodes: 1

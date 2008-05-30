@@ -23,7 +23,9 @@
  *
  * This example displays how you can use a simple merge to tie together two different
  * execution paths from an exclusive choice into one.
+ *
  * <code>
+ * <?php
  * $workflow = new ezcWorkflow( 'Test' );
  *
  * // wait for input into the workflow variable value.
@@ -50,6 +52,7 @@
  * $merge->addInNode( $branch1 );
  * $merge->addInNode( $branch2 );
  * $merge->addOutNode( $workflow->endNode );
+ * ?>
  * </code>
  *
  * @package Workflow

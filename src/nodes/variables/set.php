@@ -13,7 +13,9 @@
  * a given value.
  *
  * <code>
- *  $set = new ezcWorkflowNodeVariableSet ( array ( 'variable name' = > $value ) );
+ * <?php
+ * $set = new ezcWorkflowNodeVariableSet( array( 'variable name' = > $value ) );
+ * ?>
  * </code>
  *
  * Incoming nodes: 1

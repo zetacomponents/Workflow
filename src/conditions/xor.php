@@ -15,7 +15,9 @@
  * can hold an arbitrary number of ezcWorkflowCondition objects.
  *
  * <code>
- *  $xor = new ezcWorkflowConditionXor ( array ( $condition , ... ) ) ;
+ * <?php
+ * $xor = new ezcWorkflowConditionXor( array ( $condition , ... ) );
+ * ?>
  * </code>
  *
  * @package Workflow

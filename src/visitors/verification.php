@@ -16,7 +16,9 @@
  * verify() method on the workflow.
  *
  * <code>
- *  $workflow->verify();
+ * <?php
+ * $workflow->verify();
+ * ?>
  * </code>
  *
  * The verifier checks that:

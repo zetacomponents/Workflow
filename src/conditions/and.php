@@ -15,7 +15,9 @@
  * can hold an arbitrary number of ezcWorkflowCondition objects.
  *
  * <code>
- *  $and = new ezcWorkflowConditionAnd ( array ( $condition , ... ) ) ;
+ * <?php
+ * $and = new ezcWorkflowConditionAnd( array( $condition , ... ) );
+ * ?>
  * </code>
  *
  * @package Workflow

@@ -16,12 +16,15 @@
  *
  * This example will multiply the contents of the workflow variable 'wfVar' by five and put the
  * result in 'wfVar'.
+ *
  * <code>
- *   $op = 5;
- *   $mul = new ezcWorkflowNodeVariableMul (
- *           array ( 'name' = > 'wfVar' , 'operand' = > $op )
- *            );
+ * <?php
+ * $mul = new ezcWorkflowNodeVariableMul(
+ *   array( 'name' => 'wfVar', 'operand' => 5 )
+ * );
+ * ?>
  * </code>
+ *
  * If the operand is a string, the value of the workflow variable identified by that string is used.
  *
  * Incoming nodes: 1

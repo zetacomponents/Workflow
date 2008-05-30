@@ -21,7 +21,9 @@
  * This example displays how you can use ezcWorkflowNodeMultiChoice to activate one or more
  * branches depending on the input.  Note that an input value of 5 will start only branch 1
  * while an input value of 11 or more will start both branch1 and branch2.
+ *
  * <code>
+ * <?php
  * $workflow = new ezcWorkflow( 'Test' );
  *
  * // wait for input into the workflow variable value.
@@ -48,6 +50,7 @@
  * $merge->addInNode( $branch1 );
  * $merge->addInNode( $branch2 );
  * $merge->addOutNode( $workflow->endNode );
+ * ?>
  * </code>
  *
  * @package Workflow

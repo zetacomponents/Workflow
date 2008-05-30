@@ -22,20 +22,25 @@
  * This example creates a simple workflow that expectes two input variables,
  * once which can be any value and another that can only be an integer between
  * one and ten.
+ *
  * <code>
+ * <?php
  * $workflow = new ezcWorkflow( 'Test' );
  *
- * $input = new ezcWorkflowNodeInput( "mixedVar" => new ezcWorkflowConditionIsAnything,
- *                                    "intVar" => new ezcWorkflowConditionAnd(
- *                                                   array(
- *                                                       new ezcWorkflowConditionIsInteger,
- *                                                       new ezcWorkflowConditionIsGreatherThan( 0 )
- *                                                       new ezcWorkflowConditionIsLessThan( 11 )
- *                                                       )
- *                                                ) );
+ * $input = new ezcWorkflowNodeInput(
+ *   'mixedVar' => new ezcWorkflowConditionIsAnything,
+ *   'intVar'   => new ezcWorkflowConditionAnd(
+ *     array(
+ *       new ezcWorkflowConditionIsInteger,
+ *       new ezcWorkflowConditionIsGreatherThan( 0 )
+ *       new ezcWorkflowConditionIsLessThan( 11 )
+ *     )
+ *   )
+ * );
  *
  * $input->addOutNode( $workflow->endNode );
  * $workflow->startNode->addOutNode( $input );
+ * ?>
  * </code>
  *
  * @package Workflow

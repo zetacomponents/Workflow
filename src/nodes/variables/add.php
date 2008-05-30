@@ -14,12 +14,18 @@
  * An object of the ezcWorkflowNodeVariableAdd class adds a given operand, either a constant
  * or the value of another workflow variable, to a specified workflow variable.
  *
+ * This example will add five to the contents of the workflow variable 'wfVar'
+ * and put the result back in 'wfVar'.
+ *
  * <code>
- * $add = new ezcWorkflowNodeVariableAdd (
- *           array ( 'name' = > 'variable name' , 'operand' = > $operand )
- *            );
+ * <?php
+ * $add = new ezcWorkflowNodeVariableAdd(
+ *   array( 'name' => 'wfVar', 'operand' => 5 )
+ * );
+ * ?>
  * </code>
- * If $value is a string, the value of the workflow variable identified by that string is used.
+ *
+ * If operand is a string, the value of the workflow variable identified by that string is used.
  *
  * Incoming nodes: 1
  * Outgoing nodes: 1

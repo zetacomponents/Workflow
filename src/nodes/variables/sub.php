@@ -14,14 +14,17 @@
  * An object of the ezcWorkflowNodeVariableSub class subtracts a given operand, either a
  * constant or the value of another workflow variable, from a specifled workflow variable.
  *
- * This example will subtract the contents of the workflow variable 'wfVar' by five and put the
- * result back in 'wfVar'.
+ * This example will subtract five from the contents of the workflow variable
+ * 'wfVar' and put the result back in 'wfVar'.
+ *
  * <code>
- *  $op = 5;
- *  $sub = new ezcWorkflowNodeVariableSub (
- *           array ( 'name' = > 'wfVar' , 'operand' = > $op )
- *            );
+ * <?php
+ * $sub = new ezcWorkflowNodeVariableSub(
+ *   array( 'name' => 'wfVar', 'operand' => 5 )
+ * );
+ * ?>
  * </code>
+ *
  * If operand is a string, the value of the workflow variable identified by that string is used.
  *
  * Incoming nodes: 1

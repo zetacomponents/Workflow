@@ -16,13 +16,15 @@
  *
  * This example will divide the contents of the workflow variable 'wfVar' by five and put it
  * back into wfVar.
+ *
  * <code>
- *   $op = 5;
- *   $div = new ezcWorkflowNodeVariableDiv (
- *           array ( 'name' = > 'wfVar',
- *                   'operand' = > $op )
- *            );
+ * <?php
+ * $div = new ezcWorkflowNodeVariableDiv(
+ *   array( 'name' => 'wfVar', 'operand' => 5 )
+ * );
+ * ?>
  * </code>
+ *
  * If the operand is a string, the value of the workflow variable identified by that string is used.
  *
  * Incoming nodes: 1

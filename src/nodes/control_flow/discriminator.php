@@ -26,7 +26,9 @@
  *
  * This example creates a workflow that splits in two parallel threads which
  * are joined again using a ezcWorkflowNodeDiscriminator.
+ *
  * <code>
+ * <?php
  * $workflow = new ezcWorkflow( 'Test' );
  *
  * $split = new ezcWorkflowNodeParallelSplit();
@@ -38,6 +40,7 @@
  * $disc->addInNode( $nodeExec1 );
  * $disc->addInNode( $nodeExec2 );
  * $disc->addOutNode( $workflow->endNode );
+ * ?>
  * </code>
  *
  * @package Workflow

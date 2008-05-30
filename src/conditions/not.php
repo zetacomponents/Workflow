@@ -15,7 +15,9 @@
  * and negates its expression.
  *
  * <code>
- * $notNondition = new ezcWorkflowConditionNot ( $condition ) ;
+ * <?php
+ * $notNondition = new ezcWorkflowConditionNot( $condition ) ;
+ * ?>
  * </code>
  *
  * @package Workflow

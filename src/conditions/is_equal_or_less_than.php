@@ -15,9 +15,11 @@
  * condition on a workflow variable.
  *
  * <code>
- *  $condition = new ezcWorkflowConditionVariable ( 'variable name' ,
- *     new ezcWorkflowConditionIsEqualOrLessThan ( $comparisonValue )
- *  );
+ * <?php
+ * $condition = new ezcWorkflowConditionVariable ( 'variable name' ,
+ *   new ezcWorkflowConditionIsEqualOrLessThan ( $comparisonValue )
+ * );
+ * ?>
  * </code>
  *
  * @package Workflow
