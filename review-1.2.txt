@@ -5,9 +5,7 @@
       provide an XML Schema (or RelaxNG) specification instead. Again,
       I have no practical experience in writing either of these.
 
-[ ] Listeners or plugins are not mentioned in the tutorial.
-
-      Will do.
+[X] Listeners or plugins are not mentioned in the tutorial.
 
 [X] The class docs for ezcWorkflowExecutionListenerPlugin and
     ezcWorkflowExecutionVisualizerPlugin need an example on how they can be used.

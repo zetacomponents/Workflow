@@ -454,6 +454,60 @@ For examples on how to execute workflows see the `WorkflowDatabaseTiein`_ tutori
 
 .. _WorkflowDatabaseTiein: introduction_WorkflowDatabaseTiein.html
 
+Execution Plugins
+-----------------
+
+The workflow engine can be customized and extended through a plugin system. A
+plugin is an object of a class that extends ezcWorkflowExecutionPlugin and that
+is registered with the execution object using the addPlugin() method.
+
+The following methods are automatically invoked during the workflow execution
+after the respective event has been handled:
+
+- afterExecutionStarted()
+- afterExecutionSuspended()
+- afterExecutionResumed()
+- afterExecutionCancelled()
+- afterExecutionEnded()
+- afterNodeActivated()
+- afterNodeExecuted()
+- afterThreadStarted()
+- afterThreadEnded()
+- afterVariableSet()
+- afterVariableUnset()
+
+The above methods only allow read access to the events that they handle and are
+usually used to log workflow execution.
+
+The following methods are automatically invoked during the workflow execution
+before the respective event is handled:
+
+- beforeNodeActivated()
+- beforeVariableSet()
+- beforeVariableUnset()
+
+The above methods allow both read and write access to the events that they
+handle and may be used to change the behaviour of the workflow execution.
+
+The `WorkflowSignalSlotTiein` component allows you to hook into the workflow
+execution into using the SignalSlot component. Details can be found in its
+documentation.
+
+.. _WorkflowSignalSlotTiein: introduction_WorkflowSignalSlotTiein.html
+
+Execution Listeners
+-------------------
+
+Objects of classes that implement the ezcWorkflowExecutionListener interface can
+be registered as listeners with an ezcWorkflowExecution object to receive
+messages during the execution of a workflow.
+
+The ezcWorkflowEventLogListener class that is provided by the `WorkflowEventLogTiein`_
+component is the reference implementation of this interface. You can find an
+example on how to register execution listeners in its documentation.
+
+.. _WorkflowEventLogTiein: introduction_WorkflowEventLogTiein.html
+
 ..
    Local Variables:
    mode: rst
