@@ -11,6 +11,17 @@
 /**
  * Execution plugin that visualizes the execution.
  *
+ * <code>
+ * $db         = ezcDbFactory::create( 'mysql://test@localhost/test' );
+ * $definition = new ezcWorkflowDatabaseDefinitionStorage( $db );
+ * $workflow   = $definition->loadByName( 'Test' );
+ * $execution  = new ezcWorkflowDatabaseExecution( $db );
+ *
+ * $execution->workflow = $workflow;
+ * $execution->addPlugin( new ezcWorkflowExecutionVisualizerPlugin( '/tmp' ) );
+ * $execution->start();
+ * </code>
+ *
  * @property ezcWorkflowExecutionVisualizerPluginOptions $options
  *
  * @package Workflow

@@ -9,10 +9,8 @@
 
       Will do.
 
-[ ] The class docs for ezcWorkflowExecutionListenerPlugin and
+[X] The class docs for ezcWorkflowExecutionListenerPlugin and
     ezcWorkflowExecutionVisualizerPlugin need an example on how they can be used.
-
-      Will do.
 
 [X] Why is ezcWorkflowExecution::endThread marked with @ignore? As well as some
     other methods in this class?
