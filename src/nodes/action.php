@@ -41,6 +41,11 @@
  *         print $this->whatToSay;
  *         return true; // we're finished, activate next node
  *     }
+ *
+ *     public function __toString()
+ *     {
+ *         return 'action description';
+ *     }
  * }
  *
  * $workflow = new ezcWorkflow( 'Test' );
