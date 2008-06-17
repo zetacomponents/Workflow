@@ -36,7 +36,7 @@
  *         $this->whatToSay = $whatToSay;
  *     }
  *
- *     public function execute()
+ *     public function execute( ezcWorkflowExecution $execution )
  *     {
  *         print $this->whatToSay;
  *         return true; // we're finished, activate next node
