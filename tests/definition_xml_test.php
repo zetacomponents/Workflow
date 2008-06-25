@@ -631,6 +631,20 @@ class ezcWorkflowDefinitionStorageXmlTest extends ezcWorkflowTestCase
         $this->fail();
     }
 
+    public function testExceptionWhenLoadingNotValidWorkflow()
+    {
+        try
+        {
+            $this->definition->loadByName( 'NotValid' );
+        }
+        catch ( ezcWorkflowDefinitionStorageException $e )
+        {
+            return;
+        }
+
+        $this->fail();
+    }
+
     public function testExceptionWhenLoadingNotWellFormedWorkflow()
     {
         try
