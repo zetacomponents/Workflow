@@ -176,6 +176,34 @@ class ezcWorkflowExecutionTest extends ezcWorkflowTestCase
         $this->fail();
     }
 
+    public function testExecuteStartInputEnd6()
+    {
+        $this->setUpStartInputEnd();
+        $this->execution->workflow = $this->workflow;
+        $this->execution->setVariable( 'variable', false );
+
+        try
+        {
+            $this->execution->start();
+        }
+        catch ( ezcWorkflowInvalidInputException $e )
+        {
+            $this->assertTrue( isset( $e->errors ) );
+            $this->assertFalse( isset( $e->foo ) );
+            $this->assertArrayHasKey( 'variable', $e->errors );
+            $this->assertContains( 'is string', $e->errors );
+
+            $this->assertFalse( $this->execution->isCancelled() );
+            $this->assertFalse( $this->execution->hasEnded() );
+            $this->assertFalse( $this->execution->isResumed() );
+            $this->assertFalse( $this->execution->isSuspended() );
+
+            return;
+        }
+
+        $this->fail();
+    }
+
     public function testExecuteStartSetUnsetEnd()
     {
         $this->setUpStartSetUnsetEnd();

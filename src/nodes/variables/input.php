@@ -123,6 +123,7 @@ class ezcWorkflowNodeInput extends ezcWorkflowNode
     {
         $variables  = $execution->getVariables();
         $canExecute = true;
+        $errors     = array();
 
         foreach ( $this->configuration as $variable => $condition )
         {
@@ -132,6 +133,16 @@ class ezcWorkflowNodeInput extends ezcWorkflowNode
 
                 $canExecute = false;
             }
+
+            else if ( !$condition->evaluate( $variables[$variable] ) )
+            {
+                $errors[$variable] = $condition->__toString();
+            }
+        }
+
+        if ( !empty( $errors ) )
+        {
+            throw new ezcWorkflowInvalidInputException( $errors );
         }
 
         if ( $canExecute )
