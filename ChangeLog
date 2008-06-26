@@ -1,4 +1,4 @@
-1.3aplha1 - [RELEASEDATE]
+1.3alpha1 - [RELEASEDATE]
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 - Implemented issue #13182: ezcWorkflowNodeInput::execute() should check
