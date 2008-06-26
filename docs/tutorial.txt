@@ -338,6 +338,11 @@ ezcWorkflowConditionIsEqualOrLessThan
   object evaluates to true when the associated workflow variable is equal to or
   less than the comparison value.
 
+ezcWorkflowConditionInArray
+
+  The condition represented by an ezcWorkflowConditionInArray object evaluates
+  to true when the associated workflow variable is in the specified array.
+  
 ezcWorkflowConditionIsAnything
 
   The condition represented by an ezcWorkflowConditionIsAnything object always
