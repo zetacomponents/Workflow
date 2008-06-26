@@ -18,6 +18,14 @@ class ezcWorkflowConditionTest extends ezcTestCase
         return new PHPUnit_Framework_TestSuite( 'ezcWorkflowConditionTest' );
     }
 
+    public function testInArray()
+    {
+        $condition = new ezcWorkflowConditionInArray( array( '1', 2, 3 ) );
+        $this->assertTrue( $condition->evaluate( 1 ) );
+        $this->assertFalse( $condition->evaluate( 4 ) );
+        $this->assertEquals( "in array('1', 2, 3)", $condition->__toString() );
+    }
+
     public function testIsAnything()
     {
         $condition = new ezcWorkflowConditionIsAnything;

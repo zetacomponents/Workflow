@@ -419,6 +419,13 @@ class ezcWorkflowDefinitionStorageXml implements ezcWorkflowDefinitionStorage
                 $xmlCondition->setAttribute( 'value', $condition->getValue() );
             }
             break;
+
+            case 'ezcWorkflowConditionInArray': {
+                $xmlCondition->appendChild(
+                  self::variableToXml( $condition->getValue(), $document )
+                );
+            }
+            break;
         }
 
         return $xmlCondition;
@@ -482,6 +489,11 @@ class ezcWorkflowDefinitionStorageXml implements ezcWorkflowDefinitionStorage
             case 'ezcWorkflowConditionIsLessThan':
             case 'ezcWorkflowConditionIsNotEqual': {
                 return new $class( $element->getAttribute( 'value' ) );
+            }
+            break;
+
+            case 'ezcWorkflowConditionInArray': {
+                return new $class( self::xmlToVariable( $element->childNodes->item( 1 ) ) );
             }
             break;
 

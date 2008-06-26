@@ -67,6 +67,15 @@ abstract class ezcWorkflowTestCase extends ezcTestCase
         $this->workflow->addVariableHandler( 'foo', 'ezcWorkflowTestVariableHandler' );
     }
 
+    protected function setUpStartInputEnd2()
+    {
+        $this->workflow = new ezcWorkflow( 'StartInputEnd2' );
+        $inputNode = new ezcWorkflowNodeInput( array( 'variable' => new ezcWorkflowConditionInArray( array( '1', 2, 3 ) ) ) );
+
+        $this->workflow->startNode->addOutNode( $inputNode );
+        $this->workflow->endNode->addInNode( $inputNode );
+    }
+
     protected function setUpStartSetEnd()
     {
         $this->workflow = new ezcWorkflow( 'StartSetEnd' );

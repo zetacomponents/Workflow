@@ -53,6 +53,17 @@ class ezcWorkflowDefinitionStorageXmlTest extends ezcWorkflowTestCase
         );
     }
 
+    public function testSaveStartInputEnd2()
+    {
+        $this->setUpStartInputEnd2();
+        $this->definition->save( $this->workflow );
+
+        $this->assertEquals(
+          $this->readExpected( 'StartInputEnd2' ),
+          $this->readActual( 'StartInputEnd2' )
+        );
+    }
+
     public function testSaveStartSetEnd()
     {
         $this->setUpStartSetEnd();
@@ -348,6 +359,17 @@ class ezcWorkflowDefinitionStorageXmlTest extends ezcWorkflowTestCase
         $this->assertEquals(
           $this->readExpected( 'StartInputEnd' ),
           $this->readActual( 'StartInputEnd' )
+        );
+    }
+
+    public function testLoadStartInputEnd2()
+    {
+        $this->workflow = $this->definition->loadByName( 'StartInputEnd2' );
+        $this->definition->save( $this->workflow );
+
+        $this->assertEquals(
+          $this->readExpected( 'StartInputEnd2' ),
+          $this->readActual( 'StartInputEnd2' )
         );
     }
 

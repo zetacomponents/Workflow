@@ -34,6 +34,7 @@ return array(
     'ezcWorkflowVisitor'                          => 'Workflow/interfaces/visitor.php',
     'ezcWorkflow'                                 => 'Workflow/workflow.php',
     'ezcWorkflowConditionAnd'                     => 'Workflow/conditions/and.php',
+    'ezcWorkflowConditionInArray'                 => 'Workflow/conditions/in_array.php',
     'ezcWorkflowConditionIsAnything'              => 'Workflow/conditions/is_anything.php',
     'ezcWorkflowConditionIsArray'                 => 'Workflow/conditions/is_array.php',
     'ezcWorkflowConditionIsBool'                  => 'Workflow/conditions/is_bool.php',

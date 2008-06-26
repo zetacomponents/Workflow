@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<workflow name="StartInputEnd2" version="1">
+  <node id="1" type="Start">
+    <outNode id="3"/>
+  </node>
+  <node id="2" type="End"/>
+  <node id="3" type="Input">
+    <variable name="variable">
+      <condition type="InArray">
+        <array>
+          <element key="0">
+            <string>1</string>
+          </element>
+          <element key="1">
+            <integer>2</integer>
+          </element>
+          <element key="2">
+            <integer>3</integer>
+          </element>
+        </array>
+      </condition>
+    </variable>
+    <outNode id="2"/>
+  </node>
+</workflow>
