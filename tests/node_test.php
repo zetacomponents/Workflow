@@ -23,13 +23,13 @@ class ezcWorkflowNodeTest extends ezcWorkflowTestCase
     public function testActionClassNotFound()
     {
         $action = new ezcWorkflowNodeAction( 'NotExistingClass' );
-        $this->assertEquals( 'Class not found.', $action->__toString() );
+        $this->assertEquals( 'Class not found.', (string)$action );
     }
 
     public function testActionClassNotServiceObject()
     {
         $action = new ezcWorkflowNodeAction( 'StdClass' );
-        $this->assertEquals( 'Class does not implement the ezcWorkflowServiceObject interface.', $action->__toString() );
+        $this->assertEquals( 'Class does not implement the ezcWorkflowServiceObject interface.', (string)$action );
     }
 
     public function testInputConstructor()
@@ -135,8 +135,8 @@ class ezcWorkflowNodeTest extends ezcWorkflowTestCase
 
         $outNodes = $this->branchNode->getOutNodes();
 
-        $this->assertEquals( 'condition is true', $this->branchNode->getCondition( $outNodes[0] )->__toString() );
-        $this->assertEquals( 'condition is false', $this->branchNode->getCondition( $outNodes[1] )->__toString() );
+        $this->assertEquals( 'condition is true', (string)$this->branchNode->getCondition( $outNodes[0] ) );
+        $this->assertEquals( 'condition is false', (string)$this->branchNode->getCondition( $outNodes[1] ) );
     }
 
     public function testBranchGetCondition2()
@@ -174,8 +174,8 @@ class ezcWorkflowNodeTest extends ezcWorkflowTestCase
     {
         $this->setUpEmptyWorkflow();
 
-        $this->assertEquals( 'Start', $this->workflow->startNode->__toString() );
-        $this->assertEquals( 'End', $this->workflow->endNode->__toString() );
+        $this->assertEquals( 'Start', (string)$this->workflow->startNode );
+        $this->assertEquals( 'End', (string)$this->workflow->endNode );
     }
 
     public function testStartVerifyFails()

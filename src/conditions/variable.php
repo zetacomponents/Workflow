@@ -65,7 +65,7 @@ class ezcWorkflowConditionVariable implements ezcWorkflowCondition
      */
     public function __toString()
     {
-        return $this->variableName . ' ' . $this->condition->__toString();
+        return $this->variableName . ' ' . $this->condition;
     }
 
     /**

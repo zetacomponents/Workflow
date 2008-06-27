@@ -136,7 +136,7 @@ class ezcWorkflowNodeInput extends ezcWorkflowNode
 
             else if ( !$condition->evaluate( $variables[$variable] ) )
             {
-                $errors[$variable] = $condition->__toString();
+                $errors[$variable] = (string)$condition;
             }
         }
 

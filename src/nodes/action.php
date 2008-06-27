@@ -198,7 +198,7 @@ class ezcWorkflowNodeAction extends ezcWorkflowNode
     {
         try
         {
-            $object = $this->createObject();
+            $buffer = (string)$this->createObject();
         }
         catch ( ezcBaseAutoloadException $e )
         {
@@ -209,7 +209,7 @@ class ezcWorkflowNodeAction extends ezcWorkflowNode
             return $e->getMessage();
         }
 
-        return $object->__toString();
+        return $buffer;
     }
 
     /**

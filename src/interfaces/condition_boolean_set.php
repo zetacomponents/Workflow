@@ -83,7 +83,7 @@ abstract class ezcWorkflowConditionBooleanSet implements ezcWorkflowCondition
                 $string .= ' ' . $this->concatenation . ' ';
             }
 
-            $string .= $condition->__toString();
+            $string .= $condition;
         }
 
         return $string . ' )';

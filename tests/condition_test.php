@@ -23,7 +23,7 @@ class ezcWorkflowConditionTest extends ezcTestCase
         $condition = new ezcWorkflowConditionInArray( array( '1', 2, 3 ) );
         $this->assertTrue( $condition->evaluate( 1 ) );
         $this->assertFalse( $condition->evaluate( 4 ) );
-        $this->assertEquals( "in array('1', 2, 3)", $condition->__toString() );
+        $this->assertEquals( "in array('1', 2, 3)", (string)$condition );
     }
 
     public function testIsAnything()
@@ -31,7 +31,7 @@ class ezcWorkflowConditionTest extends ezcTestCase
         $condition = new ezcWorkflowConditionIsAnything;
 
         $this->assertTrue( $condition->evaluate( null ) );
-        $this->assertEquals( 'is anything', $condition->__toString() );
+        $this->assertEquals( 'is anything', (string)$condition );
     }
 
     public function testIsArray()
@@ -40,7 +40,7 @@ class ezcWorkflowConditionTest extends ezcTestCase
 
         $this->assertTrue( $condition->evaluate( array() ) );
         $this->assertFalse( $condition->evaluate( null ) );
-        $this->assertEquals( 'is array', $condition->__toString() );
+        $this->assertEquals( 'is array', (string)$condition );
     }
 
     public function testIsBool()
@@ -50,7 +50,7 @@ class ezcWorkflowConditionTest extends ezcTestCase
         $this->assertTrue( $condition->evaluate( true ) );
         $this->assertTrue( $condition->evaluate( false ) );
         $this->assertFalse( $condition->evaluate( null ) );
-        $this->assertEquals( 'is bool', $condition->__toString() );
+        $this->assertEquals( 'is bool', (string)$condition );
     }
 
     public function testIsTrue()
@@ -59,7 +59,7 @@ class ezcWorkflowConditionTest extends ezcTestCase
 
         $this->assertTrue( $condition->evaluate( true ) );
         $this->assertFalse( $condition->evaluate( false ) );
-        $this->assertEquals( 'is true', $condition->__toString() );
+        $this->assertEquals( 'is true', (string)$condition );
     }
 
     public function testIsFalse()
@@ -68,7 +68,7 @@ class ezcWorkflowConditionTest extends ezcTestCase
 
         $this->assertFalse( $condition->evaluate( true ) );
         $this->assertTrue( $condition->evaluate( false ) );
-        $this->assertEquals( 'is false', $condition->__toString() );
+        $this->assertEquals( 'is false', (string)$condition );
     }
 
     public function testIsFloat()
@@ -77,7 +77,7 @@ class ezcWorkflowConditionTest extends ezcTestCase
 
         $this->assertTrue( $condition->evaluate( 0.0 ) );
         $this->assertFalse( $condition->evaluate( null ) );
-        $this->assertEquals( 'is float', $condition->__toString() );
+        $this->assertEquals( 'is float', (string)$condition );
     }
 
     public function testIsInteger()
@@ -86,7 +86,7 @@ class ezcWorkflowConditionTest extends ezcTestCase
 
         $this->assertTrue( $condition->evaluate( 0 ) );
         $this->assertFalse( $condition->evaluate( null ) );
-        $this->assertEquals( 'is integer', $condition->__toString() );
+        $this->assertEquals( 'is integer', (string)$condition );
     }
 
     public function testIsObject()
@@ -95,7 +95,7 @@ class ezcWorkflowConditionTest extends ezcTestCase
 
         $this->assertTrue( $condition->evaluate( new StdClass ) );
         $this->assertFalse( $condition->evaluate( null ) );
-        $this->assertEquals( 'is object', $condition->__toString() );
+        $this->assertEquals( 'is object', (string)$condition );
     }
 
     public function testIsString()
@@ -104,7 +104,7 @@ class ezcWorkflowConditionTest extends ezcTestCase
 
         $this->assertTrue( $condition->evaluate( '' ) );
         $this->assertFalse( $condition->evaluate( null ) );
-        $this->assertEquals( 'is string', $condition->__toString() );
+        $this->assertEquals( 'is string', (string)$condition );
     }
 
     public function testIsEqual()
@@ -113,7 +113,7 @@ class ezcWorkflowConditionTest extends ezcTestCase
 
         $this->assertTrue( $condition->evaluate( 2204 ) );
         $this->assertFalse( $condition->evaluate( 1978 ) );
-        $this->assertEquals( '== 2204', $condition->__toString() );
+        $this->assertEquals( '== 2204', (string)$condition );
     }
 
     public function testIsNotEqual()
@@ -122,7 +122,7 @@ class ezcWorkflowConditionTest extends ezcTestCase
 
         $this->assertTrue( $condition->evaluate( 1978 ) );
         $this->assertFalse( $condition->evaluate( 2204 ) );
-        $this->assertEquals( '!= 2204', $condition->__toString() );
+        $this->assertEquals( '!= 2204', (string)$condition );
     }
 
     public function testIsLessThan()
@@ -131,7 +131,7 @@ class ezcWorkflowConditionTest extends ezcTestCase
 
         $this->assertTrue( $condition->evaluate( 1978 ) );
         $this->assertFalse( $condition->evaluate( 2204 ) );
-        $this->assertEquals( '< 2204', $condition->__toString() );
+        $this->assertEquals( '< 2204', (string)$condition );
     }
 
     public function testIsNotLessThan()
@@ -142,7 +142,7 @@ class ezcWorkflowConditionTest extends ezcTestCase
 
         $this->assertTrue( $condition->evaluate( 2204 ) );
         $this->assertFalse( $condition->evaluate( 1978 ) );
-        $this->assertEquals( '! < 2204', $condition->__toString() );
+        $this->assertEquals( '! < 2204', (string)$condition );
         $this->assertType( 'ezcWorkflowConditionIsLessThan', $condition->getCondition() );
     }
 
@@ -152,7 +152,7 @@ class ezcWorkflowConditionTest extends ezcTestCase
 
         $this->assertTrue( $condition->evaluate( 2204 ) );
         $this->assertFalse( $condition->evaluate( 1978 ) );
-        $this->assertEquals( '> 1978', $condition->__toString() );
+        $this->assertEquals( '> 1978', (string)$condition );
     }
 
     public function testIsNotGreaterThan()
@@ -163,7 +163,7 @@ class ezcWorkflowConditionTest extends ezcTestCase
 
         $this->assertTrue( $condition->evaluate( 1978 ) );
         $this->assertFalse( $condition->evaluate( 2204 ) );
-        $this->assertEquals( '! > 1978', $condition->__toString() );
+        $this->assertEquals( '! > 1978', (string)$condition );
         $this->assertType( 'ezcWorkflowConditionIsGreaterThan', $condition->getCondition() );
     }
 
@@ -174,7 +174,7 @@ class ezcWorkflowConditionTest extends ezcTestCase
         $this->assertTrue( $condition->evaluate( 1 ) );
         $this->assertTrue( $condition->evaluate( 2 ) );
         $this->assertFalse( $condition->evaluate( 0 ) );
-        $this->assertEquals( '>= 1', $condition->__toString() );
+        $this->assertEquals( '>= 1', (string)$condition );
     }
 
     public function testIsEqualOrLessThan()
@@ -184,7 +184,7 @@ class ezcWorkflowConditionTest extends ezcTestCase
         $this->assertTrue( $condition->evaluate( 1 ) );
         $this->assertTrue( $condition->evaluate( 0 ) );
         $this->assertFalse( $condition->evaluate( 2 ) );
-        $this->assertEquals( '<= 1', $condition->__toString() );
+        $this->assertEquals( '<= 1', (string)$condition );
     }
 
     public function testVariable()
@@ -245,7 +245,7 @@ class ezcWorkflowConditionTest extends ezcTestCase
 
         $condition = new ezcWorkflowConditionAnd( array( $true, $true ) );
         $this->assertTrue( $condition->evaluate( true ) );
-        $this->assertEquals( '( is true && is true )', $condition->__toString() );
+        $this->assertEquals( '( is true && is true )', (string)$condition );
 
         $condition = new ezcWorkflowConditionAnd( array( $true, $true ) );
         $this->assertFalse( $condition->evaluate( false ) );
@@ -273,7 +273,7 @@ class ezcWorkflowConditionTest extends ezcTestCase
         $condition = new ezcWorkflowConditionOr( array( $true, $true ) );
         $this->assertTrue( $condition->evaluate( true ) );
         $this->assertFalse( $condition->evaluate( false ) );
-        $this->assertEquals( '( is true || is true )', $condition->__toString() );
+        $this->assertEquals( '( is true || is true )', (string)$condition );
 
         $condition = new ezcWorkflowConditionOr( array( $true, $false ) );
         $this->assertTrue( $condition->evaluate( true ) );
@@ -288,7 +288,7 @@ class ezcWorkflowConditionTest extends ezcTestCase
         $condition = new ezcWorkflowConditionXor( array( $true, $false ) );
         $this->assertTrue( $condition->evaluate( true ) );
         $this->assertTrue( $condition->evaluate( false ) );
-        $this->assertEquals( '( is true XOR is false )', $condition->__toString() );
+        $this->assertEquals( '( is true XOR is false )', (string)$condition );
 
         $condition = new ezcWorkflowConditionXor( array( $true, $true ) );
         $this->assertFalse( $condition->evaluate( true ) );

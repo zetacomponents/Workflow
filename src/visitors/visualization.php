@@ -169,7 +169,7 @@ class ezcWorkflowVisitorVisualization implements ezcWorkflowVisitor
             if ( !isset( $this->nodes[$id] ) )
             {
                 $this->nodes[$id] = array(
-                  'label' => $visitable->__toString(),
+                  'label' => $visitable,
                   'color' => $color
                 );
             }
@@ -186,7 +186,7 @@ class ezcWorkflowVisitorVisualization implements ezcWorkflowVisitor
 
                     if ( $condition !== false )
                     {
-                        $label = ' [label="' . $condition->__toString() . '"]';
+                        $label = ' [label="' . $condition . '"]';
                     }
                 }
 

@@ -174,7 +174,7 @@ class ezcWorkflowExecutionVisualizerPlugin extends ezcWorkflowExecutionPlugin
             $execution->getId(),
             ++$this->fileCounter
           ),
-          $visitor->__toString()
+          $visitor
         );
     }
 }

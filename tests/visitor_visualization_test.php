@@ -36,7 +36,7 @@ class ezcWorkflowVisitorVisualizationTest extends ezcWorkflowTestCase
 
         $this->assertEquals(
           $this->readExpected( 'StartEnd' ),
-          $this->visitor->__toString()
+          (string)$this->visitor
         );
     }
 
@@ -49,7 +49,7 @@ class ezcWorkflowVisitorVisualizationTest extends ezcWorkflowTestCase
 
         $this->assertEquals(
           $this->readExpected( 'StartEnd2' ),
-          $this->visitor->__toString()
+          (string)$this->visitor
         );
     }
 
@@ -60,7 +60,7 @@ class ezcWorkflowVisitorVisualizationTest extends ezcWorkflowTestCase
 
         $this->assertEquals(
           $this->readExpected( 'StartInputEnd' ),
-          $this->visitor->__toString()
+          (string)$this->visitor
         );
     }
 
@@ -71,7 +71,7 @@ class ezcWorkflowVisitorVisualizationTest extends ezcWorkflowTestCase
 
         $this->assertEquals(
           $this->readExpected( 'StartSetEnd' ),
-          $this->visitor->__toString()
+          (string)$this->visitor
         );
     }
 
@@ -82,7 +82,7 @@ class ezcWorkflowVisitorVisualizationTest extends ezcWorkflowTestCase
 
         $this->assertEquals(
           $this->readExpected( 'StartSetUnsetEnd' ),
-          $this->visitor->__toString()
+          (string)$this->visitor
         );
     }
 
@@ -93,7 +93,7 @@ class ezcWorkflowVisitorVisualizationTest extends ezcWorkflowTestCase
 
         $this->assertEquals(
           $this->readExpected( 'IncrementingLoop' ),
-          $this->visitor->__toString()
+          (string)$this->visitor
         );
     }
 
@@ -104,7 +104,7 @@ class ezcWorkflowVisitorVisualizationTest extends ezcWorkflowTestCase
 
         $this->assertEquals(
           $this->readExpected( 'DecrementingLoop' ),
-          $this->visitor->__toString()
+          (string)$this->visitor
         );
     }
 
@@ -115,7 +115,7 @@ class ezcWorkflowVisitorVisualizationTest extends ezcWorkflowTestCase
 
         $this->assertEquals(
           $this->readExpected( 'SetAddSubMulDiv' ),
-          $this->visitor->__toString()
+          (string)$this->visitor
         );
     }
 
@@ -126,7 +126,7 @@ class ezcWorkflowVisitorVisualizationTest extends ezcWorkflowTestCase
 
         $this->assertEquals(
           $this->readExpected( 'AddVariables' ),
-          $this->visitor->__toString()
+          (string)$this->visitor
         );
     }
 
@@ -137,7 +137,7 @@ class ezcWorkflowVisitorVisualizationTest extends ezcWorkflowTestCase
 
         $this->assertEquals(
           $this->readExpected( 'VariableEqualsVariable' ),
-          $this->visitor->__toString()
+          (string)$this->visitor
         );
     }
 
@@ -148,7 +148,7 @@ class ezcWorkflowVisitorVisualizationTest extends ezcWorkflowTestCase
 
         $this->assertEquals(
           $this->readExpected( 'ParallelSplitSynchronization' ),
-          $this->visitor->__toString()
+          (string)$this->visitor
         );
     }
 
@@ -159,7 +159,7 @@ class ezcWorkflowVisitorVisualizationTest extends ezcWorkflowTestCase
 
         $this->assertEquals(
           $this->readExpected( 'ParallelSplitSynchronization2' ),
-          $this->visitor->__toString()
+          (string)$this->visitor
         );
     }
 
@@ -170,7 +170,7 @@ class ezcWorkflowVisitorVisualizationTest extends ezcWorkflowTestCase
 
         $this->assertEquals(
           $this->readExpected( 'ExclusiveChoiceSimpleMerge' ),
-          $this->visitor->__toString()
+          (string)$this->visitor
         );
     }
 
@@ -181,7 +181,7 @@ class ezcWorkflowVisitorVisualizationTest extends ezcWorkflowTestCase
 
         $this->assertEquals(
           $this->readExpected( 'ExclusiveChoiceWithUnconditionalOutNodeSimpleMerge' ),
-          $this->visitor->__toString()
+          (string)$this->visitor
         );
     }
 
@@ -192,7 +192,7 @@ class ezcWorkflowVisitorVisualizationTest extends ezcWorkflowTestCase
 
         $this->assertEquals(
           $this->readExpected( 'NestedExclusiveChoiceSimpleMerge' ),
-          $this->visitor->__toString()
+          (string)$this->visitor
         );
     }
 
@@ -203,7 +203,7 @@ class ezcWorkflowVisitorVisualizationTest extends ezcWorkflowTestCase
 
         $this->assertEquals(
           $this->readExpected( 'MultiChoiceSynchronizingMerge' ),
-          $this->visitor->__toString()
+          (string)$this->visitor
         );
     }
 
@@ -214,7 +214,7 @@ class ezcWorkflowVisitorVisualizationTest extends ezcWorkflowTestCase
 
         $this->assertEquals(
           $this->readExpected( 'MultiChoiceDiscriminator' ),
-          $this->visitor->__toString()
+          (string)$this->visitor
         );
     }
 
@@ -225,7 +225,7 @@ class ezcWorkflowVisitorVisualizationTest extends ezcWorkflowTestCase
 
         $this->assertEquals(
           $this->readExpected( 'WorkflowWithSubWorkflowStartEnd' ),
-          $this->visitor->__toString()
+          (string)$this->visitor
         );
     }
 
@@ -236,7 +236,7 @@ class ezcWorkflowVisitorVisualizationTest extends ezcWorkflowTestCase
 
         $this->assertEquals(
           $this->readExpected( 'WorkflowWithSubWorkflowParallelSplitActionActionCancelCaseSynchronization' ),
-          $this->visitor->__toString()
+          (string)$this->visitor
         );
     }
 
@@ -247,7 +247,7 @@ class ezcWorkflowVisitorVisualizationTest extends ezcWorkflowTestCase
 
         $this->assertEquals(
           $this->readExpected( 'NestedLoops' ),
-          $this->visitor->__toString()
+          (string)$this->visitor
         );
     }
 
@@ -258,7 +258,7 @@ class ezcWorkflowVisitorVisualizationTest extends ezcWorkflowTestCase
 
         $this->assertEquals(
           $this->readExpected( 'ParallelSplitCancelCaseActionActionSynchronization' ),
-          $this->visitor->__toString()
+          (string)$this->visitor
         );
     }
 
@@ -269,7 +269,7 @@ class ezcWorkflowVisitorVisualizationTest extends ezcWorkflowTestCase
 
         $this->assertEquals(
           $this->readExpected( 'ParallelSplitActionActionCancelCaseSynchronization' ),
-          $this->visitor->__toString()
+          (string)$this->visitor
         );
     }
 
