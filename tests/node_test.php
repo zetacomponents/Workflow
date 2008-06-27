@@ -178,128 +178,91 @@ class ezcWorkflowNodeTest extends ezcWorkflowTestCase
         $this->assertEquals( 'End', (string)$this->workflow->endNode );
     }
 
+    /**
+     * @expectedException ezcWorkflowInvalidWorkflowException
+     */
     public function testStartVerifyFails()
     {
         $this->setUpEmptyWorkflow();
-
-        try
-        {
-            $this->workflow->startNode->verify();
-        }
-        catch ( ezcWorkflowInvalidWorkflowException $e )
-        {
-            return;
-        }
-
-        $this->fail();
+        $this->workflow->startNode->verify();
     }
 
+    /**
+     * @expectedException ezcWorkflowInvalidWorkflowException
+     */
     public function testEndVerifyFails()
     {
         $this->setUpEmptyWorkflow();
-
-        try
-        {
-            $this->workflow->endNode->verify();
-        }
-        catch ( ezcWorkflowInvalidWorkflowException $e )
-        {
-            return;
-        }
-
-        $this->fail();
+        $this->workflow->endNode->verify();
     }
 
+    /**
+     * @expectedException ezcWorkflowInvalidWorkflowException
+     */
     public function testVerifyTooManyIncomingNodes()
     {
-        try
-        {
-            $a = new ezcWorkflowNodeVariableSet(
-              array( 'foo' => 'bar' )
-            );
+        $a = new ezcWorkflowNodeVariableSet(
+          array( 'foo' => 'bar' )
+        );
 
-            $b = new ezcWorkflowNodeVariableSet(
-              array( 'foo' => 'bar' )
-            );
+        $b = new ezcWorkflowNodeVariableSet(
+          array( 'foo' => 'bar' )
+        );
 
-            $c = new ezcWorkflowNodeVariableSet(
-              array( 'foo' => 'bar' )
-            );
+        $c = new ezcWorkflowNodeVariableSet(
+          array( 'foo' => 'bar' )
+        );
 
-            $d = new ezcWorkflowNodeVariableSet(
-              array( 'foo' => 'bar' )
-            );
+        $d = new ezcWorkflowNodeVariableSet(
+          array( 'foo' => 'bar' )
+        );
 
-            $c->addInNode( $a );
-            $c->addInNode( $b );
-            $c->addOutNode( $d );
+        $c->addInNode( $a );
+        $c->addInNode( $b );
+        $c->addOutNode( $d );
 
-            $c->verify();
-        }
-        catch ( ezcWorkflowInvalidWorkflowException $e )
-        {
-            return;
-        }
-
-        $this->fail();
+        $c->verify();
     }
 
+    /**
+     * @expectedException ezcWorkflowInvalidWorkflowException
+     */
     public function testVerifyTooManyOutgoingNodes()
     {
-        try
-        {
-            $a = new ezcWorkflowNodeVariableSet(
-              array( 'foo' => 'bar' )
-            );
+        $a = new ezcWorkflowNodeVariableSet(
+          array( 'foo' => 'bar' )
+        );
 
-            $b = new ezcWorkflowNodeVariableSet(
-              array( 'foo' => 'bar' )
-            );
+        $b = new ezcWorkflowNodeVariableSet(
+          array( 'foo' => 'bar' )
+        );
 
-            $c = new ezcWorkflowNodeVariableSet(
-              array( 'foo' => 'bar' )
-            );
+        $c = new ezcWorkflowNodeVariableSet(
+          array( 'foo' => 'bar' )
+        );
 
-            $d = new ezcWorkflowNodeVariableSet(
-              array( 'foo' => 'bar' )
-            );
+        $d = new ezcWorkflowNodeVariableSet(
+          array( 'foo' => 'bar' )
+        );
 
-            $b->addOutNode( $c );
-            $b->addOutNode( $d );
-            $b->addInNode( $a );
+        $b->addOutNode( $c );
+        $b->addOutNode( $d );
+        $b->addInNode( $a );
 
-            $b->verify();
-        }
-        catch ( ezcWorkflowInvalidWorkflowException $e )
-        {
-            return;
-        }
-
-        $this->fail();
+        $b->verify();
     }
 
+    /**
+     * @expectedException ezcWorkflowInvalidWorkflowException
+     */
     public function testVerifyTooFewConditionalOutNodes()
     {
-        try
-        {
-            $branch = new ezcWorkflowNodeExclusiveChoice;
-            $branch->addInNode( new ezcWorkflowNodeStart )
-                   ->addOutNode( new ezcWorkflowNodeEnd )
-                   ->addOutNode( new ezcWorkflowNodeEnd );
+        $branch = new ezcWorkflowNodeExclusiveChoice;
+        $branch->addInNode( new ezcWorkflowNodeStart )
+               ->addOutNode( new ezcWorkflowNodeEnd )
+               ->addOutNode( new ezcWorkflowNodeEnd );
 
-            $branch->verify();
-        }
-        catch ( ezcWorkflowInvalidWorkflowException $e )
-        {
-            $this->assertEquals(
-              'Node has less conditional outgoing nodes than required.',
-              $e->getMessage()
-            );
-
-            return;
-        }
-
-        $this->fail();
+        $branch->verify();
     }
 
     public function testActivatedFrom()

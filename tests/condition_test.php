@@ -210,22 +210,16 @@ class ezcWorkflowConditionTest extends ezcTestCase
         $this->assertFalse( $condition->evaluate( array( 'foo' => 'bar', 'bar' => 'foo' ) ) );
     }
 
+    /**
+     * @expectedException ezcBaseValueException
+     */
     public function testVariables2()
     {
-        try
-        {
-            $condition = new ezcWorkflowConditionVariables(
-              'foo',
-              'bar',
-              new ezcWorkflowConditionIsAnything
-            );
-        }
-        catch ( ezcBaseValueException $e )
-        {
-            return;
-        }
-
-        $this->fail();
+        $condition = new ezcWorkflowConditionVariables(
+          'foo',
+          'bar',
+          new ezcWorkflowConditionIsAnything
+        );
     }
 
     public function testVariables3()
@@ -251,18 +245,12 @@ class ezcWorkflowConditionTest extends ezcTestCase
         $this->assertFalse( $condition->evaluate( false ) );
     }
 
+    /**
+     * @expectedException ezcWorkflowDefinitionStorageException
+     */
     public function testAnd2()
     {
-        try
-        {
-            $condition = new ezcWorkflowConditionAnd( array( new StdClass ) );
-        }
-        catch ( ezcWorkflowDefinitionStorageException $e )
-        {
-            return;
-        }
-
-        $this->fail();
+        $condition = new ezcWorkflowConditionAnd( array( new StdClass ) );
     }
 
     public function testOr()

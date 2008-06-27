@@ -80,102 +80,60 @@ class ezcWorkflowExecutionPluginVisualizerTest extends ezcWorkflowTestCase
         }
     }
 
+    /**
+     * @expectedException ezcBasePropertyNotFoundException
+     */
     public function testProperties()
     {
-        try
-        {
-            $foo = $this->visualizer->foo;
-        }
-        catch ( ezcBasePropertyNotFoundException $e )
-        {
-            return;
-        }
-
-        $this->fail();
+        $foo = $this->visualizer->foo;
     }
 
+    /**
+     * @expectedException ezcBasePropertyNotFoundException
+     */
     public function testProperties2()
     {
-        try
-        {
-            $this->visualizer->foo = 'foo';
-        }
-        catch ( ezcBasePropertyNotFoundException $e )
-        {
-            return;
-        }
-
-        $this->fail();
+        $this->visualizer->foo = 'foo';
     }
 
+    /**
+     * @expectedException ezcBaseValueException
+     */
     public function testOptions()
     {
-        try
-        {
-            $this->visualizer->options = null;
-        }
-        catch ( ezcBaseValueException $e )
-        {
-            return;
-        }
-
-        $this->fail();
+        $this->visualizer->options = null;
     }
 
+    /**
+     * @expectedException ezcBaseValueException
+     */
     public function testOptions2()
     {
-        try
-        {
-            $this->visualizer->options['directory'] = null;
-        }
-        catch ( ezcBaseValueException $e )
-        {
-            return;
-        }
-
-        $this->fail();
+        $this->visualizer->options['directory'] = null;
     }
 
+    /**
+     * @expectedException ezcBaseFileNotFoundException
+     */
     public function testOptions3()
     {
-        try
-        {
-            $this->visualizer->options['directory'] = 'foo';
-        }
-        catch ( ezcBaseFileNotFoundException $e )
-        {
-            return;
-        }
-
-        $this->fail();
+        $this->visualizer->options['directory'] = 'foo';
     }
 
+    /**
+     * @expectedException ezcBaseValueException
+     */
     public function testOptions4()
     {
-        try
-        {
-            $this->visualizer->options['includeVariables'] = null;
-        }
-        catch ( ezcBaseValueException $e )
-        {
-            return;
-        }
-
-        $this->fail();
+        $this->visualizer->options['includeVariables'] = null;
     }
 
+    /**
+     * @expectedException ezcBasePropertyNotFoundException
+     */
     public function testOptions5()
     {
-        try
-        {
-            $this->visualizer->options['foo'] = null;
-        }
-        catch ( ezcBasePropertyNotFoundException $e )
-        {
-            return;
-        }
-
-        $this->fail();
+        $this->visualizer->options['foo'] = null;
     }
 }
 ?>

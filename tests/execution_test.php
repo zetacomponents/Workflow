@@ -286,38 +286,24 @@ class ezcWorkflowExecutionTest extends ezcWorkflowTestCase
         $this->assertEquals( 2, $this->execution->getVariable( 'b' ) );
     }
 
+    /**
+     * @expectedException ezcWorkflowExecutionException
+     */
     public function testExecuteAddVariables2()
     {
         $this->setUpAddVariables2();
         $this->execution->workflow = $this->workflow;
-
-        try
-        {
-            $this->execution->start();
-        }
-        catch ( ezcWorkflowExecutionException $e )
-        {
-            return;
-        }
-
-        $this->fail();
+        $this->execution->start();
     }
 
+    /**
+     * @expectedException ezcWorkflowExecutionException
+     */
     public function testExecuteAddVariables3()
     {
         $this->setUpAddVariables3();
         $this->execution->workflow = $this->workflow;
-
-        try
-        {
-            $this->execution->start();
-        }
-        catch ( ezcWorkflowExecutionException $e )
-        {
-            return;
-        }
-
-        $this->fail();
+        $this->execution->start();
     }
 
     public function testExecuteVariableEqualsVariable()
@@ -770,36 +756,27 @@ class ezcWorkflowExecutionTest extends ezcWorkflowTestCase
         $this->assertFalse( $this->execution->removePlugin( $plugin ) );
     }
 
+    /**
+     * @expectedException ezcWorkflowExecutionException
+     */
     public function testNoWorkflowStartRaisesException()
     {
-        try
-        {
-            $execution = new ezcWorkflowExecutionNonInteractive;
-            $execution->start();
-        }
-        catch ( ezcWorkflowExecutionException $e )
-        {
-            return;
-        }
-
-        $this->fail();
+        $execution = new ezcWorkflowExecutionNonInteractive;
+        $execution->start();
     }
 
+    /**
+     * @expectedException ezcWorkflowExecutionException
+     */
     public function testNoExecutionIdResumeRaisesException()
     {
-        try
-        {
-            $execution = new ezcWorkflowExecutionNonInteractive;
-            $execution->resume();
-        }
-        catch ( ezcWorkflowExecutionException $e )
-        {
-            return;
-        }
-
-        $this->fail();
+        $execution = new ezcWorkflowExecutionNonInteractive;
+        $execution->resume();
     }
 
+    /**
+     * @expectedException ezcWorkflowExecutionException
+     */
     public function testInteractiveWorkflowRaisesException()
     {
         $this->setupEmptyWorkflow();
@@ -809,19 +786,13 @@ class ezcWorkflowExecutionTest extends ezcWorkflowTestCase
         $this->workflow->startNode->addOutNode( $input );
         $this->workflow->endNode->addInNode( $input );
 
-        try
-        {
-            $execution = new ezcWorkflowExecutionNonInteractive;
-            $execution->workflow = $this->workflow;
-        }
-        catch ( ezcWorkflowExecutionException $e )
-        {
-            return;
-        }
-
-        $this->fail();
+        $execution = new ezcWorkflowExecutionNonInteractive;
+        $execution->workflow = $this->workflow;
     }
 
+    /**
+     * @expectedException ezcWorkflowExecutionException
+     */
     public function testGetVariable()
     {
         $this->setUpStartEnd();
@@ -830,30 +801,15 @@ class ezcWorkflowExecutionTest extends ezcWorkflowTestCase
 
         $this->assertFalse( $this->execution->hasVariable( 'foo' ) );
 
-        try
-        {
-            $this->execution->getVariable( 'foo' );
-        }
-        catch ( ezcWorkflowExecutionException $e )
-        {
-            return;
-        }
-
-        $this->fail();
+        $this->execution->getVariable( 'foo' );
     }
 
+    /**
+     * @expectedException ezcWorkflowExecutionException
+     */
     public function testEndNonExistingThread()
     {
-        try
-        {
-            $this->execution->endThread( 0 );
-        }
-        catch ( ezcWorkflowExecutionException $e )
-        {
-            return;
-        }
-
-        $this->fail();
+        $this->execution->endThread( 0 );
     }
 
     public function testGetSiblingsForNonExistingThread()
@@ -870,66 +826,40 @@ class ezcWorkflowExecutionTest extends ezcWorkflowTestCase
         $this->assertFalse( isset( $execution->foo ) );
     }
 
+    /**
+     * @expectedException ezcBaseValueException
+     */
     public function testProperties2()
     {
-        try
-        {
-            $execution = new ezcWorkflowExecutionNonInteractive;
-            $execution->workflow = new StdClass;
-        }
-        catch ( ezcBaseValueException $e )
-        {
-            return;
-        }
-
-        $this->fail();
+        $execution = new ezcWorkflowExecutionNonInteractive;
+        $execution->workflow = new StdClass;
     }
 
+    /**
+     * @expectedException ezcBasePropertyNotFoundException
+     */
     public function testProperties3()
     {
-        try
-        {
-            $execution = new ezcWorkflowExecutionNonInteractive;
-            $foo = $execution->foo;
-        }
-        catch ( ezcBasePropertyNotFoundException $e )
-        {
-            return;
-        }
-
-        $this->fail();
+        $execution = new ezcWorkflowExecutionNonInteractive;
+        $foo = $execution->foo;
     }
 
+    /**
+     * @expectedException ezcBasePropertyNotFoundException
+     */
     public function testProperties4()
     {
-        $this->setUpStartEnd();
-
-        try
-        {
-            $execution = new ezcWorkflowExecutionNonInteractive;
-            $execution->foo = null;
-        }
-        catch ( ezcBasePropertyNotFoundException $e )
-        {
-            return;
-        }
-
-        $this->fail();
+        $execution = new ezcWorkflowExecutionNonInteractive;
+        $execution->foo = null;
     }
 
+    /**
+     * @expectedException ezcBaseValueException
+     */
     public function testProperties5()
     {
-        try
-        {
-            $execution = new ezcWorkflowExecutionNonInteractive;
-            $execution->definitionStorage = new StdClass;
-        }
-        catch ( ezcBaseValueException $e )
-        {
-            return;
-        }
-
-        $this->fail();
+        $execution = new ezcWorkflowExecutionNonInteractive;
+        $execution->definitionStorage = new StdClass;
     }
 }
 ?>

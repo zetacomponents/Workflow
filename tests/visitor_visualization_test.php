@@ -273,32 +273,20 @@ class ezcWorkflowVisitorVisualizationTest extends ezcWorkflowTestCase
         );
     }
 
+    /**
+     * @expectedException ezcBasePropertyNotFoundException
+     */
     public function testProperties()
     {
-        try
-        {
-            $foo = $this->visitor->foo;
-        }
-        catch ( ezcBasePropertyNotFoundException $e )
-        {
-            return;
-        }
-
-        $this->fail();
+        $foo = $this->visitor->foo;
     }
 
+    /**
+     * @expectedException ezcBasePropertyNotFoundException
+     */
     public function testProperties2()
     {
-        try
-        {
-            $this->visitor->foo = 'foo';
-        }
-        catch ( ezcBasePropertyNotFoundException $e )
-        {
-            return;
-        }
-
-        $this->fail();
+        $this->visitor->foo = 'foo';
     }
 
     public function testOptions()
@@ -317,60 +305,36 @@ class ezcWorkflowVisitorVisualizationTest extends ezcWorkflowTestCase
         $this->assertEquals( '#cc0000', $this->visitor->options['colorNormal'] );
     }
 
+    /**
+     * @expectedException ezcBaseValueException
+     */
     public function testOptions2()
     {
-        try
-        {
-            $this->visitor->options['colorHighlighted'] = null;
-        }
-        catch ( ezcBaseValueException $e )
-        {
-            return;
-        }
-
-        $this->fail();
+        $this->visitor->options['colorHighlighted'] = null;
     }
 
+    /**
+     * @expectedException ezcBaseValueException
+     */
     public function testOptions3()
     {
-        try
-        {
-            $this->visitor->options = null;
-        }
-        catch ( ezcBaseValueException $e )
-        {
-            return;
-        }
-
-        $this->fail();
+        $this->visitor->options = null;
     }
 
+    /**
+     * @expectedException ezcBaseValueException
+     */
     public function testOptions4()
     {
-        try
-        {
-            $this->visitor->options['highlightedNodes'] = null;
-        }
-        catch ( ezcBaseValueException $e )
-        {
-            return;
-        }
-
-        $this->fail();
+        $this->visitor->options['highlightedNodes'] = null;
     }
 
+    /**
+     * @expectedException ezcBasePropertyNotFoundException
+     */
     public function testOptions5()
     {
-        try
-        {
-            $this->visitor->options['foo'] = null;
-        }
-        catch ( ezcBasePropertyNotFoundException $e )
-        {
-            return;
-        }
-
-        $this->fail();
+        $this->visitor->options['foo'] = null;
     }
 
     protected function readExpected( $name )

@@ -625,60 +625,36 @@ class ezcWorkflowDefinitionStorageXmlTest extends ezcWorkflowTestCase
         );
     }
 
+    /**
+     * @expectedException ezcWorkflowDefinitionStorageException
+     */
     public function testExceptionWhenLoadingNotExistingWorkflow()
     {
-        try
-        {
-            $this->definition->loadByName( 'NotExisting' );
-        }
-        catch ( ezcWorkflowDefinitionStorageException $e )
-        {
-            return;
-        }
-
-        $this->fail();
+        $this->definition->loadByName( 'NotExisting' );
     }
 
+    /**
+     * @expectedException ezcWorkflowDefinitionStorageException
+     */
     public function testExceptionWhenLoadingNotExistingWorkflowVersion()
     {
-        try
-        {
-            $workflow = $this->definition->loadByName( 'StartEnd', 2 );
-        }
-        catch ( ezcWorkflowDefinitionStorageException $e )
-        {
-            return;
-        }
-
-        $this->fail();
+        $workflow = $this->definition->loadByName( 'StartEnd', 2 );
     }
 
+    /**
+     * @expectedException ezcWorkflowDefinitionStorageException
+     */
     public function testExceptionWhenLoadingNotValidWorkflow()
     {
-        try
-        {
-            $this->definition->loadByName( 'NotValid' );
-        }
-        catch ( ezcWorkflowDefinitionStorageException $e )
-        {
-            return;
-        }
-
-        $this->fail();
+        $this->definition->loadByName( 'NotValid' );
     }
 
+    /**
+     * @expectedException ezcWorkflowDefinitionStorageException
+     */
     public function testExceptionWhenLoadingNotWellFormedWorkflow()
     {
-        try
-        {
-            $this->definition->loadByName( 'NotWellFormed' );
-        }
-        catch ( ezcWorkflowDefinitionStorageException $e )
-        {
-            return;
-        }
-
-        $this->fail();
+        $this->definition->loadByName( 'NotWellFormed' );
     }
 
     protected function readActual( $name )
