@@ -21,14 +21,14 @@ class ezcWorkflowExecutionNonInteractive extends ezcWorkflowExecution
 {
     /**
      * Property write access.
-     * 
+     *
      * @param string $propertyName Name of the property.
      * @param mixed $val  The value for the property.
      *
-     * @throws ezcBaseValueException 
+     * @throws ezcBaseValueException
      *         If a the value for the property definitionStorage is not an
      *         instance of ezcWorkflowDefinitionStorage.
-     * @throws ezcBaseValueException 
+     * @throws ezcBaseValueException
      *         If a the value for the property workflow is not an instance of
      *         ezcWorkflow.
      * @ignore

@@ -56,8 +56,8 @@ class ezcWorkflowVisitorVisualization implements ezcWorkflowVisitor
     protected $workflowName = 'Workflow';
 
     /**
-     * Properties. 
-     * 
+     * Properties.
+     *
      * @var array(string=>mixed)
      */
     protected $properties = array();
@@ -116,9 +116,9 @@ class ezcWorkflowVisitorVisualization implements ezcWorkflowVisitor
     }
 
     /**
-     * Property isset access. 
-     * 
-     * @param string $propertyName 
+     * Property isset access.
+     *
+     * @param string $propertyName
      * @return bool
      * @ignore
      */

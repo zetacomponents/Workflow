@@ -120,16 +120,16 @@ abstract class ezcWorkflowExecution
     /**
      * Property read access.
      *
-     * @throws ezcBasePropertyNotFoundException 
+     * @throws ezcBasePropertyNotFoundException
      *         If the the desired property is not found.
-     * 
+     *
      * @param string $propertyName Name of the property.
      * @return mixed Value of the property or null.
      * @ignore
      */
     public function __get( $propertyName )
     {
-        switch ( $propertyName ) 
+        switch ( $propertyName )
         {
             case 'definitionStorage':
             case 'workflow':
@@ -141,21 +141,21 @@ abstract class ezcWorkflowExecution
 
     /**
      * Property write access.
-     * 
+     *
      * @param string $propertyName Name of the property.
      * @param mixed $val  The value for the property.
      *
-     * @throws ezcBaseValueException 
+     * @throws ezcBaseValueException
      *         If a the value for the property definitionStorage is not an
      *         instance of ezcWorkflowDefinitionStorage.
-     * @throws ezcBaseValueException 
+     * @throws ezcBaseValueException
      *         If a the value for the property workflow is not an instance of
      *         ezcWorkflow.
      * @ignore
      */
     public function __set( $propertyName, $val )
     {
-        switch ( $propertyName ) 
+        switch ( $propertyName )
         {
             case 'definitionStorage':
                 if ( !( $val instanceof ezcWorkflowDefinitionStorage ) )
@@ -180,10 +180,10 @@ abstract class ezcWorkflowExecution
 
         throw new ezcBasePropertyNotFoundException( $propertyName );
     }
- 
+
     /**
      * Property isset access.
-     * 
+     *
      * @param string $propertyName Name of the property.
      * @return bool True is the property is set, otherwise false.
      * @ignore
@@ -990,7 +990,7 @@ abstract class ezcWorkflowExecution
     }
 
     /**
-     * Loads data from variable handlers and 
+     * Loads data from variable handlers and
      * merge it with the current execution data.
      */
     protected function loadFromVariableHandlers()

@@ -27,7 +27,7 @@ class ezcWorkflowVisitorVisualizationOptions extends ezcBaseOptions
 {
     /**
      * Properties.
-     * 
+     *
      * @var array(string=>mixed)
      */
     protected $properties = array(
@@ -39,11 +39,11 @@ class ezcWorkflowVisitorVisualizationOptions extends ezcBaseOptions
 
     /**
      * Property write access.
-     * 
+     *
      * @param string $propertyName  Name of the property.
      * @param mixed  $propertyValue The value for the property.
      *
-     * @throws ezcBasePropertyNotFoundException 
+     * @throws ezcBasePropertyNotFoundException
      *         If the the desired property is not found.
      * @ignore
      */

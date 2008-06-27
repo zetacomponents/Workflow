@@ -610,7 +610,7 @@ class ezcWorkflowExecutionTest extends ezcWorkflowTestCase
             $this->assertEquals(
               'No ezcWorkflowDefinitionStorage implementation available.',
               $e->getMessage()
-            ); 
+            );
 
             return;
         }
@@ -671,7 +671,7 @@ class ezcWorkflowExecutionTest extends ezcWorkflowTestCase
             $this->assertEquals(
               'Workflow is waiting for input data that has not been mocked.',
               $e->getMessage()
-            ); 
+            );
 
             return;
         }

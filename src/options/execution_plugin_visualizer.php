@@ -23,7 +23,7 @@ class ezcWorkflowExecutionVisualizerPluginOptions extends ezcBaseOptions
 {
     /**
      * Properties.
-     * 
+     *
      * @var array(string=>mixed)
      */
     protected $properties = array(
@@ -33,11 +33,11 @@ class ezcWorkflowExecutionVisualizerPluginOptions extends ezcBaseOptions
 
     /**
      * Property write access.
-     * 
+     *
      * @param string $propertyName  Name of the property.
      * @param mixed  $propertyValue The value for the property.
      *
-     * @throws ezcBasePropertyNotFoundException 
+     * @throws ezcBasePropertyNotFoundException
      *         If the the desired property is not found.
      * @throws ezcBaseFileNotFoundException
      *         When the directory does not exist.

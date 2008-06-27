@@ -11,7 +11,7 @@
 /**
  * The Loop node type is a special type of conditional branch node that has two
  * incoming nodes instead of just one. It is used to conveniently express loops.
- * 
+ *
  * Incoming nodes: 2
  * Outgoing nodes: 2
  *

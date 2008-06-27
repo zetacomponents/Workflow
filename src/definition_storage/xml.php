@@ -600,10 +600,8 @@ class ezcWorkflowDefinitionStorageXml implements ezcWorkflowDefinitionStorage
                         }
                     }
 
-                    $class = new ReflectionClass( $className );
-
+                    $class    = new ReflectionClass( $className );
                     $variable = $class->newInstanceArgs( $constructorArgs );
-                    
                 }
                 else
                 {

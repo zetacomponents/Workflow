@@ -50,16 +50,16 @@ class ezcWorkflowInvalidInputException extends ezcWorkflowExecutionException
     /**
      * Property read access.
      *
-     * @throws ezcBasePropertyNotFoundException 
+     * @throws ezcBasePropertyNotFoundException
      *         If the the desired property is not found.
-     * 
+     *
      * @param string $propertyName Name of the property.
      * @return mixed Value of the property or null.
      * @ignore
      */
     public function __get( $propertyName )
     {
-        switch ( $propertyName ) 
+        switch ( $propertyName )
         {
             case 'errors':
                 return $this->properties[$propertyName];
@@ -70,17 +70,17 @@ class ezcWorkflowInvalidInputException extends ezcWorkflowExecutionException
 
     /**
      * Property write access.
-     * 
+     *
      * @param string $propertyName Name of the property.
      * @param mixed $val  The value for the property.
      *
-     * @throws ezcBasePropertyPermissionException 
+     * @throws ezcBasePropertyPermissionException
      *         If there is a write access to errors.
      * @ignore
      */
     public function __set( $propertyName, $val )
     {
-        switch ( $propertyName ) 
+        switch ( $propertyName )
         {
             case 'errors':
                 throw new ezcBasePropertyPermissionException( $propertyName, ezcBasePropertyPermissionException::WRITE );
@@ -88,10 +88,10 @@ class ezcWorkflowInvalidInputException extends ezcWorkflowExecutionException
 
         throw new ezcBasePropertyNotFoundException( $propertyName );
     }
- 
+
     /**
      * Property isset access.
-     * 
+     *
      * @param string $propertyName Name of the property.
      * @return bool True is the property is set, otherwise false.
      * @ignore

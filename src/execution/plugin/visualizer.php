@@ -39,8 +39,8 @@ class ezcWorkflowExecutionVisualizerPlugin extends ezcWorkflowExecutionPlugin
     protected $fileCounter = 0;
 
     /**
-     * Properties. 
-     * 
+     * Properties.
+     *
      * @var array(string=>mixed)
      */
     protected $properties = array();
@@ -102,9 +102,9 @@ class ezcWorkflowExecutionVisualizerPlugin extends ezcWorkflowExecutionPlugin
     }
 
     /**
-     * Property isset access. 
-     * 
-     * @param string $propertyName 
+     * Property isset access.
+     *
+     * @param string $propertyName
      * @return bool
      * @ignore
      */
