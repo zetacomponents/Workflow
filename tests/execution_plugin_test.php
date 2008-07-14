@@ -47,7 +47,7 @@ class ezcWorkflowExecutionPluginTest extends ezcWorkflowTestCase
         $this->plugin->expects( $this->exactly( 2 ) )->method( 'afterNodeExecuted' );
         $this->plugin->expects( $this->exactly( 1 ) )->method( 'afterThreadStarted' );
         $this->plugin->expects( $this->exactly( 1 ) )->method( 'afterThreadEnded' );
-        $this->plugin->expects( $this->exactly( 0 ) )->method( 'beforeVariableSet' )->will( $this->returnArgument( 3 ) );
+        $this->plugin->expects( $this->exactly( 0 ) )->method( 'beforeVariableSet' )->will( $this->returnArgument( 2 ) );
         $this->plugin->expects( $this->exactly( 0 ) )->method( 'afterVariableSet' );
         $this->plugin->expects( $this->exactly( 0 ) )->method( 'beforeVariableUnset' )->will( $this->returnValue( true ) );
         $this->plugin->expects( $this->exactly( 0 ) )->method( 'afterVariableUnset' );
@@ -69,7 +69,7 @@ class ezcWorkflowExecutionPluginTest extends ezcWorkflowTestCase
         $this->plugin->expects( $this->exactly( 2 ) )->method( 'afterNodeExecuted' );
         $this->plugin->expects( $this->exactly( 1 ) )->method( 'afterThreadStarted' );
         $this->plugin->expects( $this->exactly( 1 ) )->method( 'afterThreadEnded' );
-        $this->plugin->expects( $this->exactly( 1 ) )->method( 'beforeVariableSet' )->will( $this->returnArgument( 3 ) );
+        $this->plugin->expects( $this->exactly( 1 ) )->method( 'beforeVariableSet' )->will( $this->returnArgument( 2 ) );
         $this->plugin->expects( $this->exactly( 1 ) )->method( 'afterVariableSet' );
         $this->plugin->expects( $this->exactly( 0 ) )->method( 'beforeVariableUnset' )->will( $this->returnValue( true ) );
         $this->plugin->expects( $this->exactly( 0 ) )->method( 'afterVariableUnset' );
@@ -91,7 +91,7 @@ class ezcWorkflowExecutionPluginTest extends ezcWorkflowTestCase
         $this->plugin->expects( $this->exactly( 3 ) )->method( 'afterNodeExecuted' );
         $this->plugin->expects( $this->exactly( 1 ) )->method( 'afterThreadStarted' );
         $this->plugin->expects( $this->exactly( 1 ) )->method( 'afterThreadEnded' );
-        $this->plugin->expects( $this->exactly( 3 ) )->method( 'beforeVariableSet' )->will( $this->returnArgument( 3 ) );
+        $this->plugin->expects( $this->exactly( 3 ) )->method( 'beforeVariableSet' )->will( $this->returnArgument( 2 ) );
         $this->plugin->expects( $this->exactly( 3 ) )->method( 'afterVariableSet' );
         $this->plugin->expects( $this->exactly( 0 ) )->method( 'beforeVariableUnset' )->will( $this->returnValue( true ) );
         $this->plugin->expects( $this->exactly( 0 ) )->method( 'afterVariableUnset' );
@@ -114,7 +114,7 @@ class ezcWorkflowExecutionPluginTest extends ezcWorkflowTestCase
         $this->plugin->expects( $this->exactly( 4 ) )->method( 'afterNodeExecuted' );
         $this->plugin->expects( $this->exactly( 1 ) )->method( 'afterThreadStarted' );
         $this->plugin->expects( $this->exactly( 1 ) )->method( 'afterThreadEnded' );
-        $this->plugin->expects( $this->exactly( 1 ) )->method( 'beforeVariableSet' )->will( $this->returnArgument( 3 ) );
+        $this->plugin->expects( $this->exactly( 1 ) )->method( 'beforeVariableSet' )->will( $this->returnArgument( 2 ) );
         $this->plugin->expects( $this->exactly( 1 ) )->method( 'afterVariableSet' );
         $this->plugin->expects( $this->exactly( 1 ) )->method( 'beforeVariableUnset' )->will( $this->returnValue( true ) );
         $this->plugin->expects( $this->exactly( 1 ) )->method( 'afterVariableUnset' );
@@ -136,7 +136,7 @@ class ezcWorkflowExecutionPluginTest extends ezcWorkflowTestCase
         $this->plugin->expects( $this->exactly( 22 ) )->method( 'afterNodeExecuted' );
         $this->plugin->expects( $this->exactly( 1 ) )->method( 'afterThreadStarted' );
         $this->plugin->expects( $this->exactly( 1 ) )->method( 'afterThreadEnded' );
-        $this->plugin->expects( $this->exactly( 10 ) )->method( 'beforeVariableSet' )->will( $this->returnArgument( 3 ) );
+        $this->plugin->expects( $this->exactly( 10 ) )->method( 'beforeVariableSet' )->will( $this->returnArgument( 2 ) );
         $this->plugin->expects( $this->exactly( 10 ) )->method( 'afterVariableSet' );
         $this->plugin->expects( $this->exactly( 0 ) )->method( 'beforeVariableUnset' )->will( $this->returnValue( true ) );
         $this->plugin->expects( $this->exactly( 0 ) )->method( 'afterVariableUnset' );
@@ -158,7 +158,7 @@ class ezcWorkflowExecutionPluginTest extends ezcWorkflowTestCase
         $this->plugin->expects( $this->exactly( 22 ) )->method( 'afterNodeExecuted' );
         $this->plugin->expects( $this->exactly( 1 ) )->method( 'afterThreadStarted' );
         $this->plugin->expects( $this->exactly( 1 ) )->method( 'afterThreadEnded' );
-        $this->plugin->expects( $this->exactly( 10 ) )->method( 'beforeVariableSet' )->will( $this->returnArgument( 3 ) );
+        $this->plugin->expects( $this->exactly( 10 ) )->method( 'beforeVariableSet' )->will( $this->returnArgument( 2 ) );
         $this->plugin->expects( $this->exactly( 10 ) )->method( 'afterVariableSet' );
         $this->plugin->expects( $this->exactly( 0 ) )->method( 'beforeVariableUnset' )->will( $this->returnValue( true ) );
         $this->plugin->expects( $this->exactly( 0 ) )->method( 'afterVariableUnset' );
@@ -180,7 +180,7 @@ class ezcWorkflowExecutionPluginTest extends ezcWorkflowTestCase
         $this->plugin->expects( $this->exactly( 7 ) )->method( 'afterNodeExecuted' );
         $this->plugin->expects( $this->exactly( 1 ) )->method( 'afterThreadStarted' );
         $this->plugin->expects( $this->exactly( 1 ) )->method( 'afterThreadEnded' );
-        $this->plugin->expects( $this->exactly( 5 ) )->method( 'beforeVariableSet' )->will( $this->returnArgument( 3 ) );
+        $this->plugin->expects( $this->exactly( 5 ) )->method( 'beforeVariableSet' )->will( $this->returnArgument( 2 ) );
         $this->plugin->expects( $this->exactly( 5 ) )->method( 'afterVariableSet' );
         $this->plugin->expects( $this->exactly( 0 ) )->method( 'beforeVariableUnset' )->will( $this->returnValue( true ) );
         $this->plugin->expects( $this->exactly( 0 ) )->method( 'afterVariableUnset' );
@@ -202,7 +202,7 @@ class ezcWorkflowExecutionPluginTest extends ezcWorkflowTestCase
         $this->plugin->expects( $this->exactly( 4 ) )->method( 'afterNodeExecuted' );
         $this->plugin->expects( $this->exactly( 1 ) )->method( 'afterThreadStarted' );
         $this->plugin->expects( $this->exactly( 1 ) )->method( 'afterThreadEnded' );
-        $this->plugin->expects( $this->exactly( 3 ) )->method( 'beforeVariableSet' )->will( $this->returnArgument( 3 ) );
+        $this->plugin->expects( $this->exactly( 3 ) )->method( 'beforeVariableSet' )->will( $this->returnArgument( 2 ) );
         $this->plugin->expects( $this->exactly( 3 ) )->method( 'afterVariableSet' );
         $this->plugin->expects( $this->exactly( 0 ) )->method( 'beforeVariableUnset' )->will( $this->returnValue( true ) );
         $this->plugin->expects( $this->exactly( 0 ) )->method( 'afterVariableUnset' );
@@ -224,7 +224,7 @@ class ezcWorkflowExecutionPluginTest extends ezcWorkflowTestCase
         $this->plugin->expects( $this->exactly( 6 ) )->method( 'afterNodeExecuted' );
         $this->plugin->expects( $this->exactly( 2 ) )->method( 'afterThreadStarted' );
         $this->plugin->expects( $this->exactly( 2 ) )->method( 'afterThreadEnded' );
-        $this->plugin->expects( $this->exactly( 3 ) )->method( 'beforeVariableSet' )->will( $this->returnArgument( 3 ) );
+        $this->plugin->expects( $this->exactly( 3 ) )->method( 'beforeVariableSet' )->will( $this->returnArgument( 2 ) );
         $this->plugin->expects( $this->exactly( 3 ) )->method( 'afterVariableSet' );
         $this->plugin->expects( $this->exactly( 0 ) )->method( 'beforeVariableUnset' )->will( $this->returnValue( true ) );
         $this->plugin->expects( $this->exactly( 0 ) )->method( 'afterVariableUnset' );
@@ -246,7 +246,7 @@ class ezcWorkflowExecutionPluginTest extends ezcWorkflowTestCase
         $this->plugin->expects( $this->exactly( 7 ) )->method( 'afterNodeExecuted' );
         $this->plugin->expects( $this->exactly( 4 ) )->method( 'afterThreadStarted' );
         $this->plugin->expects( $this->exactly( 4 ) )->method( 'afterThreadEnded' );
-        $this->plugin->expects( $this->exactly( 0 ) )->method( 'beforeVariableSet' )->will( $this->returnArgument( 3 ) );
+        $this->plugin->expects( $this->exactly( 0 ) )->method( 'beforeVariableSet' )->will( $this->returnArgument( 2 ) );
         $this->plugin->expects( $this->exactly( 0 ) )->method( 'afterVariableSet' );
         $this->plugin->expects( $this->exactly( 0 ) )->method( 'beforeVariableUnset' )->will( $this->returnValue( true ) );
         $this->plugin->expects( $this->exactly( 0 ) )->method( 'afterVariableUnset' );
@@ -268,7 +268,7 @@ class ezcWorkflowExecutionPluginTest extends ezcWorkflowTestCase
         $this->plugin->expects( $this->exactly( 6 ) )->method( 'afterNodeExecuted' );
         $this->plugin->expects( $this->exactly( 3 ) )->method( 'afterThreadStarted' );
         $this->plugin->expects( $this->exactly( 3 ) )->method( 'afterThreadEnded' );
-        $this->plugin->expects( $this->exactly( 2 ) )->method( 'beforeVariableSet' )->will( $this->returnArgument( 3 ) );
+        $this->plugin->expects( $this->exactly( 2 ) )->method( 'beforeVariableSet' )->will( $this->returnArgument( 2 ) );
         $this->plugin->expects( $this->exactly( 2 ) )->method( 'afterVariableSet' );
         $this->plugin->expects( $this->exactly( 0 ) )->method( 'beforeVariableUnset' )->will( $this->returnValue( true ) );
         $this->plugin->expects( $this->exactly( 0 ) )->method( 'afterVariableUnset' );
@@ -291,7 +291,7 @@ class ezcWorkflowExecutionPluginTest extends ezcWorkflowTestCase
         $this->plugin->expects( $this->exactly( 5 ) )->method( 'afterNodeExecuted' );
         $this->plugin->expects( $this->exactly( 2 ) )->method( 'afterThreadStarted' );
         $this->plugin->expects( $this->exactly( 2 ) )->method( 'afterThreadEnded' );
-        $this->plugin->expects( $this->exactly( 1 ) )->method( 'beforeVariableSet' )->will( $this->returnArgument( 3 ) );
+        $this->plugin->expects( $this->exactly( 1 ) )->method( 'beforeVariableSet' )->will( $this->returnArgument( 2 ) );
         $this->plugin->expects( $this->exactly( 1 ) )->method( 'afterVariableSet' );
         $this->plugin->expects( $this->exactly( 0 ) )->method( 'beforeVariableUnset' )->will( $this->returnValue( true ) );
         $this->plugin->expects( $this->exactly( 0 ) )->method( 'afterVariableUnset' );
@@ -314,7 +314,7 @@ class ezcWorkflowExecutionPluginTest extends ezcWorkflowTestCase
         $this->plugin->expects( $this->exactly( 5 ) )->method( 'afterNodeExecuted' );
         $this->plugin->expects( $this->exactly( 2 ) )->method( 'afterThreadStarted' );
         $this->plugin->expects( $this->exactly( 2 ) )->method( 'afterThreadEnded' );
-        $this->plugin->expects( $this->exactly( 2 ) )->method( 'beforeVariableSet' )->will( $this->returnArgument( 3 ) );
+        $this->plugin->expects( $this->exactly( 2 ) )->method( 'beforeVariableSet' )->will( $this->returnArgument( 2 ) );
         $this->plugin->expects( $this->exactly( 2 ) )->method( 'afterVariableSet' );
         $this->plugin->expects( $this->exactly( 0 ) )->method( 'beforeVariableUnset' )->will( $this->returnValue( true ) );
         $this->plugin->expects( $this->exactly( 0 ) )->method( 'afterVariableUnset' );
@@ -337,7 +337,7 @@ class ezcWorkflowExecutionPluginTest extends ezcWorkflowTestCase
         $this->plugin->expects( $this->exactly( 6 ) )->method( 'afterNodeExecuted' );
         $this->plugin->expects( $this->exactly( 3 ) )->method( 'afterThreadStarted' );
         $this->plugin->expects( $this->exactly( 2 ) )->method( 'afterThreadEnded' );
-        $this->plugin->expects( $this->exactly( 3 ) )->method( 'beforeVariableSet' )->will( $this->returnArgument( 3 ) );
+        $this->plugin->expects( $this->exactly( 3 ) )->method( 'beforeVariableSet' )->will( $this->returnArgument( 2 ) );
         $this->plugin->expects( $this->exactly( 3 ) )->method( 'afterVariableSet' );
         $this->plugin->expects( $this->exactly( 0 ) )->method( 'beforeVariableUnset' )->will( $this->returnValue( true ) );
         $this->plugin->expects( $this->exactly( 0 ) )->method( 'afterVariableUnset' );
@@ -360,7 +360,7 @@ class ezcWorkflowExecutionPluginTest extends ezcWorkflowTestCase
         $this->plugin->expects( $this->exactly( 9 ) )->method( 'afterNodeExecuted' );
         $this->plugin->expects( $this->exactly( 3 ) )->method( 'afterThreadStarted' );
         $this->plugin->expects( $this->exactly( 3 ) )->method( 'afterThreadEnded' );
-        $this->plugin->expects( $this->exactly( 3 ) )->method( 'beforeVariableSet' )->will( $this->returnArgument( 3 ) );
+        $this->plugin->expects( $this->exactly( 3 ) )->method( 'beforeVariableSet' )->will( $this->returnArgument( 2 ) );
         $this->plugin->expects( $this->exactly( 3 ) )->method( 'afterVariableSet' );
         $this->plugin->expects( $this->exactly( 0 ) )->method( 'beforeVariableUnset' )->will( $this->returnValue( true ) );
         $this->plugin->expects( $this->exactly( 0 ) )->method( 'afterVariableUnset' );
@@ -382,7 +382,7 @@ class ezcWorkflowExecutionPluginTest extends ezcWorkflowTestCase
         $this->plugin->expects( $this->exactly( 8 ) )->method( 'afterNodeExecuted' );
         $this->plugin->expects( $this->exactly( 4 ) )->method( 'afterThreadStarted' );
         $this->plugin->expects( $this->exactly( 4 ) )->method( 'afterThreadEnded' );
-        $this->plugin->expects( $this->exactly( 2 ) )->method( 'beforeVariableSet' )->will( $this->returnArgument( 3 ) );
+        $this->plugin->expects( $this->exactly( 2 ) )->method( 'beforeVariableSet' )->will( $this->returnArgument( 2 ) );
         $this->plugin->expects( $this->exactly( 2 ) )->method( 'afterVariableSet' );
         $this->plugin->expects( $this->exactly( 0 ) )->method( 'beforeVariableUnset' )->will( $this->returnValue( true ) );
         $this->plugin->expects( $this->exactly( 0 ) )->method( 'afterVariableUnset' );
@@ -404,7 +404,7 @@ class ezcWorkflowExecutionPluginTest extends ezcWorkflowTestCase
         $this->plugin->expects( $this->exactly( 8 ) )->method( 'afterNodeExecuted' );
         $this->plugin->expects( $this->exactly( 4 ) )->method( 'afterThreadStarted' );
         $this->plugin->expects( $this->exactly( 4 ) )->method( 'afterThreadEnded' );
-        $this->plugin->expects( $this->exactly( 2 ) )->method( 'beforeVariableSet' )->will( $this->returnArgument( 3 ) );
+        $this->plugin->expects( $this->exactly( 2 ) )->method( 'beforeVariableSet' )->will( $this->returnArgument( 2 ) );
         $this->plugin->expects( $this->exactly( 2 ) )->method( 'afterVariableSet' );
         $this->plugin->expects( $this->exactly( 0 ) )->method( 'beforeVariableUnset' )->will( $this->returnValue( true ) );
         $this->plugin->expects( $this->exactly( 0 ) )->method( 'afterVariableUnset' );
@@ -426,7 +426,7 @@ class ezcWorkflowExecutionPluginTest extends ezcWorkflowTestCase
         $this->plugin->expects( $this->exactly( 5 ) )->method( 'afterNodeExecuted' );
         $this->plugin->expects( $this->exactly( 2 ) )->method( 'afterThreadStarted' );
         $this->plugin->expects( $this->exactly( 2 ) )->method( 'afterThreadEnded' );
-        $this->plugin->expects( $this->exactly( 0 ) )->method( 'beforeVariableSet' )->will( $this->returnArgument( 3 ) );
+        $this->plugin->expects( $this->exactly( 0 ) )->method( 'beforeVariableSet' )->will( $this->returnArgument( 2 ) );
         $this->plugin->expects( $this->exactly( 0 ) )->method( 'afterVariableSet' );
         $this->plugin->expects( $this->exactly( 0 ) )->method( 'beforeVariableUnset' )->will( $this->returnValue( true ) );
         $this->plugin->expects( $this->exactly( 0 ) )->method( 'afterVariableUnset' );
@@ -449,7 +449,7 @@ class ezcWorkflowExecutionPluginTest extends ezcWorkflowTestCase
         $this->plugin->expects( $this->exactly( 6 ) )->method( 'afterNodeExecuted' );
         $this->plugin->expects( $this->exactly( 2 ) )->method( 'afterThreadStarted' );
         $this->plugin->expects( $this->exactly( 2 ) )->method( 'afterThreadEnded' );
-        $this->plugin->expects( $this->exactly( 3 ) )->method( 'beforeVariableSet' )->will( $this->returnArgument( 3 ) );
+        $this->plugin->expects( $this->exactly( 3 ) )->method( 'beforeVariableSet' )->will( $this->returnArgument( 2 ) );
         $this->plugin->expects( $this->exactly( 3 ) )->method( 'afterVariableSet' );
         $this->plugin->expects( $this->exactly( 0 ) )->method( 'beforeVariableUnset' )->will( $this->returnValue( true ) );
         $this->plugin->expects( $this->exactly( 0 ) )->method( 'afterVariableUnset' );
@@ -473,7 +473,7 @@ class ezcWorkflowExecutionPluginTest extends ezcWorkflowTestCase
         $this->plugin->expects( $this->exactly( 5 ) )->method( 'afterNodeExecuted' );
         $this->plugin->expects( $this->exactly( 5 ) )->method( 'afterThreadStarted' );
         $this->plugin->expects( $this->exactly( 0 ) )->method( 'afterThreadEnded' );
-        $this->plugin->expects( $this->exactly( 0 ) )->method( 'beforeVariableSet' )->will( $this->returnArgument( 3 ) );
+        $this->plugin->expects( $this->exactly( 0 ) )->method( 'beforeVariableSet' )->will( $this->returnArgument( 2 ) );
         $this->plugin->expects( $this->exactly( 0 ) )->method( 'afterVariableSet' );
         $this->plugin->expects( $this->exactly( 0 ) )->method( 'beforeVariableUnset' )->will( $this->returnValue( true ) );
         $this->plugin->expects( $this->exactly( 0 ) )->method( 'afterVariableUnset' );
@@ -496,7 +496,7 @@ class ezcWorkflowExecutionPluginTest extends ezcWorkflowTestCase
         $this->plugin->expects( $this->exactly( 10 ) )->method( 'afterNodeExecuted' );
         $this->plugin->expects( $this->exactly( 1 ) )->method( 'afterThreadStarted' );
         $this->plugin->expects( $this->exactly( 1 ) )->method( 'afterThreadEnded' );
-        $this->plugin->expects( $this->exactly( 4 ) )->method( 'beforeVariableSet' )->will( $this->returnArgument( 3 ) );
+        $this->plugin->expects( $this->exactly( 4 ) )->method( 'beforeVariableSet' )->will( $this->returnArgument( 2 ) );
         $this->plugin->expects( $this->exactly( 4 ) )->method( 'afterVariableSet' );
         $this->plugin->expects( $this->exactly( 0 ) )->method( 'beforeVariableUnset' )->will( $this->returnValue( true ) );
         $this->plugin->expects( $this->exactly( 0 ) )->method( 'afterVariableUnset' );
@@ -518,7 +518,7 @@ class ezcWorkflowExecutionPluginTest extends ezcWorkflowTestCase
         $this->plugin->expects( $this->exactly( 7 ) )->method( 'afterNodeExecuted' );
         $this->plugin->expects( $this->exactly( 2 ) )->method( 'afterThreadStarted' );
         $this->plugin->expects( $this->exactly( 2 ) )->method( 'afterThreadEnded' );
-        $this->plugin->expects( $this->exactly( 4 ) )->method( 'beforeVariableSet' )->will( $this->returnArgument( 3 ) );
+        $this->plugin->expects( $this->exactly( 4 ) )->method( 'beforeVariableSet' )->will( $this->returnArgument( 2 ) );
         $this->plugin->expects( $this->exactly( 4 ) )->method( 'afterVariableSet' );
         $this->plugin->expects( $this->exactly( 0 ) )->method( 'beforeVariableUnset' )->will( $this->returnValue( true ) );
         $this->plugin->expects( $this->exactly( 0 ) )->method( 'afterVariableUnset' );
@@ -541,7 +541,7 @@ class ezcWorkflowExecutionPluginTest extends ezcWorkflowTestCase
         $this->plugin->expects( $this->exactly( 3 ) )->method( 'afterNodeExecuted' );
         $this->plugin->expects( $this->exactly( 2 ) )->method( 'afterThreadStarted' );
         $this->plugin->expects( $this->exactly( 0 ) )->method( 'afterThreadEnded' );
-        $this->plugin->expects( $this->exactly( 0 ) )->method( 'beforeVariableSet' )->will( $this->returnArgument( 3 ) );
+        $this->plugin->expects( $this->exactly( 0 ) )->method( 'beforeVariableSet' )->will( $this->returnArgument( 2 ) );
         $this->plugin->expects( $this->exactly( 0 ) )->method( 'afterVariableSet' );
         $this->plugin->expects( $this->exactly( 0 ) )->method( 'beforeVariableUnset' )->will( $this->returnValue( true ) );
         $this->plugin->expects( $this->exactly( 0 ) )->method( 'afterVariableUnset' );
@@ -563,7 +563,7 @@ class ezcWorkflowExecutionPluginTest extends ezcWorkflowTestCase
         $this->plugin->expects( $this->exactly( 3 ) )->method( 'afterNodeExecuted' );
         $this->plugin->expects( $this->exactly( 4 ) )->method( 'afterThreadStarted' );
         $this->plugin->expects( $this->exactly( 0 ) )->method( 'afterThreadEnded' );
-        $this->plugin->expects( $this->exactly( 0 ) )->method( 'beforeVariableSet' )->will( $this->returnArgument( 3 ) );
+        $this->plugin->expects( $this->exactly( 0 ) )->method( 'beforeVariableSet' )->will( $this->returnArgument( 2 ) );
         $this->plugin->expects( $this->exactly( 0 ) )->method( 'afterVariableSet' );
         $this->plugin->expects( $this->exactly( 0 ) )->method( 'beforeVariableUnset' )->will( $this->returnValue( true ) );
         $this->plugin->expects( $this->exactly( 0 ) )->method( 'afterVariableUnset' );
