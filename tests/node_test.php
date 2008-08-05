@@ -32,46 +32,28 @@ class ezcWorkflowNodeTest extends ezcWorkflowTestCase
         $this->assertEquals( 'Class does not implement the ezcWorkflowServiceObject interface.', (string)$action );
     }
 
+    /**
+     * @expectedException ezcBaseValueException
+     */
     public function testInputConstructor()
     {
-        try
-        {
-            $input = new ezcWorkflowNodeInput( null );
-        }
-        catch ( ezcBaseValueException $e )
-        {
-            return;
-        }
-
-        $this->fail();
+        new ezcWorkflowNodeInput( null );
     }
 
+    /**
+     * @expectedException ezcBaseValueException
+     */
     public function testInputConstructor2()
     {
-        try
-        {
-            $input = new ezcWorkflowNodeInput( array( 'foo' => new StdClass ) );
-        }
-        catch ( ezcBaseValueException $e )
-        {
-            return;
-        }
-
-        $this->fail();
+        new ezcWorkflowNodeInput( array( 'foo' => new StdClass ) );
     }
 
+    /**
+     * @expectedException ezcBaseValueException
+     */
     public function testInputConstructor3()
     {
-        try
-        {
-            $input = new ezcWorkflowNodeInput( array( new StdClass ) );
-        }
-        catch ( ezcBaseValueException $e )
-        {
-            return;
-        }
-
-        $this->fail();
+        new ezcWorkflowNodeInput( array( new StdClass ) );
     }
 
     public function testInputConstructor4()
@@ -83,32 +65,20 @@ class ezcWorkflowNodeTest extends ezcWorkflowTestCase
         $this->assertType( 'ezcWorkflowConditionIsAnything', $configuration['variable'] );
     }
 
+    /**
+     * @expectedException ezcBaseValueException
+     */
     public function testVariableSetConstructor()
     {
-        try
-        {
-            $set = new ezcWorkflowNodeVariableSet( null );
-        }
-        catch ( ezcBaseValueException $e )
-        {
-            return;
-        }
-
-        $this->fail();
+        new ezcWorkflowNodeVariableSet( null );
     }
 
+    /**
+     * @expectedException ezcBaseValueException
+     */
     public function testVariableUnsetConstructor()
     {
-        try
-        {
-            $set = new ezcWorkflowNodeVariableUnset( null );
-        }
-        catch ( ezcBaseValueException $e )
-        {
-            return;
-        }
-
-        $this->fail();
+        new ezcWorkflowNodeVariableUnset( null );
     }
 
     public function testGetInNodes()
