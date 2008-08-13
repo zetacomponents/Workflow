@@ -1,0 +1,8 @@
+digraph WorkflowWithFinalActivitiesAfterCancellation {
+node1 [label="Start", color="#2e3436"]
+node4 [label="Cancel", color="#2e3436"]
+node2 [label="End", color="#2e3436"]
+
+node1 -> node4
+node4 -> node2
+}

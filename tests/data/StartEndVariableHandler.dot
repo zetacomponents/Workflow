@@ -1,0 +1,6 @@
+digraph StartEndVariableHandler {
+node1 [label="Start", color="#2e3436"]
+node2 [label="End", color="#2e3436"]
+
+node1 -> node2
+}

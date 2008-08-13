@@ -29,18 +29,23 @@ class ezcWorkflowVisitorVisualizationTest extends ezcWorkflowTestCase
         $this->visitor = new ezcWorkflowVisitorVisualization;
     }
 
-    public function testVisitStartEnd()
+    /**
+     * @dataProvider workflowNameProvider
+     */
+    public function testVisualizeWorkflow($workflowName)
     {
-        $this->setUpStartEnd();
+        $setupMethod = 'setUp' . $workflowName;
+
+        $this->$setupMethod();
         $this->workflow->accept( $this->visitor );
 
         $this->assertEquals(
-          $this->readExpected( 'StartEnd' ),
+          $this->readExpected( $workflowName ),
           (string)$this->visitor
         );
     }
 
-    public function testVisitStartEnd2()
+    public function testHighlightedStartNode()
     {
         $this->visitor->options['highlightedNodes'] = array( 1 );
 
@@ -49,226 +54,6 @@ class ezcWorkflowVisitorVisualizationTest extends ezcWorkflowTestCase
 
         $this->assertEquals(
           $this->readExpected( 'StartEnd2' ),
-          (string)$this->visitor
-        );
-    }
-
-    public function testVisitStartInputEnd()
-    {
-        $this->setUpStartInputEnd();
-        $this->workflow->accept( $this->visitor );
-
-        $this->assertEquals(
-          $this->readExpected( 'StartInputEnd' ),
-          (string)$this->visitor
-        );
-    }
-
-    public function testVisitStartSetEnd()
-    {
-        $this->setUpStartSetEnd();
-        $this->workflow->accept( $this->visitor );
-
-        $this->assertEquals(
-          $this->readExpected( 'StartSetEnd' ),
-          (string)$this->visitor
-        );
-    }
-
-    public function testVisitStartSetUnsetEnd()
-    {
-        $this->setUpStartSetUnsetEnd();
-        $this->workflow->accept( $this->visitor );
-
-        $this->assertEquals(
-          $this->readExpected( 'StartSetUnsetEnd' ),
-          (string)$this->visitor
-        );
-    }
-
-    public function testVisitIncrementingLoop()
-    {
-        $this->setUpLoop( 'increment' );
-        $this->workflow->accept( $this->visitor );
-
-        $this->assertEquals(
-          $this->readExpected( 'IncrementingLoop' ),
-          (string)$this->visitor
-        );
-    }
-
-    public function testVisitDecrementingLoop()
-    {
-        $this->setUpLoop( 'decrement' );
-        $this->workflow->accept( $this->visitor );
-
-        $this->assertEquals(
-          $this->readExpected( 'DecrementingLoop' ),
-          (string)$this->visitor
-        );
-    }
-
-    public function testVisitSetAddSubMulDiv()
-    {
-        $this->setUpSetAddSubMulDiv();
-        $this->workflow->accept( $this->visitor );
-
-        $this->assertEquals(
-          $this->readExpected( 'SetAddSubMulDiv' ),
-          (string)$this->visitor
-        );
-    }
-
-    public function testVisitAddVariables()
-    {
-        $this->setUpAddVariables();
-        $this->workflow->accept( $this->visitor );
-
-        $this->assertEquals(
-          $this->readExpected( 'AddVariables' ),
-          (string)$this->visitor
-        );
-    }
-
-    public function testVisitVariableEqualsVariable()
-    {
-        $this->setUpVariableEqualsVariable();
-        $this->workflow->accept( $this->visitor );
-
-        $this->assertEquals(
-          $this->readExpected( 'VariableEqualsVariable' ),
-          (string)$this->visitor
-        );
-    }
-
-    public function testVisitParallelSplitSynchronization()
-    {
-        $this->setUpParallelSplitSynchronization();
-        $this->workflow->accept( $this->visitor );
-
-        $this->assertEquals(
-          $this->readExpected( 'ParallelSplitSynchronization' ),
-          (string)$this->visitor
-        );
-    }
-
-    public function testVisitParallelSplitSynchronization2()
-    {
-        $this->setUpParallelSplitSynchronization2();
-        $this->workflow->accept( $this->visitor );
-
-        $this->assertEquals(
-          $this->readExpected( 'ParallelSplitSynchronization2' ),
-          (string)$this->visitor
-        );
-    }
-
-    public function testVisitExclusiveChoiceSimpleMerge()
-    {
-        $this->setUpExclusiveChoiceSimpleMerge();
-        $this->workflow->accept( $this->visitor );
-
-        $this->assertEquals(
-          $this->readExpected( 'ExclusiveChoiceSimpleMerge' ),
-          (string)$this->visitor
-        );
-    }
-
-    public function testVisitExclusiveChoiceWithUnconditionalOutNodeSimpleMerge()
-    {
-        $this->setUpExclusiveChoiceWithUnconditionalOutNodeSimpleMerge();
-        $this->workflow->accept( $this->visitor );
-
-        $this->assertEquals(
-          $this->readExpected( 'ExclusiveChoiceWithUnconditionalOutNodeSimpleMerge' ),
-          (string)$this->visitor
-        );
-    }
-
-    public function testVisitNestedExclusiveChoiceSimpleMerge()
-    {
-        $this->setUpNestedExclusiveChoiceSimpleMerge();
-        $this->workflow->accept( $this->visitor );
-
-        $this->assertEquals(
-          $this->readExpected( 'NestedExclusiveChoiceSimpleMerge' ),
-          (string)$this->visitor
-        );
-    }
-
-    public function testVisitMultiChoiceSynchronizingMerge()
-    {
-        $this->setUpMultiChoice( 'SynchronizingMerge' );
-        $this->workflow->accept( $this->visitor );
-
-        $this->assertEquals(
-          $this->readExpected( 'MultiChoiceSynchronizingMerge' ),
-          (string)$this->visitor
-        );
-    }
-
-    public function testVisitMultiChoiceDiscriminator()
-    {
-        $this->setUpMultiChoice( 'Discriminator' );
-        $this->workflow->accept( $this->visitor );
-
-        $this->assertEquals(
-          $this->readExpected( 'MultiChoiceDiscriminator' ),
-          (string)$this->visitor
-        );
-    }
-
-    public function testVisitWorkflowWithSubWorkflow()
-    {
-        $this->setUpWorkflowWithSubWorkflow( 'StartEnd' );
-        $this->workflow->accept( $this->visitor );
-
-        $this->assertEquals(
-          $this->readExpected( 'WorkflowWithSubWorkflowStartEnd' ),
-          (string)$this->visitor
-        );
-    }
-
-    public function testVisitWorkflowWithCancelCaseSubWorkflow()
-    {
-        $this->setUpWorkflowWithSubWorkflow( 'ParallelSplitActionActionCancelCaseSynchronization' );
-        $this->workflow->accept( $this->visitor );
-
-        $this->assertEquals(
-          $this->readExpected( 'WorkflowWithSubWorkflowParallelSplitActionActionCancelCaseSynchronization' ),
-          (string)$this->visitor
-        );
-    }
-
-    public function testVisitNestedLoops()
-    {
-        $this->setUpNestedLoops();
-        $this->workflow->accept( $this->visitor );
-
-        $this->assertEquals(
-          $this->readExpected( 'NestedLoops' ),
-          (string)$this->visitor
-        );
-    }
-
-    public function testVisitParallelSplitCancelCaseActionActionSynchronization()
-    {
-        $this->setUpCancelCase( 'first' );
-        $this->workflow->accept( $this->visitor );
-
-        $this->assertEquals(
-          $this->readExpected( 'ParallelSplitCancelCaseActionActionSynchronization' ),
-          (string)$this->visitor
-        );
-    }
-
-    public function testVisitParallelSplitActionActionCancelCaseSynchronization()
-    {
-        $this->setUpCancelCase( 'last' );
-        $this->workflow->accept( $this->visitor );
-
-        $this->assertEquals(
-          $this->readExpected( 'ParallelSplitActionActionCancelCaseSynchronization' ),
           (string)$this->visitor
         );
     }

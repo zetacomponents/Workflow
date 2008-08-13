@@ -778,5 +778,38 @@ abstract class ezcWorkflowTestCase extends ezcTestCase
         $this->workflow->startNode->addOutNode( $action );
         $this->workflow->endNode->addInNode( $action );
     }
+
+    public static function workflowNameProvider()
+    {
+        return array(
+          array( 'AddVariables' ),
+          array( 'DecrementingLoop' ),
+          array( 'ExclusiveChoiceSimpleMerge' ),
+          array( 'ExclusiveChoiceWithElseSimpleMerge' ),
+          array( 'ExclusiveChoiceWithUnconditionalOutNodeSimpleMerge' ),
+          array( 'IncrementingLoop' ),
+          array( 'MultiChoiceDiscriminator' ),
+          array( 'MultiChoiceSynchronizingMerge' ),
+          array( 'NestedExclusiveChoiceSimpleMerge' ),
+          array( 'NestedLoops' ),
+          array( 'ParallelSplitSynchronization' ),
+          array( 'ParallelSplitSynchronization2' ),
+          array( 'ParallelSplitActionActionCancelCaseSynchronization' ),
+          array( 'ParallelSplitCancelCaseActionActionSynchronization' ),
+          array( 'ServiceObjectWithArguments' ),
+          array( 'SetAddSubMulDiv' ),
+          array( 'StartEnd' ),
+          array( 'StartInputEnd' ),
+          array( 'StartInputEnd2' ),
+          array( 'StartEndVariableHandler' ),
+          array( 'StartSetEnd' ),
+          array( 'StartSetUnsetEnd' ),
+          array( 'VariableEqualsVariable' ),
+          array( 'WorkflowWithFinalActivitiesAfterCancellation' ),
+          array( 'WorkflowWithSubWorkflowStartEnd' ),
+          array( 'WorkflowWithSubWorkflowAndVariablePassing' ),
+          array( 'WorkflowWithSubWorkflowParallelSplitActionActionCancelCaseSynchronization' )
+        );
+    }
 }
 ?>
