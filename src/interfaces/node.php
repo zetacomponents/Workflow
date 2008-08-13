@@ -135,7 +135,7 @@ abstract class ezcWorkflowNode implements ezcWorkflowVisitable
      *
      * @var mixed
      */
-    protected $state;
+    protected $state = null;
 
     /**
      * The id of the thread this node is executing in.
@@ -169,7 +169,6 @@ abstract class ezcWorkflowNode implements ezcWorkflowVisitable
             $this->configuration = $configuration;
         }
 
-        $this->setActivationState( self::WAITING_FOR_ACTIVATION );
         $this->initState();
     }
 
@@ -643,9 +642,16 @@ abstract class ezcWorkflowNode implements ezcWorkflowVisitable
 
     /**
      * Initializes the state of this node.
+     *
+     * @ignore
      */
-    protected function initState()
+    public function initState()
     {
+        $this->activatedFrom = array();
+        $this->state         = null;
+        $this->threadId      = null;
+
+        $this->setActivationState( self::WAITING_FOR_ACTIVATION );
     }
 }
 ?>

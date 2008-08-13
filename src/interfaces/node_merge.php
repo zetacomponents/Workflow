@@ -91,9 +91,13 @@ abstract class ezcWorkflowNodeMerge extends ezcWorkflowNode
 
     /**
      * Initializes the state of this node.
+     *
+     * @ignore
      */
-    protected function initState()
+    public function initState()
     {
+        parent::initState();
+
         $this->state = array( 'threads' => array(), 'siblings' => -1 );
     }
 }
