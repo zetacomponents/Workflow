@@ -23,6 +23,7 @@
  *
  * The verifier checks that:
  * - there is only one start node
+ * - there is only one finally node
  * - each node satisfies the constraints of the respective node type
  *
  * @package Workflow
