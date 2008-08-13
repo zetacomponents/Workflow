@@ -287,6 +287,17 @@ class ezcWorkflow implements ezcWorkflowVisitable
     }
 
     /**
+     * Resets the nodes of this workflow.
+     *
+     * See the documentation of ezcWorkflowVisitorReset for
+     * details.
+     */
+    public function reset()
+    {
+        $this->accept( new ezcWorkflowVisitorReset );
+    }
+
+    /**
      * Verifies the specification of this workflow.
      *
      * See the documentation of ezcWorkflowVisitorVerification for

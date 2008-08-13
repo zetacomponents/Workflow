@@ -1,6 +1,7 @@
 1.3alpha1 - [RELEASEDATE]
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+- Implemented ezcWorkflow::reset() to reset a workflow.
 - Implemented issue #13182: ezcWorkflowNodeInput::execute() should check
   variable conditions.
 - Implemented issue #13204: Implement ezcWorkflowConditionInArray.
