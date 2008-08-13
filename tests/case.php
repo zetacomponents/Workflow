@@ -109,6 +109,16 @@ abstract class ezcWorkflowTestCase extends ezcTestCase
         $unset->addOutNode( $this->workflow->endNode );
     }
 
+    protected function setUpDecrementingLoop()
+    {
+        $this->setUpLoop( 'decrement' );
+    }
+
+    protected function setUpIncrementingLoop()
+    {
+        $this->setUpLoop( 'increment' );
+    }
+
     protected function setUpLoop( $direction )
     {
         if ( $direction == 'increment' )
@@ -518,6 +528,16 @@ abstract class ezcWorkflowTestCase extends ezcTestCase
               ->addOutNode( $this->workflow->endNode );
     }
 
+    protected function setUpMultiChoiceSynchronizingMerge()
+    {
+        $this->setUpMultiChoice( 'SynchronizingMerge' );
+    }
+
+    protected function setUpMultiChoiceDiscriminator()
+    {
+        $this->setUpMultiChoice( 'Discriminator' );
+    }
+
     protected function setUpMultiChoice( $mergeType )
     {
         $this->workflow = new ezcWorkflow( 'MultiChoice' . $mergeType );
@@ -601,6 +621,16 @@ abstract class ezcWorkflowTestCase extends ezcTestCase
         $this->workflow->endNode->addInNode( $merge );
     }
 
+    protected function setUpWorkflowWithSubWorkflowStartEnd()
+    {
+        $this->setUpWorkflowWithSubWorkflow( 'StartEnd' );
+    }
+
+    protected function setUpWorkflowWithSubWorkflowParallelSplitActionActionCancelCaseSynchronization()
+    {
+        $this->setUpWorkflowWithSubWorkflow( 'ParallelSplitActionActionCancelCaseSynchronization' );
+    }
+
     protected function setUpWorkflowWithSubWorkflow( $subWorkflow )
     {
         $this->workflow = new ezcWorkflow( 'WorkflowWithSubWorkflow' . $subWorkflow );
@@ -666,6 +696,16 @@ abstract class ezcWorkflowTestCase extends ezcTestCase
                   ->addConditionalOutNode( $outerBreak, $this->workflow->endNode );
     }
 
+    protected function setUpParallelSplitCancelCaseActionActionSynchronization()
+    {
+        $this->setUpCancelCase( 'first' );
+    }
+
+    protected function setUpParallelSplitActionActionCancelCaseSynchronization()
+    {
+        $this->setUpCancelCase( 'last' );
+    }
+
     protected function setUpCancelCase( $order )
     {
         if ( $order == 'first' )
@@ -720,6 +760,23 @@ abstract class ezcWorkflowTestCase extends ezcTestCase
         $this->workflow->startNode->addOutNode( $cancelNode );
         $this->workflow->endNode->addInNode( $cancelNode );
         $this->workflow->finallyNode->addOutNode( new ezcWorkflowNodeEnd );
+    }
+
+    protected function setUpServiceObjectWithArguments()
+    {
+        $this->setUpEmptyWorkflow( 'ServiceObjectWithArguments' );
+
+        $action = new ezcWorkflowNodeAction(
+          array(
+            'class' => 'ServiceObjectWithConstructor',
+            'arguments' => array(
+              array( 'Sebastian' ), 22, 'April', 19.78, null, new StdClass
+            )
+          )
+        );
+
+        $this->workflow->startNode->addOutNode( $action );
+        $this->workflow->endNode->addInNode( $action );
     }
 }
 ?>
