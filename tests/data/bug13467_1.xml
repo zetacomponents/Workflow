@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<workflow name="bug13467" version="1">
+  <node id="1" type="Start">
+    <outNode id="2"/>
+  </node>
+  <node id="2" type="Input">
+    <outNode id="3"/>
+  </node>
+  <node id="3" type="End"/>
+</workflow>

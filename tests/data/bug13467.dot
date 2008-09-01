@@ -1,0 +1,8 @@
+digraph bug13467 {
+node1 [label="Start", color="#2e3436"]
+node2 [label="Input", color="#2e3436"]
+node3 [label="End", color="#2e3436"]
+
+node1 -> node2
+node2 -> node3
+}
