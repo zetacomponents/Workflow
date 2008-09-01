@@ -920,10 +920,10 @@ abstract class ezcWorkflowExecution
      */
     public function unsetVariable( $variableName )
     {
+        $unsetVariable = true;
+
         if ( array_key_exists( $variableName, $this->variables ) )
         {
-            $unsetVariable = true;
-
             foreach ( $this->plugins as $plugin )
             {
                 $unsetVariable = $plugin->beforeVariableUnset( $this, $variableName );
