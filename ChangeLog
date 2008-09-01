@@ -5,6 +5,7 @@
 - Implemented issue #13182: ezcWorkflowNodeInput::execute() should check
   variable conditions.
 - Implemented issue #13204: Implement ezcWorkflowConditionInArray.
+- Fixed issue #13467: Workflow Visualization missed end node.
 - Fixed a warning in ezcWorkflowExecution::unsetVariable().
 
 

@@ -75,13 +75,23 @@ class ezcWorkflowVisitorNodeCollector implements ezcWorkflowVisitor
     {
         if ( $visitable instanceof ezcWorkflow )
         {
-            $visitable->startNode->setId( $this->nextId++ );
-            $visitable->endNode->setId( $this->nextId++ );
+            if ( $visitable->startNode->getId() === false )
+            {
+                $visitable->startNode->setId( $this->nextId++ );
+            }
+
+            if ( $visitable->endNode->getId() === false )
+            {
+                $visitable->endNode->setId( $this->nextId++ );
+            }
 
             if ( count( $visitable->finallyNode->getOutNodes() ) > 0 )
             {
-                $visitable->finallyNode->setId( $this->nextId++ );
                 $this->finallyNode = $visitable->finallyNode;
+
+                if ( $visitable->finallyNode->getId() === false ) {
+                    $visitable->finallyNode->setId( $this->nextId++ );
+                }
             }
         }
 

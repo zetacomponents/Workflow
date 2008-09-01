@@ -45,6 +45,17 @@ class ezcWorkflowVisitorVisualizationTest extends ezcWorkflowTestCase
         );
     }
 
+    public function testBug13467()
+    {
+        $this->workflow = $this->definition->loadByName( 'bug13467' );
+        $this->workflow->accept( $this->visitor );
+
+        $this->assertEquals(
+          $this->readExpected( 'bug13467' ),
+          (string)$this->visitor
+        );
+    }
+
     public function testHighlightedStartNode()
     {
         $this->visitor->options['highlightedNodes'] = array( 1 );
