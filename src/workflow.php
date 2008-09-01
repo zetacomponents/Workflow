@@ -345,14 +345,14 @@ class ezcWorkflow implements ezcWorkflowVisitable
             else
             {
                 throw new ezcWorkflowInvalidWorkflowException(
-                  'Class does not implement the ezcWorkflowVariableHandler interface.'
+                  sprintf( 'Class "%s" does not implement the ezcWorkflowVariableHandler interface.', $className )
                 );
             }
         }
         else
         {
             throw new ezcWorkflowInvalidWorkflowException(
-                'Class not found.'
+              sprintf( 'Class "%s" not found.', $className )
             );
         }
     }
