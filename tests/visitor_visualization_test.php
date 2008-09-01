@@ -69,20 +69,34 @@ class ezcWorkflowVisitorVisualizationTest extends ezcWorkflowTestCase
         );
     }
 
-    /**
-     * @expectedException ezcBasePropertyNotFoundException
-     */
     public function testProperties()
     {
-        $foo = $this->visitor->foo;
+        try
+        {
+            $foo = $this->visitor->foo;
+        }
+        catch ( ezcBasePropertyNotFoundException $e )
+        {
+            $this->assertEquals( "No such property name 'foo'.", $e->getMessage() );
+            return;
+        }
+
+        $this->fail( 'Expected an ezcBasePropertyNotFoundException to be thrown.' );
     }
 
-    /**
-     * @expectedException ezcBasePropertyNotFoundException
-     */
     public function testProperties2()
     {
-        $this->visitor->foo = 'foo';
+        try
+        {
+            $this->visitor->foo = 'foo';
+        }
+        catch ( ezcBasePropertyNotFoundException $e )
+        {
+            $this->assertEquals( 'No such property name \'foo\'.', $e->getMessage() );
+            return;
+        }
+
+        $this->fail( 'Expected an ezcBasePropertyNotFoundException to be thrown.' );
     }
 
     public function testOptions()
@@ -101,36 +115,64 @@ class ezcWorkflowVisitorVisualizationTest extends ezcWorkflowTestCase
         $this->assertEquals( '#cc0000', $this->visitor->options['colorNormal'] );
     }
 
-    /**
-     * @expectedException ezcBaseValueException
-     */
     public function testOptions2()
     {
-        $this->visitor->options['colorHighlighted'] = null;
+        try
+        {
+            $this->visitor->options['colorHighlighted'] = null;
+        }
+        catch ( ezcBaseValueException $e )
+        {
+            $this->assertEquals( 'The value \'\' that you were trying to assign to setting \'colorHighlighted\' is invalid. Allowed values are: string.', $e->getMessage() );
+            return;
+        }
+
+        $this->fail( 'Expected an ezcBaseValueException to be thrown.' );
     }
 
-    /**
-     * @expectedException ezcBaseValueException
-     */
     public function testOptions3()
     {
-        $this->visitor->options = null;
+        try
+        {
+            $this->visitor->options = null;
+        }
+        catch ( ezcBaseValueException $e )
+        {
+            $this->assertEquals( 'The value \'\' that you were trying to assign to setting \'options\' is invalid. Allowed values are: ezcWorkflowVisitorVisualizationOptions.', $e->getMessage() );
+            return;
+        }
+
+        $this->fail( 'Expected an ezcBaseValueException to be thrown.' );
     }
 
-    /**
-     * @expectedException ezcBaseValueException
-     */
     public function testOptions4()
     {
-        $this->visitor->options['highlightedNodes'] = null;
+        try
+        {
+            $this->visitor->options['highlightedNodes'] = null;
+        }
+        catch ( ezcBaseValueException $e )
+        {
+            $this->assertEquals( 'The value \'\' that you were trying to assign to setting \'highlightedNodes\' is invalid. Allowed values are: array.', $e->getMessage() );
+            return;
+        }
+
+        $this->fail( 'Expected an ezcBaseValueException to be thrown.' );
     }
 
-    /**
-     * @expectedException ezcBasePropertyNotFoundException
-     */
     public function testOptions5()
     {
-        $this->visitor->options['foo'] = null;
+        try
+        {
+            $this->visitor->options['foo'] = null;
+        }
+        catch ( ezcBasePropertyNotFoundException $e )
+        {
+            $this->assertEquals( 'No such property name \'foo\'.', $e->getMessage() );
+            return;
+        }
+
+        $this->fail( 'Expected an ezcBasePropertyNotFoundException to be thrown.' );
     }
 
     protected function readExpected( $name )

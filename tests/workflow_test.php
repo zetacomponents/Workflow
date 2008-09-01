@@ -49,9 +49,6 @@ class ezcWorkflowTest extends ezcWorkflowTestCase
         $this->assertNotNull( $this->workflow->definitionStorage );
     }
 
-    /**
-     * @expectedException ezcBaseValueException
-     */
     public function testGetSetName()
     {
         $workflow = new ezcWorkflow( 'Test' );
@@ -60,7 +57,17 @@ class ezcWorkflowTest extends ezcWorkflowTestCase
         $workflow->name = 'Test2';
         $this->assertEquals( 'Test2', $workflow->name );
 
-        $workflow->name = array();
+        try
+        {
+            $workflow->name = array();
+        }
+        catch ( ezcBaseValueException $e )
+        {
+            $this->assertEquals( 'The value \'a:0:{}\' that you were trying to assign to setting \'name\' is invalid. Allowed values are: string.', $e->getMessage() );
+            return;
+        }
+
+        $this->fail( 'Expected an ezcBaseValueException to be thrown.' );
     }
 
     public function testGetNodes()
@@ -93,33 +100,57 @@ class ezcWorkflowTest extends ezcWorkflowTestCase
         $this->workflow->verify();
     }
 
-    /**
-     * @expectedException ezcWorkflowDefinitionStorageException
-     */
     public function testVerify2()
     {
         $workflow = new ezcWorkflow( 'Test' );
-        $workflow->verify();
+
+        try
+        {
+            $workflow->verify();
+        }
+        catch ( ezcWorkflowDefinitionStorageException $e )
+        {
+            $this->assertEquals( 'Node of type "Start" has less outgoing nodes than required.', $e->getMessage() );
+            return;
+        }
+
+        $this->fail( 'Expected an ezcWorkflowDefinitionStorageException to be thrown.' );
     }
 
-    /**
-     * @expectedException ezcWorkflowDefinitionStorageException
-     */
     public function testVerify3()
     {
         $workflow = new ezcWorkflow( 'Test' );
         $workflow->startNode->addOutNode( new ezcWorkflowNodeStart );
-        $workflow->verify();
+
+        try
+        {
+            $workflow->verify();
+        }
+        catch ( ezcWorkflowDefinitionStorageException $e )
+        {
+            $this->assertEquals( 'A workflow may have only one start node.', $e->getMessage() );
+            return;
+        }
+
+        $this->fail( 'Expected an ezcWorkflowDefinitionStorageException to be thrown.' );
     }
 
-    /**
-     * @expectedException ezcWorkflowDefinitionStorageException
-     */
     public function testVerify4()
     {
         $workflow = new ezcWorkflow( 'Test' );
         $workflow->finallyNode->addOutNode( new ezcWorkflowNodeFinally );
-        $workflow->verify();
+
+        try
+        {
+            $workflow->verify();
+        }
+        catch ( ezcWorkflowDefinitionStorageException $e )
+        {
+            $this->assertEquals( 'A workflow may have only one finally node.', $e->getMessage() );
+            return;
+        }
+
+        $this->fail( 'Expected an ezcWorkflowDefinitionStorageException to be thrown.' );
     }
 
     public function testVariableHandler()
@@ -135,24 +166,38 @@ class ezcWorkflowTest extends ezcWorkflowTestCase
         $this->assertTrue( $this->workflow->removeVariableHandler( 'foo' ) );
     }
 
-    /**
-     * @expectedException ezcWorkflowInvalidWorkflowException
-     */
     public function testVariableHandler2()
     {
         $this->setUpStartEnd();
 
-        $this->workflow->addVariableHandler( 'foo', 'StdClass' );
+        try
+        {
+            $this->workflow->addVariableHandler( 'foo', 'StdClass' );
+        }
+        catch ( ezcWorkflowInvalidWorkflowException $e )
+        {
+            $this->assertEquals( 'Class "StdClass" does not implement the ezcWorkflowVariableHandler interface.', $e->getMessage() );
+            return;
+        }
+
+        $this->fail( 'Expected an ezcWorkflowInvalidWorkflowException to be thrown.' );
     }
 
-    /**
-     * @expectedException ezcWorkflowInvalidWorkflowException
-     */
     public function testVariableHandler3()
     {
         $this->setUpStartEnd();
 
-        $this->workflow->addVariableHandler( 'foo', 'NotExisting' );
+        try
+        {
+            $this->workflow->addVariableHandler( 'foo', 'NotExisting' );
+        }
+        catch ( ezcWorkflowInvalidWorkflowException $e )
+        {
+            $this->assertEquals( 'Class "NotExisting" not found.', $e->getMessage() );
+            return;
+        }
+
+        $this->fail( 'Expected an ezcWorkflowInvalidWorkflowException to be thrown.' );
     }
 
     public function testProperties()
@@ -167,74 +212,123 @@ class ezcWorkflowTest extends ezcWorkflowTestCase
         $this->assertFalse( isset( $this->workflow->foo ) );
     }
 
-    /**
-     * @expectedException ezcBasePropertyNotFoundException
-     */
     public function testProperties2()
     {
         $this->setUpStartEnd();
 
-        $foo = $this->workflow->foo;
+        try
+        {
+            $foo = $this->workflow->foo;
+        }
+        catch ( ezcBasePropertyNotFoundException $e )
+        {
+            $this->assertEquals( 'No such property name \'foo\'.', $e->getMessage() );
+            return;
+        }
+
+        $this->fail( 'Expected an ezcBasePropertyNotFoundException to be thrown.' );
     }
 
-    /**
-     * @expectedException ezcBasePropertyNotFoundException
-     */
     public function testProperties3()
     {
         $this->setUpStartEnd();
 
-        $this->workflow->foo = null;
+        try
+        {
+            $this->workflow->foo = null;
+        }
+        catch ( ezcBasePropertyNotFoundException $e )
+        {
+            $this->assertEquals( 'No such property name \'foo\'.', $e->getMessage() );
+            return;
+        }
+
+        $this->fail( 'Expected an ezcBasePropertyNotFoundException to be thrown.' );
     }
 
-    /**
-     * @expectedException ezcBaseValueException
-     */
     public function testProperties4()
     {
         $this->setUpStartEnd();
 
-        $this->workflow->definitionStorage = null;
+        try
+        {
+            $this->workflow->definitionStorage = null;
+        }
+        catch ( ezcBaseValueException $e )
+        {
+            $this->assertEquals( 'The value \'\' that you were trying to assign to setting \'definitionStorage\' is invalid. Allowed values are: ezcWorkflowDefinitionStorage.', $e->getMessage() );
+            return;
+        }
+
+        $this->fail( 'Expected an ezcBaseValueException to be thrown.' );
     }
 
-    /**
-     * @expectedException ezcBaseValueException
-     */
     public function testProperties5()
     {
         $this->setUpStartEnd();
 
-        $this->workflow->id = null;
+        try
+        {
+            $this->workflow->id = null;
+        }
+        catch ( ezcBaseValueException $e )
+        {
+            $this->assertEquals( 'The value \'\' that you were trying to assign to setting \'id\' is invalid. Allowed values are: integer.', $e->getMessage() );
+            return;
+        }
+
+        $this->fail( 'Expected an ezcBaseValueException to be thrown.' );
     }
 
-    /**
-     * @expectedException ezcBaseValueException
-     */
     public function testProperties6()
     {
         $this->setUpStartEnd();
 
-        $this->workflow->name = null;
+        try
+        {
+            $this->workflow->name = null;
+        }
+        catch ( ezcBaseValueException $e )
+        {
+            $this->assertEquals( 'The value \'\' that you were trying to assign to setting \'name\' is invalid. Allowed values are: string.', $e->getMessage() );
+            return;
+        }
+
+        $this->fail( 'Expected an ezcBaseValueException to be thrown.' );
     }
 
-    /**
-     * @expectedException ezcBasePropertyPermissionException
-     */
     public function testProperties7()
     {
         $this->setUpStartEnd();
 
-        $this->workflow->nodes = null;
+        try
+        {
+            $this->workflow->nodes = null;
+        }
+        catch ( ezcBasePropertyPermissionException $e )
+        {
+            $this->assertEquals( 'The property \'nodes\' is read-only.', $e->getMessage() );
+            return;
+        }
+
+        $this->fail( 'Expected an ezcBasePropertyPermissionException to be thrown.' );
     }
 
-    /**
-     * @expectedException ezcBaseValueException
-     */
     public function testProperties8()
     {
         $this->setUpStartEnd();
 
-        $this->workflow->version = null;
+        try
+        {
+            $this->workflow->version = null;
+        }
+        catch ( ezcBaseValueException $e )
+        {
+            $this->assertEquals( 'The value \'\' that you were trying to assign to setting \'version\' is invalid. Allowed values are: integer.', $e->getMessage() );
+            return;
+        }
+
+        $this->fail( 'Expected an ezcBaseValueException to be thrown.' );
     }
 }
 ?>

@@ -50,36 +50,61 @@ class ezcWorkflowDefinitionStorageXmlTest extends ezcWorkflowTestCase
         );
     }
 
-    /**
-     * @expectedException ezcWorkflowDefinitionStorageException
-     */
     public function testExceptionWhenLoadingNotExistingWorkflow()
     {
-        $this->definition->loadByName( 'NotExisting' );
+        try
+        {
+            $this->definition->loadByName( 'NotExisting' );
+        }
+        catch ( ezcWorkflowDefinitionStorageException $e )
+        {
+            return;
+        }
+
+        $this->fail( 'Expected an ezcWorkflowDefinitionStorageException to be thrown.' );
     }
 
-    /**
-     * @expectedException ezcWorkflowDefinitionStorageException
-     */
     public function testExceptionWhenLoadingNotExistingWorkflowVersion()
     {
-        $workflow = $this->definition->loadByName( 'StartEnd', 2 );
+        try
+        {
+            $workflow = $this->definition->loadByName( 'StartEnd', 2 );
+        }
+        catch ( ezcWorkflowDefinitionStorageException $e )
+        {
+            return;
+        }
+
+        $this->fail( 'Expected an ezcWorkflowDefinitionStorageException to be thrown.' );
     }
 
-    /**
-     * @expectedException ezcWorkflowDefinitionStorageException
-     */
     public function testExceptionWhenLoadingNotValidWorkflow()
     {
-        $this->definition->loadByName( 'NotValid' );
+        try
+        {
+            $this->definition->loadByName( 'NotValid' );
+        }
+        catch ( ezcWorkflowDefinitionStorageException $e )
+        {
+            $this->assertEquals( 'Could not load workflow definition.', $e->getMessage() );
+            return;
+        }
+
+        $this->fail( 'Expected an ezcWorkflowDefinitionStorageException to be thrown.' );
     }
 
-    /**
-     * @expectedException ezcWorkflowDefinitionStorageException
-     */
     public function testExceptionWhenLoadingNotWellFormedWorkflow()
     {
-        $this->definition->loadByName( 'NotWellFormed' );
+        try
+        {
+            $this->definition->loadByName( 'NotWellFormed' );
+        }
+        catch ( ezcWorkflowDefinitionStorageException $e )
+        {
+            return;
+        }
+
+        $this->fail( 'Expected an ezcWorkflowDefinitionStorageException to be thrown.' );
     }
 
     protected function readActual( $name )

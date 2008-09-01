@@ -210,16 +210,23 @@ class ezcWorkflowConditionTest extends ezcTestCase
         $this->assertFalse( $condition->evaluate( array( 'foo' => 'bar', 'bar' => 'foo' ) ) );
     }
 
-    /**
-     * @expectedException ezcBaseValueException
-     */
     public function testVariables2()
     {
-        $condition = new ezcWorkflowConditionVariables(
-          'foo',
-          'bar',
-          new ezcWorkflowConditionIsAnything
-        );
+        try
+        {
+            $condition = new ezcWorkflowConditionVariables(
+              'foo',
+              'bar',
+              new ezcWorkflowConditionIsAnything
+            );
+        }
+        catch ( ezcBaseValueException $e )
+        {
+            $this->assertEquals( "The value 'O:30:\"ezcWorkflowConditionIsAnything\":0:{}' that you were trying to assign to setting 'condition' is invalid. Allowed values are: ezcWorkflowConditionComparison.", $e->getMessage() );
+            return;
+        }
+
+        $this->fail( 'Expected an ezcBaseValueException to be thrown.' );
     }
 
     public function testVariables3()
@@ -245,12 +252,19 @@ class ezcWorkflowConditionTest extends ezcTestCase
         $this->assertFalse( $condition->evaluate( false ) );
     }
 
-    /**
-     * @expectedException ezcWorkflowDefinitionStorageException
-     */
     public function testAnd2()
     {
-        $condition = new ezcWorkflowConditionAnd( array( new StdClass ) );
+        try
+        {
+            $condition = new ezcWorkflowConditionAnd( array( new StdClass ) );
+        }
+        catch ( ezcWorkflowDefinitionStorageException $e )
+        {
+            $this->assertEquals( 'Array does not contain (only) ezcWorkflowCondition objects.', $e->getMessage() );
+            return;
+        }
+
+        $this->fail( 'Expected an ezcWorkflowDefinitionStorageException to be thrown.' );
     }
 
     public function testOr()

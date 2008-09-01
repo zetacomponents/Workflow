@@ -80,60 +80,109 @@ class ezcWorkflowExecutionPluginVisualizerTest extends ezcWorkflowTestCase
         }
     }
 
-    /**
-     * @expectedException ezcBasePropertyNotFoundException
-     */
     public function testProperties()
     {
-        $foo = $this->visualizer->foo;
+        try
+        {
+            $foo = $this->visualizer->foo;
+        }
+        catch ( ezcBasePropertyNotFoundException $e )
+        {
+            $this->assertEquals( 'No such property name \'foo\'.', $e->getMessage() );
+            return;
+        }
+
+        $this->fail( 'Expected an ezcBasePropertyNotFoundException to be thrown.' );
     }
 
-    /**
-     * @expectedException ezcBasePropertyNotFoundException
-     */
     public function testProperties2()
     {
-        $this->visualizer->foo = 'foo';
+        try
+        {
+            $this->visualizer->foo = 'foo';
+        }
+        catch ( ezcBasePropertyNotFoundException $e )
+        {
+            $this->assertEquals( 'No such property name \'foo\'.', $e->getMessage() );
+            return;
+        }
+
+        $this->fail( 'Expected an ezcBasePropertyNotFoundException to be thrown.' );
     }
 
-    /**
-     * @expectedException ezcBaseValueException
-     */
     public function testOptions()
     {
-        $this->visualizer->options = null;
+        try
+        {
+            $this->visualizer->options = null;
+        }
+        catch ( ezcBaseValueException $e )
+        {
+            $this->assertEquals( 'The value \'\' that you were trying to assign to setting \'options\' is invalid. Allowed values are: ezcWorkflowExecutionVisualizerPluginOptions.', $e->getMessage() );
+            return;
+        }
+
+        $this->fail( 'Expected an ezcBaseValueException to be thrown.' );
     }
 
-    /**
-     * @expectedException ezcBaseValueException
-     */
     public function testOptions2()
     {
-        $this->visualizer->options['directory'] = null;
+        try
+        {
+            $this->visualizer->options['directory'] = null;
+        }
+        catch ( ezcBaseValueException $e )
+        {
+            $this->assertEquals( 'The value \'\' that you were trying to assign to setting \'directory\' is invalid. Allowed values are: string.', $e->getMessage() );
+            return;
+        }
+
+        $this->fail( 'Expected an ezcBaseValueException to be thrown.' );
     }
 
-    /**
-     * @expectedException ezcBaseFileNotFoundException
-     */
     public function testOptions3()
     {
-        $this->visualizer->options['directory'] = 'foo';
+        try
+        {
+            $this->visualizer->options['directory'] = 'foo';
+        }
+        catch ( ezcBaseFileNotFoundException $e )
+        {
+            $this->assertEquals( 'The directory file \'foo\' could not be found.', $e->getMessage() );
+            return;
+        }
+
+        $this->fail( 'Expected an ezcBaseFileNotFoundException to be thrown.' );
     }
 
-    /**
-     * @expectedException ezcBaseValueException
-     */
     public function testOptions4()
     {
-        $this->visualizer->options['includeVariables'] = null;
+        try
+        {
+            $this->visualizer->options['includeVariables'] = null;
+        }
+        catch ( ezcBaseValueException $e )
+        {
+            $this->assertEquals( 'The value \'\' that you were trying to assign to setting \'includeVariables\' is invalid. Allowed values are: bool.', $e->getMessage() );
+            return;
+        }
+
+        $this->fail( 'Expected an ezcBaseValueException to be thrown.' );
     }
 
-    /**
-     * @expectedException ezcBasePropertyNotFoundException
-     */
     public function testOptions5()
     {
-        $this->visualizer->options['foo'] = null;
+        try
+        {
+            $this->visualizer->options['foo'] = null;
+        }
+        catch ( ezcBasePropertyNotFoundException $e )
+        {
+            $this->assertEquals( 'No such property name \'foo\'.', $e->getMessage() );
+            return;
+        }
+
+        $this->fail( 'Expected an ezcBasePropertyNotFoundException to be thrown.' );
     }
 }
 ?>

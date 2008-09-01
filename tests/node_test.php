@@ -32,28 +32,49 @@ class ezcWorkflowNodeTest extends ezcWorkflowTestCase
         $this->assertEquals( 'Class does not implement the ezcWorkflowServiceObject interface.', (string)$action );
     }
 
-    /**
-     * @expectedException ezcBaseValueException
-     */
     public function testInputConstructor()
     {
-        new ezcWorkflowNodeInput( null );
+        try
+        {
+            new ezcWorkflowNodeInput( null );
+        }
+        catch ( ezcBaseValueException $e )
+        {
+            $this->assertEquals( 'The value \'\' that you were trying to assign to setting \'configuration\' is invalid. Allowed values are: array.', $e->getMessage() );
+            return;
+        }
+
+        $this->fail( 'Expected an ezcBaseValueException to be thrown.' );
     }
 
-    /**
-     * @expectedException ezcBaseValueException
-     */
     public function testInputConstructor2()
     {
-        new ezcWorkflowNodeInput( array( 'foo' => new StdClass ) );
+        try
+        {
+            new ezcWorkflowNodeInput( array( 'foo' => new StdClass ) );
+        }
+        catch ( ezcBaseValueException $e )
+        {
+            $this->assertEquals( 'The value \'O:8:"stdClass":0:{}\' that you were trying to assign to setting \'workflow variable condition\' is invalid. Allowed values are: ezcWorkflowCondition.', $e->getMessage() );
+            return;
+        }
+
+        $this->fail( 'Expected an ezcBaseValueException to be thrown.' );
     }
 
-    /**
-     * @expectedException ezcBaseValueException
-     */
     public function testInputConstructor3()
     {
-        new ezcWorkflowNodeInput( array( new StdClass ) );
+        try
+        {
+            new ezcWorkflowNodeInput( array( new StdClass ) );
+        }
+        catch ( ezcBaseValueException $e )
+        {
+            $this->assertEquals( 'The value \'O:8:"stdClass":0:{}\' that you were trying to assign to setting \'workflow variable name\' is invalid. Allowed values are: string.', $e->getMessage() );
+            return;
+        }
+
+        $this->fail( 'Expected an ezcBaseValueException to be thrown.' );
     }
 
     public function testInputConstructor4()
@@ -65,20 +86,34 @@ class ezcWorkflowNodeTest extends ezcWorkflowTestCase
         $this->assertType( 'ezcWorkflowConditionIsAnything', $configuration['variable'] );
     }
 
-    /**
-     * @expectedException ezcBaseValueException
-     */
     public function testVariableSetConstructor()
     {
-        new ezcWorkflowNodeVariableSet( null );
+        try
+        {
+            new ezcWorkflowNodeVariableSet( null );
+        }
+        catch ( ezcBaseValueException $e )
+        {
+            $this->assertEquals( 'The value \'\' that you were trying to assign to setting \'configuration\' is invalid. Allowed values are: array.', $e->getMessage() );
+            return;
+        }
+
+        $this->fail( 'Expected an ezcBaseValueException to be thrown.' );
     }
 
-    /**
-     * @expectedException ezcBaseValueException
-     */
     public function testVariableUnsetConstructor()
     {
-        new ezcWorkflowNodeVariableUnset( null );
+        try
+        {
+            new ezcWorkflowNodeVariableUnset( null );
+        }
+        catch ( ezcBaseValueException $e )
+        {
+            $this->assertEquals( 'The value \'\' that you were trying to assign to setting \'configuration\' is invalid. Allowed values are: array.', $e->getMessage() );
+            return;
+        }
+
+        $this->fail( 'Expected an ezcBaseValueException to be thrown.' );
     }
 
     public function testGetInNodes()
@@ -148,27 +183,38 @@ class ezcWorkflowNodeTest extends ezcWorkflowTestCase
         $this->assertEquals( 'End', (string)$this->workflow->endNode );
     }
 
-    /**
-     * @expectedException ezcWorkflowInvalidWorkflowException
-     */
     public function testStartVerifyFails()
     {
-        $this->setUpEmptyWorkflow();
-        $this->workflow->startNode->verify();
+        try
+        {
+            $this->setUpEmptyWorkflow();
+            $this->workflow->startNode->verify();
+        }
+        catch ( ezcWorkflowInvalidWorkflowException $e )
+        {
+            $this->assertEquals( 'Node of type "Start" has less outgoing nodes than required.', $e->getMessage() );
+            return;
+        }
+
+        $this->fail( 'Expected an ezcWorkflowInvalidWorkflowException to be thrown.' );
     }
 
-    /**
-     * @expectedException ezcWorkflowInvalidWorkflowException
-     */
     public function testEndVerifyFails()
     {
-        $this->setUpEmptyWorkflow();
-        $this->workflow->endNode->verify();
+        try
+        {
+            $this->setUpEmptyWorkflow();
+            $this->workflow->endNode->verify();
+        }
+        catch ( ezcWorkflowInvalidWorkflowException $e )
+        {
+            $this->assertEquals( 'Node of type "End" has less incoming nodes than required.', $e->getMessage() );
+            return;
+        }
+
+        $this->fail( 'Expected an ezcWorkflowInvalidWorkflowException to be thrown.' );
     }
 
-    /**
-     * @expectedException ezcWorkflowInvalidWorkflowException
-     */
     public function testVerifyTooManyIncomingNodes()
     {
         $a = new ezcWorkflowNodeVariableSet(
@@ -191,12 +237,19 @@ class ezcWorkflowNodeTest extends ezcWorkflowTestCase
         $c->addInNode( $b );
         $c->addOutNode( $d );
 
-        $c->verify();
+        try
+        {
+            $c->verify();
+        }
+        catch ( ezcWorkflowInvalidWorkflowException $e )
+        {
+            $this->assertEquals( 'Node of type "VariableSet" has more incoming nodes than allowed.', $e->getMessage() );
+            return;
+        }
+
+        $this->fail( 'Expected an ezcWorkflowInvalidWorkflowException to be thrown.' );
     }
 
-    /**
-     * @expectedException ezcWorkflowInvalidWorkflowException
-     */
     public function testVerifyTooManyOutgoingNodes()
     {
         $a = new ezcWorkflowNodeVariableSet(
@@ -219,12 +272,19 @@ class ezcWorkflowNodeTest extends ezcWorkflowTestCase
         $b->addOutNode( $d );
         $b->addInNode( $a );
 
-        $b->verify();
+        try
+        {
+            $b->verify();
+        }
+        catch ( ezcWorkflowInvalidWorkflowException $e )
+        {
+            $this->assertEquals( 'Node of type "VariableSet" has more outgoing nodes than allowed.', $e->getMessage() );
+            return;
+        }
+
+        $this->fail( 'Expected an ezcWorkflowInvalidWorkflowException to be thrown.' );
     }
 
-    /**
-     * @expectedException ezcWorkflowInvalidWorkflowException
-     */
     public function testVerifyTooFewConditionalOutNodes()
     {
         $branch = new ezcWorkflowNodeExclusiveChoice;
@@ -232,7 +292,17 @@ class ezcWorkflowNodeTest extends ezcWorkflowTestCase
                ->addOutNode( new ezcWorkflowNodeEnd )
                ->addOutNode( new ezcWorkflowNodeEnd );
 
-        $branch->verify();
+        try
+        {
+            $branch->verify();
+        }
+        catch ( ezcWorkflowInvalidWorkflowException $e )
+        {
+            $this->assertEquals( 'Node has less conditional outgoing nodes than required.', $e->getMessage() );
+            return;
+        }
+
+        $this->fail( 'Expected an ezcWorkflowInvalidWorkflowException to be thrown.' );
     }
 
     public function testActivatedFrom()

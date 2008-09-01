@@ -92,7 +92,7 @@ class ezcWorkflowExecutionTest extends ezcWorkflowTestCase
             return;
         }
 
-        $this->fail();
+        $this->fail( 'Expected an ezcBaseValueException to be thrown.' );
     }
 
     public function testExecuteStartInputEnd3()
@@ -116,10 +116,10 @@ class ezcWorkflowExecutionTest extends ezcWorkflowTestCase
                 return;
             }
 
-            $this->fail();
+            $this->fail( 'Expected an ezcBasePropertyPermissionException to be thrown.' );
         }
 
-        $this->fail();
+        $this->fail( 'Expected an ezcWorkflowInvalidInputException to be thrown.' );
     }
 
     public function testExecuteStartInputEnd4()
@@ -143,10 +143,10 @@ class ezcWorkflowExecutionTest extends ezcWorkflowTestCase
                 return;
             }
 
-            $this->fail();
+            $this->fail( 'Expected an ezcBasePropertyNotFoundException to be thrown.' );
         }
 
-        $this->fail();
+        $this->fail( 'Expected an ezcWorkflowInvalidInputException to be thrown.' );
     }
 
     public function testExecuteStartInputEnd5()
@@ -170,10 +170,10 @@ class ezcWorkflowExecutionTest extends ezcWorkflowTestCase
                 return;
             }
 
-            $this->fail();
+            $this->fail( 'Expected an ezcBasePropertyNotFoundException to be thrown.' );
         }
 
-        $this->fail();
+        $this->fail( 'Expected an ezcWorkflowInvalidInputException to be thrown.' );
     }
 
     public function testExecuteStartInputEnd6()
@@ -201,7 +201,7 @@ class ezcWorkflowExecutionTest extends ezcWorkflowTestCase
             return;
         }
 
-        $this->fail();
+        $this->fail( 'Expected an ezcWorkflowInvalidInputException to be thrown.' );
     }
 
     public function testExecuteStartSetUnsetEnd()
@@ -286,24 +286,40 @@ class ezcWorkflowExecutionTest extends ezcWorkflowTestCase
         $this->assertEquals( 2, $this->execution->getVariable( 'b' ) );
     }
 
-    /**
-     * @expectedException ezcWorkflowExecutionException
-     */
     public function testExecuteAddVariables2()
     {
         $this->setUpAddVariables2();
         $this->execution->workflow = $this->workflow;
-        $this->execution->start();
+
+        try
+        {
+            $this->execution->start();
+        }
+        catch ( ezcWorkflowExecutionException $e )
+        {
+            $this->assertEquals( 'Illegal operand.', $e->getMessage() );
+            return;
+        }
+
+        $this->fail( 'Expected an ezcWorkflowExecutionException to be thrown.' );
     }
 
-    /**
-     * @expectedException ezcWorkflowExecutionException
-     */
     public function testExecuteAddVariables3()
     {
         $this->setUpAddVariables3();
         $this->execution->workflow = $this->workflow;
-        $this->execution->start();
+
+        try
+        {
+            $this->execution->start();
+        }
+        catch ( ezcWorkflowExecutionException $e )
+        {
+            $this->assertEquals( 'Variable "b" is not a number.', $e->getMessage() );
+            return;
+        }
+
+        $this->fail( 'Expected an ezcWorkflowExecutionException to be thrown.' );
     }
 
     public function testExecuteVariableEqualsVariable()
@@ -363,7 +379,7 @@ class ezcWorkflowExecutionTest extends ezcWorkflowTestCase
             return;
         }
 
-        $this->fail();
+        $this->fail( 'Expected an ezcWorkflowExecutionException to be thrown.' );
     }
 
     public function testExecuteExclusiveChoiceSimpleMerge()
@@ -412,7 +428,7 @@ class ezcWorkflowExecutionTest extends ezcWorkflowTestCase
             return;
         }
 
-        $this->fail();
+        $this->fail( 'Expected an ezcWorkflowExecutionException to be thrown.' );
     }
 
     public function testExecuteExclusiveChoiceSimpleMerge4()
@@ -435,7 +451,7 @@ class ezcWorkflowExecutionTest extends ezcWorkflowTestCase
             return;
         }
 
-        $this->fail();
+        $this->fail( 'Expected an ezcWorkflowExecutionException to be thrown.' );
     }
 
     public function testExecuteExclusiveChoiceWithElseSimpleMerge()
@@ -601,7 +617,7 @@ class ezcWorkflowExecutionTest extends ezcWorkflowTestCase
             return;
         }
 
-        $this->fail();
+        $this->fail( 'Expected an ezcWorkflowExecutionException to be thrown.' );
     }
 
     public function testExecuteInteractiveSubWorkflow()
@@ -662,7 +678,7 @@ class ezcWorkflowExecutionTest extends ezcWorkflowTestCase
             return;
         }
 
-        $this->fail();
+        $this->fail( 'Expected an ezcWorkflowExecutionException to be thrown.' );
     }
 
     public function testExecuteNestedLoops()
@@ -756,27 +772,40 @@ class ezcWorkflowExecutionTest extends ezcWorkflowTestCase
         $this->assertFalse( $this->execution->removePlugin( $plugin ) );
     }
 
-    /**
-     * @expectedException ezcWorkflowExecutionException
-     */
     public function testNoWorkflowStartRaisesException()
     {
         $execution = new ezcWorkflowExecutionNonInteractive;
-        $execution->start();
+
+        try
+        {
+            $execution->start();
+        }
+        catch ( ezcWorkflowExecutionException $e )
+        {
+            $this->assertEquals( 'No workflow has been set up for execution.', $e->getMessage() );
+            return;
+        }
+
+        $this->fail( 'Expected an ezcWorkflowExecutionException to be thrown.' );
     }
 
-    /**
-     * @expectedException ezcWorkflowExecutionException
-     */
     public function testNoExecutionIdResumeRaisesException()
     {
         $execution = new ezcWorkflowExecutionNonInteractive;
-        $execution->resume();
+
+        try
+        {
+            $execution->resume();
+        }
+        catch ( ezcWorkflowExecutionException $e )
+        {
+            $this->assertEquals( 'No execution id given.', $e->getMessage() );
+            return;
+        }
+
+        $this->fail( 'Expected an ezcWorkflowExecutionException to be thrown.' );
     }
 
-    /**
-     * @expectedException ezcWorkflowExecutionException
-     */
     public function testInteractiveWorkflowRaisesException()
     {
         $this->setupEmptyWorkflow();
@@ -787,12 +816,20 @@ class ezcWorkflowExecutionTest extends ezcWorkflowTestCase
         $this->workflow->endNode->addInNode( $input );
 
         $execution = new ezcWorkflowExecutionNonInteractive;
-        $execution->workflow = $this->workflow;
+
+        try
+        {
+            $execution->workflow = $this->workflow;
+        }
+        catch ( ezcWorkflowExecutionException $e )
+        {
+            $this->assertEquals( 'This executer can only execute workflows that have no Input and SubWorkflow nodes.', $e->getMessage() );
+            return;
+        }
+
+        $this->fail( 'Expected an ezcWorkflowExecutionException to be thrown.' );
     }
 
-    /**
-     * @expectedException ezcWorkflowExecutionException
-     */
     public function testGetVariable()
     {
         $this->setUpStartEnd();
@@ -801,15 +838,32 @@ class ezcWorkflowExecutionTest extends ezcWorkflowTestCase
 
         $this->assertFalse( $this->execution->hasVariable( 'foo' ) );
 
-        $this->execution->getVariable( 'foo' );
+        try
+        {
+            $this->execution->getVariable( 'foo' );
+        }
+        catch ( ezcWorkflowExecutionException $e )
+        {
+            $this->assertEquals( 'Variable "foo" does not exist.', $e->getMessage() );
+            return;
+        }
+
+        $this->fail( 'Expected an ezcWorkflowExecutionException to be thrown.' );
     }
 
-    /**
-     * @expectedException ezcWorkflowExecutionException
-     */
     public function testEndNonExistingThread()
     {
-        $this->execution->endThread( 0 );
+        try
+        {
+            $this->execution->endThread( 0 );
+        }
+        catch ( ezcWorkflowExecutionException $e )
+        {
+            $this->assertEquals( 'There is no thread with id #0.', $e->getMessage() );
+            return;
+        }
+
+        $this->fail( 'Expected an ezcWorkflowExecutionException to be thrown.' );
     }
 
     public function testGetSiblingsForNonExistingThread()
@@ -826,40 +880,72 @@ class ezcWorkflowExecutionTest extends ezcWorkflowTestCase
         $this->assertFalse( isset( $execution->foo ) );
     }
 
-    /**
-     * @expectedException ezcBaseValueException
-     */
     public function testProperties2()
     {
         $execution = new ezcWorkflowExecutionNonInteractive;
-        $execution->workflow = new StdClass;
+
+        try
+        {
+            $execution->workflow = new StdClass;
+        }
+        catch ( ezcBaseValueException $e )
+        {
+            $this->assertEquals( 'The value \'O:8:"stdClass":0:{}\' that you were trying to assign to setting \'workflow\' is invalid. Allowed values are: ezcWorkflow.', $e->getMessage() );
+            return;
+        }
+
+        $this->fail( 'Expected an ezcBaseValueException to be thrown.' );
     }
 
-    /**
-     * @expectedException ezcBasePropertyNotFoundException
-     */
     public function testProperties3()
     {
         $execution = new ezcWorkflowExecutionNonInteractive;
-        $foo = $execution->foo;
+
+        try
+        {
+            $foo = $execution->foo;
+        }
+        catch ( ezcBasePropertyNotFoundException $e )
+        {
+            $this->assertEquals( 'No such property name \'foo\'.', $e->getMessage() );
+            return;
+        }
+
+        $this->fail( 'Expected an ezcBasePropertyNotFoundException to be thrown.' );
     }
 
-    /**
-     * @expectedException ezcBasePropertyNotFoundException
-     */
     public function testProperties4()
     {
         $execution = new ezcWorkflowExecutionNonInteractive;
-        $execution->foo = null;
+
+        try
+        {
+            $execution->foo = null;
+        }
+        catch ( ezcBasePropertyNotFoundException $e )
+        {
+            $this->assertEquals( 'No such property name \'foo\'.', $e->getMessage() );
+            return;
+        }
+
+        $this->fail( 'Expected an ezcBasePropertyNotFoundException to be thrown.' );
     }
 
-    /**
-     * @expectedException ezcBaseValueException
-     */
     public function testProperties5()
     {
         $execution = new ezcWorkflowExecutionNonInteractive;
-        $execution->definitionStorage = new StdClass;
+
+        try
+        {
+            $execution->definitionStorage = new StdClass;
+        }
+        catch ( ezcBaseValueException $e )
+        {
+            $this->assertEquals( 'The value \'O:8:"stdClass":0:{}\' that you were trying to assign to setting \'definitionStorage\' is invalid. Allowed values are: ezcWorkflowDefinitionStorage.', $e->getMessage() );
+            return;
+        }
+
+        $this->fail( 'Expected an ezcBaseValueException to be thrown.' );
     }
 }
 ?>
