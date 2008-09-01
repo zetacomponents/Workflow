@@ -26,6 +26,8 @@ class ezcWorkflowDefinitionStorageXmlTest extends ezcWorkflowTestCase
     public function testLoadWorkflow($workflowName)
     {
         $this->workflow = $this->definition->loadByName( $workflowName );
+        $this->workflow->reset();
+
         $this->definition->save( $this->workflow );
 
         $this->assertEquals(
@@ -42,6 +44,8 @@ class ezcWorkflowDefinitionStorageXmlTest extends ezcWorkflowTestCase
         $setupMethod = 'setUp' . $workflowName;
 
         $this->$setupMethod();
+        $this->workflow->reset();
+
         $this->definition->save( $this->workflow );
 
         $this->assertEquals(
