@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<workflow name="ServiceObjectWithArguments" version="1">
+<workflow name="ServiceObjectWithArguments3" version="1">
   <node id="1" type="Start">
     <outNode id="2"/>
   </node>
