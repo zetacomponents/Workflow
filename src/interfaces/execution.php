@@ -386,6 +386,7 @@ abstract class ezcWorkflowExecution
         }
 
         $this->end( $node );
+        $this->doEnd();
     }
 
     /**

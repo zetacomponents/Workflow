@@ -6,6 +6,7 @@
   variable conditions.
 - Implemented issue #13204: Implement ezcWorkflowConditionInArray.
 - Fixed issue #13467: Workflow Visualization missed end node.
+- Fixed issue #13478: Canceling execution does not remove execution completely.
 - Fixed a warning in ezcWorkflowExecution::unsetVariable().
 
 
