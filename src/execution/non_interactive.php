@@ -11,7 +11,7 @@
 /**
  * Workflow execution engine for non-interactive workflows.
  *
- * This workflow execution engine can only execute workflows that does not have
+ * This workflow execution engine can only execute workflows that do not have
  * any Input and/or SubWorkflow nodes.
  *
  * @package Workflow

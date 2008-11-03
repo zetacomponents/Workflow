@@ -46,14 +46,14 @@ abstract class ezcWorkflowNode implements ezcWorkflowVisitable
     /**
      * The incoming nodes of this node.
      *
-     * @var array
+     * @var array( int => ezcWorkflowNode )
      */
     protected $inNodes = array();
 
     /**
      * The outgoing nodes of this node.
      *
-     * @var array
+     * @var array( int => ezcWorkflowNode )
      */
     protected $outNodes = array();
 
@@ -112,7 +112,7 @@ abstract class ezcWorkflowNode implements ezcWorkflowVisitable
      * This functionality is implemented as an array to make it possible
      * to have the storage engines unaware of the node classes.
      *
-     * @var mixed
+     * @var array( config key => config value )
      */
     protected $configuration;
 
@@ -146,7 +146,7 @@ abstract class ezcWorkflowNode implements ezcWorkflowVisitable
 
     /**
      * Flag that indicates whether an add*Node() or remove*Node()
-     * call is internal.
+     * call is internal. This is necessary to avoid unlimited loops. 
      *
      * @var boolean
      */
