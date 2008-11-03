@@ -116,17 +116,18 @@ class ezcWorkflowDefinitionStorageXml implements ezcWorkflowDefinitionStorage
         $workflowVersion = (int) $document->documentElement->getAttribute( 'version' );
 
         // Create node objects.
-        $nodes = array();
+        $nodes    = array();
+        $xmlNodes = $document->getElementsByTagName( 'node' );
 
-        foreach ( $document->getElementsByTagName( 'node' ) as $node )
+        foreach ( $xmlNodes as $xmlNode )
         {
-            $id        = (int)$node->getAttribute( 'id' );
-            $className = 'ezcWorkflowNode' . $node->getAttribute( 'type' );
+            $id        = (int)$xmlNode->getAttribute( 'id' );
+            $className = 'ezcWorkflowNode' . $xmlNode->getAttribute( 'type' );
 
             if ( class_exists( $className ) )
             {
                 $configuration = call_user_func_array(
-                  array( $className, 'configurationFromXML' ), array( $node )
+                  array( $className, 'configurationFromXML' ), array( $xmlNode )
                 );
 
                 if ( is_null( $configuration ) )
@@ -135,25 +136,27 @@ class ezcWorkflowDefinitionStorageXml implements ezcWorkflowDefinitionStorage
                 }
             }
 
-            $nodes[$id] = new $className( $configuration );
-            $nodes[$id]->setId( $id );
+            $node = new $className( $configuration );
+            $node->setId( $id );
 
             if ( $className == 'ezcWorkflowNodeStart' )
             {
-                $startNode = $nodes[$id];
+                $startNode = $node;
             }
 
             else if ( $className == 'ezcWorkflowNodeEnd' &&
                       !isset( $defaultEndNode ) )
             {
-                $defaultEndNode = $nodes[$id];
+                $defaultEndNode = $node;
             }
 
             else if ( $className == 'ezcWorkflowNodeFinally' &&
                       !isset( $finallyNode ) )
             {
-                $finallyNode = $nodes[$id];
+                $finallyNode = $node;
             }
+
+            $nodes[$id] = $node;
         }
 
         if ( !isset( $startNode ) || !isset( $defaultEndNode ) )
@@ -164,19 +167,19 @@ class ezcWorkflowDefinitionStorageXml implements ezcWorkflowDefinitionStorage
         }
 
         // Connect node objects.
-        foreach ( $document->getElementsByTagName( 'node' ) as $node )
+        foreach ( $xmlNodes as $xmlNode )
         {
-            $id        = (int)$node->getAttribute( 'id' );
-            $className = 'ezcWorkflowNode' . $node->getAttribute( 'type' );
+            $id        = (int)$xmlNode->getAttribute( 'id' );
+            $className = 'ezcWorkflowNode' . $xmlNode->getAttribute( 'type' );
 
-            foreach ( $node->getElementsByTagName( 'outNode' ) as $outNode )
+            foreach ( $xmlNode->getElementsByTagName( 'outNode' ) as $outNode )
             {
                 $nodes[$id]->addOutNode( $nodes[(int)$outNode->getAttribute( 'id' )] );
             }
 
             if ( is_subclass_of( $className, 'ezcWorkflowNodeConditionalBranch' ) )
             {
-                foreach ( $node->childNodes as $childNode )
+                foreach ( $xmlNode->childNodes as $childNode )
                 {
                     if ( $childNode instanceof DOMElement && $childNode->tagName == 'condition' )
                     {
@@ -278,6 +281,7 @@ class ezcWorkflowDefinitionStorageXml implements ezcWorkflowDefinitionStorage
         $numNodes = count( $nodes );
 
         // Workaround for foreach() bug in PHP 5.2.1.
+        // http://bugs.php.net/bug.php?id=40608
         $keys = array_keys( $nodes );
 
         for ( $i = 0; $i < $numNodes; $i++ )
