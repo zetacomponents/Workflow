@@ -455,38 +455,40 @@ abstract class ezcWorkflowExecution
             {
                 // Only try to execute a node if the execution of the
                 // workflow instance has not ended yet.
-                if ( !$this->cancelled || !$this->ended )
+                if ( $this->cancelled && $this->ended )
                 {
-                    // The current node is an end node but there are still
-                    // activated nodes on the stack.
-                    if ( $node  instanceof ezcWorkflowNodeEnd &&
-                         !$node instanceof ezcWorkflowNodeCancel &&
-                         $this->numActivatedNodes != $this->numActivatedEndNodes )
-                    {
-                        continue;
-                    }
+                    break;
+                }
 
-                    // Execute the current node and check whether it finished
-                    // executing.
-                    if ( $node->execute( $this ) )
-                    {
-                        // Remove current node from the stack of activated
-                        // nodes.
-                        unset( $this->activatedNodes[$key] );
-                        $this->numActivatedNodes--;
+                // The current node is an end node but there are still
+                // activated nodes on the stack.
+                if ( $node  instanceof ezcWorkflowNodeEnd &&
+                     !$node instanceof ezcWorkflowNodeCancel &&
+                     $this->numActivatedNodes != $this->numActivatedEndNodes )
+                {
+                    continue;
+                }
 
-                        // Notify plugins that the node has been executed.
-                        if ( !$this->cancelled && !$this->ended )
+                // Execute the current node and check whether it finished
+                // executing.
+                if ( $node->execute( $this ) )
+                {
+                    // Remove current node from the stack of activated
+                    // nodes.
+                    unset( $this->activatedNodes[$key] );
+                    $this->numActivatedNodes--;
+
+                    // Notify plugins that the node has been executed.
+                    if ( !$this->cancelled && !$this->ended )
+                    {
+                        foreach ( $this->plugins as $plugin )
                         {
-                            foreach ( $this->plugins as $plugin )
-                            {
-                                $plugin->afterNodeExecuted( $this, $node );
-                            }
+                            $plugin->afterNodeExecuted( $this, $node );
                         }
-
-                        // Toggle flag (see above).
-                        $executed = true;
                     }
+
+                    // Toggle flag (see above).
+                    $executed = true;
                 }
             }
         }
