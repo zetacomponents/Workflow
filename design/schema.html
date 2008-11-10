@@ -1,0 +1,292 @@
+<html xmlns:rng="http://relaxng.org/ns/structure/1.0" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Schema</title>
+<style type="text/css">
+	  BODY
+	  {
+	    margin-left: 10px;
+	    font-family: Verdana, sans-serif;
+	    font-size: 11px;
+	  }
+	  TD
+	  {
+	    font-family: Verdana, sans-serif;
+	    font-size: 11px;
+	  }
+	  .decl { color: #006400; }
+	  A.def:link, A.def:visited
+	  { font-weight: bold; color: #001188; text-decoration: none; }
+	  A.def:hover
+	  { font-weight: bold; color: #0055ff; text-decoration: underline; }
+	  A.ref:link, A.ref:visited { color: #000000; text-decoration: none; }
+	  A.ref:hover { color: #0055ff; text-decoration: underline; }
+	  A.ix-ref:link, A.ix-ref:visited { color: #0000bb; }
+	  A.ix-ref:hover { color: #0055ff; }
+	  .nc { color: #0000aa; }
+	  .str { color: #8b0000; }
+	  A.href:link, A.href:visited 
+	  { color: #8b0000; text-decoration: none; }
+	  A.href:hover { color: #0055ff; text-decoration: underline; }
+	  .prefix { color: #0000aa; }
+	  .param { color: #000000; }
+	  .comment { color: #008b00; }
+	  .annot { color: #666666; }
+	  .title
+	  { 
+	    font-family: Arial, Verdana, sans-serif; font-size: 18pt; 
+	    margin-left: 10px;
+	    margin-top: 10px;
+	    margin-bottom: 10px;
+	  }
+	  .heading
+	  { 
+	    font-family: Arial, Verdana, sans-serif; font-size: 14pt; 
+	    margin-left: 10px;
+	    margin-top: 4px;
+	    margin-bottom: 4px;
+	  }
+	  TD.head { color: #ffffff; background-color: #29445a; }
+	  TD.line { background-color: #6d8090; font-size: 3px;}
+	  .title-line TD { background-color: #6d8090; }
+	  DIV.section 
+	  { 
+	    margin-left: 10px; 
+	    margin-top: 15px;
+            margin-bottom: 15px;
+          }
+	  DIV.ix-definitions 
+	  { 
+	    margin-left: 26px; 
+	    text-indent: -10px; 
+            margin-bottom: 4px;
+          }
+	  DIV.ix-section 
+	  { 
+	    margin-left: 16px; 
+            margin-bottom: 4px;
+          }
+	  TABLE.back-ref { margin-left: 10px; }
+	  TABLE.back-ref TD { padding-right: 8px; }
+	  .ix-entry 
+	  { 
+	    margin-bottom: 4px; 
+            width: 100%;
+	    background-color: #f0f0f0;
+	    border-style: solid;
+            border-width: 1px;
+            border-color: #6d8090;
+	    margin-right: 10px;
+	    padding: 4px;
+	  }
+	  .ix-heading
+	  { margin-bottom: 4px; font-weight: bold; color: #001188; }
+	  .no-ref { color: red; font-weight: bold; }
+	  .index-ref
+	  {
+	    margin-right: 10px;
+	    margin-bottom: 2px;
+	    font-family: Arial, Verdana, sans-serif; 
+            font-size: 10pt;
+	  }
+	  .index-ref A:link, .index-ref A:visited { color: #ffffff; }
+	  .index-ref A:hover { color: #aaffff; }
+	</style>
+</head>
+<body>
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr><td class="head"><div class="title">Schema</div></td></tr>
+<tr class="title-line"><td align="right"><div class="index-ref"><a href="#index">Index</a></div></td></tr>
+</table>
+<div class="section">
+<b class="decl">namespace</b> <span class="prefix">local</span> = <span class="str">""</span><br><span style="margin-left: 0ex;"></span><b class="decl">namespace</b> <span class="prefix">inh</span> = <b>inherit</b><br><span style="margin-left: 0ex;"></span><br><span style="margin-left: 0ex;"></span><a href="#id2260197-ix" class="def" id="id2260197">start</a> = <a class="ref" href="#id2259962">workflow</a><br><span style="margin-left: 0ex;"></span><br><span style="margin-left: 0ex;"></span><a href="#id2259962-ix" class="def" id="id2259962">workflow</a> =<br><span style="margin-left: 2.55ex;"></span><b>element</b> <span class="nc">workflow</span> { <b>attribute</b> <span class="nc">name</span> { <i>xsd:string</i> }, <b>attribute</b> <span class="nc">version</span> { <i>xsd:integer</i> }, <a class="ref" href="#id2259785">node</a>*, <a class="ref" href="#id2259300">variableHandler</a>* }<br><span style="margin-left: 0ex;"></span><br><span style="margin-left: 0ex;"></span><a href="#id2259785-ix" class="def" id="id2259785">node</a> =<br><span style="margin-left: 2.55ex;"></span><b>element</b> <span class="nc">node</span><br><span style="margin-left: 2.55ex;"></span>{<br><span style="margin-left: 5.1ex;"></span><b>attribute</b> <span class="nc">id</span> { <i>xsd:integer</i> },<br><span style="margin-left: 5.1ex;"></span><b>attribute</b> <span class="nc">type</span> { <i>xsd:string</i> },<br><span style="margin-left: 5.1ex;"></span><b>attribute</b> <span class="nc">serviceObjectClass</span> { <i>xsd:string</i> }?,<br><span style="margin-left: 5.1ex;"></span><b>attribute</b> <span class="nc">subWorkflowName</span> { <i>xsd:string</i> }?,<br><span style="margin-left: 5.1ex;"></span>(<br><span style="margin-left: 7.65ex;"></span><b>element</b> <span class="nc">in</span> { <b>element</b> <span class="nc">variable</span> { <b>attribute</b> <span class="nc">name</span> { <i>xsd:string</i> }, <b>attribute</b> <span class="nc">as</span> { <i>xsd:string</i> } }+ },<br><span style="margin-left: 7.65ex;"></span><b>element</b> <span class="nc">out</span> { <b>element</b> <span class="nc">variable</span> { <b>attribute</b> <span class="nc">name</span> { <i>xsd:string</i> }, <b>attribute</b> <span class="nc">as</span> { <i>xsd:string</i> } }+ }<br><span style="margin-left: 5.1ex;"></span>)?,<br><span style="margin-left: 5.1ex;"></span><b>attribute</b> <span class="nc">variable</span> { <i>xsd:string</i> }?,<br><span style="margin-left: 5.1ex;"></span><b>attribute</b> <span class="nc">operand</span> { <i>xsd:string</i> }?,<br><span style="margin-left: 5.1ex;"></span><a class="ref" href="#id2260130">arguments</a>?,<br><span style="margin-left: 5.1ex;"></span><a class="ref" href="#id2259532">condition</a>+?,<br><span style="margin-left: 5.1ex;"></span><b>element</b> <span class="nc">variable</span> { <b>attribute</b> <span class="nc">name</span> { <i>xsd:string</i> }, <a class="ref" href="#id2259532">condition</a>?, <a class="ref" href="#id2260776">variable</a>? }+?,<br><span style="margin-left: 5.1ex;"></span><a class="ref" href="#id2260334">outNode</a>+?<br><span style="margin-left: 2.55ex;"></span>}<br><span style="margin-left: 0ex;"></span><br><span style="margin-left: 0ex;"></span><a href="#id2260334-ix" class="def" id="id2260334">outNode</a> = <b>element</b> <span class="nc">outNode</span> { <b>attribute</b> <span class="nc">id</span> { <i>xsd:integer</i> } }<br><span style="margin-left: 0ex;"></span><br><span style="margin-left: 0ex;"></span><a href="#id2259532-ix" class="def" id="id2259532">condition</a> =<br><span style="margin-left: 2.55ex;"></span><b>element</b> <span class="nc">condition</span><br><span style="margin-left: 2.55ex;"></span>{<br><span style="margin-left: 5.1ex;"></span><b>attribute</b> <span class="nc">type</span> { <i>xsd:string</i> },<br><span style="margin-left: 5.1ex;"></span><b>attribute</b> <span class="nc">a</span> { <i>xsd:string</i> }?,<br><span style="margin-left: 5.1ex;"></span><b>attribute</b> <span class="nc">b</span> { <i>xsd:string</i> }?,<br><span style="margin-left: 5.1ex;"></span><b>attribute</b> <span class="nc">name</span> { <i>xsd:string</i> }?,<br><span style="margin-left: 5.1ex;"></span><b>attribute</b> <span class="nc">value</span> { <i>xsd:string</i> }?,<br><span style="margin-left: 5.1ex;"></span><b>attribute</b> <span class="nc">variable</span> { <i>xsd:string</i> }?,<br><span style="margin-left: 5.1ex;"></span><a class="ref" href="#id2259546">array</a>?,<br><span style="margin-left: 5.1ex;"></span><a class="ref" href="#id2259532">condition</a>+?,<br><span style="margin-left: 5.1ex;"></span><a class="ref" href="#id2260334">outNode</a>?,<br><span style="margin-left: 5.1ex;"></span><a class="ref" href="#id2258669">else</a>?<br><span style="margin-left: 2.55ex;"></span>}<br><span style="margin-left: 0ex;"></span><br><span style="margin-left: 0ex;"></span><a href="#id2258669-ix" class="def" id="id2258669">else</a> = <b>element</b> <span class="nc">else</span> { <a class="ref" href="#id2260334">outNode</a> }<br><span style="margin-left: 0ex;"></span><br><span style="margin-left: 0ex;"></span><a href="#id2259300-ix" class="def" id="id2259300">variableHandler</a> = <b>element</b> <span class="nc">variableHandler</span> { <b>attribute</b> <span class="nc">variable</span> { <i>xsd:string</i> }, <b>attribute</b> <span class="nc">class</span> { <i>xsd:string</i> } }<br><span style="margin-left: 0ex;"></span><br><span style="margin-left: 0ex;"></span><a href="#id2260130-ix" class="def" id="id2260130">arguments</a> = <b>element</b> <span class="nc">arguments</span> { <a class="ref" href="#id2260776">variable</a>* }<br><span style="margin-left: 0ex;"></span><br><span style="margin-left: 0ex;"></span><a href="#id2260776-ix" class="def" id="id2260776">variable</a> = <a class="ref" href="#id2259546">array</a> | <a class="ref" href="#id2263446">boolean</a> | <a class="ref" href="#id2263479">double</a> | <a class="ref" href="#id2263622">integer</a> | <a class="ref" href="#id2263682">null</a> | <a class="ref" href="#id2263747">object</a> | <a class="ref" href="#id2263808">\string</a><br><span style="margin-left: 0ex;"></span><br><span style="margin-left: 0ex;"></span><a href="#id2259546-ix" class="def" id="id2259546">array</a> = <b>element</b> <span class="nc">array</span> { <a class="ref" href="#id2263376">\element</a>* }<br><span style="margin-left: 0ex;"></span><br><span style="margin-left: 0ex;"></span><a href="#id2263376-ix" class="def" id="id2263376">\element</a> = <b>element</b> <span class="nc">element</span> { <b>attribute</b> <span class="nc">key</span> { <i>xsd:string</i> }, <a class="ref" href="#id2260776">variable</a> }<br><span style="margin-left: 0ex;"></span><br><span style="margin-left: 0ex;"></span><a href="#id2263446-ix" class="def" id="id2263446">boolean</a> = <b>element</b> <span class="nc">boolean</span> { <i>xsd:string</i> }<br><span style="margin-left: 0ex;"></span><br><span style="margin-left: 0ex;"></span><a href="#id2263479-ix" class="def" id="id2263479">double</a> = <b>element</b> <span class="nc">double</span> { <i>xsd:double</i> }<br><span style="margin-left: 0ex;"></span><br><span style="margin-left: 0ex;"></span><a href="#id2263622-ix" class="def" id="id2263622">integer</a> = <b>element</b> <span class="nc">integer</span> { <i>xsd:integer</i> }<br><span style="margin-left: 0ex;"></span><br><span style="margin-left: 0ex;"></span><a href="#id2263682-ix" class="def" id="id2263682">null</a> = <b>element</b> <span class="nc">null</span> { <i>text</i> }<br><span style="margin-left: 0ex;"></span><br><span style="margin-left: 0ex;"></span><a href="#id2263747-ix" class="def" id="id2263747">object</a> = <b>element</b> <span class="nc">object</span> { <b>attribute</b> <span class="nc">class</span> { <i>xsd:string</i> }, <a class="ref" href="#id2260130">arguments</a>? }<br><span style="margin-left: 0ex;"></span><br><span style="margin-left: 0ex;"></span><a href="#id2263808-ix" class="def" id="id2263808">\string</a> = <b>element</b> <span class="nc">string</span> { <i>xsd:string</i> }</div>
+<table cellpadding="0" cellspacing="0" border="0" width="100%" id="index">
+<tr><td class="head"><div class="heading">Index</div></td></tr>
+<tr><td class="line" align="right"> </td></tr>
+</table>
+<div class="section">
+<div class="ix-entry" id="id2260197-ix">
+<div class="ix-heading">start</div>
+<div class="ix-definitions">
+<b>Definitions: </b><a class="ix-ref" href="#id2260197">1</a>
+</div>
+</div>
+<div class="ix-entry" id="id2260130-ix">
+<div class="ix-heading">arguments</div>
+<div class="ix-definitions">
+<b>Definitions: </b><a class="ix-ref" href="#id2260130">1</a>
+</div>
+<div class="ix-section">
+<b>Referenced from: </b><table cellpadding="0" cellspacing="0" border="0" class="back-ref"><tr valign="top"><td>
+<nobr><a class="ix-ref" href="#id2259785">node</a></nobr><br><nobr><a class="ix-ref" href="#id2263747">object</a></nobr><br>
+</td></tr></table>
+</div>
+</div>
+<div class="ix-entry" id="id2259546-ix">
+<div class="ix-heading">array</div>
+<div class="ix-definitions">
+<b>Definitions: </b><a class="ix-ref" href="#id2259546">1</a>
+</div>
+<div class="ix-section">
+<b>Referenced from: </b><table cellpadding="0" cellspacing="0" border="0" class="back-ref"><tr valign="top"><td>
+<nobr><a class="ix-ref" href="#id2259532">condition</a></nobr><br><nobr><a class="ix-ref" href="#id2260776">variable</a></nobr><br>
+</td></tr></table>
+</div>
+</div>
+<div class="ix-entry" id="id2263446-ix">
+<div class="ix-heading">boolean</div>
+<div class="ix-definitions">
+<b>Definitions: </b><a class="ix-ref" href="#id2263446">1</a>
+</div>
+<div class="ix-section">
+<b>Referenced from: </b><table cellpadding="0" cellspacing="0" border="0" class="back-ref"><tr valign="top"><td>
+<nobr><a class="ix-ref" href="#id2260776">variable</a></nobr><br>
+</td></tr></table>
+</div>
+</div>
+<div class="ix-entry" id="id2259532-ix">
+<div class="ix-heading">condition</div>
+<div class="ix-definitions">
+<b>Definitions: </b><a class="ix-ref" href="#id2259532">1</a>
+</div>
+<div class="ix-section">
+<b>Referenced from: </b><table cellpadding="0" cellspacing="0" border="0" class="back-ref"><tr valign="top"><td>
+<nobr><a class="ix-ref" href="#id2259532">condition</a></nobr><br><nobr><a class="ix-ref" href="#id2259785">node</a></nobr><br>
+</td></tr></table>
+</div>
+</div>
+<div class="ix-entry" id="id2263479-ix">
+<div class="ix-heading">double</div>
+<div class="ix-definitions">
+<b>Definitions: </b><a class="ix-ref" href="#id2263479">1</a>
+</div>
+<div class="ix-section">
+<b>Referenced from: </b><table cellpadding="0" cellspacing="0" border="0" class="back-ref"><tr valign="top"><td>
+<nobr><a class="ix-ref" href="#id2260776">variable</a></nobr><br>
+</td></tr></table>
+</div>
+</div>
+<div class="ix-entry" id="id2263376-ix">
+<div class="ix-heading">\element</div>
+<div class="ix-definitions">
+<b>Definitions: </b><a class="ix-ref" href="#id2263376">1</a>
+</div>
+<div class="ix-section">
+<b>Referenced from: </b><table cellpadding="0" cellspacing="0" border="0" class="back-ref"><tr valign="top"><td>
+<nobr><a class="ix-ref" href="#id2259546">array</a></nobr><br>
+</td></tr></table>
+</div>
+</div>
+<div class="ix-entry" id="id2258669-ix">
+<div class="ix-heading">else</div>
+<div class="ix-definitions">
+<b>Definitions: </b><a class="ix-ref" href="#id2258669">1</a>
+</div>
+<div class="ix-section">
+<b>Referenced from: </b><table cellpadding="0" cellspacing="0" border="0" class="back-ref"><tr valign="top"><td>
+<nobr><a class="ix-ref" href="#id2259532">condition</a></nobr><br>
+</td></tr></table>
+</div>
+</div>
+<div class="ix-entry" id="id2263622-ix">
+<div class="ix-heading">integer</div>
+<div class="ix-definitions">
+<b>Definitions: </b><a class="ix-ref" href="#id2263622">1</a>
+</div>
+<div class="ix-section">
+<b>Referenced from: </b><table cellpadding="0" cellspacing="0" border="0" class="back-ref"><tr valign="top"><td>
+<nobr><a class="ix-ref" href="#id2260776">variable</a></nobr><br>
+</td></tr></table>
+</div>
+</div>
+<div class="ix-entry" id="id2259785-ix">
+<div class="ix-heading">node</div>
+<div class="ix-definitions">
+<b>Definitions: </b><a class="ix-ref" href="#id2259785">1</a>
+</div>
+<div class="ix-section">
+<b>Referenced from: </b><table cellpadding="0" cellspacing="0" border="0" class="back-ref"><tr valign="top"><td>
+<nobr><a class="ix-ref" href="#id2259962">workflow</a></nobr><br>
+</td></tr></table>
+</div>
+</div>
+<div class="ix-entry" id="id2263682-ix">
+<div class="ix-heading">null</div>
+<div class="ix-definitions">
+<b>Definitions: </b><a class="ix-ref" href="#id2263682">1</a>
+</div>
+<div class="ix-section">
+<b>Referenced from: </b><table cellpadding="0" cellspacing="0" border="0" class="back-ref"><tr valign="top"><td>
+<nobr><a class="ix-ref" href="#id2260776">variable</a></nobr><br>
+</td></tr></table>
+</div>
+</div>
+<div class="ix-entry" id="id2263747-ix">
+<div class="ix-heading">object</div>
+<div class="ix-definitions">
+<b>Definitions: </b><a class="ix-ref" href="#id2263747">1</a>
+</div>
+<div class="ix-section">
+<b>Referenced from: </b><table cellpadding="0" cellspacing="0" border="0" class="back-ref"><tr valign="top"><td>
+<nobr><a class="ix-ref" href="#id2260776">variable</a></nobr><br>
+</td></tr></table>
+</div>
+</div>
+<div class="ix-entry" id="id2260334-ix">
+<div class="ix-heading">outNode</div>
+<div class="ix-definitions">
+<b>Definitions: </b><a class="ix-ref" href="#id2260334">1</a>
+</div>
+<div class="ix-section">
+<b>Referenced from: </b><table cellpadding="0" cellspacing="0" border="0" class="back-ref"><tr valign="top"><td>
+<nobr><a class="ix-ref" href="#id2259532">condition</a></nobr><br><nobr><a class="ix-ref" href="#id2258669">else</a></nobr><br><nobr><a class="ix-ref" href="#id2259785">node</a></nobr><br>
+</td></tr></table>
+</div>
+</div>
+<div class="ix-entry" id="id2263808-ix">
+<div class="ix-heading">\string</div>
+<div class="ix-definitions">
+<b>Definitions: </b><a class="ix-ref" href="#id2263808">1</a>
+</div>
+<div class="ix-section">
+<b>Referenced from: </b><table cellpadding="0" cellspacing="0" border="0" class="back-ref"><tr valign="top"><td>
+<nobr><a class="ix-ref" href="#id2260776">variable</a></nobr><br>
+</td></tr></table>
+</div>
+</div>
+<div class="ix-entry" id="id2260776-ix">
+<div class="ix-heading">variable</div>
+<div class="ix-definitions">
+<b>Definitions: </b><a class="ix-ref" href="#id2260776">1</a>
+</div>
+<div class="ix-section">
+<b>Referenced from: </b><table cellpadding="0" cellspacing="0" border="0" class="back-ref"><tr valign="top"><td>
+<nobr><a class="ix-ref" href="#id2260130">arguments</a></nobr><br><nobr><a class="ix-ref" href="#id2263376">\element</a></nobr><br><nobr><a class="ix-ref" href="#id2259785">node</a></nobr><br>
+</td></tr></table>
+</div>
+</div>
+<div class="ix-entry" id="id2259300-ix">
+<div class="ix-heading">variableHandler</div>
+<div class="ix-definitions">
+<b>Definitions: </b><a class="ix-ref" href="#id2259300">1</a>
+</div>
+<div class="ix-section">
+<b>Referenced from: </b><table cellpadding="0" cellspacing="0" border="0" class="back-ref"><tr valign="top"><td>
+<nobr><a class="ix-ref" href="#id2259962">workflow</a></nobr><br>
+</td></tr></table>
+</div>
+</div>
+<div class="ix-entry" id="id2259962-ix">
+<div class="ix-heading">workflow</div>
+<div class="ix-definitions">
+<b>Definitions: </b><a class="ix-ref" href="#id2259962">1</a>
+</div>
+<div class="ix-section">
+<b>Referenced from: </b><table cellpadding="0" cellspacing="0" border="0" class="back-ref"><tr valign="top"><td>
+<nobr><a class="ix-ref" href="#id2260197">start</a></nobr><br>
+</td></tr></table>
+</div>
+</div>
+</div>
+</body>
+</html>

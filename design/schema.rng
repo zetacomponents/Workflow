@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<grammar xmlns="http://relaxng.org/ns/structure/1.0"
+         datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+ <start>
+  <ref name="workflow"/>
+ </start>
+
+ <define name="workflow">
+  <element name="workflow">
+   <attribute name="name">
+    <data type="string"/>
+   </attribute>
+   <attribute name="version">
+    <data type="integer"/>
+   </attribute>
+   <zeroOrMore>
+    <ref name="node"/>
+   </zeroOrMore>
+   <zeroOrMore>
+    <ref name="variableHandler"/>
+   </zeroOrMore>
+  </element>
+ </define>
+
+ <define name="node">
+  <element name="node">
+   <attribute name="id">
+    <data type="integer"/>
+   </attribute>
+   <attribute name="type">
+    <data type="string"/>
+   </attribute>
+   <optional>
+    <attribute name="serviceObjectClass">
+     <data type="string"/>
+    </attribute>
+   </optional>
+   <optional>
+    <attribute name="subWorkflowName">
+     <data type="string"/>
+    </attribute>
+   </optional>
+   <optional>
+    <element name="in">
+     <oneOrMore>
+      <element name="variable">
+       <attribute name="name">
+        <data type="string"/>
+       </attribute>
+       <attribute name="as">
+        <data type="string"/>
+       </attribute>
+      </element>
+     </oneOrMore>
+    </element>
+    <element name="out">
+     <oneOrMore>
+      <element name="variable">
+       <attribute name="name">
+        <data type="string"/>
+       </attribute>
+       <attribute name="as">
+        <data type="string"/>
+       </attribute>
+      </element>
+     </oneOrMore>
+    </element>
+   </optional>
+   <optional>
+    <attribute name="variable">
+     <data type="string"/>
+    </attribute>
+   </optional>
+   <optional>
+    <attribute name="operand">
+     <data type="string"/>
+    </attribute>
+   </optional>
+   <optional>
+    <ref name="arguments"/>
+   </optional>
+   <optional>
+    <oneOrMore>
+     <ref name="condition"/>
+    </oneOrMore>
+   </optional>
+   <optional>
+    <oneOrMore>
+     <element name="variable">
+      <attribute name="name">
+       <data type="string"/>
+      </attribute>
+      <optional>
+       <ref name="condition"/>
+      </optional>
+      <optional>
+       <ref name="variable"/>
+      </optional>
+     </element>
+    </oneOrMore>
+   </optional>
+   <optional>
+    <oneOrMore>
+     <ref name="outNode"/>
+    </oneOrMore>
+   </optional>
+  </element>
+ </define>
+
+ <define name="outNode">
+  <element name="outNode">
+   <attribute name="id">
+    <data type="integer"/>
+   </attribute>
+  </element>
+ </define>
+
+ <define name="condition">
+  <element name="condition">
+   <attribute name="type">
+    <data type="string"/>
+   </attribute>
+   <optional>
+    <attribute name="a">
+     <data type="string"/>
+    </attribute>
+   </optional>
+   <optional>
+    <attribute name="b">
+     <data type="string"/>
+    </attribute>
+   </optional>
+   <optional>
+    <attribute name="name">
+     <data type="string"/>
+    </attribute>
+   </optional>
+   <optional>
+    <attribute name="value">
+     <data type="string"/>
+    </attribute>
+   </optional>
+   <optional>
+    <attribute name="variable">
+     <data type="string"/>
+    </attribute>
+   </optional>
+   <optional>
+    <ref name="array"/>
+   </optional>
+   <optional>
+    <oneOrMore>
+     <ref name="condition"/>
+    </oneOrMore>
+   </optional>
+   <optional>
+    <ref name="outNode"/>
+   </optional>
+   <optional>
+    <ref name="else"/>
+   </optional>
+  </element>
+ </define>
+
+ <define name="else">
+  <element name="else">
+   <ref name="outNode"/>
+  </element>
+ </define>
+
+ <define name="variableHandler">
+  <element name="variableHandler">
+   <attribute name="variable">
+    <data type="string"/>
+   </attribute>
+   <attribute name="class">
+    <data type="string"/>
+   </attribute>
+  </element>
+ </define>
+
+ <define name="arguments">
+  <element name="arguments">
+   <zeroOrMore>
+    <ref name="variable"/>
+   </zeroOrMore>
+  </element>
+ </define>
+
+ <define name="variable">
+  <choice>
+   <ref name="array"/>
+   <ref name="boolean"/>
+   <ref name="double"/>
+   <ref name="integer"/>
+   <ref name="null"/>
+   <ref name="object"/>
+   <ref name="string"/>
+  </choice>
+ </define>
+
+ <define name="array">
+  <element name="array">
+   <zeroOrMore>
+    <ref name="element"/>
+   </zeroOrMore>
+  </element>
+ </define>
+
+ <define name="element">
+  <element name="element">
+   <attribute name="key">
+    <data type="string"/>
+   </attribute>
+   <ref name="variable"/>
+  </element>
+ </define>
+
+ <define name="boolean">
+  <element name="boolean">
+   <data type="string"/>
+  </element>
+ </define>
+
+ <define name="double">
+  <element name="double">
+   <data type="double"/>
+  </element>
+ </define>
+
+ <define name="integer">
+  <element name="integer">
+   <data type="integer"/>
+  </element>
+ </define>
+
+ <define name="null">
+  <element name="null">
+    <text/>
+  </element>
+ </define>
+
+ <define name="object">
+  <element name="object">
+   <attribute name="class">
+    <data type="string"/>
+   </attribute>
+   <optional>
+    <ref name="arguments"/>
+   </optional>
+  </element>
+ </define>
+
+ <define name="string">
+  <element name="string">
+   <data type="string"/>
+  </element>
+ </define>
+</grammar>

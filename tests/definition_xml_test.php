@@ -51,6 +51,14 @@ class ezcWorkflowDefinitionStorageXmlTest extends ezcWorkflowTestCase
      */
     public function testSaveWorkflow($workflowName)
     {
+        static $schema = null;
+
+        if ( $schema === null )
+        {
+            $schema = dirname( dirname( __FILE__ ) ) . DIRECTORY_SEPARATOR .
+                      'design' . DIRECTORY_SEPARATOR . 'schema.rng';
+        }
+
         $setupMethod = 'setUp' . $workflowName;
 
         $this->$setupMethod();
@@ -58,10 +66,15 @@ class ezcWorkflowDefinitionStorageXmlTest extends ezcWorkflowTestCase
 
         $this->definition->save( $this->workflow );
 
-        $this->assertEquals(
-          $this->readExpected( $workflowName ),
-          $this->readActual( $workflowName )
-        );
+        $expected = $this->readExpected( $workflowName );
+        $actual   = $this->readActual( $workflowName );
+
+        $this->assertEquals( $expected, $actual );
+
+        $document = new DOMDocument;
+        $document->loadXML( $actual );
+
+        $this->assertTrue( $document->relaxngValidate( $schema ) );
     }
 
     public function testExceptionWhenLoadingNotExistingWorkflow()

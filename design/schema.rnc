@@ -1,0 +1,92 @@
+namespace local = ""
+namespace inh = inherit
+
+start = workflow
+
+workflow =
+   element workflow
+   {
+      attribute name { xsd:string },
+      attribute version { xsd:integer },
+      node*,
+      variableHandler*
+   }
+
+node =
+   element node
+   {
+      attribute id { xsd:integer },
+      attribute type { xsd:string },
+      attribute serviceObjectClass { xsd:string }?,
+      attribute subWorkflowName { xsd:string }?,
+      (
+         element in
+         {
+            element variable
+            {
+               attribute name { xsd:string },
+               attribute as { xsd:string }
+            }+
+         },
+         element out
+         {
+            element variable
+            {
+               attribute name { xsd:string },
+               attribute as { xsd:string }
+            }+
+         }
+      )?,
+      attribute variable { xsd:string }?,
+      attribute operand { xsd:string }?,
+      arguments?,
+      condition+?,
+      element variable { attribute name { xsd:string }, condition?, variable? }+?,
+      outNode+?
+   }
+
+outNode = element outNode { attribute id { xsd:integer } }
+
+condition =
+   element condition
+   {
+      attribute type { xsd:string },
+      attribute a { xsd:string }?,
+      attribute b { xsd:string }?,
+      attribute name { xsd:string }?,
+      attribute value { xsd:string }?,
+      attribute variable { xsd:string }?,
+      array?,
+      condition+?,
+      outNode?,
+      else?
+   }
+
+else = element else { outNode }
+
+variableHandler =
+   element variableHandler
+   {
+      attribute variable { xsd:string },
+      attribute class { xsd:string }
+   }
+
+arguments = element arguments { variable* }
+
+variable = array | boolean | double | integer | null | object | \string
+
+array = element array { \element* }
+
+\element = element element { attribute key { xsd:string }, variable }
+
+boolean = element boolean { xsd:string }
+
+double = element double { xsd:double }
+
+integer = element integer { xsd:integer }
+
+null = element null { text }
+
+object = element object { attribute class { xsd:string }, arguments? }
+
+\string = element string { xsd:string }
