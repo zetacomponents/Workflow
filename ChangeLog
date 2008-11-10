@@ -1,4 +1,4 @@
-1.3alpha1 - [RELEASEDATE]
+1.3alpha1 - Monday 10 November 2008
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 - Implemented ezcWorkflow::reset() to reset a workflow.
