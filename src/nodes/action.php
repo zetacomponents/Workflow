@@ -222,7 +222,10 @@ class ezcWorkflowNodeAction extends ezcWorkflowNode
         if ( !class_exists( $this->configuration['class'] ) )
         {
             throw new ezcWorkflowExecutionException(
-              'Class not found.'
+              sprintf(
+                'Class "%s" not found.',
+                $this->configuration['class']
+              )
             );
         }
 
@@ -231,7 +234,10 @@ class ezcWorkflowNodeAction extends ezcWorkflowNode
         if ( !$class->implementsInterface( 'ezcWorkflowServiceObject' ) )
         {
             throw new ezcWorkflowExecutionException(
-              'Class does not implement the ezcWorkflowServiceObject interface.'
+              sprintf(
+                'Class "%s" does not implement the ezcWorkflowServiceObject interface.',
+                $this->configuration['class']
+              )
             );
         }
 
