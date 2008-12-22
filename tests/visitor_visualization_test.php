@@ -47,7 +47,7 @@ class ezcWorkflowVisitorVisualizationTest extends ezcWorkflowTestCase
 
     public function testBug13467()
     {
-        $this->workflow = $this->definition->loadByName( 'bug13467' );
+        $this->workflow = $this->xmlStorage->loadByName( 'bug13467' );
         $this->workflow->accept( $this->visitor );
 
         $this->assertEquals(

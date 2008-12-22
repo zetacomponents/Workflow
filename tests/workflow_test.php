@@ -45,7 +45,7 @@ class ezcWorkflowTest extends ezcWorkflowTestCase
         $this->setUpStartEnd();
         $this->assertNull( $this->workflow->definitionStorage );
 
-        $this->workflow->definitionStorage = $this->definition;
+        $this->workflow->definitionStorage = $this->xmlStorage;
         $this->assertNotNull( $this->workflow->definitionStorage );
     }
 

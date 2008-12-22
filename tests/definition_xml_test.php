@@ -25,10 +25,10 @@ class ezcWorkflowDefinitionStorageXmlTest extends ezcWorkflowTestCase
      */
     public function testLoadWorkflow($workflowName)
     {
-        $this->workflow = $this->definition->loadByName( $workflowName );
+        $this->workflow = $this->xmlStorage->loadByName( $workflowName );
         $this->workflow->reset();
 
-        $this->definition->save( $this->workflow );
+        $this->xmlStorage->save( $this->workflow );
 
         $this->assertEquals(
           $this->readExpected( $workflowName ),
@@ -38,12 +38,12 @@ class ezcWorkflowDefinitionStorageXmlTest extends ezcWorkflowTestCase
 
     public function testLoadServiceObjectWithArguments2()
     {
-        $this->workflow = $this->definition->loadByName( 'ServiceObjectWithArguments2' );
+        $this->workflow = $this->xmlStorage->loadByName( 'ServiceObjectWithArguments2' );
     }
 
     public function testLoadServiceObjectWithArguments3()
     {
-        $this->workflow = $this->definition->loadByName( 'ServiceObjectWithArguments3' );
+        $this->workflow = $this->xmlStorage->loadByName( 'ServiceObjectWithArguments3' );
     }
 
     /**
@@ -64,7 +64,7 @@ class ezcWorkflowDefinitionStorageXmlTest extends ezcWorkflowTestCase
         $this->$setupMethod();
         $this->workflow->reset();
 
-        $this->definition->save( $this->workflow );
+        $this->xmlStorage->save( $this->workflow );
 
         $expected = $this->readExpected( $workflowName );
         $actual   = $this->readActual( $workflowName );
@@ -81,7 +81,7 @@ class ezcWorkflowDefinitionStorageXmlTest extends ezcWorkflowTestCase
     {
         try
         {
-            $this->definition->loadByName( 'NotExisting' );
+            $this->xmlStorage->loadByName( 'NotExisting' );
         }
         catch ( ezcWorkflowDefinitionStorageException $e )
         {
@@ -95,7 +95,7 @@ class ezcWorkflowDefinitionStorageXmlTest extends ezcWorkflowTestCase
     {
         try
         {
-            $workflow = $this->definition->loadByName( 'StartEnd', 2 );
+            $workflow = $this->xmlStorage->loadByName( 'StartEnd', 2 );
         }
         catch ( ezcWorkflowDefinitionStorageException $e )
         {
@@ -109,7 +109,7 @@ class ezcWorkflowDefinitionStorageXmlTest extends ezcWorkflowTestCase
     {
         try
         {
-            $this->definition->loadByName( 'NotValid' );
+            $this->xmlStorage->loadByName( 'NotValid' );
         }
         catch ( ezcWorkflowDefinitionStorageException $e )
         {
@@ -124,7 +124,7 @@ class ezcWorkflowDefinitionStorageXmlTest extends ezcWorkflowTestCase
     {
         try
         {
-            $this->definition->loadByName( 'NotWellFormed' );
+            $this->xmlStorage->loadByName( 'NotWellFormed' );
         }
         catch ( ezcWorkflowDefinitionStorageException $e )
         {

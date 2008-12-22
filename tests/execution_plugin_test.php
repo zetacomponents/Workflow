@@ -432,7 +432,7 @@ class ezcWorkflowExecutionPluginTest extends ezcWorkflowTestCase
         $this->plugin->expects( $this->exactly( 0 ) )->method( 'afterVariableUnset' );
 
         $this->setUpWorkflowWithSubWorkflow( 'StartEnd' );
-        $this->execution->definitionStorage = $this->definition;
+        $this->execution->definitionStorage = $this->xmlStorage;
         $this->execution->workflow = $this->workflow;
         $this->execution->start();
     }
@@ -455,7 +455,7 @@ class ezcWorkflowExecutionPluginTest extends ezcWorkflowTestCase
         $this->plugin->expects( $this->exactly( 0 ) )->method( 'afterVariableUnset' );
 
         $this->setUpWorkflowWithSubWorkflow( 'StartInputEnd' );
-        $this->execution->definitionStorage = $this->definition;
+        $this->execution->definitionStorage = $this->xmlStorage;
         $this->execution->workflow = $this->workflow;
         $this->execution->setInputVariableForSubWorkflow( 'variable', 'value' );
         $this->execution->start();
@@ -479,7 +479,7 @@ class ezcWorkflowExecutionPluginTest extends ezcWorkflowTestCase
         $this->plugin->expects( $this->exactly( 0 ) )->method( 'afterVariableUnset' );
 
         $this->setUpWorkflowWithSubWorkflow( 'ParallelSplitActionActionCancelCaseSynchronization' );
-        $this->execution->definitionStorage = $this->definition;
+        $this->execution->definitionStorage = $this->xmlStorage;
         $this->execution->workflow = $this->workflow;
         $this->execution->start();
     }
@@ -524,7 +524,7 @@ class ezcWorkflowExecutionPluginTest extends ezcWorkflowTestCase
         $this->plugin->expects( $this->exactly( 0 ) )->method( 'afterVariableUnset' );
 
         $this->setUpWorkflowWithSubWorkflowAndVariablePassing();
-        $this->execution->definitionStorage = $this->definition;
+        $this->execution->definitionStorage = $this->xmlStorage;
         $this->execution->workflow = $this->workflow;
         $this->execution->start();
     }

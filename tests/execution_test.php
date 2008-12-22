@@ -588,7 +588,7 @@ class ezcWorkflowExecutionTest extends ezcWorkflowTestCase
     public function testExecuteNonInteractiveSubWorkflow()
     {
         $this->setUpWorkflowWithSubWorkflow( 'StartEnd' );
-        $this->execution->definitionStorage = $this->definition;
+        $this->execution->definitionStorage = $this->xmlStorage;
         $this->execution->workflow = $this->workflow;
         $this->execution->start();
 
@@ -623,7 +623,7 @@ class ezcWorkflowExecutionTest extends ezcWorkflowTestCase
     public function testExecuteInteractiveSubWorkflow()
     {
         $this->setUpWorkflowWithSubWorkflow( 'StartInputEnd' );
-        $this->execution->definitionStorage = $this->definition;
+        $this->execution->definitionStorage = $this->xmlStorage;
         $this->execution->workflow = $this->workflow;
         $this->execution->setInputVariableForSubWorkflow( 'variable', 'value' );
         $this->execution->start();
@@ -637,7 +637,7 @@ class ezcWorkflowExecutionTest extends ezcWorkflowTestCase
     public function testExecuteWorkflowWithCancelCaseSubWorkflow()
     {
         $this->setUpWorkflowWithSubWorkflow( 'ParallelSplitActionActionCancelCaseSynchronization' );
-        $this->execution->definitionStorage = $this->definition;
+        $this->execution->definitionStorage = $this->xmlStorage;
         $this->execution->workflow = $this->workflow;
         $this->execution->start();
 
@@ -649,7 +649,7 @@ class ezcWorkflowExecutionTest extends ezcWorkflowTestCase
 
     public function testExecuteServiceObjectWithConstructor()
     {
-        $this->workflow = $this->definition->loadByName( 'ServiceObjectWithArguments' );
+        $this->workflow = $this->xmlStorage->loadByName( 'ServiceObjectWithArguments' );
         $this->execution->workflow = $this->workflow;
         $this->execution->start();
 
@@ -661,7 +661,7 @@ class ezcWorkflowExecutionTest extends ezcWorkflowTestCase
 
     public function testExecuteServiceObjectThatDoesNotFinish()
     {
-        $this->workflow = $this->definition->loadByName( 'ServiceObjectThatDoesNotFinish' );
+        $this->workflow = $this->xmlStorage->loadByName( 'ServiceObjectThatDoesNotFinish' );
         $this->execution->workflow = $this->workflow;
 
         try
@@ -699,7 +699,7 @@ class ezcWorkflowExecutionTest extends ezcWorkflowTestCase
     public function testExecuteWorkflowWithSubWorkflowAndVariablePassing()
     {
         $this->setUpWorkflowWithSubWorkflowAndVariablePassing();
-        $this->execution->definitionStorage = $this->definition;
+        $this->execution->definitionStorage = $this->xmlStorage;
         $this->execution->workflow = $this->workflow;
         $this->execution->start();
 

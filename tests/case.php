@@ -17,7 +17,7 @@ require_once 'variable_handler.php';
  */
 abstract class ezcWorkflowTestCase extends ezcTestCase
 {
-    protected $definition;
+    protected $xmlStorage;
     protected $workflow;
     protected $startNode;
     protected $endNode;
@@ -28,7 +28,7 @@ abstract class ezcWorkflowTestCase extends ezcTestCase
     {
         parent::setUp();
 
-        $this->definition = new ezcWorkflowDefinitionStorageXml(
+        $this->xmlStorage = new ezcWorkflowDefinitionStorageXml(
           dirname( __FILE__ ) . '/data/'
         );
 
