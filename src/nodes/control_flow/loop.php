@@ -12,8 +12,8 @@
  * The Loop node type is a special type of conditional branch node that has two
  * incoming nodes instead of just one. It is used to conveniently express loops.
  *
- * Incoming nodes: 2
- * Outgoing nodes: 2
+ * Incoming nodes: 2..*
+ * Outgoing nodes: 2..*
  *
  * The example below shows the equivalent of a for-loop that iterates the
  * variable i from 1 to 10:
@@ -57,7 +57,7 @@ class ezcWorkflowNodeLoop extends ezcWorkflowNodeConditionalBranch
      *
      * @var integer
      */
-    protected $maxInNodes = 2;
+    protected $maxInNodes = false;
 
     /**
      * Constraint: The minimum number of outgoing nodes this node has to have
@@ -73,7 +73,7 @@ class ezcWorkflowNodeLoop extends ezcWorkflowNodeConditionalBranch
      *
      * @var integer
      */
-    protected $maxOutNodes = 2;
+    protected $maxOutNodes = false;
 
     /**
      * Whether or not to start a new thread for a branch.
