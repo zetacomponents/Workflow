@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<workflow name="ApprovalProcess" version="1">
+  <node id="1" type="Start">
+    <outNode id="3"/>
+  </node>
+  <node id="2" type="End"/>
+  <node id="3" type="VariableSet">
+    <variable name="approved_by_a">
+      <boolean>false</boolean>
+    </variable>
+    <variable name="approved_by_b">
+      <boolean>false</boolean>
+    </variable>
+    <outNode id="4"/>
+  </node>
+  <node id="4" type="Loop">
+    <condition type="And">
+      <condition type="Variable" name="approved_by_a">
+        <condition type="IsFalse"/>
+      </condition>
+      <condition type="Variable" name="approved_by_b">
+        <condition type="IsFalse"/>
+      </condition>
+      <outNode id="5"/>
+    </condition>
+    <condition type="And">
+      <condition type="Variable" name="approved_by_a">
+        <condition type="IsTrue"/>
+      </condition>
+      <condition type="Variable" name="approved_by_b">
+        <condition type="IsFalse"/>
+      </condition>
+      <outNode id="6"/>
+    </condition>
+    <condition type="And">
+      <condition type="Variable" name="approved_by_a">
+        <condition type="IsTrue"/>
+      </condition>
+      <condition type="Variable" name="approved_by_b">
+        <condition type="IsTrue"/>
+      </condition>
+      <outNode id="2"/>
+    </condition>
+  </node>
+  <node id="5" type="VariableSet">
+    <variable name="approved_by_a">
+      <boolean>true</boolean>
+    </variable>
+    <outNode id="4"/>
+  </node>
+  <node id="6" type="VariableSet">
+    <variable name="approved_by_b">
+      <boolean>true</boolean>
+    </variable>
+    <outNode id="4"/>
+  </node>
+</workflow>

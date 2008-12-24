@@ -1,0 +1,16 @@
+digraph ApprovalProcess {
+node1 [label="Start", color="#2e3436"]
+node3 [label="approved_by_a = <false>, approved_by_b = <false>", color="#2e3436"]
+node4 [label="Loop", color="#2e3436"]
+node5 [label="approved_by_a = <true>", color="#2e3436"]
+node6 [label="approved_by_b = <true>", color="#2e3436"]
+node2 [label="End", color="#2e3436"]
+
+node1 -> node3
+node3 -> node4
+node4 -> node5 [label="( approved_by_a is false && approved_by_b is false )"]
+node4 -> node6 [label="( approved_by_a is true && approved_by_b is false )"]
+node4 -> node2 [label="( approved_by_a is true && approved_by_b is true )"]
+node5 -> node4
+node6 -> node4
+}

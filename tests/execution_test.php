@@ -748,6 +748,18 @@ class ezcWorkflowExecutionTest extends ezcWorkflowTestCase
         $this->assertFalse( $this->execution->isSuspended() );
     }
 
+    public function testExecuteApprovalProcess()
+    {
+        $this->setUpApprovalProcess();
+        $this->execution->workflow = $this->workflow;
+        $this->execution->start();
+
+        $this->assertFalse( $this->execution->isCancelled() );
+        $this->assertTrue( $this->execution->hasEnded() );
+        $this->assertFalse( $this->execution->isResumed() );
+        $this->assertFalse( $this->execution->isSuspended() );
+    }
+
     public function testListener()
     {
         $listener = $this->getMock( 'ezcWorkflowExecutionListener' );

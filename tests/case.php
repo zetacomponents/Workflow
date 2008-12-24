@@ -779,10 +779,54 @@ abstract class ezcWorkflowTestCase extends ezcTestCase
         $this->workflow->endNode->addInNode( $action );
     }
 
+    protected function setUpApprovalProcess()
+    {
+        $this->workflow = new ezcWorkflow( 'ApprovalProcess' );
+
+        $init = new ezcWorkflowNodeVariableSet(
+          array( 'approved_by_a' => false, 'approved_by_b' => false )
+        );
+
+        $approveA = new ezcWorkflowNodeVariableSet(
+          array( 'approved_by_a' => true )
+        );
+
+        $approvedByA = new ezcWorkflowConditionVariable(
+          'approved_by_a', new ezcWorkflowConditionIsTrue
+        );
+
+        $notApprovedByA = new ezcWorkflowConditionVariable(
+          'approved_by_a', new ezcWorkflowConditionIsFalse
+        );
+
+        $approveB = new ezcWorkflowNodeVariableSet(
+          array( 'approved_by_b' => true )
+        );
+
+        $approvedByB = new ezcWorkflowConditionVariable(
+          'approved_by_b', new ezcWorkflowConditionIsTrue
+        );
+
+        $notApprovedByB = new ezcWorkflowConditionVariable(
+          'approved_by_b', new ezcWorkflowConditionIsFalse
+        );
+
+        $loop = new ezcWorkflowNodeLoop;
+        $loop->addInNode( $init )
+             ->addInNode( $approveA )
+             ->addInNode( $approveB )
+             ->addConditionalOutNode( new ezcWorkflowConditionAnd( array( $notApprovedByA, $notApprovedByB ) ), $approveA )
+             ->addConditionalOutNode( new ezcWorkflowConditionAnd( array( $approvedByA,    $notApprovedByB ) ), $approveB )
+             ->addConditionalOutNode( new ezcWorkflowConditionAnd( array( $approvedByA,    $approvedByB    ) ), $this->workflow->endNode );
+
+        $this->workflow->startNode->addOutNode( $init );
+    }
+
     public static function workflowNameProvider()
     {
         return array(
           array( 'AddVariables' ),
+          array( 'ApprovalProcess' ),
           array( 'DecrementingLoop' ),
           array( 'ExclusiveChoiceSimpleMerge' ),
           array( 'ExclusiveChoiceWithElseSimpleMerge' ),
