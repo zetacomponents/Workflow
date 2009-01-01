@@ -815,9 +815,9 @@ abstract class ezcWorkflowTestCase extends ezcTestCase
         $loop->addInNode( $init )
              ->addInNode( $approveA )
              ->addInNode( $approveB )
-             ->addConditionalOutNode( new ezcWorkflowConditionAnd( array( $notApprovedByA, $notApprovedByB ) ), $approveA )
-             ->addConditionalOutNode( new ezcWorkflowConditionAnd( array( $approvedByA,    $notApprovedByB ) ), $approveB )
-             ->addConditionalOutNode( new ezcWorkflowConditionAnd( array( $approvedByA,    $approvedByB    ) ), $this->workflow->endNode );
+             ->addConditionalOutNode( $notApprovedByA, $approveA )
+             ->addConditionalOutNode( $notApprovedByB, $approveB )
+             ->addConditionalOutNode( new ezcWorkflowConditionAnd( array( $approvedByA, $approvedByB ) ), $this->workflow->endNode );
 
         $this->workflow->startNode->addOutNode( $init );
     }

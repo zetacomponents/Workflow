@@ -431,29 +431,6 @@ class ezcWorkflowExecutionTest extends ezcWorkflowTestCase
         $this->fail( 'Expected an ezcWorkflowExecutionException to be thrown.' );
     }
 
-    public function testExecuteExclusiveChoiceSimpleMerge4()
-    {
-        $this->setUpExclusiveChoiceSimpleMerge( 'ezcWorkflowConditionIsTrue', 'ezcWorkflowConditionIsTrue' );
-        $this->execution->workflow = $this->workflow;
-        $this->execution->setVariables( array( 'condition' => true ) );
-
-        try
-        {
-            $this->execution->start();
-        }
-        catch ( ezcWorkflowExecutionException $e )
-        {
-            $this->assertEquals(
-              'Node activates more conditional outgoing nodes than allowed.',
-              $e->getMessage()
-            );
-
-            return;
-        }
-
-        $this->fail( 'Expected an ezcWorkflowExecutionException to be thrown.' );
-    }
-
     public function testExecuteExclusiveChoiceWithElseSimpleMerge()
     {
         $this->setUpExclusiveChoiceWithElseSimpleMerge();

@@ -14,22 +14,12 @@
     <outNode id="4"/>
   </node>
   <node id="4" type="Loop">
-    <condition type="And">
-      <condition type="Variable" name="approved_by_a">
-        <condition type="IsFalse"/>
-      </condition>
-      <condition type="Variable" name="approved_by_b">
-        <condition type="IsFalse"/>
-      </condition>
+    <condition type="Variable" name="approved_by_a">
+      <condition type="IsFalse"/>
       <outNode id="5"/>
     </condition>
-    <condition type="And">
-      <condition type="Variable" name="approved_by_a">
-        <condition type="IsTrue"/>
-      </condition>
-      <condition type="Variable" name="approved_by_b">
-        <condition type="IsFalse"/>
-      </condition>
+    <condition type="Variable" name="approved_by_b">
+      <condition type="IsFalse"/>
       <outNode id="6"/>
     </condition>
     <condition type="And">

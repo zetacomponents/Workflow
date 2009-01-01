@@ -142,7 +142,16 @@ abstract class ezcWorkflowNodeConditionalBranch extends ezcWorkflowNodeBranch
         $nodesToStart                    = array();
         $numActivatedConditionalOutNodes = 0;
 
-        for ( $i = 0; $i < $numKeys; $i++ )
+        if ( $this->maxActivatedConditionalOutNodes !== false )
+        {
+            $maxActivatedConditionalOutNodes = $this->maxActivatedConditionalOutNodes;
+        }
+        else
+        {
+            $maxActivatedConditionalOutNodes = $numKeys;
+        }
+
+        for ( $i = 0; $i < $numKeys && $numActivatedConditionalOutNodes <= $maxActivatedConditionalOutNodes; $i++ )
         {
             if ( isset( $this->configuration['condition'][$keys[$i]] ) )
             {
@@ -164,13 +173,6 @@ abstract class ezcWorkflowNodeConditionalBranch extends ezcWorkflowNodeBranch
         {
             throw new ezcWorkflowExecutionException(
               'Node activates less conditional outgoing nodes than required.'
-            );
-        }
-
-        if ( $this->maxActivatedConditionalOutNodes !== false && $numActivatedConditionalOutNodes > $this->maxActivatedConditionalOutNodes )
-        {
-            throw new ezcWorkflowExecutionException(
-              'Node activates more conditional outgoing nodes than allowed.'
             );
         }
 
