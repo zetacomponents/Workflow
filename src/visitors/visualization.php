@@ -245,7 +245,7 @@ class ezcWorkflowVisitorVisualization implements ezcWorkflowVisitor
                   '<tr><td>%s</td><td>%s</td></tr>',
 
                   $name,
-                  htmlentities( ezcWorkflowUtil::variableToString( $value ) )
+                  htmlspecialchars( ezcWorkflowUtil::variableToString( $value ) )
                 );
             }
 
