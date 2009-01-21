@@ -169,7 +169,7 @@ class ezcWorkflowVisitorVisualization implements ezcWorkflowVisitor
             if ( !isset( $this->nodes[$id] ) )
             {
                 $this->nodes[$id] = array(
-                  'label' => $visitable,
+                  'label' => (string)$visitable,
                   'color' => $color
                 );
             }
