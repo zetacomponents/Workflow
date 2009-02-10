@@ -95,7 +95,7 @@ class ezcWorkflowDefinitionStorageXmlTest extends ezcWorkflowTestCase
         $this->xmlStorage->save( $this->workflow );
 
         $this->assertFileEquals(
-          dirname( __FILE__ ) . '/data/Edit_1.xml', $tmpDirectory . 'Edit_1.xml'
+          dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'data' . DIRECTORY_SEPARATOR . 'Edit_1.xml', $tmpDirectory . 'Edit_1.xml'
         );
 
         $this->workflow = $this->xmlStorage->loadByName( 'Edit' );
@@ -106,7 +106,7 @@ class ezcWorkflowDefinitionStorageXmlTest extends ezcWorkflowTestCase
         $this->xmlStorage->save( $this->workflow );
 
         $this->assertFileEquals(
-          dirname( __FILE__ ) . '/data/Edit_2.xml', $tmpDirectory . 'Edit_2.xml'
+          dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'data' . DIRECTORY_SEPARATOR . 'Edit_2.xml', $tmpDirectory . 'Edit_2.xml'
         );
     }
 
@@ -173,11 +173,11 @@ class ezcWorkflowDefinitionStorageXmlTest extends ezcWorkflowTestCase
           'version="2"',
           'version="1"',
           file_get_contents(
-            dirname( __FILE__ ) . '/data/' . $name . '_2.xml'
+            dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'data' . DIRECTORY_SEPARATOR . $name . '_2.xml'
           )
         );
 
-        @unlink( dirname( __FILE__ ) . '/data/' . $name . '_2.xml' );
+        @unlink( dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'data' . DIRECTORY_SEPARATOR . $name . '_2.xml' );
 
         return $actual;
     }
@@ -185,7 +185,7 @@ class ezcWorkflowDefinitionStorageXmlTest extends ezcWorkflowTestCase
     protected function readExpected( $name )
     {
         return file_get_contents(
-          dirname( __FILE__ ) . '/data/' . $name . '_1.xml'
+          dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'data' . DIRECTORY_SEPARATOR . $name . '_1.xml'
         );
     }
 }
