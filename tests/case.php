@@ -29,7 +29,7 @@ abstract class ezcWorkflowTestCase extends ezcTestCase
         parent::setUp();
 
         $this->xmlStorage = new ezcWorkflowDefinitionStorageXml(
-          dirname( __FILE__ ) . '/data/'
+          dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'data' . DIRECTORY_SEPARATOR
         );
 
         if ( !class_exists( 'ServiceObject', false ) )

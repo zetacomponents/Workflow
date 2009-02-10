@@ -178,7 +178,7 @@ class ezcWorkflowVisitorVisualizationTest extends ezcWorkflowTestCase
     protected function readExpected( $name )
     {
         return file_get_contents(
-          dirname( __FILE__ ) . '/data/' . $name . '.dot'
+          dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'data' . DIRECTORY_SEPARATOR. $name . '.dot'
         );
     }
 }
