@@ -75,6 +75,10 @@ class ezcWorkflowVisitorNodeCollector implements ezcWorkflowVisitor
     {
         if ( $visitable instanceof ezcWorkflow )
         {
+            $visitor      = new ezcWorkflowVisitorMaxNodeIdFinder( $visitable );
+            $this->nextId = $visitor->getMaxNodeId() + 1;
+            unset( $visitor );
+
             if ( $visitable->startNode->getId() === false )
             {
                 $visitable->startNode->setId( $this->nextId++ );

@@ -34,7 +34,7 @@
  * @version //autogen//
  * @mainclass
  */
-class ezcWorkflow implements ezcWorkflowVisitable
+class ezcWorkflow implements Countable, ezcWorkflowVisitable
 {
     /**
      * Container to hold the properties
@@ -244,6 +244,18 @@ class ezcWorkflow implements ezcWorkflowVisitable
         }
 
         return false;
+    }
+
+    /**
+     * Returns the number of nodes of this workflow.
+     *
+     * @return integer
+     */
+    public function count()
+    {
+        $counter = new ezcWorkflowVisitorNodeCounter( $this );
+
+        return $counter->getNumNodes();
     }
 
     /**

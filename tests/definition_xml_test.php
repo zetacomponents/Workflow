@@ -28,7 +28,7 @@ class ezcWorkflowDefinitionStorageXmlTest extends ezcWorkflowTestCase
     /**
      * @dataProvider workflowNameProvider
      */
-    public function testLoadWorkflow( $workflowName )
+    public function testLoadWorkflow( $workflowName, $numNodes )
     {
         $this->workflow = $this->xmlStorage->loadByName( $workflowName );
         $this->workflow->reset();
@@ -39,6 +39,8 @@ class ezcWorkflowDefinitionStorageXmlTest extends ezcWorkflowTestCase
           $this->readExpected( $workflowName ),
           $this->readActual( $workflowName )
         );
+
+        $this->assertEquals( $numNodes, count( $this->workflow ) );
     }
 
     public function testLoadServiceObjectWithArguments2()
