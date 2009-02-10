@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<workflow name="Edit" version="2">
+  <node id="1" type="Start">
+    <outNode id="3"/>
+  </node>
+  <node id="2" type="End"/>
+  <node id="3" type="Input">
+    <variable name="variable">
+      <condition type="IsString"/>
+    </variable>
+    <outNode id="2"/>
+  </node>
+</workflow>

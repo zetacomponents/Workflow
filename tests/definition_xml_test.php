@@ -20,6 +20,11 @@ class ezcWorkflowDefinitionStorageXmlTest extends ezcWorkflowTestCase
         return new PHPUnit_Framework_TestSuite( 'ezcWorkflowDefinitionStorageXmlTest' );
     }
 
+    protected function tearDown()
+    {
+        $this->removeTempDir();
+    }
+
     /**
      * @dataProvider workflowNameProvider
      */
@@ -75,6 +80,34 @@ class ezcWorkflowDefinitionStorageXmlTest extends ezcWorkflowTestCase
         $document->loadXML( $actual );
 
         $this->assertTrue( $document->relaxngValidate( $schema ) );
+    }
+
+    /**
+     * @ticket 14437
+     */
+    public function testEditWorkflow()
+    {
+        $tmpDirectory = $this->createTempDir( 'workflow' . DIRECTORY_SEPARATOR );
+        $this->xmlStorage = new ezcWorkflowDefinitionStorageXml( $tmpDirectory );
+
+        $this->workflow = new ezcWorkflow( 'Edit' );
+        $this->workflow->startNode->addOutNode( $this->workflow->endNode );
+        $this->xmlStorage->save( $this->workflow );
+
+        $this->assertFileEquals(
+          dirname( __FILE__ ) . '/data/Edit_1.xml', $tmpDirectory . 'Edit_1.xml'
+        );
+
+        $this->workflow = $this->xmlStorage->loadByName( 'Edit' );
+        $this->workflow->endNode->removeInNode( $this->workflow->startNode );
+        $inputNode = new ezcWorkflowNodeInput( array( 'variable' => new ezcWorkflowConditionIsString ) );
+        $this->workflow->startNode->addOutNode( $inputNode );
+        $this->workflow->endNode->addInNode( $inputNode );
+        $this->xmlStorage->save( $this->workflow );
+
+        $this->assertFileEquals(
+          dirname( __FILE__ ) . '/data/Edit_2.xml', $tmpDirectory . 'Edit_2.xml'
+        );
     }
 
     public function testExceptionWhenLoadingNotExistingWorkflow()
