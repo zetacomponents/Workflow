@@ -93,7 +93,11 @@ class ezcWorkflowDefinitionStorageXmlTest extends ezcWorkflowTestCase
         $this->xmlStorage = new ezcWorkflowDefinitionStorageXml( $tmpDirectory );
 
         $this->workflow = new ezcWorkflow( 'Edit' );
+        $this->assertEquals( 1, count( $this->workflow ) );
+
         $this->workflow->startNode->addOutNode( $this->workflow->endNode );
+        $this->assertEquals( 2, count( $this->workflow ) );
+
         $this->xmlStorage->save( $this->workflow );
 
         $this->assertFileEquals(
@@ -101,10 +105,16 @@ class ezcWorkflowDefinitionStorageXmlTest extends ezcWorkflowTestCase
         );
 
         $this->workflow = $this->xmlStorage->loadByName( 'Edit' );
+        $this->assertEquals( 2, count( $this->workflow ) );
+
         $this->workflow->endNode->removeInNode( $this->workflow->startNode );
+        $this->assertEquals( 1, count( $this->workflow ) );
+
         $inputNode = new ezcWorkflowNodeInput( array( 'variable' => new ezcWorkflowConditionIsString ) );
         $this->workflow->startNode->addOutNode( $inputNode );
         $this->workflow->endNode->addInNode( $inputNode );
+        $this->assertEquals( 3, count( $this->workflow ) );
+
         $this->xmlStorage->save( $this->workflow );
 
         $this->assertFileEquals(
