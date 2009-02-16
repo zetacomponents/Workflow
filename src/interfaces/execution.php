@@ -1001,7 +1001,7 @@ abstract class ezcWorkflowExecution
         foreach ( $this->workflow->getVariableHandlers() as $variableName => $className )
         {
             $object = new $className;
-            $this->setVariable( $variableName, $object->load( $variableName ) );
+            $this->setVariable( $variableName, $object->load( $this, $variableName ) );
         }
     }
 
@@ -1015,7 +1015,7 @@ abstract class ezcWorkflowExecution
             if ( isset( $this->variables[$variableName] ) )
             {
                 $object = new $className;
-                $object->save( $variableName, $this->variables[$variableName] );
+                $object->save( $this, $variableName, $this->variables[$variableName] );
             }
         }
     }

@@ -19,17 +19,19 @@ interface ezcWorkflowVariableHandler
     /**
      * Load the variable $variableName that is handled by this handler.
      *
-     * @param string $variableName
+     * @param ezcWorkflowExecution $execution
+     * @param string               $variableName
      */
-    public function load( $variableName );
+    public function load( ezcWorkflowExecution $execution, $variableName );
 
     /**
      * Save the variable $variableName that is handled by the variable handler
      * with the value $value.
      *
-     * @param string $variableName
-     * @param mixed  $value
+     * @param ezcWorkflowExecution $execution
+     * @param string               $variableName
+     * @param mixed                $value
      */
-    public function save( $variableName, $value );
+    public function save( ezcWorkflowExecution $execution, $variableName, $value );
 }
 ?>
