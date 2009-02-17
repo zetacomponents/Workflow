@@ -11,7 +11,7 @@
 /**
  * This node implements the Parallel Split workflow pattern.
  *
- * The Parallel Split work?ow pattern divides one thread of execution
+ * The Parallel Split workflow pattern divides one thread of execution
  * unconditionally into multiple parallel threads of execution.
  *
  * Use Case Example: After the credit card specified by the customer has been successfully
