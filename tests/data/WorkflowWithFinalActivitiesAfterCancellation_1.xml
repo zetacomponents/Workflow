@@ -10,5 +10,11 @@
   <node id="4" type="Cancel">
     <outNode id="2"/>
   </node>
-  <node id="5" type="End"/>
+  <node id="5" type="VariableSet">
+    <variable name="finalActivityExecuted">
+      <boolean>true</boolean>
+    </variable>
+    <outNode id="6"/>
+  </node>
+  <node id="6" type="End"/>
 </workflow>

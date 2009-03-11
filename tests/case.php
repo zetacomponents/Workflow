@@ -759,7 +759,14 @@ abstract class ezcWorkflowTestCase extends ezcTestCase
 
         $this->workflow->startNode->addOutNode( $cancelNode );
         $this->workflow->endNode->addInNode( $cancelNode );
-        $this->workflow->finallyNode->addOutNode( new ezcWorkflowNodeEnd );
+
+        $set = new ezcWorkflowNodeVariableSet(
+          array( 'finalActivityExecuted' => true )
+        );
+
+        $set->addOutNode( new ezcWorkflowNodeEnd );
+
+        $this->workflow->finallyNode->addOutNode( $set );
     }
 
     protected function setUpServiceObjectWithArguments()

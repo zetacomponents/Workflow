@@ -375,7 +375,6 @@ abstract class ezcWorkflowExecution
             }
         }
 
-        $this->cancelled         = true;
         $this->activatedNodes    = array();
         $this->numActivatedNodes = 0;
         $this->waitingFor        = array();
@@ -383,7 +382,11 @@ abstract class ezcWorkflowExecution
         if ( count( $this->workflow->finallyNode->getOutNodes() ) > 0 )
         {
             $this->workflow->finallyNode->activate( $this );
+            $this->execute();
         }
+
+        $this->cancelled = true;
+        $this->ended     = false;
 
         $this->end( $node );
         $this->doEnd();

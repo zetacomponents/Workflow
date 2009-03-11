@@ -719,6 +719,7 @@ class ezcWorkflowExecutionTest extends ezcWorkflowTestCase
         $this->execution->workflow = $this->workflow;
         $this->execution->start();
 
+        $this->assertTrue( $this->execution->getVariable( 'finalActivityExecuted' ) );
         $this->assertTrue( $this->execution->isCancelled() );
         $this->assertFalse( $this->execution->hasEnded() );
         $this->assertFalse( $this->execution->isResumed() );
