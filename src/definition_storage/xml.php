@@ -139,21 +139,21 @@ class ezcWorkflowDefinitionStorageXml implements ezcWorkflowDefinitionStorage
             $node = new $className( $configuration );
             $node->setId( $id );
 
-            if ( $className == 'ezcWorkflowNodeStart' )
+            if ( $node instanceof ezcWorkflowNodeFinally &&
+                 !isset( $finallyNode ) )
             {
-                $startNode = $node;
+                $finallyNode = $node;
             }
 
-            else if ( $className == 'ezcWorkflowNodeEnd' &&
+            else if ( $node instanceof ezcWorkflowNodeEnd &&
                       !isset( $defaultEndNode ) )
             {
                 $defaultEndNode = $node;
             }
 
-            else if ( $className == 'ezcWorkflowNodeFinally' &&
-                      !isset( $finallyNode ) )
+            else if ( $node instanceof ezcWorkflowNodeStart )
             {
-                $finallyNode = $node;
+                $startNode = $node;
             }
 
             $nodes[$id] = $node;

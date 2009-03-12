@@ -1,5 +1,7 @@
 - Fixed execution of ezcWorkflowNodeFinally nodes.
 - Fixed issue #14437: id conflict possible in ezcWorkflowVisitorNodeCollector.
+- ezcWorkflowDefinitionStorageXml can now handle subclasses of
+  ezcWorkflowNodeStart, ezcWorkflowNodeEnd, and ezcWorkflowNodeFinally.
 - The ezcWorkflow class now implements the Countable interface. count() invoked
   for an ezcWorkflow object will return the number of nodes of the workflow.
 - The ezcWorkflowExecution::loadFromVariableHandlers() and
