@@ -86,7 +86,10 @@ abstract class ezcWorkflowTestCase extends ezcTestCase
             'true' => true,
             'false' => false,
             'array' => array( 22, 4, 1978 ),
-            'object' => new StdClass
+            'object' => new StdClass,
+            'string' => 'string',
+            'integer' => 2241978,
+            'float' => 22.04
           )
         );
 

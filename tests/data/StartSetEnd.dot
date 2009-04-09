@@ -1,6 +1,6 @@
 digraph StartSetEnd {
 node1 [label="Start", color="#2e3436"]
-node3 [label="null = <null>, true = <true>, false = <false>, array = <array>, object = <stdClass>", color="#2e3436"]
+node3 [label="null = <null>, true = <true>, false = <false>, array = <array>, object = <stdClass>, string = string, integer = 2241978, float = 22.04", color="#2e3436"]
 node2 [label="End", color="#2e3436"]
 
 node1 -> node3

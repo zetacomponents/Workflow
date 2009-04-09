@@ -30,6 +30,15 @@
     <variable name="object">
       <object class="stdClass"/>
     </variable>
+    <variable name="string">
+      <string>string</string>
+    </variable>
+    <variable name="integer">
+      <integer>2241978</integer>
+    </variable>
+    <variable name="float">
+      <double>22.04</double>
+    </variable>
     <outNode id="2"/>
   </node>
 </workflow>

@@ -179,6 +179,24 @@ class ezcWorkflowDefinitionStorageXmlTest extends ezcWorkflowTestCase
         $this->fail( 'Expected an ezcWorkflowDefinitionStorageException to be thrown.' );
     }
 
+    /**
+     * @ticket 14754
+     */
+    public function testIssue14754()
+    {
+        $workflow = new ezcWorkflow( 'Issue14754' );
+        $set      = new ezcWorkflowNodeVariableSet( array( 'x' => 1 ) );
+        $workflow->startNode->addOutNode( $set );
+        $workflow->endNode->addInNode( $set );
+
+        $expected = $this->xmlStorage->saveToDocument( $workflow, 0 );
+        $actual   = $this->xmlStorage->saveToDocument(
+          $this->xmlStorage->loadFromDocument( $expected ), 0
+        );
+
+        $this->assertEquals( $expected, $actual );
+    }
+
     protected function readActual( $name )
     {
         $actual = str_replace(

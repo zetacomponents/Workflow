@@ -81,7 +81,14 @@ class ezcWorkflowNodeVariableSet extends ezcWorkflowNode
 
         foreach ( $element->getElementsByTagName( 'variable' ) as $variable )
         {
-            $configuration[$variable->getAttribute( 'name' )] = ezcWorkflowDefinitionStorageXml::xmlToVariable( $variable->childNodes->item( 1 ) );
+            $item = $variable->childNodes->item( 1 );
+
+            if ( $item === NULL )
+            {
+                $item = $variable->childNodes->item( 0 );
+            }
+
+            $configuration[$variable->getAttribute( 'name' )] = ezcWorkflowDefinitionStorageXml::xmlToVariable( $item );
         }
 
         return $configuration;
