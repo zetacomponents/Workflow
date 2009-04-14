@@ -63,6 +63,41 @@ abstract class ezcWorkflowUtil
     }
 
     /**
+     * Wrapper around DOMNode->childNodes that filters DOMText (whitespace)
+     * nodes.
+     *
+     * @param  DOMNode $node
+     * @return array
+     */
+    public static function getChildNodes( DOMNode $node )
+    {
+        $childNodes = array();
+
+        foreach ( $node->childNodes as $childNode )
+        {
+            if ( !$childNode instanceof DOMText )
+            {
+                $childNodes[] = $childNode;
+            }
+        }
+
+        return $childNodes;
+    }
+
+    /**
+     * Wrapper around getChildNodes() that only returns the first node.
+     *
+     * @param  DOMNode $node
+     * @return DOMNode
+     */
+    public static function getChildNode( DOMNode $node )
+    {
+        $childNodes = self::getChildNodes( $node );
+
+        return $childNodes[0];
+    }
+
+    /**
      * Returns a compact textual representation of a PHP variable.
      *
      * @param mixed $variable

@@ -179,9 +179,9 @@ class ezcWorkflowDefinitionStorageXml implements ezcWorkflowDefinitionStorage
 
             if ( is_subclass_of( $className, 'ezcWorkflowNodeConditionalBranch' ) )
             {
-                foreach ( $xmlNode->childNodes as $childNode )
+                foreach ( ezcWorkflowUtil::getChildNodes( $xmlNode ) as $childNode )
                 {
-                    if ( $childNode instanceof DOMElement && $childNode->tagName == 'condition' )
+                    if ( $childNode->tagName == 'condition' )
                     {
                         foreach ( $childNode->getElementsByTagName( 'else' ) as $elseNode )
                         {
@@ -450,7 +450,7 @@ class ezcWorkflowDefinitionStorageXml implements ezcWorkflowDefinitionStorage
             case 'ezcWorkflowConditionVariable': {
                 return new $class(
                   $element->getAttribute( 'name' ),
-                  self::xmlToCondition( $element->childNodes->item( 1 ) )
+                  self::xmlToCondition( ezcWorkflowUtil::getChildNode( $element ) )
                 );
             }
             break;
@@ -459,7 +459,7 @@ class ezcWorkflowDefinitionStorageXml implements ezcWorkflowDefinitionStorage
                 return new $class(
                   $element->getAttribute( 'a' ),
                   $element->getAttribute( 'b' ),
-                  self::xmlToCondition( $element->childNodes->item( 1 ) )
+                  self::xmlToCondition( ezcWorkflowUtil::getChildNode( $element ) )
                 );
             }
             break;
@@ -469,9 +469,9 @@ class ezcWorkflowDefinitionStorageXml implements ezcWorkflowDefinitionStorage
             case 'ezcWorkflowConditionXor': {
                 $conditions = array();
 
-                foreach ( $element->childNodes as $childNode )
+                foreach ( ezcWorkflowUtil::getChildNodes( $element ) as $childNode )
                 {
-                    if ( $childNode instanceof DOMElement && $childNode->tagName == 'condition' )
+                    if ( $childNode->tagName == 'condition' )
                     {
                         $conditions[] = self::xmlToCondition( $childNode );
                     }
@@ -482,7 +482,7 @@ class ezcWorkflowDefinitionStorageXml implements ezcWorkflowDefinitionStorage
             break;
 
             case 'ezcWorkflowConditionNot': {
-                return new $class( self::xmlToCondition( $element->childNodes->item( 1 ) ) );
+                return new $class( self::xmlToCondition( ezcWorkflowUtil::getChildNode( $element ) ) );
             }
             break;
 
@@ -497,7 +497,7 @@ class ezcWorkflowDefinitionStorageXml implements ezcWorkflowDefinitionStorage
             break;
 
             case 'ezcWorkflowConditionInArray': {
-                return new $class( self::xmlToVariable( $element->childNodes->item( 1 ) ) );
+                return new $class( self::xmlToVariable( ezcWorkflowUtil::getChildNode( $element ) ) );
             }
             break;
 
@@ -574,7 +574,7 @@ class ezcWorkflowDefinitionStorageXml implements ezcWorkflowDefinitionStorage
 
                 foreach ( $element->getElementsByTagName( 'element' ) as $element )
                 {
-                    $value = self::xmlToVariable( $element->childNodes->item( 1 ) );
+                    $value = self::xmlToVariable( ezcWorkflowUtil::getChildNode( $element ) );
 
                     if ( $element->hasAttribute( 'key' ) )
                     {
@@ -593,7 +593,10 @@ class ezcWorkflowDefinitionStorageXml implements ezcWorkflowDefinitionStorage
 
                 if ( $element->hasChildNodes() )
                 {
-                    $arguments       = $element->childNodes->item( 1 )->childNodes;
+                    $arguments = ezcWorkflowUtil::getChildNodes(
+                      ezcWorkflowUtil::getChildNode( $element )
+                    );
+
                     $constructorArgs = array();
 
                     foreach ( $arguments as $argument )

@@ -1,4 +1,5 @@
 - Fixed issue #14754: ezcWorkflowNodeVariableSet::configurationFromXML() error.
+- Fixed issue #14760: XML Import/Export in Workflow.
 
 
 1.3.2 - Monday 30 March 2009

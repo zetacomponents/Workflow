@@ -146,15 +146,13 @@ class ezcWorkflowNodeAction extends ezcWorkflowNode
           'arguments' => array()
         );
 
-        if ( $element->childNodes->item( 1 ) instanceof DOMElement &&
-             $element->childNodes->item( 1 )->tagName == 'arguments' )
+        $childNode = ezcWorkflowUtil::getChildNode( $element );
+
+        if ( $childNode->tagName == 'arguments' )
         {
-            foreach ( $element->childNodes->item( 1 )->childNodes as $argument )
+            foreach ( ezcWorkflowUtil::getChildNodes( $childNode ) as $argument )
             {
-                if ( $argument instanceof DOMElement )
-                {
-                    $configuration['arguments'][] = ezcWorkflowDefinitionStorageXml::xmlToVariable( $argument );
-                }
+                $configuration['arguments'][] = ezcWorkflowDefinitionStorageXml::xmlToVariable( $argument );
             }
         }
 

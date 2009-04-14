@@ -170,7 +170,9 @@ class ezcWorkflowNodeInput extends ezcWorkflowNode
 
         foreach ( $element->getElementsByTagName( 'variable' ) as $variable )
         {
-            $configuration[$variable->getAttribute( 'name' )] = ezcWorkflowDefinitionStorageXml::xmlToCondition( $variable->childNodes->item( 1 ) );
+            $configuration[$variable->getAttribute( 'name' )] = ezcWorkflowDefinitionStorageXml::xmlToCondition(
+              ezcWorkflowUtil::getChildNode( $variable )
+            );
         }
 
         return $configuration;
