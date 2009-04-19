@@ -1,5 +1,5 @@
-eZ component: Workflow, Requirements
-                                    
+eZ Component: Workflow, Design
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 :Author: Sebastian Bergmann
 :Revision: $Revision$
 :Date: $Date$

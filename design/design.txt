@@ -1,5 +1,5 @@
-eZ publish Enterprise Component: Workflow, Design
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+eZ Component: Workflow, Design
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 :Author: Sebastian Bergmann
 :Revision: $Revision$
 :Date: $Date$
