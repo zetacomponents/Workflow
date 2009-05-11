@@ -1,4 +1,4 @@
-1.3.3 - [RELEASEDATE]
+1.3.3 - Monday 11 May 2009
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 - Fixed issue #14754 and #14760: ezcWorkflowDefinitionStorageXml does not
