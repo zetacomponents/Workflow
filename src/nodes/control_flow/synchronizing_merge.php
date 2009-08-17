@@ -31,7 +31,7 @@
  *
  * // create the exclusive choice branching node
  * $choice = new ezcWorkflowNodeMultiChoice;
- * $intput->addOutNode( $choice );
+ * $input->addOutNode( $choice );
  *
  * $branch1 = ....; // create nodes for the first branch of execution here..
  * $branch2 = ....; // create nodes for the second branch of execution here..
