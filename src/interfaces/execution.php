@@ -215,7 +215,7 @@ abstract class ezcWorkflowExecution
      * @throws ezcWorkflowExecutionException
      *         If no workflow has been set up for execution.
      */
-    public function start( $parentId = 0 )
+    public function start( $parentId = null )
     {
         if ( $this->workflow === null )
         {
