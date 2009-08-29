@@ -330,5 +330,56 @@ class ezcWorkflowTest extends ezcWorkflowTestCase
 
         $this->fail( 'Expected an ezcBaseValueException to be thrown.' );
     }
+
+    public function testForIssue14451()
+    {
+        $this->workflow = new ezcWorkflow( 'Test' );
+
+        $this->assertEquals( 1, count( $this->workflow ) );
+        $this->assertEquals( 1, count( $this->workflow->nodes ) );
+
+        $this->workflow->startNode->addOutNode( $this->workflow->endNode );
+
+        $this->assertEquals( 2, count( $this->workflow ) );
+        $this->assertEquals( 2, count( $this->workflow->nodes ) );
+
+        $this->workflow->startNode->removeOutNode( $this->workflow->endNode );
+
+        $this->assertEquals( 1, count( $this->workflow ) );
+        $this->assertEquals( 1, count( $this->workflow->nodes ) );
+
+        $input = new ezcWorkflowNodeInput( array( 'value' => new ezcWorkflowConditionIsInteger ) );
+        $this->workflow->startNode->addOutNode( $input );
+
+        $this->assertEquals( 2, count( $this->workflow ) );
+        $this->assertEquals( 2, count( $this->workflow->nodes ) );
+
+        $choice = new ezcWorkflowNodeExclusiveChoice;
+        $input->addOutNode( $choice );
+
+        $this->assertEquals( 3, count( $this->workflow ) );
+        $this->assertEquals( 3, count( $this->workflow->nodes ) );
+
+        $branch1 = new ezcWorkflowNodeInput( array( 'value' => new ezcWorkflowConditionIsAnything ) );
+        $branch2 = new ezcWorkflowNodeInput( array( 'value' => new ezcWorkflowConditionIsAnything ) );
+
+        $choice->addConditionalOutNode( new ezcWorkflowConditionIsAnything , $branch1 );
+
+        $this->assertEquals( 4, count( $this->workflow ) );
+        $this->assertEquals( 4, count( $this->workflow->nodes ) );
+
+        $choice->addConditionalOutNode( new ezcWorkflowConditionIsAnything , $branch2 );
+
+        $this->assertEquals( 5, count( $this->workflow ) );
+        $this->assertEquals( 5, count( $this->workflow->nodes ) );
+
+        $merge = new ezcWorkflowNodeSimpleMerge;
+        $merge->addInNode( $branch1 );
+        $merge->addInNode( $branch2 );
+        $merge->addOutNode( $this->workflow->endNode );
+
+        $this->assertEquals( 7, count( $this->workflow ) );
+        $this->assertEquals( 7, count( $this->workflow->nodes ) );
+    }
 }
 ?>
