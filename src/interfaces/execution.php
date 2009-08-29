@@ -83,36 +83,50 @@ abstract class ezcWorkflowExecution
     protected $nextThreadId = 0;
 
     /**
+     * Flag that indicates whether or not this execution has been cancelled.
+     *
      * @var bool
      */
     protected $cancelled;
 
     /**
+     * Flag that indicates whether or not this execution has ended.
+     *
      * @var bool
      */
     protected $ended;
 
     /**
+     * Flag that indicates whether or not this execution has been resumed.
+     *
      * @var bool
      */
     protected $resumed;
 
     /**
+     * Flag that indicates whether or not this execution has been suspended.
+     *
      * @var bool
      */
     protected $suspended;
 
     /**
+     * Plugins registered for this execution.
+     *
      * @var array
      */
     protected $plugins = array();
 
     /**
+     * Workflow variables.
+     *
      * @var array
      */
     protected $variables = array();
 
     /**
+     * Workflow variables the execution is waiting for.
+     *
      * @var array
      */
     protected $waitingFor = array();

@@ -26,6 +26,8 @@
 class ezcWorkflowConditionXor extends ezcWorkflowConditionBooleanSet
 {
     /**
+     * Textual representation of the concatenation.
+     *
      * @var string
      */
     protected $concatenation = 'XOR';

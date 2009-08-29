@@ -17,11 +17,15 @@
 class ezcWorkflowConditionVariable implements ezcWorkflowCondition
 {
     /**
+     * The name of the variable the condition is applied to.
+     *
      * @var string
      */
     protected $variableName;
 
     /**
+     * The condition that is applied to the variable.
+     *
      * @var ezcWorkflowCondition
      */
     protected $condition;

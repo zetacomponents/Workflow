@@ -33,6 +33,8 @@ abstract class ezcWorkflowNodeMerge extends ezcWorkflowNode
     protected $maxInNodes = false;
 
     /**
+     * The state of this node.
+     *
      * @var array
      */
     protected $state;

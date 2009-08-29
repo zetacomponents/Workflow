@@ -26,6 +26,8 @@
 class ezcWorkflowConditionAnd extends ezcWorkflowConditionBooleanSet
 {
     /**
+     * Textual representation of the concatenation.
+     *
      * @var string
      */
     protected $concatenation = '&&';

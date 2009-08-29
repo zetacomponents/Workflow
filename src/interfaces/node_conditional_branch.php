@@ -1,6 +1,6 @@
 <?php
 /**
- * File containing the ezcWorkflowNodeBranch class.
+ * File containing the ezcWorkflowNodeConditionalBranch class.
  *
  * @package Workflow
  * @version //autogen//

@@ -1,6 +1,6 @@
 <?php
 /**
- * Base exception for the Workflow package.
+ * File containing the ezcWorkflowException class.
  *
  * @package Workflow
  * @version //autogen//

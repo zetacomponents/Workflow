@@ -17,19 +17,25 @@
 class ezcWorkflowConditionVariables implements ezcWorkflowCondition
 {
     /**
+     * The name of the first variable the condition is applied to.
+     *
      * @var string
      */
     protected $variableNameA;
 
     /**
+     * The name of the second variable the condition is applied to.
+     *
      * @var string
      */
     protected $variableNameB;
 
     /**
-     * @var string
+     * The condition that is applied to the variable.
+     *
+     * @var ezcWorkflowCondition
      */
-    protected $ezcWorkflowCondition;
+    protected $condition;
 
     /**
      * Constructor.

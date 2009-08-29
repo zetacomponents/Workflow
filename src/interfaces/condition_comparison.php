@@ -17,11 +17,15 @@
 abstract class ezcWorkflowConditionComparison implements ezcWorkflowCondition
 {
     /**
+     * Textual representation of the comparison operator.
+     *
      * @var mixed
      */
     protected $operator = '';
 
     /**
+     * The value that this condition compares against.
+     *
      * @var mixed
      */
     protected $value;

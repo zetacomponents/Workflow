@@ -29,6 +29,8 @@
 class ezcWorkflowConditionIsNotEqual extends ezcWorkflowConditionComparison
 {
     /**
+     * Textual representation of the comparison operator.
+     *
      * @var mixed
      */
     protected $operator = '!=';
