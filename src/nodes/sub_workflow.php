@@ -138,7 +138,7 @@ class ezcWorkflowNodeSubWorkflow extends ezcWorkflowNode
                   $execution, $subExecution, $this->configuration['variables']['in']
                 );
 
-                $subExecution->start( $this->id );
+                $subExecution->start( $execution->getId() );
 
                 $this->state = $subExecution->getId();
             }

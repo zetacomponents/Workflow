@@ -1,3 +1,5 @@
+- ezcWorkflowNodeSubWorkflow now passes the correct parent id to a child
+  workflow.
 - Increased compatibility with stricter MySQL server modes.
 
 
