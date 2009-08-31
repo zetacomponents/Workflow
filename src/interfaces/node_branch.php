@@ -47,7 +47,7 @@ abstract class ezcWorkflowNodeBranch extends ezcWorkflowNode
      * @return boolean true when the node finished execution,
      *                 and false otherwise
      */
-    protected function activateOutgoingNodes( ezcWorkflowExecution $execution, Array $nodes )
+    protected function activateOutgoingNodes( ezcWorkflowExecution $execution, array $nodes )
     {
         $threadId           = $this->getThreadId();
         $numNodesToActivate = count( $nodes );

@@ -318,7 +318,7 @@ abstract class ezcWorkflowExecution
      * @throws ezcWorkflowInvalidInputException if the input given does not match the expected data.
      * @throws ezcWorkflowExecutionException if there is no prior ID for this execution.
      */
-    public function resume( Array $inputData = array() )
+    public function resume( array $inputData = array() )
     {
         if ( $this->id === null )
         {
@@ -921,7 +921,7 @@ abstract class ezcWorkflowExecution
      * @param array $variables
      * @ignore
      */
-    public function setVariables( Array $variables )
+    public function setVariables( array $variables )
     {
         $this->variables = array();
 

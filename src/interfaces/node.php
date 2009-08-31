@@ -419,7 +419,7 @@ abstract class ezcWorkflowNode implements ezcWorkflowVisitable
      * @param array $activatedFrom
      * @ignore
      */
-    public function setActivatedFrom( Array $activatedFrom )
+    public function setActivatedFrom( array $activatedFrom )
     {
         $this->activatedFrom = $activatedFrom;
     }
