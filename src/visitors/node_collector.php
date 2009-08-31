@@ -71,7 +71,7 @@ class ezcWorkflowVisitorNodeCollector implements ezcWorkflowVisitor
      *
      * @var SplObjectStorage
      */
-    protected $visited = array();
+    protected $visited;
 
     /**
      * Constructs a new
