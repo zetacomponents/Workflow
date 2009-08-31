@@ -18,6 +18,20 @@
 class ezcWorkflowVisitorNodeCollector implements ezcWorkflowVisitor
 {
     /**
+     * Holds the start node object.
+     *
+     * @var ezcWorkflowNodeStart
+     */
+    protected $startNode;
+
+    /**
+     * Holds the default end node object.
+     *
+     * @var ezcWorkflowNodeEnd
+     */
+    protected $endNode;
+
+    /**
      * Holds the finally node object.
      *
      * @var ezcWorkflowNodeFinally
@@ -34,7 +48,7 @@ class ezcWorkflowVisitorNodeCollector implements ezcWorkflowVisitor
     /**
      * Holds the visited nodes.
      *
-     * @var array(ezcWorkflowVisitable)
+     * @var array(integer=>ezcWorkflowNode)
      */
     protected $nodes = array();
 
@@ -43,7 +57,7 @@ class ezcWorkflowVisitorNodeCollector implements ezcWorkflowVisitor
      *
      * @var integer
      */
-    protected $nextId = 1;
+    protected $nextId = 0;
 
     /**
      * Flag that indicates whether the node list has been sorted.
@@ -53,12 +67,20 @@ class ezcWorkflowVisitorNodeCollector implements ezcWorkflowVisitor
     protected $sorted = false;
 
     /**
+     * Holds the visited nodes.
+     *
+     * @var SplObjectStorage
+     */
+    protected $visited = array();
+
+    /**
      * Constructs a new
      *
      * @param ezcWorkflow $workflow
      */
     public function __construct( ezcWorkflow $workflow )
     {
+        $this->visited = new SplObjectStorage;
         $workflow->accept( $this );
     }
 
@@ -75,43 +97,38 @@ class ezcWorkflowVisitorNodeCollector implements ezcWorkflowVisitor
     {
         if ( $visitable instanceof ezcWorkflow )
         {
-            $visitor      = new ezcWorkflowVisitorMaxNodeIdFinder( $visitable );
-            $this->nextId = $visitor->getMaxNodeId() + 1;
-            unset( $visitor );
+            $visitable->startNode->setId( ++$this->nextId );
+            $this->startNode = $visitable->startNode;
 
-            if ( $visitable->startNode->getId() === false )
-            {
-                $visitable->startNode->setId( $this->nextId++ );
-            }
-
-            if ( $visitable->endNode->getId() === false )
-            {
-                $visitable->endNode->setId( $this->nextId++ );
-            }
+            $visitable->endNode->setId( ++$this->nextId );
+            $this->endNode = $visitable->endNode;
 
             if ( count( $visitable->finallyNode->getOutNodes() ) > 0 )
             {
                 $this->finallyNode = $visitable->finallyNode;
-
-                if ( $visitable->finallyNode->getId() === false ) {
-                    $visitable->finallyNode->setId( $this->nextId++ );
-                }
+                $visitable->finallyNode->setId( ++$this->nextId );
             }
         }
 
         else if ( $visitable instanceof ezcWorkflowNode )
         {
-            $id = $visitable->getId();
-
-            if ( $id === false )
-            {
-                $id = $this->nextId++;
-                $visitable->setId( $id );
-            }
-
-            if ( isset( $this->nodes[$id] ) )
+            if ( $this->visited->contains( $visitable ) )
             {
                 return false;
+            }
+
+            $this->visited->attach( $visitable );
+
+            if ( $visitable !== $this->startNode &&
+                 $visitable !== $this->endNode &&
+                 $visitable !== $this->finallyNode )
+            {
+                $id = ++$this->nextId;
+                $visitable->setId( $id );
+            }
+            else
+            {
+                $id = $visitable->getId();
             }
 
             $this->nodes[$id] = $visitable;

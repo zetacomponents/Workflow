@@ -84,7 +84,6 @@ return array(
     'ezcWorkflowServiceObject'                    => 'Workflow/interfaces/service_object.php',
     'ezcWorkflowUtil'                             => 'Workflow/util.php',
     'ezcWorkflowVariableHandler'                  => 'Workflow/interfaces/variable_handler.php',
-    'ezcWorkflowVisitorMaxNodeIdFinder'           => 'Workflow/visitors/max_node_id_finder.php',
     'ezcWorkflowVisitorNodeCollector'             => 'Workflow/visitors/node_collector.php',
     'ezcWorkflowVisitorNodeCounter'               => 'Workflow/visitors/node_counter.php',
     'ezcWorkflowVisitorReset'                     => 'Workflow/visitors/reset.php',
