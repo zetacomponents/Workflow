@@ -29,7 +29,7 @@
  * @package Workflow
  * @version //autogen//
  */
-class ezcWorkflowVisitorVerification implements ezcWorkflowVisitor
+class ezcWorkflowVisitorVerification extends ezcWorkflowVisitor
 {
     /**
      * Holds the number of start nodes encountered during visiting.
@@ -46,23 +46,11 @@ class ezcWorkflowVisitorVerification implements ezcWorkflowVisitor
     protected $numFinallyNodes = 0;
 
     /**
-     * Holds the id of each node that has been visited already.
-     *
-     * @var array
-     */
-    protected $visited = array();
-
-    /**
-     * Visits the node, checks contraints and calls verify on each node.
-     *
-     * Returns true if the node was verified. False if it was already
-     * verified.
+     * Perform the visit.
      *
      * @param ezcWorkflowVisitable $visitable
-     * @throws ezcWorkflowInvalidWorkflowException
-     * @return boolean
      */
-    public function visit( ezcWorkflowVisitable $visitable )
+    protected function doVisit( ezcWorkflowVisitable $visitable )
     {
         if ( $visitable instanceof ezcWorkflow )
         {
@@ -97,19 +85,8 @@ class ezcWorkflowVisitorVerification implements ezcWorkflowVisitor
 
         if ( $visitable instanceof ezcWorkflowNode )
         {
-            $id = $visitable->getId();
-
-            if ( isset( $this->visited[$id] ) )
-            {
-                return false;
-            }
-
-            $this->visited[$id] = true;
-
             $visitable->verify();
         }
-
-        return true;
     }
 }
 ?>

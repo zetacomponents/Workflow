@@ -15,15 +15,8 @@
  * @version //autogen//
  * @ignore
  */
-class ezcWorkflowVisitorNodeCounter implements ezcWorkflowVisitor
+class ezcWorkflowVisitorNodeCounter extends ezcWorkflowVisitor
 {
-    /**
-     * Holds the visited nodes.
-     *
-     * @var array(ezcWorkflowVisitable)
-     */
-    protected $nodes = array();
-
     /**
      * Constructor.
      *
@@ -31,34 +24,8 @@ class ezcWorkflowVisitorNodeCounter implements ezcWorkflowVisitor
      */
     public function __construct( ezcWorkflow $workflow )
     {
+        parent::__construct();
         $workflow->accept( $this );
-    }
-
-    /**
-     * Visits the node, adds it to the list of nodes.
-     *
-     * Returns true if the node was added. False if it was already in the list
-     * of nodes.
-     *
-     * @param ezcWorkflowVisitable $visitable
-     * @return boolean
-     */
-    public function visit( ezcWorkflowVisitable $visitable )
-    {
-        if ( $visitable instanceof ezcWorkflowNode )
-        {
-            foreach( $this->nodes as $node )
-            {
-                if ( $node === $visitable )
-                {
-                    return false;
-                }
-            }
-
-            $this->nodes[] = $visitable;
-        }
-
-        return true;
     }
 
     /**
@@ -68,7 +35,7 @@ class ezcWorkflowVisitorNodeCounter implements ezcWorkflowVisitor
      */
     public function getNumNodes()
     {
-        return count( $this->nodes );
+        return count( $this->visited );
     }
 }
 ?>

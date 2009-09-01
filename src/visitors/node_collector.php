@@ -15,7 +15,7 @@
  * @version //autogen//
  * @ignore
  */
-class ezcWorkflowVisitorNodeCollector implements ezcWorkflowVisitor
+class ezcWorkflowVisitorNodeCollector extends ezcWorkflowVisitor
 {
     /**
      * Holds the start node object.
@@ -67,33 +67,22 @@ class ezcWorkflowVisitorNodeCollector implements ezcWorkflowVisitor
     protected $sorted = false;
 
     /**
-     * Holds the visited nodes.
-     *
-     * @var SplObjectStorage
-     */
-    protected $visited;
-
-    /**
-     * Constructs a new
+     * Constructor.
      *
      * @param ezcWorkflow $workflow
      */
     public function __construct( ezcWorkflow $workflow )
     {
-        $this->visited = new SplObjectStorage;
+        parent::__construct();
         $workflow->accept( $this );
     }
 
     /**
-     * Visits the node, adds it to the list of nodes.
-     *
-     * Returns true if the node was added. False if it was already in the list
-     * of nodes.
+     * Perform the visit.
      *
      * @param ezcWorkflowVisitable $visitable
-     * @return boolean
      */
-    public function visit( ezcWorkflowVisitable $visitable )
+    protected function doVisit( ezcWorkflowVisitable $visitable )
     {
         if ( $visitable instanceof ezcWorkflow )
         {
@@ -112,13 +101,6 @@ class ezcWorkflowVisitorNodeCollector implements ezcWorkflowVisitor
 
         else if ( $visitable instanceof ezcWorkflowNode )
         {
-            if ( $this->visited->contains( $visitable ) )
-            {
-                return false;
-            }
-
-            $this->visited->attach( $visitable );
-
             if ( $visitable !== $this->startNode &&
                  $visitable !== $this->endNode &&
                  $visitable !== $this->finallyNode )
@@ -133,8 +115,6 @@ class ezcWorkflowVisitorNodeCollector implements ezcWorkflowVisitor
 
             $this->nodes[$id] = $visitable;
         }
-
-        return true;
     }
 
     /**

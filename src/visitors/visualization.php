@@ -25,7 +25,7 @@
  * @package Workflow
  * @version //autogen//
  */
-class ezcWorkflowVisitorVisualization implements ezcWorkflowVisitor
+class ezcWorkflowVisitorVisualization extends ezcWorkflowVisitor
 {
     /**
      * Holds the displayed strings for each of the nodes.
@@ -40,13 +40,6 @@ class ezcWorkflowVisitorVisualization implements ezcWorkflowVisitor
      * @var array( id => array( ezcWorkflowNode ) )
      */
     protected $edges = array();
-
-    /**
-     * Holds the id of each node that has been visited already.
-     *
-     * @var array
-     */
-    protected $visited = array();
 
     /**
      * Holds the name of the workflow.
@@ -67,6 +60,7 @@ class ezcWorkflowVisitorVisualization implements ezcWorkflowVisitor
      */
     public function __construct()
     {
+        parent::__construct();
         $this->options = new ezcWorkflowVisitorVisualizationOptions;
     }
 
@@ -150,12 +144,12 @@ class ezcWorkflowVisitorVisualization implements ezcWorkflowVisitor
         {
             $id = $visitable->getId();
 
-            if ( isset( $this->visited[$id] ) )
+            if ( $this->visited->contains( $visitable ) )
             {
                 return false;
             }
 
-            $this->visited[$id] = true;
+            $this->visited->attach( $visitable );
 
             if ( in_array( $id, $this->options['highlightedNodes'] ) )
             {

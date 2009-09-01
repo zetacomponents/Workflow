@@ -1,6 +1,6 @@
 <?php
 /**
- * File containing the ezcWorkflowVisitor interface.
+ * File containing the ezcWorkflowVisitor class.
  *
  * @package Workflow
  * @version //autogen//
@@ -9,7 +9,7 @@
  */
 
 /**
- * Interface for visitor implementations that want to process
+ * Abstract base class for visitor implementations that want to process
  * a workflow using the Visitor design pattern.
  *
  * visit() is called on each of the nodes in the workflow in a top-down,
@@ -21,8 +21,23 @@
  * @package Workflow
  * @version //autogen//
  */
-interface ezcWorkflowVisitor
+abstract class ezcWorkflowVisitor
 {
+    /**
+     * Holds the visited nodes.
+     *
+     * @var SplObjectStorage
+     */
+    protected $visited;
+
+    /**
+     * Constructor.
+     */
+    public function __construct()
+    {
+        $this->visited = new SplObjectStorage;
+    }
+
     /**
      * Visit the $visitable.
      *
@@ -31,6 +46,30 @@ interface ezcWorkflowVisitor
      * @param ezcWorkflowVisitable $visitable
      * @return bool
      */
-    public function visit( ezcWorkflowVisitable $visitable );
+    public function visit( ezcWorkflowVisitable $visitable )
+    {
+        if ( $visitable instanceof ezcWorkflowNode )
+        {
+            if ( $this->visited->contains( $visitable ) )
+            {
+                return false;
+            }
+
+            $this->visited->attach( $visitable );
+        }
+
+        $this->doVisit( $visitable );
+
+        return true;
+    }
+
+    /**
+     * Perform the visit.
+     *
+     * @param ezcWorkflowVisitable $visitable
+     */
+    protected function doVisit( ezcWorkflowVisitable $visitable )
+    {
+    }
 }
 ?>

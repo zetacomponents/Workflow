@@ -24,41 +24,19 @@
  * @package Workflow
  * @version //autogen//
  */
-class ezcWorkflowVisitorReset implements ezcWorkflowVisitor
+class ezcWorkflowVisitorReset extends ezcWorkflowVisitor
 {
     /**
-     * Holds the id of each node that has been visited already.
-     *
-     * @var array
-     */
-    protected $visited = array();
-
-    /**
-     * Visits the node and resets it.
-     *
-     * Returns true if the node was reset. False if it was already
-     * reset.
+     * Perform the visit.
      *
      * @param ezcWorkflowVisitable $visitable
-     * @return boolean
      */
-    public function visit( ezcWorkflowVisitable $visitable )
+    protected function doVisit( ezcWorkflowVisitable $visitable )
     {
         if ( $visitable instanceof ezcWorkflowNode )
         {
-            $id = $visitable->getId();
-
-            if ( isset( $this->visited[$id] ) )
-            {
-                return false;
-            }
-
-            $this->visited[$id] = true;
-
             $visitable->initState();
         }
-
-        return true;
     }
 }
 ?>
