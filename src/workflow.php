@@ -253,9 +253,10 @@ class ezcWorkflow implements Countable, ezcWorkflowVisitable
      */
     public function count()
     {
-        $counter = new ezcWorkflowVisitorNodeCounter( $this );
+        $visitor = new ezcWorkflowVisitor;
+        $this->accept( $visitor );
 
-        return $counter->getNumNodes();
+        return count( $visitor );
     }
 
     /**

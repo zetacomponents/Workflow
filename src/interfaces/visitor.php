@@ -9,7 +9,7 @@
  */
 
 /**
- * Abstract base class for visitor implementations that want to process
+ * Base class for visitor implementations that want to process
  * a workflow using the Visitor design pattern.
  *
  * visit() is called on each of the nodes in the workflow in a top-down,
@@ -21,7 +21,7 @@
  * @package Workflow
  * @version //autogen//
  */
-abstract class ezcWorkflowVisitor
+class ezcWorkflowVisitor implements Countable
 {
     /**
      * Holds the visited nodes.
@@ -36,6 +36,16 @@ abstract class ezcWorkflowVisitor
     public function __construct()
     {
         $this->visited = new SplObjectStorage;
+    }
+
+    /**
+     * Returns the number of visited nodes.
+     *
+     * @return integer
+     */
+    public function count()
+    {
+        return count( $this->visited );
     }
 
     /**
