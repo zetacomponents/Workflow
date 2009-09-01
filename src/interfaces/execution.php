@@ -474,7 +474,9 @@ abstract class ezcWorkflowExecution
                 // workflow instance has not ended yet.
                 if ( $this->cancelled && $this->ended )
                 {
+                    // @codeCoverageIgnoreStart
                     break;
+                    // @codeCoverageIgnoreEnd
                 }
 
                 // The current node is an end node but there are still
