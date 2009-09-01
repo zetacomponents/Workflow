@@ -122,13 +122,11 @@ class ezcWorkflowVisitorVisualization extends ezcWorkflowVisitor
     }
 
     /**
-     * Visits the node and sets the the member variables according to the node
-     * type and contents.
+     * Perform the visit.
      *
      * @param ezcWorkflowVisitable $visitable
-     * @return boolean
      */
-    public function visit( ezcWorkflowVisitable $visitable )
+    protected function doVisit( ezcWorkflowVisitable $visitable )
     {
         if ( $visitable instanceof ezcWorkflow )
         {
@@ -143,13 +141,6 @@ class ezcWorkflowVisitorVisualization extends ezcWorkflowVisitor
         if ( $visitable instanceof ezcWorkflowNode )
         {
             $id = $visitable->getId();
-
-            if ( $this->visited->contains( $visitable ) )
-            {
-                return false;
-            }
-
-            $this->visited->attach( $visitable );
 
             if ( in_array( $id, $this->options['highlightedNodes'] ) )
             {
@@ -189,8 +180,6 @@ class ezcWorkflowVisitorVisualization extends ezcWorkflowVisitor
 
             $this->edges[$id] = $outNodes;
         }
-
-        return true;
     }
 
     /**
