@@ -1,4 +1,4 @@
-1.4alpha1 - [RELEASEDATE]
+1.4alpha1 - Monday 09 November 2009
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 - Fixed issue #14451: $workflow->nodes does not return all nodes.
