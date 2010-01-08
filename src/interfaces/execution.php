@@ -284,6 +284,8 @@ abstract class ezcWorkflowExecution
         $this->resumed   = false;
         $this->suspended = true;
 
+        $this->saveToVariableHandlers();
+
         $keys     = array_keys( $this->variables );
         $count    = count( $keys );
         $handlers = $this->workflow->getVariableHandlers();
@@ -297,7 +299,6 @@ abstract class ezcWorkflowExecution
         }
 
         $this->doSuspend();
-        $this->saveToVariableHandlers();
 
         foreach ( $this->plugins as $plugin )
         {
