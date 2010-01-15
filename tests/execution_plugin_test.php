@@ -35,6 +35,12 @@ class ezcWorkflowExecutionPluginTest extends ezcWorkflowTestCase
         $this->execution->addPlugin( $this->plugin );
     }
 
+    protected function tearDown()
+    {
+        $this->execution = NULL;
+        $this->plugin    = NULL;
+    }
+
     public function testEventsForStartEnd()
     {
         $this->plugin->expects( $this->exactly( 1 ) )->method( 'afterExecutionStarted' );

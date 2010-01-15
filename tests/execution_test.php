@@ -29,6 +29,11 @@ class ezcWorkflowExecutionTest extends ezcWorkflowTestCase
         $this->execution = new ezcWorkflowTestExecution;
     }
 
+    protected function tearDown()
+    {
+        $this->execution = NULL;
+    }
+
     public function testExecuteStartEnd()
     {
         $this->setUpStartEnd();

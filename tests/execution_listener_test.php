@@ -35,6 +35,12 @@ class ezcWorkflowExecutionListenerTest extends ezcWorkflowTestCase
         $this->execution->addListener( $this->listener );
     }
 
+    protected function tearDown()
+    {
+        $this->execution = NULL;
+        $this->listener  = NULL;
+    }
+
     public function testEventsForStartEnd()
     {
         $this->setUpExpectations( 'StartEnd' );
