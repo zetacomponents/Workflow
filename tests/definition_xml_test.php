@@ -197,6 +197,40 @@ class ezcWorkflowDefinitionStorageXmlTest extends ezcWorkflowTestCase
         $this->assertEquals( $expected, $actual );
     }
 
+    /**
+     * @ticket 16867
+     */
+    public function testIssue16867()
+    {
+        $workflow = new ezcWorkflow( 'Issue16867' );
+        $set      = new ezcWorkflowNodeVariableSet( array( 'path' => true ) );
+        $xor      = new ezcWorkflowNodeExclusiveChoice;
+        $dummy1   = new ezcWorkflowNodeVariableSet( array( 'dummy' => 1 ) );
+        $dummy2   = new ezcWorkflowNodeVariableSet( array( 'dummy' => 2 ) );
+        $merge    = new ezcWorkflowNodeSimpleMerge;
+        $workflow->startNode->addOutNode( $set );
+        $set->addOutNode( $xor );
+        $xor->addConditionalOutNode(
+          new ezcWorkflowConditionVariable(
+            'path',
+            new ezcWorkflowConditionIsTrue
+          ),
+          $dummy1,
+          $dummy2
+        );
+        $dummy1->addOutNode( $merge );
+        $dummy2->addOutNode( $merge );
+        $merge->addOutNode( $workflow->endNode );
+        $workflow->definitionStorage = $this->xmlStorage;
+
+        $this->assertEquals(
+          $workflow,
+          $this->xmlStorage->loadFromDocument(
+            $this->xmlStorage->saveToDocument( $workflow, 1 )
+          )
+        );
+    }
+
     protected function readActual( $name )
     {
         $actual = str_replace(
