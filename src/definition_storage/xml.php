@@ -194,7 +194,7 @@ class ezcWorkflowDefinitionStorageXml implements ezcWorkflowDefinitionStorage
                         $condition = self::xmlToCondition( $childNode );
                         $xpath     = new DOMXPath( $childNode->ownerDocument );
 
-                        foreach ($xpath->query( 'outNode', $childNode ) as $outNode)
+                        foreach ( $xpath->query( 'outNode', $childNode ) as $outNode )
                         {
                             if ( !isset( $elseId ) )
                             {
