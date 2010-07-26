@@ -1,6 +1,7 @@
 1.4.1 - [RELEASEDATE]
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+- Fixed issue #16867: Else condition is loaded wrong from XML file.
 - Fixed the saving of data via execution data handlers.
 
 
