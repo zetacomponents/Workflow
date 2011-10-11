@@ -100,7 +100,7 @@ class ezcWorkflowNodeTest extends ezcWorkflowTestCase
         $configuration = $input->getConfiguration();
 
         $this->assertArrayHasKey( 'variable', $configuration );
-        $this->assertType( 'ezcWorkflowConditionIsAnything', $configuration['variable'] );
+        $this->assertInstanceOf( 'ezcWorkflowConditionIsAnything', $configuration['variable'] );
     }
 
     public function testVariableSetConstructor()

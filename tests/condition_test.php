@@ -160,7 +160,7 @@ class ezcWorkflowConditionTest extends ezcTestCase
         $this->assertTrue( $condition->evaluate( 2204 ) );
         $this->assertFalse( $condition->evaluate( 1978 ) );
         $this->assertEquals( '! < 2204', (string)$condition );
-        $this->assertType( 'ezcWorkflowConditionIsLessThan', $condition->getCondition() );
+        $this->assertInstanceOf( 'ezcWorkflowConditionIsLessThan', $condition->getCondition() );
     }
 
     public function testIsGreaterThan()
@@ -181,7 +181,7 @@ class ezcWorkflowConditionTest extends ezcTestCase
         $this->assertTrue( $condition->evaluate( 1978 ) );
         $this->assertFalse( $condition->evaluate( 2204 ) );
         $this->assertEquals( '! > 1978', (string)$condition );
-        $this->assertType( 'ezcWorkflowConditionIsGreaterThan', $condition->getCondition() );
+        $this->assertInstanceOf( 'ezcWorkflowConditionIsGreaterThan', $condition->getCondition() );
     }
 
     public function testIsEqualOrGreaterThan()
