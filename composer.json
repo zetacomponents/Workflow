@@ -40,5 +40,11 @@
     "homepage": "https://github.com/zetacomponents",
     "license": "apache2",
     "name": "zetacomponents/workflow",
-    "type": "library"
+    "type": "library",
+    "require": {
+        "zetacomponents/base": "*"
+    },
+    "require-dev": {
+        "zetacomponents/unit-test": "*"
+    }
 }
