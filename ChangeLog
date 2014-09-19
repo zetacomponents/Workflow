@@ -1,3 +1,12 @@
+1.5 - Friday 19 septembre 2014
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+- Fixed: Adjusted source headers of Workflow to Apache license.
+- Updated: Moving copyright information to NOTICE files.
+- Remove custom test runner.
+- Added composer.json
+- Added Travis config
+
 1.4.1 - [RELEASEDATE]
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
