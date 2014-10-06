@@ -90,8 +90,8 @@ class ezcWorkflowConditionVariables implements ezcWorkflowCondition
              isset( $value[$this->variableNameA] ) &&
              isset( $value[$this->variableNameB] ) )
         {
-            $this->condition->setValue( $value[$this->variableNameA] );
-            return $this->condition->evaluate( $value[$this->variableNameB] );
+            $this->condition->setValue( $value[$this->variableNameB] );
+            return $this->condition->evaluate( $value[$this->variableNameA] );
         }
         else
         {

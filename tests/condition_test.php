@@ -257,6 +257,28 @@ class ezcWorkflowConditionTest extends ezcTestCase
         $this->assertFalse( $condition->evaluate( array() ) );
     }
 
+    public function testVariables4()
+    {
+        $condition = new ezcWorkflowConditionVariables(
+          'foo',
+          'bar',
+          new ezcWorkflowConditionIsGreaterThan
+        );
+
+        $this->assertFalse( $condition->evaluate( array('foo' => 2, 'bar' => 5) ) , 'Failed condition: ' . $condition);
+    }
+
+    public function testVariables5()
+    {
+        $condition = new ezcWorkflowConditionVariables(
+          'foo',
+          'bar',
+          new ezcWorkflowConditionIsGreaterThan
+        );
+
+        $this->assertTrue( $condition->evaluate( array('foo' => 8, 'bar' => 5) ) , 'Failed condition: ' . $condition);
+    }
+
     public function testAnd()
     {
         $true = new ezcWorkflowConditionIsTrue;
