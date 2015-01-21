@@ -257,7 +257,24 @@ class ezcWorkflowNodeAction extends ezcWorkflowNode
 
         if ( !empty( $this->configuration['arguments'] ) )
         {
-            return $class->newInstanceArgs( $this->configuration['arguments'] );
+            $args = [];
+            $services = [];
+
+            foreach ($this->configuration['arguments'] as $arg) {
+                if (strpos($arg, '@') === 0) {
+                    list($setter, $service) = explode(',', substr($arg, 1));
+                    $services[$setter] = $service;
+                } else {
+                    $args[] = $arg;
+                }
+            }
+
+            $instance = $class->newInstanceArgs($args);
+            if ($class->hasMethod('setServicesToSet')) {
+                $instance->setServicesToSet($services);
+            }
+
+            return $instance;
         }
         else
         {
