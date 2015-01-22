@@ -259,7 +259,7 @@ class ezcWorkflowNodeAction extends ezcWorkflowNode
         {
             foreach ($this->configuration['arguments'] as $i => $arg) {
                 if (strpos($arg, '@') === 0 && isset($this->container)) {
-                    $this->configuration['arguments'][$i] = $this->container->get($arg);
+                    $this->configuration['arguments'][$i] = $this->container->get(substr($arg, 1));
                 }
             }
 
