@@ -148,13 +148,6 @@ abstract class ezcWorkflowExecution
     protected $waitingFor = array();
 
     /**
-     * DI container
-     *
-     * @var mixed
-     */
-    protected $container;
-
-    /**
      * Property read access.
      *
      * @throws ezcBasePropertyNotFoundException
@@ -1061,24 +1054,6 @@ abstract class ezcWorkflowExecution
                 $object->save( $this, $variableName, $this->variables[$variableName] );
             }
         }
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getContainer()
-    {
-        return $this->container;
-    }
-
-    /**
-     * @param mixed $container
-     *
-     * @return void
-     */
-    public function setContainer($container)
-    {
-        $this->container = $container;
     }
 
     /**
