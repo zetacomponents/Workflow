@@ -210,20 +210,19 @@ class ezcWorkflowNodeAction extends ezcWorkflowNode
      */
     public function __toString()
     {
-        try
-        {
-            $buffer = (string)$this->createObject();
-        }
-        catch ( ezcBaseAutoloadException $e )
-        {
-            return 'Class not found.';
-        }
-        catch ( ezcWorkflowExecutionException $e )
-        {
-            return $e->getMessage();
-        }
+        $parts = explode('\\', $this->configuration['class']);
+        $action = array_pop($parts);
 
-        return $buffer;
+        $args = !empty($this->configuration['arguments']) ? $this->configuration['arguments'] : [];
+        $args = array_filter($args, function ($candidate) {
+            return strpos($candidate, '@') !== 0;
+        });
+
+        if (!empty($args)) {
+            return $action . "(" . implode(', ', $args) . ")";
+        } else {
+            return $action;
+        }
     }
 
     /**
