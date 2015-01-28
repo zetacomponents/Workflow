@@ -214,9 +214,12 @@ class ezcWorkflowNodeAction extends ezcWorkflowNode
         $action = array_pop($parts);
 
         $args = !empty($this->configuration['arguments']) ? $this->configuration['arguments'] : [];
-        $args = array_filter($args, function ($candidate) {
-            return strpos($candidate, '@') !== 0;
-        });
+        $args = array_filter(
+            $args,
+            function ($candidate) {
+                return !is_object($candidate) && strpos($candidate, '@') !== 0;
+            }
+        );
 
         if (!empty($args)) {
             return $action . "(" . implode(', ', $args) . ")";
