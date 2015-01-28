@@ -349,6 +349,9 @@ class ezcWorkflow implements Countable, ezcWorkflowVisitable
     {
         $visitor->visit( $this );
         $this->properties['startNode']->accept( $visitor );
+        if (!empty($this->properties['finallyNode'])) {
+            $this->properties['finallyNode']->accept($visitor);
+        }
     }
 
     /**
