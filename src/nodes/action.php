@@ -265,12 +265,18 @@ class ezcWorkflowNodeAction extends ezcWorkflowNode
                 }
             }
 
-            return $class->newInstanceArgs($this->configuration['arguments']);
+            $instance = $class->newInstanceArgs($this->configuration['arguments']);
         }
         else
         {
-            return $class->newInstance();
+            $instance = $class->newInstance();
         }
+
+        if (isset($this->container) && method_exists($instance, 'setContainer')) {
+            $instance->setContainer($this->container);
+        }
+
+        return $instance;
     }
 }
 ?>
