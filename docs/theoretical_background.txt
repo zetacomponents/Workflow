@@ -17,7 +17,7 @@ Workflow Patterns
 In Chapter 3 of his `PhD thesis`__, Kiepuszewski lists *requirements for
 workflow languages through workflow patterns*.
 
-__ http://is.tm.tue.nl/research/patterns/download/phd_bartek.pdf
+__ http://www.workflowpatterns.com/documentation/documents/phd_bartek.pdf
 
 Much like the `software design patterns`__, these workflow patterns describe
 recurring solutions to common problems. They are relevant to both the
@@ -34,7 +34,7 @@ In Chapter 4 of his `PhD thesis`__, Kiepuszewski maps the workflow patterns that
 he identified to Petri nets to provide a formal foundation for this more
 pragmatic approach to defining workflow semantics.
 
-__ http://is.tm.tue.nl/research/patterns/download/phd_bartek.pdf
+__ http://www.workflowpatterns.com/documentation/documents/phd_bartek.pdf
 
 In this section we discuss the subset of the workflow patterns identified by
 Kiepuszewski that is directly supported by the Workflow component.
