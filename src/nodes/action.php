@@ -217,7 +217,7 @@ class ezcWorkflowNodeAction extends ezcWorkflowNode
         $args = array_filter(
             $args,
             function ($candidate) {
-                return !is_object($candidate) && strpos($candidate, '@') !== 0;
+                return is_string($candidate) && strpos($candidate, '@') !== 0;
             }
         );
 
