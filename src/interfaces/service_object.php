@@ -54,5 +54,14 @@ interface ezcWorkflowServiceObject
      * @return string
      */
     public function __toString();
+
+    /**
+     * Sets parent node's identifier
+     *
+     * @param string $id
+     *
+     * @return void
+     */
+    public function setNodeId($id);
 }
 ?>
