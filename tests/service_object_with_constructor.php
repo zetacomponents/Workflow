@@ -60,5 +60,17 @@ class ServiceObjectWithConstructor implements ezcWorkflowServiceObject
     {
         return '';
     }
+
+    /**
+     * Sets parent node's identifier
+     *
+     * @param string $id
+     *
+     * @return void
+     */
+    public function setNodeId($id)
+    {
+
+    }
 }
 ?>
