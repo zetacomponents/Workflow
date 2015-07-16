@@ -257,7 +257,6 @@ class ezcWorkflowNodeAction extends ezcWorkflowNode
             );
         }
 
-        /* @var ezcWorkflowServiceObject $instance */
         if ( !empty( $this->configuration['arguments'] ) )
         {
             foreach ($this->configuration['arguments'] as $i => $arg) {
@@ -272,8 +271,6 @@ class ezcWorkflowNodeAction extends ezcWorkflowNode
         {
             $instance = $class->newInstance();
         }
-
-        $instance->setNodeId($this->getId());
 
         if (isset($this->container) && method_exists($instance, 'setContainer')) {
             $instance->setContainer($this->container);
