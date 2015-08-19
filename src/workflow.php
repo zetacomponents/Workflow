@@ -37,6 +37,7 @@
  * @property string                      $name
  *           A unique name (accross the system) for this workflow.
  * @property string                      $displayedName
+ * @property boolean                     $activated
  * @property string                      $simpleDefinition
  *           Name given by a user. Not necessarily unique
  * @property int                         $version
@@ -67,6 +68,7 @@ class ezcWorkflow implements Countable, ezcWorkflowVisitable
       'displayedName'     => '',
       'simpleDefinition'     => '',
       'startNode'         => null,
+      'activated'         => false,
       'endNode'           => null,
       'finallyNode'       => null,
       'version'           => 1
@@ -147,6 +149,7 @@ class ezcWorkflow implements Countable, ezcWorkflowVisitable
             case 'id':
             case 'name':
             case 'displayedName':
+            case 'activated':
             case 'simpleDefinition':
             case 'startNode':
             case 'endNode':
@@ -232,6 +235,16 @@ class ezcWorkflow implements Countable, ezcWorkflowVisitable
 
                 return;
 
+            case 'activated':
+                if ( !( is_bool( $val ) ) )
+                {
+                    throw new ezcBaseValueException( $propertyName, $val, 'string' );
+                }
+
+                $this->properties['activated'] = $val;
+
+                return;
+
             case 'simpleDefinition':
                 if ( !( is_string( $val ) ) )
                 {
@@ -279,6 +292,7 @@ class ezcWorkflow implements Countable, ezcWorkflowVisitable
             case 'id':
             case 'name':
             case 'displayedName':
+            case 'activated':
             case 'simpleDefinition':
             case 'startNode':
             case 'endNode':
