@@ -37,18 +37,6 @@ class ezcWorkflowNodeTest extends ezcWorkflowTestCase
         return new PHPUnit_Framework_TestSuite( 'ezcWorkflowNodeTest' );
     }
 
-    public function testActionClassNotFound()
-    {
-        $action = new ezcWorkflowNodeAction( 'NotExistingClass' );
-        $this->assertEquals( 'Class "NotExistingClass" not found.', (string)$action );
-    }
-
-    public function testActionClassNotServiceObject()
-    {
-        $action = new ezcWorkflowNodeAction( 'StdClass' );
-        $this->assertEquals( 'Class "StdClass" does not implement the ezcWorkflowServiceObject interface.', (string)$action );
-    }
-
     public function testInputConstructor()
     {
         try
