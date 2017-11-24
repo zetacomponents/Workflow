@@ -45,6 +45,14 @@
 class ezcWorkflowNodeSynchronization extends ezcWorkflowNodeMerge
 {
     /**
+     * Constraint: The minimum number of incoming nodes this node has to have
+     * to be valid.
+     *
+     * @var integer
+     */
+    protected $minInNodes = 1;
+
+    /**
      * Activate this node.
      *
      * @param ezcWorkflowExecution $execution

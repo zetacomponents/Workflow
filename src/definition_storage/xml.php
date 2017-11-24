@@ -128,7 +128,10 @@ class ezcWorkflowDefinitionStorageXml implements ezcWorkflowDefinitionStorage
      */
     public function loadFromDocument( DOMDocument $document )
     {
-        $workflowName    = $document->documentElement->getAttribute( 'name' );
+        $workflowName = $document->documentElement->getAttribute( 'name' );
+        $workflowDisplayedName = $document->documentElement->hasAttribute('displayedName')
+            ? $document->documentElement->getAttribute('displayedName')
+            : $workflowName;
         $workflowVersion = (int) $document->documentElement->getAttribute( 'version' );
 
         // Create node objects.
@@ -243,6 +246,7 @@ class ezcWorkflowDefinitionStorageXml implements ezcWorkflowDefinitionStorage
 
         // Create workflow object and add the node objects to it.
         $workflow = new ezcWorkflow( $workflowName, $startNode, $defaultEndNode, $finallyNode );
+        $workflow->displayedName = $workflowDisplayedName;
         $workflow->definitionStorage = $this;
         $workflow->version = $workflowVersion;
 
@@ -292,6 +296,7 @@ class ezcWorkflowDefinitionStorageXml implements ezcWorkflowDefinitionStorage
         $document->appendChild( $root );
 
         $root->setAttribute( 'name', $workflow->name );
+        $root->setAttribute( 'displayedName', $workflow->displayedName );
         $root->setAttribute( 'version', $workflowVersion );
 
         $nodes    = $workflow->nodes;
@@ -587,19 +592,24 @@ class ezcWorkflowDefinitionStorageXml implements ezcWorkflowDefinitionStorage
         switch ( $element->tagName )
         {
             case 'array': {
-                $variable = array();
+                $variable = [];
 
-                foreach ( $element->getElementsByTagName( 'element' ) as $element )
-                {
-                    $value = self::xmlToVariable( ezcWorkflowUtil::getChildNode( $element ) );
+                $childLength = $element->childNodes->length;
 
-                    if ( $element->hasAttribute( 'key' ) )
-                    {
-                        $variable[ (string)$element->getAttribute( 'key' ) ] = $value;
-                    }
-                    else
-                    {
-                        $variable[] = $value;
+                for($childNo = 0; $childNo < $childLength; $childNo++) {
+                    $child = $element->childNodes->item($childNo);
+
+                    if ($child instanceof DOMElement) {
+                        $value = self::xmlToVariable( ezcWorkflowUtil::getChildNode( $child ) );
+
+                        if ( $child->hasAttribute( 'key' ) )
+                        {
+                            $variable[ (string)$child->getAttribute( 'key' ) ] = $value;
+                        }
+                        else
+                        {
+                            $variable[] = $value;
+                        }
                     }
                 }
             }

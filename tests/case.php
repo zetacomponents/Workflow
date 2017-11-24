@@ -34,6 +34,9 @@ require_once 'variable_handler.php';
  */
 abstract class ezcWorkflowTestCase extends ezcTestCase
 {
+    /**
+     * @var ezcWorkflowDefinitionStorageXml
+     */
     protected $xmlStorage;
     protected $workflow;
     protected $startNode;

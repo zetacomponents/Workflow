@@ -1,10 +1,10 @@
 digraph ExclusiveChoiceSimpleMerge {
 node1 [label="Start", color="#2e3436"]
 node3 [label="Exclusive Choice", color="#2e3436"]
-node4 [label="", color="#2e3436"]
+node4 [label="ServiceObject", color="#2e3436"]
 node5 [label="Simple Merge", color="#2e3436"]
 node2 [label="End", color="#2e3436"]
-node6 [label="", color="#2e3436"]
+node6 [label="ServiceObject", color="#2e3436"]
 
 node1 -> node3
 node3 -> node4 [label="condition is true"]

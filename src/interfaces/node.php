@@ -161,6 +161,11 @@ abstract class ezcWorkflowNode implements ezcWorkflowVisitable
     protected $threadId = null;
 
     /**
+     * @var mixed
+     */
+    protected $container;
+
+    /**
      * Flag that indicates whether an add*Node() or remove*Node()
      * call is internal. This is necessary to avoid unlimited loops. 
      *
@@ -668,6 +673,24 @@ abstract class ezcWorkflowNode implements ezcWorkflowVisitable
         $this->threadId      = null;
 
         $this->setActivationState( self::WAITING_FOR_ACTIVATION );
+    }
+
+    /**
+     * @param mixed $container
+     *
+     * @return void
+     */
+    public function setContainer($container)
+    {
+        $this->container = $container;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getContainer()
+    {
+        return $this->container;
     }
 }
 ?>

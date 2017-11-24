@@ -11,6 +11,9 @@
    <attribute name="name">
     <data type="string"/>
    </attribute>
+   <attribute name="displayedName">
+    <data type="string"/>
+   </attribute>
    <attribute name="version">
     <data type="integer"/>
    </attribute>
