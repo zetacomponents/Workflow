@@ -210,20 +210,22 @@ class ezcWorkflowNodeAction extends ezcWorkflowNode
      */
     public function __toString()
     {
-        try
-        {
-            $buffer = (string)$this->createObject();
-        }
-        catch ( ezcBaseAutoloadException $e )
-        {
-            return 'Class not found.';
-        }
-        catch ( ezcWorkflowExecutionException $e )
-        {
-            return $e->getMessage();
-        }
+        $parts = explode('\\', $this->configuration['class']);
+        $action = array_pop($parts);
 
-        return $buffer;
+        $args = !empty($this->configuration['arguments']) ? $this->configuration['arguments'] : [];
+        $args = array_filter(
+            $args,
+            function ($candidate) {
+                return is_string($candidate) && strpos($candidate, '@') !== 0;
+            }
+        );
+
+        if (!empty($args)) {
+            return $action . "(" . implode(', ', $args) . ")";
+        } else {
+            return $action;
+        }
     }
 
     /**
@@ -257,12 +259,24 @@ class ezcWorkflowNodeAction extends ezcWorkflowNode
 
         if ( !empty( $this->configuration['arguments'] ) )
         {
-            return $class->newInstanceArgs( $this->configuration['arguments'] );
+            foreach ($this->configuration['arguments'] as $i => $arg) {
+                if (is_string($arg) && strpos($arg, '@') === 0 && isset($this->container)) {
+                    $this->configuration['arguments'][$i] = $this->container->get(substr($arg, 1));
+                }
+            }
+
+            $instance = $class->newInstanceArgs($this->configuration['arguments']);
         }
         else
         {
-            return $class->newInstance();
+            $instance = $class->newInstance();
         }
+
+        if (isset($this->container) && method_exists($instance, 'setContainer')) {
+            $instance->setContainer($this->container);
+        }
+
+        return $instance;
     }
 }
 ?>

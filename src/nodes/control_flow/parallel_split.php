@@ -62,6 +62,14 @@
 class ezcWorkflowNodeParallelSplit extends ezcWorkflowNodeBranch
 {
     /**
+     * Constraint: The minimum number of outgoing nodes this node has to have
+     * to be valid.
+     *
+     * @var integer
+     */
+    protected $minOutNodes = 1;
+
+    /**
      * Activates all outgoing nodes.
      *
      * @param ezcWorkflowExecution $execution

@@ -36,6 +36,10 @@
  *           workflow is stored.
  * @property string                      $name
  *           A unique name (accross the system) for this workflow.
+ * @property string                      $displayedName
+ * @property boolean                     $activated
+ * @property string                      $simpleDefinition
+ *           Name given by a user. Not necessarily unique
  * @property int                         $version
  *           The version of the workflow. This must be incremented manually
  *           whenever you want a new version.
@@ -61,7 +65,10 @@ class ezcWorkflow implements Countable, ezcWorkflowVisitable
       'definitionStorage' => null,
       'id'                => false,
       'name'              => '',
+      'displayedName'     => '',
+      'simpleDefinition'     => '',
       'startNode'         => null,
+      'activated'         => false,
       'endNode'           => null,
       'finallyNode'       => null,
       'version'           => 1
@@ -141,6 +148,9 @@ class ezcWorkflow implements Countable, ezcWorkflowVisitable
             case 'definitionStorage':
             case 'id':
             case 'name':
+            case 'displayedName':
+            case 'activated':
+            case 'simpleDefinition':
             case 'startNode':
             case 'endNode':
             case 'finallyNode':
@@ -215,6 +225,36 @@ class ezcWorkflow implements Countable, ezcWorkflowVisitable
 
                 return;
 
+            case 'displayedName':
+                if ( !( is_string( $val ) ) )
+                {
+                    throw new ezcBaseValueException( $propertyName, $val, 'string' );
+                }
+
+                $this->properties['displayedName'] = $val;
+
+                return;
+
+            case 'activated':
+                if ( !( is_bool( $val ) ) )
+                {
+                    throw new ezcBaseValueException( $propertyName, $val, 'string' );
+                }
+
+                $this->properties['activated'] = $val;
+
+                return;
+
+            case 'simpleDefinition':
+                if ( !( is_string( $val ) ) )
+                {
+                    throw new ezcBaseValueException( $propertyName, $val, 'string' );
+                }
+
+                $this->properties['simpleDefinition'] = $val;
+
+                return;
+
             case 'startNode':
             case 'endNode':
             case 'finallyNode':
@@ -251,6 +291,9 @@ class ezcWorkflow implements Countable, ezcWorkflowVisitable
             case 'definitionStorage':
             case 'id':
             case 'name':
+            case 'displayedName':
+            case 'activated':
+            case 'simpleDefinition':
             case 'startNode':
             case 'endNode':
             case 'finallyNode':
