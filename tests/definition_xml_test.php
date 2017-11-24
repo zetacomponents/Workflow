@@ -139,25 +139,6 @@ class ezcWorkflowDefinitionStorageXmlTest extends ezcWorkflowTestCase
         );
     }
 
-    public function testGettingOnlyChildElements()
-    {
-        $multiArrayWorkflow = $this->xmlStorage->loadByName( 'MultiArray' );
-        $serviceObject = $multiArrayWorkflow->nodes[3]->getConfiguration();
-
-        $expectedServiceObjectArguments = [
-            'std class argument',
-            [
-                'shallow element',
-                [
-                    'deep element'
-                ]
-            ]
-        ];
-
-        $this->assertEquals(MultiArrayStdClass::class, $serviceObject['class']);
-        $this->assertEquals($expectedServiceObjectArguments, $serviceObject['arguments']);
-    }
-
     public function testExceptionWhenLoadingNotExistingWorkflow()
     {
         try
