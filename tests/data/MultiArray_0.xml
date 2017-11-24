@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<workflow name="MultiArray" displayedName="" version="1">
+    <node id="1" type="Start">
+        <outNode id="2"/>
+    </node>
+
+    <node id="2" type="Action" serviceObjectClass="MultiArrayStdClass">
+        <arguments>
+            <string>std class argument</string>
+            <array>
+                <element>
+                    <string>shallow element</string>
+                </element>
+                <element>
+                    <array>
+                        <element>
+                            <string>deep element</string>
+                        </element>
+                    </array>
+                </element>
+            </array>
+        </arguments>
+
+        <outNode id="999"/>
+    </node>
+
+    <node id="999" type="End"/>
+
+</workflow>
