@@ -592,19 +592,24 @@ class ezcWorkflowDefinitionStorageXml implements ezcWorkflowDefinitionStorage
         switch ( $element->tagName )
         {
             case 'array': {
-                $variable = array();
+                $variable = [];
 
-                foreach ( $element->getElementsByTagName( 'element' ) as $element )
-                {
-                    $value = self::xmlToVariable( ezcWorkflowUtil::getChildNode( $element ) );
+                $childLength = $element->childNodes->length;
 
-                    if ( $element->hasAttribute( 'key' ) )
-                    {
-                        $variable[ (string)$element->getAttribute( 'key' ) ] = $value;
-                    }
-                    else
-                    {
-                        $variable[] = $value;
+                for($childNo = 0; $childNo < $childLength; $childNo++) {
+                    $child = $element->childNodes->item($childNo);
+
+                    if ($child instanceof DOMElement) {
+                        $value = self::xmlToVariable( ezcWorkflowUtil::getChildNode( $child ) );
+
+                        if ( $child->hasAttribute( 'key' ) )
+                        {
+                            $variable[ (string)$child->getAttribute( 'key' ) ] = $value;
+                        }
+                        else
+                        {
+                            $variable[] = $value;
+                        }
                     }
                 }
             }
