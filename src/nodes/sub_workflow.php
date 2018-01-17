@@ -9,9 +9,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  *   http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -163,7 +163,14 @@ class ezcWorkflowNodeSubWorkflow extends ezcWorkflowNode
             {
                 $subExecution = $execution->getSubExecution( $this->state );
                 $subExecution->workflow = $workflow;
-                $subExecution->resume( $execution->getVariables() );
+
+                $subVariables = [];
+                foreach ( $execution->getVariables() as $variableName => $data ) {
+                    if ( isset($this->configuration['variables']['in'][$variableName]) ) {
+                        $subVariables[$this->configuration['variables']['in'][$variableName]] = $data;
+                    }
+                }
+                $subExecution->resume( $subVariables );
             }
         }
 
@@ -188,9 +195,10 @@ class ezcWorkflowNodeSubWorkflow extends ezcWorkflowNode
         }
 
         // Execution of Sub Workflow has been suspended.
+        $reverseInVariableMap = array_flip( $this->configuration['variables']['in'] );
         foreach ( $subExecution->getWaitingFor() as $variableName => $data )
         {
-            $execution->addWaitingFor( $this, $variableName, $data['condition'] );
+            $execution->addWaitingFor( $this, $reverseInVariableMap[$variableName], $data['condition'] );
         }
 
         return false;
@@ -298,7 +306,9 @@ class ezcWorkflowNodeSubWorkflow extends ezcWorkflowNode
     {
         foreach ( $variables as $fromName => $toName )
         {
-            $to->setVariable( $toName, $from->getVariable( $fromName ) );
+            if ( $from->hasVariable( $fromName ) ) {
+                $to->setVariable( $toName, $from->getVariable( $fromName ) );
+            }
         }
     }
 }
