@@ -165,8 +165,10 @@ class ezcWorkflowNodeSubWorkflow extends ezcWorkflowNode
                 $subExecution->workflow = $workflow;
 
                 $subVariables = [];
-                foreach ( $execution->getVariables() as $variableName => $data ) {
-                    if ( isset($this->configuration['variables']['in'][$variableName]) ) {
+                foreach ( $execution->getVariables() as $variableName => $data )
+                {
+                    if ( isset($this->configuration['variables']['in'][$variableName]) )
+                    {
                         $subVariables[$this->configuration['variables']['in'][$variableName]] = $data;
                     }
                 }
