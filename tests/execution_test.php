@@ -241,7 +241,9 @@ class ezcWorkflowExecutionTest extends ezcWorkflowTestCase
 
     public function testExecuteStartSetUnsetEnd2()
     {
-        $plugin = $this->getMock( 'ezcWorkflowExecutionPlugin', array( 'beforeVariableUnset' ) );
+        $plugin = $this->getMockBuilder( 'ezcWorkflowExecutionPlugin' )
+                       ->setMethods( array( 'beforeVariableUnset' ) )
+                       ->getMock();
         $plugin->expects( $this->any() )
                ->method( 'beforeVariableUnset' )
                ->will( $this->returnValue( false ) );
@@ -762,7 +764,7 @@ class ezcWorkflowExecutionTest extends ezcWorkflowTestCase
 
     public function testListener()
     {
-        $listener = $this->getMock( 'ezcWorkflowExecutionListener' );
+        $listener = $this->createMock( 'ezcWorkflowExecutionListener' );
 
         $this->assertFalse( $this->execution->removeListener( $listener ) );
 
@@ -775,7 +777,7 @@ class ezcWorkflowExecutionTest extends ezcWorkflowTestCase
 
     public function testPlugin()
     {
-        $plugin = $this->getMock( 'ezcWorkflowExecutionPlugin' );
+        $plugin = $this->createMock( 'ezcWorkflowExecutionPlugin' );
 
         $this->assertTrue( $this->execution->addPlugin( $plugin ) );
         $this->assertFalse( $this->execution->addPlugin( $plugin ) );

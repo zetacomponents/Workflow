@@ -48,7 +48,7 @@ class ezcWorkflowExecutionPluginTest extends ezcWorkflowTestCase
         parent::setUp();
 
         $this->execution = new ezcWorkflowTestExecution;
-        $this->plugin    = $this->getMock( 'ezcWorkflowExecutionPlugin' );
+        $this->plugin    = $this->createMock( 'ezcWorkflowExecutionPlugin' );
         $this->execution->addPlugin( $this->plugin );
     }
 
