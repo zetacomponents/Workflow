@@ -48,7 +48,7 @@ class ezcWorkflowExecutionListenerTest extends ezcWorkflowTestCase
         parent::setUp();
 
         $this->execution = new ezcWorkflowTestExecution;
-        $this->listener  = $this->getMock( 'ezcWorkflowExecutionListener' );
+        $this->listener  = $this->createMock( 'ezcWorkflowExecutionListener' );
         $this->execution->addListener( $this->listener );
     }
 

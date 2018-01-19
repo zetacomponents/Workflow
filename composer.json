@@ -46,6 +46,7 @@
     },
     "require-dev": {
         "zetacomponents/unit-test": "*",
-        "zetacomponents/workflow-event-log-tiein": "*"
+        "zetacomponents/workflow-event-log-tiein": "*",
+        "phpunit/phpunit": "~5.7"
     }
 }
