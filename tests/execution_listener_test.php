@@ -8,9 +8,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  *   http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -200,8 +200,9 @@ class ezcWorkflowExecutionListenerTest extends ezcWorkflowTestCase
     protected function setUpExpectations( $log )
     {
         $lines = file(
-          dirname( dirname( dirname( __FILE__ ) ) ) . DIRECTORY_SEPARATOR .
-          'WorkflowEventLogTiein' . DIRECTORY_SEPARATOR . 'tests' .
+          dirname( dirname( __FILE__ ) ) . DIRECTORY_SEPARATOR .
+          'vendor' . DIRECTORY_SEPARATOR . 'zetacomponents' . DIRECTORY_SEPARATOR .
+          'workflow-event-log-tiein' . DIRECTORY_SEPARATOR . 'tests' .
           DIRECTORY_SEPARATOR . 'data' . DIRECTORY_SEPARATOR . $log . '.log'
         );
 
