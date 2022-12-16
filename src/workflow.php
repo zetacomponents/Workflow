@@ -267,7 +267,7 @@ class ezcWorkflow implements Countable, ezcWorkflowVisitable
      *
      * @return integer
      */
-    public function count()
+    public function count() : int
     {
         $visitor = new ezcWorkflowVisitor;
         $this->accept( $visitor );
