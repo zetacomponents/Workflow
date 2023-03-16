@@ -111,7 +111,12 @@ abstract class ezcWorkflowNodeArithmeticBase extends ezcWorkflowNode
             );
         }
 
-        if ( is_numeric( $this->configuration['operand'] ) )
+        if ( !isset( $this->configuration['operand'] ) )
+        {
+            $this->operand = 1;
+        }
+
+        else if ( is_numeric( $this->configuration['operand'] ) )
         {
             $this->operand = $this->configuration['operand'];
         }
