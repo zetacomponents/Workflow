@@ -65,7 +65,10 @@ class ezcWorkflowNodeVariableIncrement extends ezcWorkflowNodeArithmeticBase
      */
     public static function configurationFromXML( DOMElement $element )
     {
-        return $element->getAttribute( 'variable' );
+        return array(
+            'name' => $element->getAttribute( 'variable' ),
+            'operand' => 1,
+        );
     }
 
     /**
@@ -87,6 +90,9 @@ class ezcWorkflowNodeVariableIncrement extends ezcWorkflowNodeArithmeticBase
      */
     public function __toString()
     {
+        if (is_array($this->configuration)) {
+            return $this->configuration["name"] . '++';
+        }
         return $this->configuration . '++';
     }
 }
